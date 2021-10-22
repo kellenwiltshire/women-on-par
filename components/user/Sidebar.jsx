@@ -1,29 +1,17 @@
-import { CogIcon, HomeIcon, PencilIcon } from '@heroicons/react/outline';
-
-const navigation = [
-	{ name: 'Dashboard', icon: HomeIcon, href: '#', current: true },
-	{ name: 'Scores', icon: PencilIcon, href: '#', current: false },
-	{ name: 'Settings', icon: CogIcon, href: '#', current: false },
-];
-
 function classNames(...classes) {
 	return classes.filter(Boolean).join(' ');
 }
 
-export default function Siderbar() {
+export default function Siderbar({ navigation }) {
 	return (
 		<div className='flex flex-col flex-grow border-r border-gray-200 pt-5 pb-4 bg-white overflow-y-auto'>
 			<div className='flex items-center flex-shrink-0 px-4 space-y-5'>
-				<img
-					className='h-8 w-auto'
-					src='https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg'
-					alt='Workflow'
-				/>
+				<h1>Women on Par</h1>
 			</div>
 			<div className='mt-5 flex-grow flex flex-col'>
 				<nav className='flex-1 bg-white space-y-1' aria-label='Sidebar'>
 					{navigation.map((item) => (
-						<a
+						<button
 							key={item.name}
 							href={item.href}
 							className={classNames(
@@ -43,7 +31,7 @@ export default function Siderbar() {
 								aria-hidden='true'
 							/>
 							{item.name}
-						</a>
+						</button>
 					))}
 				</nav>
 			</div>
