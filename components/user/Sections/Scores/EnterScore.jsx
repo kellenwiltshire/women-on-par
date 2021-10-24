@@ -75,16 +75,20 @@ export default function EnterScore() {
 					</div>
 					<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md truncate'>
 						<div className='mx-1'>
-							<label htmlFor='course' className='sr-only'>
-								Course
-							</label>
-							<input
-								type='course'
-								name='course'
+							<label
+								htmlFor='course'
+								className='block text-sm font-medium text-gray-700'
+							></label>
+							<select
 								id='course'
-								className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3'
-								placeholder='Course'
-							/>
+								name='course'
+								className='mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'
+								defaultValue='Course 1'
+							>
+								<option>Course 1</option>
+								<option>Course 2</option>
+								<option>Course 3</option>
+							</select>
 						</div>
 					</div>
 				</li>
@@ -128,6 +132,20 @@ export default function EnterScore() {
 					</div>
 				</li>
 			</ul>
+			<div className='flex flex-row gap-1 my-2'>
+				<button
+					type='button'
+					className='inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+				>
+					Save
+				</button>
+				<button
+					type='button'
+					className='inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+				>
+					Reset
+				</button>
+			</div>
 		</div>
 	);
 }
