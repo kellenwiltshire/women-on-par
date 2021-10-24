@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Siderbar from '../../components/user/Sidebar';
 import UserHeader from '../../components/user/UserHeader';
+import { CogIcon, HomeIcon, PencilIcon } from '@heroicons/react/outline';
+import Dashboard from '../../components/user/Sections/Dashboard';
+import Scores from '../../components/user/Sections/Scores';
+import Settings from '../../components/user/Sections/Settings';
 
 const user = {
 	name: 'Tom Cook',
@@ -9,7 +13,14 @@ const user = {
 		'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 };
 
+const navigation = [
+	{ num: 1, name: 'Dashboard', icon: HomeIcon },
+	{ num: 2, name: 'Scores', icon: PencilIcon },
+	{ num: 3, name: 'Settings', icon: CogIcon },
+];
+
 export default function User() {
+	const [openTab, setOpenTab] = useState(1);
 	return (
 		<div className='py-10'>
 			<UserHeader name={user.name} />
@@ -20,17 +31,25 @@ export default function User() {
 					<div className='flex items-center justify-between'>
 						<div className='flex-1 space-y-8'>
 							<div className='space-y-8 sm:space-y-0 sm:flex sm:justify-between sm:items-center xl:block xl:space-y-8'>
-								<Siderbar />
+								<Siderbar
+									openTab={openTab}
+									setOpenTab={setOpenTab}
+									navigation={navigation}
+								/>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div className='bg-white lg:min-w-0 lg:flex-1'>
-					{/* Replace with your content */}
-					<div className='px-4 py-8 sm:px-0'>
-						<div className='border-4 border-dashed border-gray-200 rounded-lg h-96' />
+					<div className={openTab === 1 ? 'block' : 'hidden'}>
+						<Dashboard />
 					</div>
-					{/* /End replace */}
+					<div className={openTab === 2 ? 'block' : 'hidden'}>
+						<Scores />
+					</div>
+					<div className={openTab === 3 ? 'block' : 'hidden'}>
+						<Settings />
+					</div>
 				</div>
 			</div>
 		</div>
