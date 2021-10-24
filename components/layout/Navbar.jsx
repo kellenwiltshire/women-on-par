@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
@@ -7,7 +7,26 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(' ');
 }
 
+const navigation = [
+	{ num: 1, name: 'Home', href: '/' },
+	{ num: 2, name: 'Dashboard', href: '/user/user' },
+	{ num: 3, name: 'News', href: '#' },
+	{ num: 4, name: 'Calendar', href: '#' },
+];
+
 export default function Navbar() {
+	const [activeTab, setActiveTab] = useState(1);
+
+	useEffect(() => {
+		const urlString = document.location.href;
+
+		if (urlString.includes('user')) {
+			setActiveTab(2);
+		} else if (!urlString.includes('user')) {
+			setActiveTab(1);
+		}
+	});
+
 	return (
 		<Disclosure as='nav' className='bg-white shadow'>
 			{({ open }) => (
@@ -31,30 +50,24 @@ export default function Navbar() {
 										<a>Women on Par</a>
 									</Link>
 								</div>
+
 								<div className='hidden sm:ml-6 sm:flex sm:space-x-8'>
 									{/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-									<Link href='/'>
-										<a className='border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'>
-											Home
-										</a>
-									</Link>
-									<Link href='/user/user'>
-										<a className='border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'>
-											Dashboard
-										</a>
-									</Link>
-									<a
-										href='#'
-										className='border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
-									>
-										News
-									</a>
-									<a
-										href='#'
-										className='border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
-									>
-										Calendar
-									</a>
+									{navigation.map((item) => {
+										return (
+											<Link href={item.href} key={item.href}>
+												<a
+													className={classNames(
+														activeTab === item.num
+															? 'border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
+															: 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium',
+													)}
+												>
+													{item.name}
+												</a>
+											</Link>
+										);
+									})}
 								</div>
 							</div>
 							<div className='absolute z-10 inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
@@ -82,43 +95,19 @@ export default function Navbar() {
 										<Menu.Items className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
 											<Menu.Item>
 												{({ active }) => (
-													<a
-														href='#'
-														className={classNames(
-															active ? 'bg-gray-100' : '',
-															'block px-4 py-2 text-sm text-gray-700',
-														)}
-													>
-														Your Dashboard
-													</a>
+													<Link href='/user/user'>
+														<a
+															className={classNames(
+																active ? 'bg-gray-100' : '',
+																'block px-4 py-2 text-sm text-gray-700',
+															)}
+														>
+															Your Dashboard
+														</a>
+													</Link>
 												)}
 											</Menu.Item>
-											<Menu.Item>
-												{({ active }) => (
-													<a
-														href='#'
-														className={classNames(
-															active ? 'bg-gray-100' : '',
-															'block px-4 py-2 text-sm text-gray-700',
-														)}
-													>
-														Scores
-													</a>
-												)}
-											</Menu.Item>
-											<Menu.Item>
-												{({ active }) => (
-													<a
-														href='#'
-														className={classNames(
-															active ? 'bg-gray-100' : '',
-															'block px-4 py-2 text-sm text-gray-700',
-														)}
-													>
-														Settings
-													</a>
-												)}
-											</Menu.Item>
+
 											<Menu.Item>
 												{({ active }) => (
 													<a
@@ -141,31 +130,21 @@ export default function Navbar() {
 
 					<Disclosure.Panel className='sm:hidden'>
 						<div className='pt-2 pb-4 space-y-1'>
-							{/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
-							<a
-								href='#'
-								className='bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
-							>
-								Dashboard
-							</a>
-							<a
-								href='#'
-								className='border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
-							>
-								Team
-							</a>
-							<a
-								href='#'
-								className='border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
-							>
-								Projects
-							</a>
-							<a
-								href='#'
-								className='border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
-							>
-								Calendar
-							</a>
+							{navigation.map((item) => {
+								return (
+									<Link href={item.href} key={item.href}>
+										<a
+											className={classNames(
+												activeTab === item.num
+													? 'bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
+													: 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium',
+											)}
+										>
+											{item.name}
+										</a>
+									</Link>
+								);
+							})}
 						</div>
 					</Disclosure.Panel>
 				</>
