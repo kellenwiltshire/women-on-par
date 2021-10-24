@@ -9,20 +9,24 @@ const actions = [
 	{
 		title: 'Next Round Information',
 		icon: CalendarIcon,
+		info: 'Next Round is Wednesday at COURSE 1. Please RSVP by Monday Morning at 6pm.',
 	},
 	{
 		title: 'Prior Round',
 		icon: FlagIcon,
+		info: 'Your last round was at COURSE 1 with a score of 52. You had X Birdies and Y Chip Ins.',
 	},
 	{
 		title: 'Upcoming Events',
 		href: '#',
 		icon: CakeIcon,
+		info: 'Next Event is BEST BALL at COURSE 1 on DATE',
 	},
 	{
 		title: 'Recent News',
 		href: '#',
 		icon: NewspaperIcon,
+		info: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum. ',
 	},
 ];
 
@@ -67,10 +71,7 @@ export default function DashboardCards() {
 								{action.title}
 							</a>
 						</h3>
-						<p className='mt-2 text-sm text-gray-500'>
-							Doloribus dolores nostrum quia qui natus officia quod et dolorem.
-							Sit repellendus qui ut at blanditiis et quo et molestiae.
-						</p>
+						<p className='mt-2 text-sm text-gray-500'>{action.info}</p>
 					</div>
 				</div>
 			))}
