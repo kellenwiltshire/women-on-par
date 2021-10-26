@@ -55,7 +55,7 @@ export default function Navbar() {
 									{/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
 									{navigation.map((item) => {
 										return (
-											<Link href={item.href} key={item.href}>
+											<Link href={item.href} key={item.num}>
 												<a
 													className={classNames(
 														activeTab === item.num
@@ -132,7 +132,7 @@ export default function Navbar() {
 						<div className='pt-2 pb-4 space-y-1'>
 							{navigation.map((item) => {
 								return (
-									<Link href={item.href} key={item.href}>
+									<Link href={item.href} key={item.num}>
 										<a
 											className={classNames(
 												activeTab === item.num

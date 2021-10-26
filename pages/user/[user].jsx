@@ -5,13 +5,7 @@ import { CogIcon, HomeIcon, PencilIcon } from '@heroicons/react/outline';
 import Dashboard from '../../components/user/Sections/Dashboard';
 import Scores from '../../components/user/Sections/Scores';
 import Settings from '../../components/user/Sections/Settings';
-
-const user = {
-	name: 'Tom Cook',
-	email: 'tom@example.com',
-	imageUrl:
-		'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-};
+import { parseCookies } from 'nookies';
 
 const navigation = [
 	{ num: 1, name: 'Dashboard', icon: HomeIcon },
@@ -19,11 +13,12 @@ const navigation = [
 	{ num: 3, name: 'Settings', icon: CogIcon },
 ];
 
-export default function User() {
+export default function User({ scores, user }) {
+	console.log(scores, user);
 	const [openTab, setOpenTab] = useState(1);
 	return (
 		<div className='py-10'>
-			<UserHeader name={user.name} />
+			<UserHeader name={user.username} />
 			{/* 3 column wrapper */}
 			<div className='flex-grow w-full max-w-7xl mx-auto xl:px-8 lg:flex'>
 				{/* 3 column wrapper */}
@@ -45,7 +40,7 @@ export default function User() {
 						<Dashboard />
 					</div>
 					<div className={openTab === 2 ? 'block' : 'hidden'}>
-						<Scores />
+						<Scores scores={scores} />
 					</div>
 					<div className={openTab === 3 ? 'block' : 'hidden'}>
 						<Settings />
@@ -54,4 +49,37 @@ export default function User() {
 			</div>
 		</div>
 	);
+}
+
+export async function getServerSideProps(pageProps) {
+	const jwt = parseCookies(pageProps).jwt;
+
+	const res = await fetch(`http://localhost:1337/scores`, {
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+		},
+	});
+	const scores = await res.json();
+
+	const userRes = await fetch(`http://localhost:1337/users/me`, {
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+		},
+	});
+	const user = await userRes.json();
+	console.log(user);
+
+	console.log('Scores: ', scores);
+
+	const filteredScores = scores.filter((score) => {
+		return score.user?.username === user.username;
+	});
+
+	console.log(filteredScores);
+	return {
+		props: {
+			scores: filteredScores,
+			user: user,
+		},
+	};
 }

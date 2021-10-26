@@ -1,8 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { LockClosedIcon } from '@heroicons/react/solid';
+import { setCookie } from 'nookies';
+import Router from 'next/router';
 
 export default function login() {
+	const [userEmail, setUserEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+	const submitForm = async (e) => {
+		e.preventDefault();
+		const loginInfo = {
+			identifier: userEmail,
+			password: password,
+		};
+
+		const login = await fetch(`http://localhost:1337/auth/local`, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(loginInfo),
+		});
+
+		const loginResponse = await login.json();
+
+		setCookie(null, 'jwt', loginResponse.jwt, {
+			maxAge: 30 * 24 * 60 * 60,
+			path: '/',
+		});
+
+		console.log(loginResponse);
+
+		Router.push(`/user/${loginResponse.user.username.toLowerCase()}`);
+	};
 	return (
 		<>
 			<div className='min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
@@ -25,7 +57,7 @@ export default function login() {
 							</Link>
 						</p>
 					</div>
-					<form className='mt-8 space-y-6' action='#' method='POST'>
+					<form className='mt-8 space-y-6' onSubmit={submitForm}>
 						<input type='hidden' name='remember' defaultValue='true' />
 						<div className='rounded-md shadow-sm -space-y-px'>
 							<div>
@@ -38,6 +70,7 @@ export default function login() {
 									type='email'
 									autoComplete='email'
 									required
+									onChange={(e) => setUserEmail(e.target.value)}
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder='Email address'
 								/>
@@ -52,6 +85,7 @@ export default function login() {
 									type='password'
 									autoComplete='current-password'
 									required
+									onChange={(e) => setPassword(e.target.value)}
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder='Password'
 								/>
@@ -59,21 +93,6 @@ export default function login() {
 						</div>
 
 						<div className='flex items-center justify-between'>
-							<div className='flex items-center'>
-								<input
-									id='remember-me'
-									name='remember-me'
-									type='checkbox'
-									className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
-								/>
-								<label
-									htmlFor='remember-me'
-									className='ml-2 block text-sm text-gray-900'
-								>
-									Remember me
-								</label>
-							</div>
-
 							<div className='text-sm'>
 								<a
 									href='#'

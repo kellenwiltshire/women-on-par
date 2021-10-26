@@ -1,21 +1,4 @@
-const scores = [
-	{
-		date: 'May 4, 2021',
-		course: 'Couse 1',
-		birdies: [1, 3, 5],
-		chipins: [2, 4],
-		score: 45,
-	},
-	{
-		date: 'June 14, 2021',
-		course: 'Couse 2',
-		birdies: [1, 5],
-		chipins: [2, 4, 9],
-		score: 52,
-	},
-];
-
-export default function ScoresList() {
+export default function ScoresList({ scores }) {
 	return (
 		<div className='flex flex-col'>
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
@@ -59,28 +42,42 @@ export default function ScoresList() {
 							<tbody>
 								{scores.map((score, scoreIdx) => (
 									<tr
-										key={score.date}
+										key={score.id}
 										className={scoreIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
 									>
 										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-											{score.date}
+											{score.Date}
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-											{score.course}
+											{score.course.Name}
 										</td>
 
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{score.birdies.map((bird) => {
-												return <span key={bird}>{bird} </span>;
+											{score.Holes.map((hole) => {
+												let birdies = [];
+												if (hole.Birdie) {
+													birdies.push(hole.Hole);
+												}
+
+												return birdies.map((bird) => {
+													return <span key={bird}>{bird} </span>;
+												});
 											})}
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{score.chipins.map((chip) => {
-												return <span key={chip}>{chip} </span>;
+											{score.Holes.map((hole) => {
+												let chips = [];
+												if (hole.Chip) {
+													chips.push(hole.Hole);
+												}
+
+												return chips.map((chip) => {
+													return <span key={chip}>{chip} </span>;
+												});
 											})}
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{score.score}
+											{score.Score}
 										</td>
 									</tr>
 								))}
