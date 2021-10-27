@@ -37,7 +37,7 @@ export default function User({ scores, user, schedules }) {
 				</div>
 				<div className='bg-white lg:min-w-0 lg:flex-1'>
 					<div className={openTab === 1 ? 'block' : 'hidden'}>
-						<Dashboard schedules={schedules} />
+						<Dashboard schedules={schedules} scores={scores} />
 					</div>
 					<div className={openTab === 2 ? 'block' : 'hidden'}>
 						<Scores scores={scores} />

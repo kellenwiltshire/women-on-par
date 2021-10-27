@@ -9,11 +9,6 @@ import { useState } from 'react';
 
 const actions = [
 	{
-		title: 'Prior Round',
-		icon: FlagIcon,
-		info: 'Your last round was at COURSE 1 with a score of 52. You had X Birdies and Y Chip Ins.',
-	},
-	{
 		title: 'Upcoming Events',
 		href: '#',
 		icon: CakeIcon,
@@ -31,19 +26,43 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(' ');
 }
 
-export default function DashboardCards({ schedules }) {
+//TODO News and Upcoming Events from API
+
+export default function DashboardCards({ schedules, scores }) {
 	//! Will need to sort through SCHEDULES to find next closest date to current date
 	const nextRound = schedules[0];
+	const priorRound = scores[scores.length - 1];
 	const [attendance, setAttendance] = useState(false); //!This will be updated to reflect information from API
 	const [notes, setNotes] = useState(''); //!This will be updated to reflect information from API
-
-	console.log(notes);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
 		// Once submitted this function will push the data into the Schedules API for the upcoming week
 	};
+
+	const getBirdies = () => {
+		let num = 0;
+		for (let i = 0; i < priorRound.holes.length; i++) {
+			if (priorRound.holes[i].birdie) {
+				num++;
+			}
+		}
+		return num;
+	};
+
+	const getChipIns = () => {
+		let num = 0;
+		for (let i = 0; i < priorRound.holes.length; i++) {
+			if (priorRound.holes[i].chip) {
+				num++;
+			}
+		}
+		return num;
+	};
+
+	const numBirdies = getBirdies();
+	const numChipIns = getChipIns();
 
 	return (
 		<div className='rounded-lg bg-gray-200 shadow divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px'>
@@ -108,6 +127,24 @@ export default function DashboardCards({ schedules }) {
 						Save
 					</button>
 				</form>
+			</div>
+			<div className='sm:rounded-tr-lg relative group bg-white p-6'>
+				<div>
+					<span className='rounded-lg inline-flex p-3 ring-4 ring-white'>
+						<FlagIcon className='h-6 w-6' aria-hidden='true' />
+					</span>
+				</div>
+				<div className='mt-8'>
+					<h3 className='text-lg font-medium'>
+						<span className='inset-0' aria-hidden='true' />
+						Prior Round
+					</h3>
+					<p className='mt-2 text-sm text-gray-500'>
+						Your last round was at {priorRound.course.name} with a score of{' '}
+						{priorRound.score}. You had {numBirdies} Birdies and {numChipIns}{' '}
+						Chip Ins.
+					</p>
+				</div>
 			</div>
 			{actions.map((action, actionIdx) => (
 				<div
