@@ -49,14 +49,14 @@ export default function ScoresList({ scores }) {
 											{score.date}
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-											{score.course.Name}
+											{score.course.name}
 										</td>
 
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 											{score.holes.map((hole) => {
 												let birdies = [];
-												if (hole.Birdie) {
-													birdies.push(hole.Hole);
+												if (hole.birdie) {
+													birdies.push(hole.hole);
 												}
 
 												return birdies.map((bird) => {
@@ -67,8 +67,8 @@ export default function ScoresList({ scores }) {
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 											{score.holes.map((hole) => {
 												let chips = [];
-												if (hole.Chip) {
-													chips.push(hole.Hole);
+												if (hole.chip) {
+													chips.push(hole.hole);
 												}
 
 												return chips.map((chip) => {
@@ -77,7 +77,7 @@ export default function ScoresList({ scores }) {
 											})}
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{score.Score}
+											{score.score}
 										</td>
 									</tr>
 								))}

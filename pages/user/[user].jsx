@@ -6,6 +6,12 @@ import Dashboard from '../../components/user/Sections/Dashboard';
 import Scores from '../../components/user/Sections/Scores';
 import Settings from '../../components/user/Sections/Settings';
 import { parseCookies } from 'nookies';
+import {
+	fetchCourses,
+	fetchSchedule,
+	fetchScores,
+	fetchUser,
+} from '../../utils/userFetch';
 
 const navigation = [
 	{ num: 1, name: 'Dashboard', icon: HomeIcon },
@@ -14,7 +20,6 @@ const navigation = [
 ];
 
 export default function User({ scores, user, schedules }) {
-	console.log(scores, user, schedules);
 	const [openTab, setOpenTab] = useState(1);
 	return (
 		<div className='py-10'>
@@ -54,40 +59,21 @@ export default function User({ scores, user, schedules }) {
 export async function getServerSideProps(pageProps) {
 	const jwt = parseCookies(pageProps).jwt;
 
-	const res = await fetch(`http://localhost:1337/scores`, {
-		headers: {
-			Authorization: `Bearer ${jwt}`,
-		},
-	});
-	const scores = await res.json();
+	const user = await fetchUser(jwt);
 
-	const userRes = await fetch(`http://localhost:1337/users/me`, {
-		headers: {
-			Authorization: `Bearer ${jwt}`,
-		},
-	});
-	const user = await userRes.json();
-	console.log(user);
+	const scores = await fetchScores(jwt, user);
 
-	console.log('Scores: ', scores);
+	const schedules = await fetchSchedule(jwt);
 
-	const filteredScores = scores.filter((score) => {
-		return score.user?.username === user.username;
-	});
+	const courses = await fetchCourses(jwt);
 
-	const schedRes = await fetch(`http://localhost:1337/schedules`, {
-		headers: {
-			Authorization: `Bearer ${jwt}`,
-		},
-	});
-	const schedules = await schedRes.json();
-
-	console.log(filteredScores);
+	console.log(courses);
 	return {
 		props: {
-			scores: filteredScores,
+			scores: scores,
 			user: user,
 			schedules: schedules,
+			courses: courses,
 		},
 	};
 }

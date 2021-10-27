@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Switch } from '@headlessui/react';
 
 function classNames(...classes) {
@@ -6,8 +5,6 @@ function classNames(...classes) {
 }
 
 export default function ToggleSwitch({ enabled, setEnabled }) {
-	// const [enabled, setEnabled] = useState(false);
-
 	return (
 		<Switch
 			checked={enabled}
