@@ -13,8 +13,8 @@ const navigation = [
 	{ num: 3, name: 'Settings', icon: CogIcon },
 ];
 
-export default function User({ scores, user }) {
-	console.log(scores, user);
+export default function User({ scores, user, schedules }) {
+	console.log(scores, user, schedules);
 	const [openTab, setOpenTab] = useState(1);
 	return (
 		<div className='py-10'>
@@ -37,7 +37,7 @@ export default function User({ scores, user }) {
 				</div>
 				<div className='bg-white lg:min-w-0 lg:flex-1'>
 					<div className={openTab === 1 ? 'block' : 'hidden'}>
-						<Dashboard />
+						<Dashboard schedules={schedules} />
 					</div>
 					<div className={openTab === 2 ? 'block' : 'hidden'}>
 						<Scores scores={scores} />
@@ -75,11 +75,19 @@ export async function getServerSideProps(pageProps) {
 		return score.user?.username === user.username;
 	});
 
+	const schedRes = await fetch(`http://localhost:1337/schedules`, {
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+		},
+	});
+	const schedules = await schedRes.json();
+
 	console.log(filteredScores);
 	return {
 		props: {
 			scores: filteredScores,
 			user: user,
+			schedules: schedules,
 		},
 	};
 }

@@ -5,13 +5,13 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(' ');
 }
 
-export default function ToggleSwitch() {
-	const [enabled, setEnabled] = useState(false);
+export default function ToggleSwitch({ enabled, setEnabled }) {
+	// const [enabled, setEnabled] = useState(false);
 
 	return (
 		<Switch
 			checked={enabled}
-			onChange={setEnabled}
+			onChange={() => setEnabled(!enabled)}
 			className={classNames(
 				enabled ? 'bg-indigo-600' : 'bg-gray-200',
 				'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
