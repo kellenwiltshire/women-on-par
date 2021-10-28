@@ -16,6 +16,7 @@ const navigation = [
 
 export default function User({ scores, user, schedules, courses }) {
 	const [openTab, setOpenTab] = useState(1);
+
 	return (
 		<div className='py-10'>
 			<UserHeader name={user.username} />

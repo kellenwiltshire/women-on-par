@@ -3,65 +3,7 @@ import ScoreToggle from '../../../Buttons/ScoreToggle';
 import ToggleSwitch from '../../../Buttons/Toggle';
 import HolesInput from './ScoresFormParts/HolesInput';
 
-const holesArray = [
-	{
-		id: 0,
-		name: '1',
-		chipIn: false,
-		birdie: false,
-	},
-	{
-		id: 1,
-		name: '2',
-		chipIn: false,
-		birdie: false,
-	},
-	{
-		id: 2,
-		name: '3',
-		chipIn: false,
-		birdie: false,
-	},
-	{
-		id: 3,
-		name: '4',
-		chipIn: false,
-		birdie: false,
-	},
-	{
-		id: 4,
-		name: '5',
-		chipIn: false,
-		birdie: false,
-	},
-	{
-		id: 5,
-		name: '6',
-		chipIn: false,
-		birdie: false,
-	},
-	{
-		id: 6,
-		name: '7',
-		chipIn: false,
-		birdie: false,
-	},
-	{
-		id: 7,
-		name: '8',
-		chipIn: false,
-		birdie: false,
-	},
-	{
-		id: 8,
-		name: '9',
-		chipIn: false,
-		birdie: false,
-	},
-];
-
 export default function EnterScore({ courses }) {
-	const [holes, setHoles] = useState(holesArray);
 	const [course, setCourse] = useState('');
 	const [score, setScore] = useState();
 
@@ -111,7 +53,6 @@ export default function EnterScore({ courses }) {
 		birdie: false,
 	});
 
-	console.log(holeOne);
 	return (
 		<div className='mb-5'>
 			<h2 className='text-gray-500 text-xs font-medium uppercase tracking-wide'>
