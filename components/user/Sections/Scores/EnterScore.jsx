@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ScoreToggle from '../../../Buttons/ScoreToggle';
 import ToggleSwitch from '../../../Buttons/Toggle';
+import HolesInput from './ScoresFormParts/HolesInput';
 
 const holesArray = [
 	{
@@ -64,33 +65,65 @@ export default function EnterScore({ courses }) {
 	const [course, setCourse] = useState('');
 	const [score, setScore] = useState();
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
+	const [holeOne, setHoleOne] = useState({
+		hole: 1,
+		chip: false,
+		birdie: false,
+	});
+	const [holeTwo, setHoleTwo] = useState({
+		hole: 2,
+		chip: false,
+		birdie: false,
+	});
+	const [holeThree, setHoleThree] = useState({
+		hole: 3,
+		chip: false,
+		birdie: false,
+	});
+	const [holeFour, setHoleFour] = useState({
+		hole: 4,
+		chip: false,
+		birdie: false,
+	});
+	const [holeFive, setHoleFive] = useState({
+		hole: 5,
+		chip: false,
+		birdie: false,
+	});
+	const [holeSix, setHoleSix] = useState({
+		hole: 6,
+		chip: false,
+		birdie: false,
+	});
+	const [holeSeven, setHoleSeven] = useState({
+		hole: 7,
+		chip: false,
+		birdie: false,
+	});
+	const [holeEight, setHoleEight] = useState({
+		hole: 8,
+		chip: false,
+		birdie: false,
+	});
+	const [holeNine, setHoleNine] = useState({
+		hole: 9,
+		chip: false,
+		birdie: false,
+	});
 
-		const targets = Array.from(e.target);
-
-		const holeInfo = targets.filter((tar) => {
-			if (tar.id !== 'score' || tar.name !== 'course') {
-				return tar;
-			}
-		});
-
-		console.log(targets);
-	};
-
-	console.log(holes);
+	console.log(holeOne);
 	return (
 		<div className='mb-5'>
 			<h2 className='text-gray-500 text-xs font-medium uppercase tracking-wide'>
 				Enter Score
 			</h2>
 			<form
-				onSubmit={handleSubmit}
+				//onSubmit={handleSubmit}
 				className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4'
 			>
 				<li className='col-span-1 flex shadow-sm rounded-md'>
 					<div className='flex-shrink-0 flex items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
-						{course.name}
+						Date
 					</div>
 					<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md truncate'>
 						<div className='mx-1'>
@@ -113,47 +146,27 @@ export default function EnterScore({ courses }) {
 					</div>
 				</li>
 
-				{holes.map((hole, holeIdx) => {
-					const [chip, setChip] = useState(hole.chipIn);
-					const [birdie, setBirdie] = useState(hole.birdie);
-					console.log(chip);
+				<HolesInput
+					holeOne={holeOne}
+					setHoleOne={setHoleOne}
+					holeTwo={holeTwo}
+					setHoleTwo={setHoleTwo}
+					holeThree={holeThree}
+					setHoleThree={setHoleThree}
+					holeFour={holeFour}
+					setHoleFour={setHoleFour}
+					holeFive={holeFive}
+					setHoleFive={setHoleFive}
+					holeSix={holeSix}
+					setHoleSix={setHoleSix}
+					holeSeven={holeSeven}
+					setHoleSeven={setHoleSeven}
+					holeEight={holeEight}
+					setHoleEight={setHoleEight}
+					holeNine={holeNine}
+					setHoleNine={setHoleNine}
+				/>
 
-					return (
-						<div
-							key={hole.name}
-							className='col-span-1 flex shadow-sm rounded-md'
-						>
-							<div className='flex-shrink-0 flex items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
-								{hole.name}
-							</div>
-							<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md truncate'>
-								<div className='flex-1 px-4 py-2 text-sm truncate'>
-									<div className='flex flex-row h-10 w-full justify-between align-middle'>
-										<span>Chip In: </span>
-										<input
-											id={holeIdx}
-											aria-describedby='chip-in'
-											name='chip-in'
-											type='checkbox'
-											className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
-										/>
-									</div>
-
-									<div className='flex flex-row h-10 w-full justify-between align-middle'>
-										<span>Birdie </span>
-										<input
-											id={holeIdx}
-											aria-describedby='birdie'
-											name='birdie'
-											type='checkbox'
-											className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
-										/>
-									</div>
-								</div>
-							</div>
-						</div>
-					);
-				})}
 				<li className='col-span-1 flex shadow-sm rounded-md'>
 					<div className='flex-shrink-0 flex items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
 						Score
