@@ -7,6 +7,7 @@ import Scores from '../../components/user/Sections/Scores';
 import Settings from '../../components/user/Sections/Settings';
 import { parseCookies } from 'nookies';
 import { getUserData } from '../../utils/userFetch';
+import { findNextRound, findPriorRound } from '../../utils/sortingFunctions';
 
 const navigation = [
 	{ num: 1, name: 'Dashboard', icon: HomeIcon },
@@ -19,32 +20,9 @@ export default function User({ scores, user, schedules, courses }) {
 
 	console.log(scores);
 
-	const currDate = new Date();
+	const nextRound = findNextRound(schedules);
 
-	const futureRounds = schedules.filter((round) => {
-		const date = Date.parse(round.date);
-		if (date > currDate) {
-			return round;
-		}
-	});
-
-	const futureRoundsSorted = futureRounds.sort((a, b) => {
-		const aDate = Date.parse(a.date);
-		const bDate = Date.parse(b.date);
-
-		return aDate - bDate;
-	});
-
-	const nextRound = futureRoundsSorted[0];
-
-	const scoresSorted = scores.sort((a, b) => {
-		const aDate = Date.parse(a.date);
-		const bDate = Date.parse(b.date);
-
-		return bDate - aDate;
-	});
-
-	const priorRound = scoresSorted[0];
+	const priorRound = findPriorRound(scores);
 
 	return (
 		<div className='py-10'>
