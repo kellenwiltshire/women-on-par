@@ -17,6 +17,8 @@ const navigation = [
 export default function User({ scores, user, schedules, courses }) {
 	const [openTab, setOpenTab] = useState(1);
 
+	console.log(scores);
+
 	const currDate = new Date();
 
 	const futureRounds = schedules.filter((round) => {
