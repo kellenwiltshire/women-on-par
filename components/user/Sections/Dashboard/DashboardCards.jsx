@@ -23,9 +23,9 @@ function classNames(...classes) {
 
 //TODO News and Upcoming Events from API
 
-export default function DashboardCards({ schedules, scores }) {
+export default function DashboardCards({ nextRound, scores }) {
 	//! Will need to sort through SCHEDULES to find next closest date to current date
-	const nextRound = schedules[0];
+
 	const priorRound = scores[scores.length - 1];
 
 	return (

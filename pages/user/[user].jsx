@@ -17,6 +17,26 @@ const navigation = [
 export default function User({ scores, user, schedules, courses }) {
 	const [openTab, setOpenTab] = useState(1);
 
+	const currDate = new Date();
+
+	const futureRounds = schedules.filter((round) => {
+		const date = Date.parse(round.date);
+		if (date > currDate) {
+			return round;
+		}
+	});
+
+	const futureRoundsSorted = futureRounds.sort((a, b) => {
+		const aDate = Date.parse(a.date);
+		const bDate = Date.parse(b.date);
+
+		return aDate - bDate;
+	});
+
+	const nextRound = futureRoundsSorted[0];
+
+	console.log(nextRound);
+
 	return (
 		<div className='py-10'>
 			<UserHeader name={user.username} />
@@ -38,7 +58,7 @@ export default function User({ scores, user, schedules, courses }) {
 				</div>
 				<div className='bg-white lg:min-w-0 lg:flex-1'>
 					<div className={openTab === 1 ? 'block' : 'hidden'}>
-						<Dashboard schedules={schedules} scores={scores} />
+						<Dashboard nextRound={nextRound} scores={scores} />
 					</div>
 					<div className={openTab === 2 ? 'block' : 'hidden'}>
 						<Scores scores={scores} courses={courses} />

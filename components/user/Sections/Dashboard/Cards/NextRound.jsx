@@ -32,6 +32,7 @@ export default function NextRound({ nextRound }) {
 				<p className='mt-2 text-sm text-gray-500'>
 					Course Phone Number: {nextRound.course.phone}
 				</p>
+				<p className='mt-2 text-sm text-gray-500'>Date: {nextRound.date}</p>
 				<p className='mt-2 text-sm text-gray-500'>
 					Start Time: {nextRound.start_time}
 				</p>
