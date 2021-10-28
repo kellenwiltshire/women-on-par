@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CalendarIcon } from '@heroicons/react/outline';
-import ToggleSwitch from '../../../Buttons/Toggle';
+import ToggleSwitch from '../../../../Buttons/Toggle';
 
 export default function NextRound({ nextRound }) {
 	const [attendance, setAttendance] = useState(false); //!This will be updated to reflect information from API
