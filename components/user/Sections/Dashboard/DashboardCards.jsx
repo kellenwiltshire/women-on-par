@@ -23,18 +23,7 @@ function classNames(...classes) {
 
 //TODO News and Upcoming Events from API
 
-export default function DashboardCards({ nextRound, scores }) {
-	const scoresSorted = scores.sort((a, b) => {
-		const aDate = Date.parse(a.date);
-		const bDate = Date.parse(b.date);
-
-		return bDate - aDate;
-	});
-
-	const priorRound = scoresSorted[0];
-
-	console.log(scoresSorted);
-
+export default function DashboardCards({ nextRound, priorRound }) {
 	return (
 		<div className='rounded-lg bg-gray-200 shadow divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px'>
 			<NextRound nextRound={nextRound} />

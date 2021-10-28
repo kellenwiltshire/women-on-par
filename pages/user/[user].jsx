@@ -37,7 +37,14 @@ export default function User({ scores, user, schedules, courses }) {
 
 	const nextRound = futureRoundsSorted[0];
 
-	console.log(nextRound);
+	const scoresSorted = scores.sort((a, b) => {
+		const aDate = Date.parse(a.date);
+		const bDate = Date.parse(b.date);
+
+		return bDate - aDate;
+	});
+
+	const priorRound = scoresSorted[0];
 
 	return (
 		<div className='py-10'>
@@ -60,7 +67,7 @@ export default function User({ scores, user, schedules, courses }) {
 				</div>
 				<div className='bg-white lg:min-w-0 lg:flex-1'>
 					<div className={openTab === 1 ? 'block' : 'hidden'}>
-						<Dashboard nextRound={nextRound} scores={scores} />
+						<Dashboard nextRound={nextRound} priorRound={priorRound} />
 					</div>
 					<div className={openTab === 2 ? 'block' : 'hidden'}>
 						<Scores scores={scores} courses={courses} />
