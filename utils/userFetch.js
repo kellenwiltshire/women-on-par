@@ -1,4 +1,4 @@
-export async function fetchCourses(jwt) {
+const fetchCourses = async (jwt) => {
 	const res = await fetch('http://localhost:1337/courses', {
 		headers: {
 			Authorization: `Bearer ${jwt}`,
@@ -8,9 +8,9 @@ export async function fetchCourses(jwt) {
 	const courses = await res.json();
 
 	return courses;
-}
+};
 
-export async function fetchUser(jwt) {
+const fetchUser = async (jwt) => {
 	const res = await fetch(`http://localhost:1337/users/me`, {
 		headers: {
 			Authorization: `Bearer ${jwt}`,
@@ -19,9 +19,9 @@ export async function fetchUser(jwt) {
 	const user = await res.json();
 
 	return user;
-}
+};
 
-export async function fetchScores(jwt, user) {
+const fetchScores = async (jwt, user) => {
 	const res = await fetch(`http://localhost:1337/scores`, {
 		headers: {
 			Authorization: `Bearer ${jwt}`,
@@ -34,9 +34,9 @@ export async function fetchScores(jwt, user) {
 	});
 
 	return filteredScores;
-}
+};
 
-export async function fetchSchedule(jwt) {
+const fetchSchedule = async (jwt) => {
 	const schedRes = await fetch(`http://localhost:1337/schedules`, {
 		headers: {
 			Authorization: `Bearer ${jwt}`,
@@ -45,4 +45,18 @@ export async function fetchSchedule(jwt) {
 	const schedules = await schedRes.json();
 
 	return schedules;
+};
+
+export async function getUserData(jwt) {
+	const user = await fetchUser(jwt);
+
+	const scores = await fetchScores(jwt, user);
+
+	const schedules = await fetchSchedule(jwt);
+
+	const courses = await fetchCourses(jwt);
+
+	const userData = { user, scores, schedules, courses };
+
+	return userData;
 }

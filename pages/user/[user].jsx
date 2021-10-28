@@ -6,12 +6,7 @@ import Dashboard from '../../components/user/Sections/Dashboard';
 import Scores from '../../components/user/Sections/Scores';
 import Settings from '../../components/user/Sections/Settings';
 import { parseCookies } from 'nookies';
-import {
-	fetchCourses,
-	fetchSchedule,
-	fetchScores,
-	fetchUser,
-} from '../../utils/userFetch';
+import { getUserData } from '../../utils/userFetch';
 
 const navigation = [
 	{ num: 1, name: 'Dashboard', icon: HomeIcon },
@@ -19,7 +14,7 @@ const navigation = [
 	{ num: 3, name: 'Settings', icon: CogIcon },
 ];
 
-export default function User({ scores, user, schedules }) {
+export default function User({ scores, user, schedules, courses }) {
 	const [openTab, setOpenTab] = useState(1);
 	return (
 		<div className='py-10'>
@@ -59,21 +54,14 @@ export default function User({ scores, user, schedules }) {
 export async function getServerSideProps(pageProps) {
 	const jwt = parseCookies(pageProps).jwt;
 
-	const user = await fetchUser(jwt);
+	const userData = await getUserData(jwt);
 
-	const scores = await fetchScores(jwt, user);
-
-	const schedules = await fetchSchedule(jwt);
-
-	const courses = await fetchCourses(jwt);
-
-	console.log(courses);
 	return {
 		props: {
-			scores: scores,
-			user: user,
-			schedules: schedules,
-			courses: courses,
+			scores: userData.scores,
+			user: userData.user,
+			schedules: userData.schedules,
+			courses: userData.courses,
 		},
 	};
 }
