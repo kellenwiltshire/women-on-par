@@ -48,7 +48,7 @@ export default function User({ scores, user, schedules, courses }) {
 						<Dashboard nextRound={nextRound} priorRound={priorRound} />
 					</div>
 					<div className={openTab === 2 ? 'block' : 'hidden'}>
-						<Scores scores={scores} courses={courses} />
+						<Scores scores={scores} priorRound={priorRound} />
 					</div>
 					<div className={openTab === 3 ? 'block' : 'hidden'}>
 						<Settings />

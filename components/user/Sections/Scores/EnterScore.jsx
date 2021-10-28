@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import ScoreToggle from '../../../Buttons/ScoreToggle';
-import ToggleSwitch from '../../../Buttons/Toggle';
 import HolesInput from './ScoresFormParts/HolesInput';
 
-export default function EnterScore({ courses }) {
-	const [course, setCourse] = useState('');
+export default function EnterScore({ priorRound }) {
+	const course = priorRound.course.name;
 	const [score, setScore] = useState();
 
 	const [holeOne, setHoleOne] = useState({
@@ -53,37 +51,30 @@ export default function EnterScore({ courses }) {
 		birdie: false,
 	});
 
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		//This will submit the users scores
+
+		console.log('SUBMIT!');
+	};
+
 	return (
 		<div className='mb-5'>
 			<h2 className='text-gray-500 text-xs font-medium uppercase tracking-wide'>
 				Enter Score
 			</h2>
 			<form
-				//onSubmit={handleSubmit}
+				onSubmit={handleSubmit}
 				className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4'
 			>
 				<li className='col-span-1 flex shadow-sm rounded-md'>
-					<div className='flex-shrink-0 flex items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
-						Date
+					<div className='flex-shrink-0 flex flex-col items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
+						<p>Date</p>
+						<p>Course</p>
 					</div>
-					<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md truncate'>
-						<div className='mx-1'>
-							<label
-								htmlFor='course'
-								className='block text-sm font-medium text-gray-700'
-							></label>
-							<select
-								id='course'
-								name='course'
-								className='mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'
-								defaultValue='Course 1'
-								onChange={(e) => setCourse(e.target.value)}
-							>
-								{courses.map((course) => {
-									return <option key={course.id}>{course.name}</option>;
-								})}
-							</select>
-						</div>
+					<div className='flex-1 flex flex-col justify-center border border-gray-200 bg-white rounded-r-md truncate'>
+						<div className='mx-1'>{priorRound.date}</div>
+						<div className='mx-1'>{priorRound.course.name}</div>
 					</div>
 				</li>
 
@@ -124,6 +115,7 @@ export default function EnterScore({ courses }) {
 								onChange={(e) => setScore(e.target.value)}
 								className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3'
 								placeholder='Score'
+								required
 							/>
 						</div>
 					</div>
