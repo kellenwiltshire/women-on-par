@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import HolesInput from './ScoresFormParts/HolesInput';
 
-export default function EnterScore({ priorRound, user, lastScheduledRound }) {
+export default function EnterScore({
+	priorRound,
+	user,
+	lastScheduledRound,
+	jwt,
+}) {
 	console.log(lastScheduledRound);
-	const course = 'COURSE';
+	const course = lastScheduledRound.courses.name;
 	const [score, setScore] = useState();
 
 	const [holeOne, setHoleOne] = useState({
@@ -52,12 +57,12 @@ export default function EnterScore({ priorRound, user, lastScheduledRound }) {
 		birdie: false,
 	});
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		//This will submit the users scores
 
 		const body = {
-			course: course,
+			course: lastScheduledRound.courses,
 			holes: [
 				holeOne,
 				holeTwo,
@@ -69,12 +74,12 @@ export default function EnterScore({ priorRound, user, lastScheduledRound }) {
 				holeEight,
 				holeNine,
 			],
-			date: priorRound.date,
-			user: user.username,
+			date: lastScheduledRound.date,
+			user: user,
 			score: score,
 		};
 
-		const res = fetch('http://localhost:1337/scores', {
+		const res = await fetch('http://localhost:1337/scores', {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${jwt}`,
@@ -84,7 +89,7 @@ export default function EnterScore({ priorRound, user, lastScheduledRound }) {
 			body: JSON.stringify(body),
 		});
 
-		const response = res.json();
+		const response = await res.json();
 
 		console.log(response);
 
@@ -106,7 +111,7 @@ export default function EnterScore({ priorRound, user, lastScheduledRound }) {
 						<p>Course</p>
 					</div>
 					<div className='flex-1 flex flex-col justify-center border border-gray-200 bg-white rounded-r-md truncate'>
-						<div className='mx-1'>PRIOR ROUND DATA</div>
+						<div className='mx-1'>{lastScheduledRound.date}</div>
 						<div className='mx-1'>{course}</div>
 					</div>
 				</li>

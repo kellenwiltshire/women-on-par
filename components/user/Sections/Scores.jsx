@@ -7,6 +7,7 @@ export default function Scores({
 	priorRound,
 	user,
 	lastScheduledRound,
+	jwt,
 }) {
 	return (
 		<div className='px-4 py-8 sm:px-0'>
@@ -14,6 +15,7 @@ export default function Scores({
 				priorRound={priorRound}
 				user={user}
 				lastScheduledRound={lastScheduledRound}
+				jwt={jwt}
 			/>
 			<ScoresList scores={scores} />
 		</div>

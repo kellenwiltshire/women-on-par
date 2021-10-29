@@ -416,7 +416,7 @@ export default function HolesInput({
 								onChange={() => {
 									setHoleNine({
 										hole: 9,
-										chip: holenIne.chip,
+										chip: holeNine.chip,
 										birdie: !holeNine.birdie,
 									});
 								}}

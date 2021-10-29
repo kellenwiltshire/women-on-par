@@ -19,7 +19,7 @@ const navigation = [
 	{ num: 3, name: 'Settings', icon: CogIcon },
 ];
 
-export default function User({ scores, user, schedules }) {
+export default function User({ scores, user, schedules, jwt }) {
 	const [openTab, setOpenTab] = useState(1);
 
 	console.log(schedules);
@@ -59,6 +59,7 @@ export default function User({ scores, user, schedules }) {
 							priorRound={priorRound}
 							user={user}
 							lastScheduledRound={lastScheduledRound}
+							jwt={jwt}
 						/>
 					</div>
 					<div className={openTab === 3 ? 'block' : 'hidden'}>
@@ -81,6 +82,7 @@ export async function getServerSideProps(pageProps) {
 			user: userData.user,
 			schedules: userData.schedules,
 			courses: userData.courses,
+			jwt: jwt,
 		},
 	};
 }
