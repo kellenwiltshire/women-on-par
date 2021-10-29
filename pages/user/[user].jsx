@@ -22,7 +22,7 @@ const navigation = [
 export default function User({ scores, user, schedules }) {
 	const [openTab, setOpenTab] = useState(1);
 
-	console.log(scores);
+	console.log(schedules);
 
 	const nextRound = findNextRound(schedules);
 

@@ -3,7 +3,7 @@ import HolesInput from './ScoresFormParts/HolesInput';
 
 export default function EnterScore({ priorRound, user, lastScheduledRound }) {
 	console.log(lastScheduledRound);
-	const course = lastScheduledRound;
+	const course = 'COURSE';
 	const [score, setScore] = useState();
 
 	const [holeOne, setHoleOne] = useState({
