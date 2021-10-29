@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 import HolesInput from './ScoresFormParts/HolesInput';
 
-export default function EnterScore({
-	priorRound,
-	user,
-	lastScheduledRound,
-	jwt,
-}) {
-	console.log(lastScheduledRound);
+export default function EnterScore({ user, lastScheduledRound, jwt }) {
 	const course = lastScheduledRound.courses.name;
+	const date = lastScheduledRound.date;
 	const [score, setScore] = useState();
 
 	const [holeOne, setHoleOne] = useState({
@@ -59,7 +54,6 @@ export default function EnterScore({
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		//This will submit the users scores
 
 		const body = {
 			course: lastScheduledRound.courses,
@@ -93,7 +87,7 @@ export default function EnterScore({
 
 		console.log(response);
 
-		console.log('SUBMIT!');
+		//TODO Set Success/Error response to submitting the score
 	};
 
 	return (
@@ -111,7 +105,7 @@ export default function EnterScore({
 						<p>Course</p>
 					</div>
 					<div className='flex-1 flex flex-col justify-center border border-gray-200 bg-white rounded-r-md truncate'>
-						<div className='mx-1'>{lastScheduledRound.date}</div>
+						<div className='mx-1'>{date}</div>
 						<div className='mx-1'>{course}</div>
 					</div>
 				</li>
