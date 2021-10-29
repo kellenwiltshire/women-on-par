@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import HolesInput from './ScoresFormParts/HolesInput';
 
-export default function EnterScore({ priorRound }) {
+export default function EnterScore({ priorRound, user }) {
 	const course = priorRound.course.name;
 	const [score, setScore] = useState();
 
@@ -55,6 +55,23 @@ export default function EnterScore({ priorRound }) {
 		e.preventDefault();
 		//This will submit the users scores
 
+		const body = {
+			course: course,
+			holes: [
+				holeOne,
+				holeTwo,
+				holeThree,
+				holeFour,
+				holeFive,
+				holeSix,
+				holeSeven,
+				holeEight,
+				holeNine,
+			],
+			date: priorRound.date,
+			user: user.username,
+		};
+
 		console.log('SUBMIT!');
 	};
 
@@ -74,7 +91,7 @@ export default function EnterScore({ priorRound }) {
 					</div>
 					<div className='flex-1 flex flex-col justify-center border border-gray-200 bg-white rounded-r-md truncate'>
 						<div className='mx-1'>{priorRound.date}</div>
-						<div className='mx-1'>{priorRound.course.name}</div>
+						<div className='mx-1'>{course}</div>
 					</div>
 				</li>
 
