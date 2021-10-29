@@ -29,11 +29,16 @@ const fetchScores = async (jwt, user) => {
 	});
 	const scores = await res.json();
 
-	const filteredScores = scores.filter((score) => {
-		return score.user?.username === user.username;
-	});
+	if (scores.length) {
+		const filteredScores = scores.filter((score) => {
+			return score.user?.username === user.username;
+		});
 
-	return filteredScores;
+		return filteredScores;
+	} else {
+		const filteredScores = [];
+		return filteredScores;
+	}
 };
 
 const fetchSchedule = async (jwt) => {

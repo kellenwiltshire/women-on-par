@@ -7,7 +7,11 @@ import Scores from '../../components/user/Sections/Scores';
 import Settings from '../../components/user/Sections/Settings';
 import { parseCookies } from 'nookies';
 import { getUserData } from '../../utils/userFetch';
-import { findNextRound, findPriorRound } from '../../utils/sortingFunctions';
+import {
+	findLastScheduledRound,
+	findNextRound,
+	findPriorRound,
+} from '../../utils/sortingFunctions';
 
 const navigation = [
 	{ num: 1, name: 'Dashboard', icon: HomeIcon },
@@ -15,7 +19,7 @@ const navigation = [
 	{ num: 3, name: 'Settings', icon: CogIcon },
 ];
 
-export default function User({ scores, user, schedules, courses }) {
+export default function User({ scores, user, schedules }) {
 	const [openTab, setOpenTab] = useState(1);
 
 	console.log(scores);
@@ -23,6 +27,8 @@ export default function User({ scores, user, schedules, courses }) {
 	const nextRound = findNextRound(schedules);
 
 	const priorRound = findPriorRound(scores);
+
+	const lastScheduledRound = findLastScheduledRound(schedules);
 
 	return (
 		<div className='py-10'>
@@ -48,7 +54,12 @@ export default function User({ scores, user, schedules, courses }) {
 						<Dashboard nextRound={nextRound} priorRound={priorRound} />
 					</div>
 					<div className={openTab === 2 ? 'block' : 'hidden'}>
-						<Scores scores={scores} priorRound={priorRound} user={user} />
+						<Scores
+							scores={scores}
+							priorRound={priorRound}
+							user={user}
+							lastScheduledRound={lastScheduledRound}
+						/>
 					</div>
 					<div className={openTab === 3 ? 'block' : 'hidden'}>
 						<Settings />

@@ -24,13 +24,13 @@ export default function NextRound({ nextRound }) {
 					Next Round Information
 				</h3>
 				<p className='mt-2 text-sm text-gray-500'>
-					Course: {nextRound.course.name}
+					Course: {nextRound.course?.name}
 				</p>
 				<p className='mt-2 text-sm text-gray-500'>
-					Address: {nextRound.course.address}
+					Address: {nextRound.course?.address}
 				</p>
 				<p className='mt-2 text-sm text-gray-500'>
-					Course Phone Number: {nextRound.course.phone}
+					Course Phone Number: {nextRound.course?.phone}
 				</p>
 				<p className='mt-2 text-sm text-gray-500'>Date: {nextRound.date}</p>
 				<p className='mt-2 text-sm text-gray-500'>

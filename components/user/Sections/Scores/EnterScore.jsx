@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import HolesInput from './ScoresFormParts/HolesInput';
 
-export default function EnterScore({ priorRound, user }) {
-	const course = priorRound.course.name;
+export default function EnterScore({ priorRound, user, lastScheduledRound }) {
+	console.log(lastScheduledRound);
+	const course = lastScheduledRound;
 	const [score, setScore] = useState();
 
 	const [holeOne, setHoleOne] = useState({
@@ -70,7 +71,22 @@ export default function EnterScore({ priorRound, user }) {
 			],
 			date: priorRound.date,
 			user: user.username,
+			score: score,
 		};
+
+		const res = fetch('http://localhost:1337/scores', {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${jwt}`,
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(body),
+		});
+
+		const response = res.json();
+
+		console.log(response);
 
 		console.log('SUBMIT!');
 	};
@@ -90,7 +106,7 @@ export default function EnterScore({ priorRound, user }) {
 						<p>Course</p>
 					</div>
 					<div className='flex-1 flex flex-col justify-center border border-gray-200 bg-white rounded-r-md truncate'>
-						<div className='mx-1'>{priorRound.date}</div>
+						<div className='mx-1'>PRIOR ROUND DATA</div>
 						<div className='mx-1'>{course}</div>
 					</div>
 				</li>
