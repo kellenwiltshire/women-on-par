@@ -4,12 +4,19 @@ import ToggleSwitch from '../../../../Buttons/Toggle';
 import { findNextRound } from '../../../../../utils/sortingFunctions';
 
 export default function NextRound({ nextRound, user, jwt }) {
+	const currDate = new Date();
+
+	//This sets the state so that the input reflect the already entered Data (if available) unless the current Date is after the last entered avaialability. If this is the case then it resets so that the user can set their availability for the next round
 	const [attendance, setAttendance] = useState(
-		user.availability[user.availability.length - 1].available,
-	); //!This will be updated to reflect information from API
+		currDate < Date.parse(user.availability[user.availability.length - 1].date)
+			? user.availability[user.availability.length - 1].available
+			: false,
+	);
 	const [notes, setNotes] = useState(
-		user.availability[user.availability.length - 1].notes,
-	); //!This will be updated to reflect information from API
+		currDate < Date.parse(user.availability[user.availability.length - 1].date)
+			? user.availability[user.availability.length - 1].notes
+			: '',
+	);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
