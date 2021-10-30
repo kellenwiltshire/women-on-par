@@ -3,46 +3,57 @@ import { CalendarIcon } from '@heroicons/react/outline';
 import ToggleSwitch from '../../../../Buttons/Toggle';
 import { findNextRound } from '../../../../../utils/sortingFunctions';
 
-export default function NextRound({ nextRound }) {
+export default function NextRound({ nextRound, user, jwt }) {
 	const [attendance, setAttendance] = useState(false); //!This will be updated to reflect information from API
 	const [notes, setNotes] = useState(''); //!This will be updated to reflect information from API
 
 	console.log('Next Round: ', nextRound);
 
+	console.log('USer: ', user);
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		console.log(jwt);
+
 		// Once submitted this function will PUT the data into the Schedules API for the upcoming week
-		const updatedScheduleRes = await fetch('http://localhost:1337/schedules'); //TODO Add JWT to Component
+		const updatedScheduleRes = await fetch('http://localhost:1337/schedules', {
+			headers: {
+				Authorization: `Bearer ${jwt}`,
+			},
+		});
 		const updatedSchedule = await updatedScheduleRes.json();
 
-		const confirmedNextRound = findNextRound(updatedSchedule);
+		const confirmedNextRound = await findNextRound(updatedSchedule);
 
-		const body = {
-			//TODO Add User to Component
+		const newEntry = {
 			date: confirmedNextRound.date,
-			start_time: confirmedNextRound.start_time,
-			courses: confirmedNextRound.courses,
-			players: [
-				...confirmedNextRound.players,
-				{
-					first_name: user.first_name,
-					last_name: user.last_name,
-					email: user.email,
-					notes: notes,
-				},
-			],
+			available: attendance,
+			notes: notes,
 		};
 
-		const pushRes = await fetch(
-			`http://localhost:1337/schedules/${confirmedNextRound.id}`,
-			{
-				headers: {
-					//JWT
-				},
-				body: JSON.stringify(body),
+		const body = {
+			...user,
+			availability: [...user.availability, newEntry],
+		};
+
+		console.log('Body: ', body);
+
+		const pushRes = await fetch(`http://localhost:1337/users/${user.id}`, {
+			method: 'PUT',
+			headers: {
+				Authorization: `Bearer ${jwt}`,
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
 			},
-		); //PUT new data into round adding user to list
+			body: JSON.stringify(body),
+		});
+
+		console.log(pushRes);
+
+		const response = await pushRes.json();
+
+		console.log(response);
 	};
 
 	if (nextRound) {
@@ -59,17 +70,17 @@ export default function NextRound({ nextRound }) {
 						Next Round Information
 					</h3>
 					<p className='mt-2 text-sm text-gray-500'>
-						Course: {nextRound?.courses.name}
+						Course: {nextRound.course.name}
 					</p>
 					<p className='mt-2 text-sm text-gray-500'>
-						Address: {nextRound?.courses.address}
+						Address: {nextRound.course.address}
 					</p>
 					<p className='mt-2 text-sm text-gray-500'>
-						Course Phone Number: {nextRound?.courses.phone}
+						Course Phone Number: {nextRound.course.phone}
 					</p>
-					<p className='mt-2 text-sm text-gray-500'>Date: {nextRound?.date}</p>
+					<p className='mt-2 text-sm text-gray-500'>Date: {nextRound.date}</p>
 					<p className='mt-2 text-sm text-gray-500'>
-						Start Time: {nextRound?.start_time}
+						Start Time: {nextRound.start_time}
 					</p>
 				</div>
 				<form onSubmit={handleSubmit}>

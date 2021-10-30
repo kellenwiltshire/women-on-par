@@ -23,10 +23,10 @@ function classNames(...classes) {
 
 //TODO News and Upcoming Events from API
 
-export default function DashboardCards({ nextRound, priorRound }) {
+export default function DashboardCards({ nextRound, priorRound, user, jwt }) {
 	return (
 		<div className='rounded-lg bg-gray-200 shadow divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px'>
-			<NextRound nextRound={nextRound} />
+			<NextRound nextRound={nextRound} user={user} jwt={jwt} />
 			<PriorRound priorRound={priorRound} />
 			{actions.map((action, actionIdx) => (
 				<div

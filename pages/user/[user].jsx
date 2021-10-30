@@ -51,7 +51,12 @@ export default function User({ scores, user, schedules, jwt }) {
 				</div>
 				<div className='bg-white lg:min-w-0 lg:flex-1'>
 					<div className={openTab === 1 ? 'block' : 'hidden'}>
-						<Dashboard nextRound={nextRound} priorRound={priorRound} />
+						<Dashboard
+							nextRound={nextRound}
+							priorRound={priorRound}
+							user={user}
+							jwt={jwt}
+						/>
 					</div>
 					<div className={openTab === 2 ? 'block' : 'hidden'}>
 						<Scores
