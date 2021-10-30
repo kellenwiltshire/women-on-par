@@ -1,5 +1,5 @@
 import { CakeIcon, NewspaperIcon } from '@heroicons/react/outline';
-import NextRound from './Cards/NextRound';
+import NextRound from './Cards/NextRound/NextRound';
 import PriorRound from './Cards/PriorRound';
 
 const actions = [
