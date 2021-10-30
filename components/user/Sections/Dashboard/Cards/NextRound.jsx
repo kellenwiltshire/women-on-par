@@ -4,19 +4,17 @@ import ToggleSwitch from '../../../../Buttons/Toggle';
 import { findNextRound } from '../../../../../utils/sortingFunctions';
 
 export default function NextRound({ nextRound, user, jwt }) {
-	const [attendance, setAttendance] = useState(false); //!This will be updated to reflect information from API
-	const [notes, setNotes] = useState(''); //!This will be updated to reflect information from API
-
-	console.log('Next Round: ', nextRound);
-
-	console.log('USer: ', user);
+	const [attendance, setAttendance] = useState(
+		user.availability[user.availability.length - 1].available,
+	); //!This will be updated to reflect information from API
+	const [notes, setNotes] = useState(
+		user.availability[user.availability.length - 1].notes,
+	); //!This will be updated to reflect information from API
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		console.log(jwt);
-
-		// Once submitted this function will PUT the data into the Schedules API for the upcoming week
+		//Get an updated schedule incase the page was stale
 		const updatedScheduleRes = await fetch('http://localhost:1337/schedules', {
 			headers: {
 				Authorization: `Bearer ${jwt}`,
@@ -26,19 +24,20 @@ export default function NextRound({ nextRound, user, jwt }) {
 
 		const confirmedNextRound = await findNextRound(updatedSchedule);
 
+		//build the new Entry
 		const newEntry = {
 			date: confirmedNextRound.date,
 			available: attendance,
 			notes: notes,
 		};
 
+		//build the body
 		const body = {
 			...user,
 			availability: [...user.availability, newEntry],
 		};
 
-		console.log('Body: ', body);
-
+		//PUT the new info into the DB so that the Admin can see what each User's availability is
 		const pushRes = await fetch(`http://localhost:1337/users/${user.id}`, {
 			method: 'PUT',
 			headers: {
