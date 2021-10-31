@@ -83,7 +83,7 @@ export default function User({ scores, user, schedules, jwt }) {
 						<div className={openTab === 3 ? 'block' : 'hidden'}>
 							<Settings />
 						</div>
-						<div className={openTab === 3 ? 'block' : 'hidden'}>
+						<div className={openTab === 4 ? 'block' : 'hidden'}>
 							<Admin jwt={jwt} user={user} />
 						</div>
 					</div>
