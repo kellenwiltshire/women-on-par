@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import HolesInput from './ScoresFormParts/HolesInput';
 
 export default function EnterScore({ user, lastScheduledRound, jwt }) {
-	const course = lastScheduledRound?.course.name;
-	const date = lastScheduledRound?.date;
+	const course = lastScheduledRound.course.name;
+	const date = lastScheduledRound.date;
 	const [score, setScore] = useState();
 
 	const [holeOne, setHoleOne] = useState({
@@ -56,7 +56,7 @@ export default function EnterScore({ user, lastScheduledRound, jwt }) {
 		e.preventDefault();
 
 		const body = {
-			course: lastScheduledRound.courses,
+			course: lastScheduledRound.course,
 			holes: [
 				holeOne,
 				holeTwo,
@@ -73,7 +73,7 @@ export default function EnterScore({ user, lastScheduledRound, jwt }) {
 			score: score,
 		};
 
-		const res = await fetch('http://localhost:1337/scores', {
+		const res = await fetch('https://women-on-par-db.herokuapp.com/scores', {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${jwt}`,
