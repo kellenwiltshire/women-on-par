@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import EnterScore from './Scores/EnterScore';
 import ScoresList from './Scores/ScoresList';
 
@@ -9,6 +9,10 @@ export default function Scores({
 	lastScheduledRound,
 	jwt,
 }) {
+	const [userScores, setUserScores] = useState(scores);
+
+	console.log(scores);
+
 	return (
 		<div className='px-4 py-8 sm:px-0'>
 			<EnterScore
@@ -16,8 +20,10 @@ export default function Scores({
 				user={user}
 				lastScheduledRound={lastScheduledRound}
 				jwt={jwt}
+				userScores={userScores}
+				setUserScores={setUserScores}
 			/>
-			<ScoresList scores={scores} />
+			<ScoresList scores={userScores} />
 		</div>
 	);
 }

@@ -33,7 +33,6 @@ const adminNav = [
 ];
 
 export default function User({ scores, user, schedules, jwt }) {
-	console.log(schedules);
 	const [openTab, setOpenTab] = useState(1);
 
 	const nextRound = findNextRound(schedules);
@@ -41,8 +40,6 @@ export default function User({ scores, user, schedules, jwt }) {
 	const priorRound = findPriorRound(scores);
 
 	const lastScheduledRound = findLastScheduledRound(schedules);
-
-	console.log('Next Round: ', nextRound);
 
 	if (user.role.type === 'admin') {
 		return (
