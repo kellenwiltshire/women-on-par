@@ -33,7 +33,7 @@ const adminNav = [
 ];
 
 export default function User({ scores, user, schedules, jwt }) {
-	console.log(user);
+	console.log(schedules);
 	const [openTab, setOpenTab] = useState(1);
 
 	const nextRound = findNextRound(schedules);

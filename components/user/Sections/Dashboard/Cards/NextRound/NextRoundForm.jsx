@@ -26,11 +26,14 @@ export default function NextRoundForm({ user, jwt }) {
 		e.preventDefault();
 
 		//Get an updated schedule incase the page was stale
-		const updatedScheduleRes = await fetch('http://localhost:1337/schedules', {
-			headers: {
-				Authorization: `Bearer ${jwt}`,
+		const updatedScheduleRes = await fetch(
+			'https://women-on-par-db.herokuapp.com/schedules',
+			{
+				headers: {
+					Authorization: `Bearer ${jwt}`,
+				},
 			},
-		});
+		);
 		const updatedSchedule = await updatedScheduleRes.json();
 
 		const confirmedNextRound = await findNextRound(updatedSchedule);
@@ -49,15 +52,18 @@ export default function NextRoundForm({ user, jwt }) {
 		};
 
 		//PUT the new info into the DB so that the Admin can see what each User's availability is
-		const pushRes = await fetch(`http://localhost:1337/users/${user.id}`, {
-			method: 'PUT',
-			headers: {
-				Authorization: `Bearer ${jwt}`,
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
+		const pushRes = await fetch(
+			`https://women-on-par-db.herokuapp.com/users/${user.id}`,
+			{
+				method: 'PUT',
+				headers: {
+					Authorization: `Bearer ${jwt}`,
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(body),
 			},
-			body: JSON.stringify(body),
-		});
+		);
 
 		console.log(pushRes);
 

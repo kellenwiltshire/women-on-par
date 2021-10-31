@@ -17,14 +17,17 @@ export default function login() {
 		};
 
 		try {
-			const login = await fetch(`http://localhost:1337/auth/local`, {
-				method: 'POST',
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
+			const login = await fetch(
+				`https://women-on-par-db.herokuapp.com/auth/local`,
+				{
+					method: 'POST',
+					headers: {
+						Accept: 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(loginInfo),
 				},
-				body: JSON.stringify(loginInfo),
-			});
+			);
 
 			const loginResponse = await login.json();
 

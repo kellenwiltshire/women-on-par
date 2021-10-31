@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import HolesInput from './ScoresFormParts/HolesInput';
 
 export default function EnterScore({ user, lastScheduledRound, jwt }) {
-	const course = lastScheduledRound.course.name;
-	const date = lastScheduledRound.date;
+	const course = lastScheduledRound?.course.name;
+	const date = lastScheduledRound?.date;
 	const [score, setScore] = useState();
 
 	const [holeOne, setHoleOne] = useState({
