@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
 import ToggleSwitch from '@/components/Buttons/Toggle';
-import { findNextRound } from '../../../../../../utils/sortingFunctions';
+import { findNextRound } from '@/utils/sortingFunctions';
 
 export default function NextRoundForm({ user, jwt }) {
 	const currDate = new Date();
 	//This sets the state so that the input reflect the already entered Data (if available) unless the current Date is after the last entered avaialability. If this is the case then it resets so that the user can set their availability for the next round
 	const [attendance, setAttendance] = useState(
-		currDate < Date.parse(user.availability[user.availability.length - 1].date)
-			? user.availability[user.availability.length - 1].available
+		user.availability.length
+			? currDate <
+			  Date.parse(user.availability[user.availability.length - 1].date)
+				? user.availability[user.availability.length - 1].available
+				: false
 			: false,
 	);
 	const [notes, setNotes] = useState(
-		currDate < Date.parse(user.availability[user.availability.length - 1].date)
-			? user.availability[user.availability.length - 1].notes
+		user.availability.length
+			? currDate <
+			  Date.parse(user.availability[user.availability.length - 1].date)
+				? user.availability[user.availability.length - 1].available
+				: ''
 			: '',
 	);
 

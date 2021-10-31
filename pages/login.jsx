@@ -7,6 +7,7 @@ import Router from 'next/router';
 export default function login() {
 	const [userEmail, setUserEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [loginError, setLoginError] = useState(false);
 
 	const submitForm = async (e) => {
 		e.preventDefault();
@@ -15,25 +16,27 @@ export default function login() {
 			password: password,
 		};
 
-		const login = await fetch(`http://localhost:1337/auth/local`, {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(loginInfo),
-		});
+		try {
+			const login = await fetch(`http://localhost:1337/auth/local`, {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(loginInfo),
+			});
 
-		const loginResponse = await login.json();
+			const loginResponse = await login.json();
 
-		setCookie(null, 'jwt', loginResponse.jwt, {
-			maxAge: 30 * 24 * 60 * 60,
-			path: '/',
-		});
+			setCookie(null, 'jwt', loginResponse.jwt, {
+				maxAge: 30 * 24 * 60 * 60,
+				path: '/',
+			});
 
-		console.log(loginResponse);
-
-		Router.push(`/user/${loginResponse.user.username.toLowerCase()}`);
+			Router.push(`/user/${loginResponse.user.username.toLowerCase()}`);
+		} catch (error) {
+			setLoginError(true);
+		}
 	};
 	return (
 		<>
@@ -57,6 +60,14 @@ export default function login() {
 							</Link>
 						</p>
 					</div>
+					{loginError ? (
+						<div>
+							<p className='mt-2 text-center text-sm text-red-600'>
+								Login Error: Your Email or Password is Incorrect
+							</p>
+						</div>
+					) : null}
+
 					<form className='mt-8 space-y-6' onSubmit={submitForm}>
 						<input type='hidden' name='remember' defaultValue='true' />
 						<div className='rounded-md shadow-sm -space-y-px'>
