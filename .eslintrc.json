@@ -11,6 +11,7 @@
 		"prettier"
 	],
 	"parserOptions": {
+		"project": "./jsconfig.json",
 		"ecmaFeatures": {
 			"jsx": true
 		},

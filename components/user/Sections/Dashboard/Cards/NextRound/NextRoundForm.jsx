@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ToggleSwitch from '../../../../../Buttons/Toggle';
+import ToggleSwitch from '@/components/Buttons/Toggle';
 import { findNextRound } from '../../../../../../utils/sortingFunctions';
 
 export default function NextRoundForm({ user, jwt }) {
