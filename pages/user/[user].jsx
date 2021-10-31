@@ -42,6 +42,8 @@ export default function User({ scores, user, schedules, jwt }) {
 
 	const lastScheduledRound = findLastScheduledRound(schedules);
 
+	console.log('Next Round: ', nextRound);
+
 	if (user.role.type === 'admin') {
 		return (
 			<div className='py-10'>
@@ -84,7 +86,7 @@ export default function User({ scores, user, schedules, jwt }) {
 							<Settings />
 						</div>
 						<div className={openTab === 4 ? 'block' : 'hidden'}>
-							<Admin jwt={jwt} user={user} />
+							<Admin jwt={jwt} user={user} nextRound={nextRound} />
 						</div>
 					</div>
 				</div>
