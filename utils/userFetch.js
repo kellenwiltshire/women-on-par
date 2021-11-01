@@ -1,5 +1,7 @@
+const url = process.env.DATABASE_URL;
+
 const fetchCourses = async (jwt) => {
-	const res = await fetch('https://women-on-par-db.herokuapp.com/courses', {
+	const res = await fetch(`${url}/courses`, {
 		headers: {
 			Authorization: `Bearer ${jwt}`,
 		},
@@ -11,7 +13,7 @@ const fetchCourses = async (jwt) => {
 };
 
 const fetchUser = async (jwt) => {
-	const res = await fetch(`https://women-on-par-db.herokuapp.com/users/me`, {
+	const res = await fetch(`${url}/users/me`, {
 		headers: {
 			Authorization: `Bearer ${jwt}`,
 		},
@@ -22,7 +24,7 @@ const fetchUser = async (jwt) => {
 };
 
 const fetchScores = async (jwt, user) => {
-	const res = await fetch(`https://women-on-par-db.herokuapp.com/scores`, {
+	const res = await fetch(`${url}/scores`, {
 		headers: {
 			Authorization: `Bearer ${jwt}`,
 		},
@@ -42,14 +44,11 @@ const fetchScores = async (jwt, user) => {
 };
 
 const fetchSchedule = async (jwt) => {
-	const schedRes = await fetch(
-		`https://women-on-par-db.herokuapp.com/schedules`,
-		{
-			headers: {
-				Authorization: `Bearer ${jwt}`,
-			},
+	const schedRes = await fetch(`${url}/schedules`, {
+		headers: {
+			Authorization: `Bearer ${jwt}`,
 		},
-	);
+	});
 	const schedules = await schedRes.json();
 
 	return schedules;
