@@ -28,6 +28,8 @@ const submitAvailability = async (req, res) => {
 
 	const body = req.body;
 
+	console.log(body);
+
 	try {
 		const request = await fetch(`${url}/users/${body.id}`, {
 			method: 'PUT',
@@ -44,7 +46,7 @@ const submitAvailability = async (req, res) => {
 		res.json(response);
 	} catch (error) {
 		console.log(error);
-		res.status(400).json('Error Getting Users', error);
+		res.status(400).json('Error Submitting Availability', error);
 	}
 };
 
