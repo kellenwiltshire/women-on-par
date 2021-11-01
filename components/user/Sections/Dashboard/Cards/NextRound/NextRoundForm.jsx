@@ -26,14 +26,7 @@ export default function NextRoundForm({ user, jwt }) {
 		e.preventDefault();
 
 		//Get an updated schedule incase the page was stale
-		const updatedScheduleRes = await fetch(
-			'https://women-on-par-db.herokuapp.com/schedules',
-			{
-				headers: {
-					Authorization: `Bearer ${jwt}`,
-				},
-			},
-		);
+		const updatedScheduleRes = await fetch('/api/getSchedule');
 		const updatedSchedule = await updatedScheduleRes.json();
 
 		const confirmedNextRound = await findNextRound(updatedSchedule);
@@ -51,25 +44,23 @@ export default function NextRoundForm({ user, jwt }) {
 			availability: [...user.availability, newEntry],
 		};
 
-		//PUT the new info into the DB so that the Admin can see what each User's availability is
-		const pushRes = await fetch(
-			`https://women-on-par-db.herokuapp.com/users/${user.id}`,
-			{
-				method: 'PUT',
+		try {
+			//PUT the new info into the DB so that the Admin can see what each User's availability is
+			const pushRes = await fetch(`/api/submitAvailability`, {
+				method: 'POST',
 				headers: {
-					Authorization: `Bearer ${jwt}`,
 					Accept: 'application/json',
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify(body),
-			},
-		);
+			});
 
-		console.log(pushRes);
+			const response = await pushRes.json();
 
-		const response = await pushRes.json();
-
-		console.log(response);
+			console.log('Response: ', response);
+		} catch (error) {
+			console.log('ERROR: ', error);
+		}
 	};
 	return (
 		<form onSubmit={handleSubmit}>
