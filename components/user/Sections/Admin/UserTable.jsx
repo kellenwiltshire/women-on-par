@@ -1,15 +1,9 @@
 import useSWR from 'swr';
 
-export default function UserTable({ jwt }) {
-	const fetcher = (url) =>
-		fetch(url, {
-			method: 'GET',
-			headers: {
-				Authorization: `Bearer ${jwt}`,
-			},
-		}).then((res) => res.json());
+export default function UserTable() {
+	const fetcher = (url) => fetch(url).then((res) => res.json());
 
-	const { data, error } = useSWR('http://localhost:1337/users', fetcher);
+	const { data, error } = useSWR('/api/getUsers', fetcher);
 
 	if (error) return <div>Failed to Load Users</div>;
 	if (!data) return <div>Loading Users...</div>;
@@ -29,6 +23,12 @@ export default function UserTable({ jwt }) {
 											scope='col'
 											className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
 										>
+											ID
+										</th>
+										<th
+											scope='col'
+											className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+										>
 											Name
 										</th>
 										<th
@@ -36,12 +36,6 @@ export default function UserTable({ jwt }) {
 											className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
 										>
 											Email
-										</th>
-										<th
-											scope='col'
-											className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
-										>
-											Role
 										</th>
 										<th scope='col' className='relative px-6 py-3'>
 											<span className='sr-only'>Edit</span>
@@ -54,14 +48,14 @@ export default function UserTable({ jwt }) {
 											key={user.email}
 											className={userIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
 										>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+												{user.id}
+											</td>
 											<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
 												{user.first_name} {user.last_name}
 											</td>
 											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 												{user.email}
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-												{user.id}
 											</td>
 											<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
 												<a
