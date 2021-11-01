@@ -1,15 +1,9 @@
 import useSWR from 'swr';
 
-export default function NextRoundTable({ jwt, nextRound }) {
-	const fetcher = (url) =>
-		fetch(url, {
-			method: 'GET',
-			headers: {
-				Authorization: `Bearer ${jwt}`,
-			},
-		}).then((res) => res.json());
+export default function NextRoundTable({ nextRound }) {
+	const fetcher = (url) => fetch(url).then((res) => res.json());
 
-	const { data, error } = useSWR('http://localhost:1337/users', fetcher);
+	const { data, error } = useSWR('/api/getUsers', fetcher);
 
 	if (error) return <div>Failed to Load Users</div>;
 	if (!data) return <div>Loading Users...</div>;
@@ -22,8 +16,6 @@ export default function NextRoundTable({ jwt, nextRound }) {
 				}
 			}
 		});
-
-		console.log('Filtered Next Round Users: ', users);
 
 		return (
 			<div className='flex flex-col'>
