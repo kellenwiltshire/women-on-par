@@ -1,4 +1,5 @@
 import Cors from 'cors';
+const { parseCookies } = require('nookies');
 
 const cors = Cors({
 	methods: ['POST', 'HEAD'],
@@ -23,7 +24,8 @@ const submitScore = async (req, res) => {
 	const url = process.env.DATABASE_URL;
 
 	const score = { ...req.body.score };
-	const jwt = req.body.jwt;
+	const cookies = parseCookies({ req });
+	const jwt = cookies.jwt;
 
 	try {
 		const request = await fetch(`${url}/scores`, {

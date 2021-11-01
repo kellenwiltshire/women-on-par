@@ -4,7 +4,6 @@ import HolesInput from './ScoresFormParts/HolesInput';
 export default function EnterScore({
 	user,
 	lastScheduledRound,
-	jwt,
 	userScores,
 	setUserScores,
 }) {
@@ -90,7 +89,7 @@ export default function EnterScore({
 			score: score,
 		};
 
-		const request = { score: newScore, jwt: jwt };
+		const request = { score: newScore };
 
 		try {
 			const res = await fetch('/api/submitScore', {

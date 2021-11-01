@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import ToggleSwitch from '@/components/Buttons/Toggle';
 import { findNextRound } from '@/utils/sortingFunctions';
 
-export default function NextRoundForm({ user, jwt }) {
+export default function NextRoundForm({ user }) {
+	const [error, setError] = useState(false);
 	const currDate = new Date();
 	//This sets the state so that the input reflect the already entered Data (if available) unless the current Date is after the last entered avaialability. If this is the case then it resets so that the user can set their availability for the next round
 	const [attendance, setAttendance] = useState(
@@ -58,10 +59,16 @@ export default function NextRoundForm({ user, jwt }) {
 			const response = await pushRes.json();
 
 			console.log('Response: ', response);
+
+			if (response.statusCode && response.statusCode === 500) {
+				setError(true);
+			}
 		} catch (error) {
 			console.log('ERROR: ', error);
 		}
 	};
+
+	console.log('Availability Error: ', error);
 	return (
 		<form onSubmit={handleSubmit}>
 			<div className='mt-2 text-sm text-gray-500 flex flex-row align-middle'>
