@@ -32,7 +32,7 @@ const adminNav = [
 	{ num: 4, name: 'Admin', icon: UserIcon },
 ];
 
-export default function User({ scores, user, schedules, jwt }) {
+export default function User({ scores, user, schedules }) {
 	const [openTab, setOpenTab] = useState(1);
 
 	const nextRound = findNextRound(schedules);
@@ -67,7 +67,6 @@ export default function User({ scores, user, schedules, jwt }) {
 								nextRound={nextRound}
 								priorRound={priorRound}
 								user={user}
-								jwt={jwt}
 							/>
 						</div>
 						<div className={openTab === 2 ? 'block' : 'hidden'}>
@@ -76,14 +75,13 @@ export default function User({ scores, user, schedules, jwt }) {
 								priorRound={priorRound}
 								user={user}
 								lastScheduledRound={lastScheduledRound}
-								jwt={jwt}
 							/>
 						</div>
 						<div className={openTab === 3 ? 'block' : 'hidden'}>
 							<Settings />
 						</div>
 						<div className={openTab === 4 ? 'block' : 'hidden'}>
-							<Admin jwt={jwt} user={user} nextRound={nextRound} />
+							<Admin user={user} nextRound={nextRound} />
 						</div>
 					</div>
 				</div>
@@ -115,7 +113,6 @@ export default function User({ scores, user, schedules, jwt }) {
 								nextRound={nextRound}
 								priorRound={priorRound}
 								user={user}
-								jwt={jwt}
 							/>
 						</div>
 						<div className={openTab === 2 ? 'block' : 'hidden'}>
@@ -124,7 +121,6 @@ export default function User({ scores, user, schedules, jwt }) {
 								priorRound={priorRound}
 								user={user}
 								lastScheduledRound={lastScheduledRound}
-								jwt={jwt}
 							/>
 						</div>
 						<div className={openTab === 3 ? 'block' : 'hidden'}>
@@ -148,7 +144,6 @@ export async function getServerSideProps(pageProps) {
 			user: userData.user,
 			schedules: userData.schedules,
 			courses: userData.courses,
-			jwt: jwt,
 		},
 	};
 }

@@ -7,11 +7,8 @@ export default function Scores({
 	priorRound,
 	user,
 	lastScheduledRound,
-	jwt,
 }) {
 	const [userScores, setUserScores] = useState(scores);
-
-	console.log(scores);
 
 	return (
 		<div className='px-4 py-8 sm:px-0'>
@@ -19,7 +16,6 @@ export default function Scores({
 				priorRound={priorRound}
 				user={user}
 				lastScheduledRound={lastScheduledRound}
-				jwt={jwt}
 				userScores={userScores}
 				setUserScores={setUserScores}
 			/>

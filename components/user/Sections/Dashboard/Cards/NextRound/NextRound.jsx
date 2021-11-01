@@ -4,7 +4,7 @@ import { CalendarIcon } from '@heroicons/react/outline';
 import NextRoundInfo from './NextRoundInfo';
 import NextRoundForm from './NextRoundForm';
 
-export default function NextRound({ nextRound, user, jwt }) {
+export default function NextRound({ nextRound, user }) {
 	if (nextRound) {
 		return (
 			<div className='rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6'>
@@ -14,7 +14,7 @@ export default function NextRound({ nextRound, user, jwt }) {
 					</span>
 				</div>
 				<NextRoundInfo nextRound={nextRound} />
-				<NextRoundForm user={user} jwt={jwt} />
+				<NextRoundForm user={user} />
 			</div>
 		);
 	} else {
