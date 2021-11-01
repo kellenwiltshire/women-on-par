@@ -72,7 +72,7 @@ export default function EnterScore({
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const body = {
+		const newScore = {
 			course: lastScheduledRound.course,
 			holes: [
 				holeOne,
@@ -90,27 +90,28 @@ export default function EnterScore({
 			score: score,
 		};
 
+		const request = { score: newScore, jwt: jwt };
+
 		try {
-			const res = await fetch('https://women-on-par-db.herokuapp.com/scores', {
+			const res = await fetch('/api/submitScore', {
 				method: 'POST',
 				headers: {
-					Authorization: `Bearer ${jwt}`,
 					Accept: 'application/json',
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify(body),
+				body: JSON.stringify(request),
 			});
 
 			const response = await res.json();
 
-			setUserScores([...userScores, body]);
+			setUserScores([...userScores, newScore]);
 
 			console.log(response);
 
 			setSubmitSuccess(true);
-		} catch (error) {}
-
-		//TODO Set Success/Error response to submitting the score
+		} catch (error) {
+			//TODO Set Error Response
+		}
 	};
 
 	if (submitSuccess) {
