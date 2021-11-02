@@ -60,7 +60,7 @@ export default function NextRoundForm({ user }) {
 
 			console.log('Response: ', response);
 
-			if (response.statusCode && response.statusCode === 500) {
+			if (response.statusCode) {
 				setError(true);
 			}
 		} catch (error) {
