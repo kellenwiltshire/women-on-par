@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { LockClosedIcon } from '@heroicons/react/solid';
-import { setCookie } from 'nookies';
 import Router from 'next/router';
 
 export default function login() {
