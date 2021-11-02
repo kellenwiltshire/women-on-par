@@ -17,24 +17,16 @@ export default function login() {
 		};
 
 		try {
-			const login = await fetch(
-				`https://women-on-par-db.herokuapp.com/auth/local`,
-				{
-					method: 'POST',
-					headers: {
-						Accept: 'application/json',
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(loginInfo),
+			const login = await fetch(`/api/submitLogin`, {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
 				},
-			);
+				body: JSON.stringify(loginInfo),
+			});
 
 			const loginResponse = await login.json();
-
-			setCookie(null, 'jwt', loginResponse.jwt, {
-				maxAge: 30 * 24 * 60 * 60,
-				path: '/',
-			});
 
 			Router.push(`/user/${loginResponse.user.username.toLowerCase()}`);
 		} catch (error) {
