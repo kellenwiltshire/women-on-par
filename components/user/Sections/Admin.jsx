@@ -3,7 +3,7 @@ import AdminTabs from './Admin/AdminTabs';
 import NextRoundTable from './Admin/NextRoundTable';
 import UserTable from './Admin/UserTable';
 
-export default function Admin({ user, jwt, nextRound }) {
+export default function Admin({ jwt, nextRound }) {
 	const [adminTab, setAdminTab] = useState(1);
 	console.log(adminTab);
 	return (
