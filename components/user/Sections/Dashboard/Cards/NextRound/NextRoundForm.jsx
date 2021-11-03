@@ -43,8 +43,8 @@ export default function NextRoundForm({ user }) {
 
 		//build the body
 		const body = {
-			...user,
-			availability: newEntry,
+			id: user.id,
+			availability: [...user.availability, newEntry],
 		};
 
 		try {
