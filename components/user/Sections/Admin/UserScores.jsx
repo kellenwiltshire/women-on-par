@@ -1,5 +1,6 @@
 import useSWR from 'swr';
 
+//TODO Make Scores searchable, editable, sortable
 export default function UserScores() {
 	const fetcher = (url) => fetch(url).then((res) => res.json());
 
