@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AdminTabs from './Admin/AdminTabs';
 import NextRoundTable from './Admin/NextRoundTable';
+import UserScores from './Admin/UserScores';
 import UserTable from './Admin/UserTable';
 
 export default function Admin({ jwt, nextRound }) {
@@ -18,7 +19,10 @@ export default function Admin({ jwt, nextRound }) {
 				<div className={adminTab === 2 ? 'block' : 'hidden'}>
 					<NextRoundTable jwt={jwt} nextRound={nextRound} />
 				</div>
-				<div className={adminTab === 3 ? 'block' : 'hidden'}></div>
+				<div className={adminTab === 3 ? 'block' : 'hidden'}>
+					<UserScores />
+				</div>
+
 				<div className={adminTab === 4 ? 'block' : 'hidden'}></div>
 			</div>
 		</>
