@@ -1,5 +1,4 @@
 import Cors from 'cors';
-const { setCookie } = require('nookies');
 
 const cors = Cors({
 	methods: ['POST', 'HEAD'],
@@ -36,11 +35,6 @@ const submitLogin = async (req, res) => {
 		});
 
 		const loginResponse = await login.json();
-
-		setCookie(null, 'jwt', loginResponse.jwt, {
-			maxAge: 30 * 24 * 60 * 60,
-			path: '/',
-		});
 
 		res.json(loginResponse);
 	} catch (error) {

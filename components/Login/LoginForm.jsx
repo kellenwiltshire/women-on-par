@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import Router from 'next/router';
+import { setCookie } from 'nookies';
 
 export default function LoginForm() {
 	const [userEmail, setUserEmail] = useState('');
@@ -26,6 +27,11 @@ export default function LoginForm() {
 			});
 
 			const loginResponse = await login.json();
+
+			setCookie(null, 'jwt', loginResponse.jwt, {
+				maxAge: 30 * 24 * 60 * 60,
+				path: '/',
+			});
 
 			Router.push(`/user/${loginResponse.user.username.toLowerCase()}`);
 		} catch (error) {
