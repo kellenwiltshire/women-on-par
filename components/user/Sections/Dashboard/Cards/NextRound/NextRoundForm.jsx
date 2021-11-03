@@ -39,10 +39,12 @@ export default function NextRoundForm({ user }) {
 			notes: notes,
 		};
 
+		console.log(newEntry);
+
 		//build the body
 		const body = {
 			...user,
-			availability: [...user.availability, newEntry],
+			availability: newEntry,
 		};
 
 		try {
