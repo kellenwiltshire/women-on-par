@@ -33,7 +33,7 @@ export default function LoginForm() {
 				path: '/',
 			});
 
-			Router.push(`/user/${loginResponse.user.username.toLowerCase()}`);
+			Router.push(`/user/${loginResponse.user.id}`);
 		} catch (error) {
 			setLoginError(true);
 		}
