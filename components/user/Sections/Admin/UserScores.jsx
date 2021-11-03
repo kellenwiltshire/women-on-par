@@ -5,10 +5,12 @@ export default function UserScores() {
 
 	const { data, error } = useSWR('/api/getScores', fetcher);
 
-	if (error) return <div>Failed to Load Users</div>;
-	if (!data) return <div>Loading Users...</div>;
+	if (error) return <div>Failed to Load scores</div>;
+	if (!data) return <div>Loading scores...</div>;
 
 	if (data) {
+		const scores = data;
+		console.log(scores);
 		return (
 			<div className='flex flex-col'>
 				<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
@@ -27,13 +29,31 @@ export default function UserScores() {
 											scope='col'
 											className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
 										>
-											Email
+											Course
 										</th>
 										<th
 											scope='col'
 											className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
 										>
-											Notes
+											Date
+										</th>
+										<th
+											scope='col'
+											className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+										>
+											Holes Birdies (Hole No.)
+										</th>
+										<th
+											scope='col'
+											className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+										>
+											Holes Chipped (Hole No.)
+										</th>
+										<th
+											scope='col'
+											className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+										>
+											Total Score
 										</th>
 										<th scope='col' className='relative px-6 py-3'>
 											<span className='sr-only'>Edit</span>
@@ -41,23 +61,46 @@ export default function UserScores() {
 									</tr>
 								</thead>
 								<tbody>
-									{users.map((user, userIdx) => (
+									{scores.map((score, scoreIdx) => (
 										<tr
-											key={user.email}
-											className={userIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
+											key={score.id}
+											className={scoreIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
 										>
 											<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-												{user.first_name} {user.last_name}
+												{score.user.first_name} {score.user.last_name}
 											</td>
 											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-												{user.email}
+												{score.course.name}
 											</td>
 											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-												{user.availability.map((date) => {
-													if (date.date === nextRound.date) {
-														return date.notes;
+												{score.date}
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+												{score.holes.map((hole) => {
+													let birdies = [];
+													if (hole.birdie) {
+														birdies.push(hole.hole);
 													}
+
+													return birdies.map((bird) => {
+														return <span key={bird}>{bird} </span>;
+													});
 												})}
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+												{score.holes.map((hole) => {
+													let chips = [];
+													if (hole.chip) {
+														chips.push(hole.hole);
+													}
+
+													return chips.map((chip) => {
+														return <span key={chip}>{chip} </span>;
+													});
+												})}
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+												{score.score}
 											</td>
 										</tr>
 									))}

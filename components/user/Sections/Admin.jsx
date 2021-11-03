@@ -6,7 +6,6 @@ import UserTable from './Admin/UserTable';
 
 export default function Admin({ jwt, nextRound }) {
 	const [adminTab, setAdminTab] = useState(1);
-	console.log(adminTab);
 	return (
 		<>
 			<div className='px-4 py-8 sm:px-0'>
