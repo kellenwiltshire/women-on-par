@@ -98,6 +98,10 @@ export async function getUserData(jwt) {
 
 		const courses = await fetchCourses(jwt);
 
+		const allScores = {};
+
+		const allUsers = {};
+
 		const userData = { user, scores, schedules, courses };
 
 		return userData;

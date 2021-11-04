@@ -38,6 +38,7 @@ export default function LoginForm() {
 			Router.push(`/user/${loginResponse.user.id}`);
 		} catch (error) {
 			setLoginError(true);
+			console.log(error);
 		}
 	};
 	return (

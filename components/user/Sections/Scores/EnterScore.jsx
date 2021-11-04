@@ -13,9 +13,11 @@ export default function EnterScore({
 	const [score, setScore] = useState();
 
 	const getInitialSuccess = () => {
-		for (let i = 0; i < userScores.length; i++) {
-			if (userScores[i].date === date) {
-				return true;
+		if (userScores) {
+			for (let i = 0; i < userScores.length; i++) {
+				if (userScores[i].date === date) {
+					return true;
+				}
 			}
 		}
 		return false;

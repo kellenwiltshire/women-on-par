@@ -43,47 +43,51 @@ export default function ScoresList({ scores }) {
 								</tr>
 							</thead>
 							<tbody>
-								{scores.map((score, scoreIdx) => (
-									<tr
-										key={score.id}
-										className={scoreIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
-									>
-										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-											{score.date}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-											{score.course.name}
-										</td>
-
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{score.holes.map((hole) => {
-												let birdies = [];
-												if (hole.birdie) {
-													birdies.push(hole.hole);
+								{scores
+									? scores.map((score, scoreIdx) => (
+											<tr
+												key={score.id}
+												className={
+													scoreIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'
 												}
+											>
+												<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
+													{score.date}
+												</td>
+												<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
+													{score.course.name}
+												</td>
 
-												return birdies.map((bird) => {
-													return <span key={bird}>{bird} </span>;
-												});
-											})}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{score.holes.map((hole) => {
-												let chips = [];
-												if (hole.chip) {
-													chips.push(hole.hole);
-												}
+												<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+													{score.holes.map((hole) => {
+														let birdies = [];
+														if (hole.birdie) {
+															birdies.push(hole.hole);
+														}
 
-												return chips.map((chip) => {
-													return <span key={chip}>{chip} </span>;
-												});
-											})}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{score.score}
-										</td>
-									</tr>
-								))}
+														return birdies.map((bird) => {
+															return <span key={bird}>{bird} </span>;
+														});
+													})}
+												</td>
+												<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+													{score.holes.map((hole) => {
+														let chips = [];
+														if (hole.chip) {
+															chips.push(hole.hole);
+														}
+
+														return chips.map((chip) => {
+															return <span key={chip}>{chip} </span>;
+														});
+													})}
+												</td>
+												<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+													{score.score}
+												</td>
+											</tr>
+									  ))
+									: null}
 							</tbody>
 						</table>
 					</div>
