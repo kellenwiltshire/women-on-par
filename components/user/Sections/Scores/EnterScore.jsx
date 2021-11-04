@@ -7,6 +7,7 @@ export default function EnterScore({
 	userScores,
 	setUserScores,
 }) {
+	console.log(lastScheduledRound);
 	const course = lastScheduledRound.course.name;
 	const date = lastScheduledRound.date;
 	const [score, setScore] = useState();

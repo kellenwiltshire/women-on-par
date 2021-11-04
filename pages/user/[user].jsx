@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Siderbar from '@/components/user/Sidebar';
 import UserHeader from '@/components/user/UserHeader';
 import {
@@ -32,13 +32,18 @@ const adminNav = [
 	{ num: 4, name: 'Admin', icon: UserIcon },
 ];
 
-export default function User({ scores, user, schedules }) {
-	console.log(user);
+export default function User({ scores, user, schedules, allScores, allUsers }) {
+	console.log(schedules);
+	const [currentUser, setCurrentUser] = useState(user);
+	const [priorRound, setPriorRound] = useState(findPriorRound(scores));
+	const [userScores, setUserScores] = useState(scores);
 	const [openTab, setOpenTab] = useState(1);
 
 	const nextRound = findNextRound(schedules);
 
-	const priorRound = findPriorRound(scores);
+	useEffect(() => {
+		setPriorRound(findPriorRound(userScores));
+	}, [userScores]);
 
 	const lastScheduledRound = findLastScheduledRound(schedules);
 
@@ -67,14 +72,15 @@ export default function User({ scores, user, schedules }) {
 							<Dashboard
 								nextRound={nextRound}
 								priorRound={priorRound}
-								user={user}
+								user={currentUser}
 							/>
 						</div>
 						<div className={openTab === 2 ? 'block' : 'hidden'}>
 							<Scores
-								scores={scores}
+								userScores={userScores}
+								setUserScores={setUserScores}
 								priorRound={priorRound}
-								user={user}
+								user={currentUser}
 								lastScheduledRound={lastScheduledRound}
 							/>
 						</div>
@@ -82,7 +88,11 @@ export default function User({ scores, user, schedules }) {
 							<Settings />
 						</div>
 						<div className={openTab === 4 ? 'block' : 'hidden'}>
-							<Admin user={user} nextRound={nextRound} />
+							<Admin
+								nextRound={nextRound}
+								allUsers={allUsers}
+								allScores={allScores}
+							/>
 						</div>
 					</div>
 				</div>
@@ -113,14 +123,14 @@ export default function User({ scores, user, schedules }) {
 							<Dashboard
 								nextRound={nextRound}
 								priorRound={priorRound}
-								user={user}
+								user={currentUser}
 							/>
 						</div>
 						<div className={openTab === 2 ? 'block' : 'hidden'}>
 							<Scores
 								scores={scores}
 								priorRound={priorRound}
-								user={user}
+								user={currentUser}
 								lastScheduledRound={lastScheduledRound}
 							/>
 						</div>

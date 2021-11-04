@@ -78,7 +78,7 @@ export async function getUserData(jwt) {
 	console.log(user);
 
 	if (user.role.type === 'admin') {
-		const scores = await fetchScores(user);
+		const scores = await fetchScores(user, jwt);
 
 		const schedules = await fetchSchedule(jwt);
 
@@ -92,7 +92,7 @@ export async function getUserData(jwt) {
 
 		return userData;
 	} else {
-		const scores = await fetchScores(user);
+		const scores = await fetchScores(user, jwt);
 
 		const schedules = await fetchSchedule(jwt);
 

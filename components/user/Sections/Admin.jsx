@@ -4,7 +4,7 @@ import NextRoundTable from './Admin/NextRoundTable';
 import UserScores from './Admin/UserScores';
 import UserTable from './Admin/UserTable';
 
-export default function Admin({ jwt, nextRound }) {
+export default function Admin({ nextRound, allUsers, allScores }) {
 	const [adminTab, setAdminTab] = useState(1);
 	return (
 		<>
@@ -13,13 +13,13 @@ export default function Admin({ jwt, nextRound }) {
 			</div>
 			<div className='bg-white lg:min-w-0 lg:flex-1'>
 				<div className={adminTab === 1 ? 'block' : 'hidden'}>
-					<UserTable jwt={jwt} />
+					<UserTable allUsers={allUsers} />
 				</div>
 				<div className={adminTab === 2 ? 'block' : 'hidden'}>
-					<NextRoundTable jwt={jwt} nextRound={nextRound} />
+					<NextRoundTable nextRound={nextRound} allUsers={allUsers} />
 				</div>
 				<div className={adminTab === 3 ? 'block' : 'hidden'}>
-					<UserScores />
+					<UserScores allScores={allScores} />
 				</div>
 
 				<div className={adminTab === 4 ? 'block' : 'hidden'}></div>
