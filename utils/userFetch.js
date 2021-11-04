@@ -23,12 +23,8 @@ const fetchUser = async (jwt) => {
 	return user;
 };
 
-const fetchScores = async (jwt, user) => {
-	const res = await fetch(`${url}/scores`, {
-		headers: {
-			Authorization: `Bearer ${jwt}`,
-		},
-	});
+const fetchScores = async (user) => {
+	const res = await fetch(`/api/getScores`);
 	const scores = await res.json();
 
 	if (scores.length) {
@@ -43,27 +39,55 @@ const fetchScores = async (jwt, user) => {
 	}
 };
 
-const fetchSchedule = async (jwt) => {
-	const schedRes = await fetch(`${url}/schedules`, {
-		headers: {
-			Authorization: `Bearer ${jwt}`,
-		},
-	});
+const fetchSchedule = async () => {
+	const schedRes = await fetch(`api/getSchedule`);
 	const schedules = await schedRes.json();
 
 	return schedules;
 };
 
+const fetchAllScores = async () => {
+	const scoresReq = await fetch(`/api/getScores`);
+
+	const scores = await scoresReq.json();
+
+	return scores;
+};
+
+const fetchAllUsers = async () => {
+	const usersReq = await fetch(`/api/getUsers`);
+
+	const allUsers = await usersReq.json();
+
+	return allUsers;
+};
+
 export async function getUserData(jwt) {
 	const user = await fetchUser(jwt);
 
-	const scores = await fetchScores(jwt, user);
+	if (user.role.type === 'admin') {
+		const scores = await fetchScores(user);
 
-	const schedules = await fetchSchedule(jwt);
+		const schedules = await fetchSchedule();
 
-	const courses = await fetchCourses(jwt);
+		const courses = await fetchCourses(jwt);
 
-	const userData = { user, scores, schedules, courses };
+		const allScores = await fetchAllScores();
 
-	return userData;
+		const allUsers = await fetchAllUsers();
+
+		const userData = { user, scores, schedules, courses, allScores, allUsers };
+
+		return userData;
+	} else {
+		const scores = await fetchScores(user);
+
+		const schedules = await fetchSchedule();
+
+		const courses = await fetchCourses(jwt);
+
+		const userData = { user, scores, schedules, courses };
+
+		return userData;
+	}
 }
