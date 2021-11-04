@@ -33,6 +33,8 @@ export default function LoginForm() {
 				path: '/',
 			});
 
+			console.log(loginResponse);
+
 			Router.push(`/user/${loginResponse.user.id}`);
 		} catch (error) {
 			setLoginError(true);
