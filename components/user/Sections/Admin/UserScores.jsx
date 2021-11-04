@@ -1,10 +1,36 @@
+import SearchInput from '@/components/Inputs/SearchInput';
+import { useState } from 'react';
+
 //TODO Make Scores searchable, editable, sortable
 export default function UserScores({ allScores }) {
-	const scores = allScores;
+	const [scores, setScores] = useState(allScores);
+
+	console.log(scores);
+
+	const playerSearchChange = (e) => {
+		e.preventDefault();
+		if (e.target.value) {
+			let nameFilter = [];
+			scores.map((score) => {
+				const fullName = `${score.user.first_name} ${score.user.last_name}`;
+				const name = fullName.toLowerCase();
+				if (name.includes(e.target.value.toLowerCase())) {
+					nameFilter.push(score);
+				}
+			});
+			setScores(nameFilter);
+		} else {
+			setScores(allScores);
+		}
+	};
 	return (
 		<div className='flex flex-col'>
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
+					<SearchInput
+						inputName='Search Players'
+						inputChange={playerSearchChange}
+					/>
 					<div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
 						<table className='min-w-full divide-y divide-gray-200'>
 							<thead className='bg-gray-50'>
