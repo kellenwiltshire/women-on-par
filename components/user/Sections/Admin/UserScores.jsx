@@ -1,13 +1,15 @@
+import CourseFilterInput from '@/components/Inputs/DropDownInput';
 import SearchInput from '@/components/Inputs/SearchInput';
 import { useState } from 'react';
+import useSWR from 'swr';
 
 //TODO Make Scores searchable, editable, sortable
-export default function UserScores({ allScores }) {
+export default function UserScores({ allScores, courses, schedules }) {
 	const [scores, setScores] = useState(allScores);
 
 	console.log(scores);
 
-	const playerSearchChange = (e) => {
+	const userSearchChange = (e) => {
 		e.preventDefault();
 		if (e.target.value) {
 			let nameFilter = [];
@@ -23,14 +25,50 @@ export default function UserScores({ allScores }) {
 			setScores(allScores);
 		}
 	};
+
+	const courseFilterChange = (e) => {
+		e.preventDefault();
+		if (e.target.value) {
+			let courseFilter = [];
+			scores.map((score) => {
+				if (score.course.name === e.target.value) {
+					courseFilter.push(score);
+				}
+			});
+			setScores(courseFilter);
+		} else {
+			setScores(allScores);
+		}
+	};
+
+	const resetForm = () => {
+		setScores(allScores);
+	};
 	return (
 		<div className='flex flex-col'>
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
-					<SearchInput
-						inputName='Search Players'
-						inputChange={playerSearchChange}
-					/>
+					<div className='w-full flex flex-row'>
+						<SearchInput
+							inputName='Search Players'
+							inputChange={userSearchChange}
+						/>
+						<CourseFilterInput
+							inputName='Filter Courses'
+							courses={courses}
+							inputChange={courseFilterChange}
+						/>
+						<div className='mt-2'>
+							<button
+								type='reset'
+								className='inline-flex items-center px-6 py-2 border border-transparent text-sm rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+								onClick={resetForm}
+							>
+								Reset
+							</button>
+						</div>
+					</div>
+
 					<div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
 						<table className='min-w-full divide-y divide-gray-200'>
 							<thead className='bg-gray-50'>

@@ -12,7 +12,7 @@ export default function SearchInput({ inputName, inputChange }) {
 					type='text'
 					name='search'
 					id='search'
-					className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-40 sm:text-sm border border-gray-300 rounded-md'
+					className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'
 					onChange={inputChange}
 				/>
 			</div>

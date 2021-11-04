@@ -32,7 +32,14 @@ const adminNav = [
 	{ num: 4, name: 'Admin', icon: UserIcon },
 ];
 
-export default function User({ scores, user, schedules, allScores, allUsers }) {
+export default function User({
+	scores,
+	user,
+	schedules,
+	allScores,
+	allUsers,
+	courses,
+}) {
 	console.log(schedules);
 	const [currentUser, setCurrentUser] = useState(user);
 	const [priorRound, setPriorRound] = useState(findPriorRound(scores));
@@ -92,6 +99,8 @@ export default function User({ scores, user, schedules, allScores, allUsers }) {
 								nextRound={nextRound}
 								allUsers={allUsers}
 								allScores={allScores}
+								schedules={schedules}
+								courses={courses}
 							/>
 						</div>
 					</div>
