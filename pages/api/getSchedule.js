@@ -1,5 +1,4 @@
 import Cors from 'cors';
-const { parseCookies } = require('nookies');
 
 const cors = Cors({
 	methods: ['GET', 'HEAD'],
@@ -23,8 +22,7 @@ const getSchedule = async (req, res) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
-	const cookies = parseCookies({ req });
-	const jwt = cookies.jwt;
+	const jwt = req.body;
 
 	try {
 		const request = await fetch(`${url}/schedules`, {

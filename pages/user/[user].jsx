@@ -17,6 +17,7 @@ import {
 	findPriorRound,
 } from '@/utils/sortingFunctions';
 import Admin from '@/components/user/Sections/Admin';
+import { parseCookies } from 'nookies';
 
 const navigation = [
 	{ num: 1, name: 'Dashboard', icon: HomeIcon },
@@ -133,8 +134,12 @@ export default function User({ scores, user, schedules }) {
 	}
 }
 
-export async function getServerSideProps() {
-	const userData = await getUserData();
+export async function getServerSideProps(props) {
+	const cookies = parseCookies(props);
+	const jwt = cookies.jwt;
+	const userData = await getUserData(jwt);
+
+	console.log(userData);
 
 	if (userData.user.role.type === 'admin') {
 		return {

@@ -1,20 +1,31 @@
-const fetchCourses = async () => {
-	const res = await fetch(`/api/getCourses`);
+const url = process.env.PRODUCTION_URL;
+
+const fetchCourses = async (jwt) => {
+	const res = await fetch(`${url}/api/getCourses`, {
+		method: 'POST',
+		body: jwt,
+	});
 
 	const courses = await res.json();
 
 	return courses;
 };
 
-const fetchUser = async () => {
-	const res = await fetch(`/api/getCurrentUser`);
+const fetchUser = async (jwt) => {
+	const res = await fetch(`${url}/api/getCurrentUser`, {
+		method: 'POST',
+		body: jwt,
+	});
 	const user = await res.json();
 
 	return user;
 };
 
-const fetchScores = async (user) => {
-	const res = await fetch(`/api/getScores`);
+const fetchScores = async (user, jwt) => {
+	const res = await fetch(`${url}/api/getScores`, {
+		method: 'POST',
+		body: jwt,
+	});
 	const scores = await res.json();
 
 	if (scores.length) {
@@ -29,42 +40,53 @@ const fetchScores = async (user) => {
 	}
 };
 
-const fetchSchedule = async () => {
-	const schedRes = await fetch(`api/getSchedule`);
+const fetchSchedule = async (jwt) => {
+	const schedRes = await fetch(`${url}/api/getSchedule`, {
+		method: 'POST',
+		body: jwt,
+	});
 	const schedules = await schedRes.json();
 
 	return schedules;
 };
 
-const fetchAllScores = async () => {
-	const scoresReq = await fetch(`/api/getScores`);
+const fetchAllScores = async (jwt) => {
+	const scoresReq = await fetch(`${url}/api/getScores`, {
+		method: 'POST',
+		body: jwt,
+	});
 
 	const scores = await scoresReq.json();
 
 	return scores;
 };
 
-const fetchAllUsers = async () => {
-	const usersReq = await fetch(`/api/getUsers`);
+const fetchAllUsers = async (jwt) => {
+	const usersReq = await fetch(`${url}/api/getUsers`, {
+		method: 'POST',
+		body: jwt,
+	});
 
 	const allUsers = await usersReq.json();
 
 	return allUsers;
 };
 
-export async function getUserData() {
-	const user = await fetchUser();
+export async function getUserData(jwt) {
+	const user = await fetchUser(jwt);
+
+	console.log(user);
 
 	if (user.role.type === 'admin') {
 		const scores = await fetchScores(user);
 
-		const schedules = await fetchSchedule();
+		const schedules = await fetchSchedule(jwt);
 
-		const courses = await fetchCourses();
+		const courses = await fetchCourses(jwt);
 
-		const allScores = await fetchAllScores();
+		const allScores = await fetchAllScores(jwt);
 
-		const allUsers = await fetchAllUsers();
+		const allUsers = await fetchAllUsers(jwt);
 
 		const userData = { user, scores, schedules, courses, allScores, allUsers };
 
@@ -72,9 +94,9 @@ export async function getUserData() {
 	} else {
 		const scores = await fetchScores(user);
 
-		const schedules = await fetchSchedule();
+		const schedules = await fetchSchedule(jwt);
 
-		const courses = await fetchCourses();
+		const courses = await fetchCourses(jwt);
 
 		const userData = { user, scores, schedules, courses };
 
