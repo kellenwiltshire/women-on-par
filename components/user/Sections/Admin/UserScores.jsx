@@ -1,13 +1,13 @@
-import CourseFilterInput from '@/components/Inputs/DropDownInput';
+import CourseFilterInput from '@/components/Inputs/CourseFilterInput';
+import DateFilterInput from '@/components/Inputs/DateFilterInput';
 import SearchInput from '@/components/Inputs/SearchInput';
 import { useState } from 'react';
-import useSWR from 'swr';
 
 //TODO Make Scores searchable, editable, sortable
 export default function UserScores({ allScores, courses, schedules }) {
 	const [scores, setScores] = useState(allScores);
 
-	console.log(scores);
+	console.log(schedules, scores);
 
 	const userSearchChange = (e) => {
 		e.preventDefault();
@@ -41,6 +41,21 @@ export default function UserScores({ allScores, courses, schedules }) {
 		}
 	};
 
+	const dateFilterChange = (e) => {
+		e.preventDefault();
+		if (e.target.value) {
+			let dateFilter = [];
+			scores.map((score) => {
+				if (score.date === e.target.value) {
+					dateFilter.push(score);
+				}
+			});
+			setScores(dateFilter);
+		} else {
+			setScores(allScores);
+		}
+	};
+
 	const resetForm = () => {
 		setScores(allScores);
 	};
@@ -57,6 +72,11 @@ export default function UserScores({ allScores, courses, schedules }) {
 							inputName='Filter Courses'
 							courses={courses}
 							inputChange={courseFilterChange}
+						/>
+						<DateFilterInput
+							inputName='Filter Dates'
+							schedules={schedules}
+							inputChange={dateFilterChange}
 						/>
 						<div className='mt-2'>
 							<button
