@@ -1,23 +1,13 @@
-const url = process.env.DATABASE_URL;
-
-const fetchCourses = async (jwt) => {
-	const res = await fetch(`${url}/courses`, {
-		headers: {
-			Authorization: `Bearer ${jwt}`,
-		},
-	});
+const fetchCourses = async () => {
+	const res = await fetch(`/api/getCourses`);
 
 	const courses = await res.json();
 
 	return courses;
 };
 
-const fetchUser = async (jwt) => {
-	const res = await fetch(`${url}/users/me`, {
-		headers: {
-			Authorization: `Bearer ${jwt}`,
-		},
-	});
+const fetchUser = async () => {
+	const res = await fetch(`/api/getCurrentUser`);
 	const user = await res.json();
 
 	return user;
@@ -62,15 +52,15 @@ const fetchAllUsers = async () => {
 	return allUsers;
 };
 
-export async function getUserData(jwt) {
-	const user = await fetchUser(jwt);
+export async function getUserData() {
+	const user = await fetchUser();
 
 	if (user.role.type === 'admin') {
 		const scores = await fetchScores(user);
 
 		const schedules = await fetchSchedule();
 
-		const courses = await fetchCourses(jwt);
+		const courses = await fetchCourses();
 
 		const allScores = await fetchAllScores();
 
@@ -84,7 +74,7 @@ export async function getUserData(jwt) {
 
 		const schedules = await fetchSchedule();
 
-		const courses = await fetchCourses(jwt);
+		const courses = await fetchCourses();
 
 		const userData = { user, scores, schedules, courses };
 

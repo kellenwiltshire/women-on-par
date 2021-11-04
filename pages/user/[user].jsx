@@ -10,7 +10,6 @@ import {
 import Dashboard from '@/components/user/Sections/Dashboard';
 import Scores from '@/components/user/Sections/Scores';
 import Settings from '@/components/user/Sections/Settings';
-import { parseCookies } from 'nookies';
 import { getUserData } from '@/utils/userFetch';
 import {
 	findLastScheduledRound,
@@ -134,17 +133,28 @@ export default function User({ scores, user, schedules }) {
 	}
 }
 
-export async function getServerSideProps(pageProps) {
-	const jwt = parseCookies(pageProps).jwt;
+export async function getServerSideProps() {
+	const userData = await getUserData();
 
-	const userData = await getUserData(jwt);
-
-	return {
-		props: {
-			scores: userData.scores,
-			user: userData.user,
-			schedules: userData.schedules,
-			courses: userData.courses,
-		},
-	};
+	if (userData.user.role.type === 'admin') {
+		return {
+			props: {
+				scores: userData.scores,
+				user: userData.user,
+				schedules: userData.schedules,
+				courses: userData.courses,
+				allScores: userData.allScores,
+				allUsers: userData.allUsers,
+			},
+		};
+	} else {
+		return {
+			props: {
+				scores: userData.scores,
+				user: userData.user,
+				schedules: userData.schedules,
+				courses: userData.courses,
+			},
+		};
+	}
 }
