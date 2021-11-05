@@ -35,7 +35,11 @@ export default function LoginForm() {
 
 			console.log(loginResponse);
 
-			Router.push(`/user/${loginResponse.user.id}`);
+			if (loginResponse.user.role.type === 'admin') {
+				Router.push(`/admin/${loginResponse.user.id}`);
+			} else {
+				Router.push(`/user/${loginResponse.user.id}`);
+			}
 		} catch (error) {
 			setLoginError(true);
 			console.log(error);

@@ -87,7 +87,7 @@ export default function NextRoundForm({ user }) {
 					htmlFor='notes'
 					className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'
 				>
-					Notes
+					Conditions
 				</label>
 				<div className='mt-1'>
 					<div className='max-w-lg flex rounded-md shadow-sm'>
@@ -96,7 +96,7 @@ export default function NextRoundForm({ user }) {
 							name='notes'
 							id='notes'
 							className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3'
-							placeholder={notes || 'Notes'}
+							placeholder={notes || 'Conditions'}
 							onChange={(e) => setNotes(e.target.value)}
 						/>
 					</div>

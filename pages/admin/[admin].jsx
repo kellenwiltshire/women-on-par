@@ -1,27 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import Siderbar from '@/components/user/Sidebar';
 import UserHeader from '@/components/user/UserHeader';
-import { CogIcon, HomeIcon, PencilIcon } from '@heroicons/react/outline';
+import {
+	CogIcon,
+	HomeIcon,
+	PencilIcon,
+	UserIcon,
+} from '@heroicons/react/outline';
 import Dashboard from '@/components/user/Sections/Dashboard';
 import Scores from '@/components/user/Sections/Scores';
 import Settings from '@/components/user/Sections/Settings';
-import { getUserData } from '@/utils/userFetch';
+import { getAdminData } from '@/utils/userFetch';
 import {
 	findLastScheduledRound,
 	findNextRound,
 	findPriorRound,
 } from '@/utils/sortingFunctions';
+import Admin from '@/components/user/Sections/Admin';
 import { parseCookies } from 'nookies';
 
-const navigation = [
+const adminNav = [
 	{ num: 1, name: 'Dashboard', icon: HomeIcon },
 	{ num: 2, name: 'Scores', icon: PencilIcon },
 	{ num: 3, name: 'Settings', icon: CogIcon },
+	{ num: 4, name: 'Admin', icon: UserIcon },
 ];
 
-export default function User({ scores, user, schedules }) {
+export default function AdminPage({
+	scores,
+	user,
+	schedules,
+	allScores,
+	allUsers,
+	courses,
+}) {
 	console.log(schedules);
-	console.log(scores);
 	const [currentUser, setCurrentUser] = useState(user);
 	const [priorRound, setPriorRound] = useState(findPriorRound(scores));
 	const [userScores, setUserScores] = useState(scores);
@@ -49,7 +62,7 @@ export default function User({ scores, user, schedules }) {
 									user={user}
 									openTab={openTab}
 									setOpenTab={setOpenTab}
-									navigation={navigation}
+									navigation={adminNav}
 								/>
 							</div>
 						</div>
@@ -75,6 +88,15 @@ export default function User({ scores, user, schedules }) {
 					<div className={openTab === 3 ? 'block' : 'hidden'}>
 						<Settings />
 					</div>
+					<div className={openTab === 4 ? 'block' : 'hidden'}>
+						<Admin
+							nextRound={nextRound}
+							allUsers={allUsers}
+							allScores={allScores}
+							schedules={schedules}
+							courses={courses}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -84,9 +106,7 @@ export default function User({ scores, user, schedules }) {
 export async function getServerSideProps(props) {
 	const cookies = parseCookies(props);
 	const jwt = cookies.jwt;
-	const userData = await getUserData(jwt);
-
-	console.log(userData);
+	const userData = await getAdminData(jwt);
 
 	return {
 		props: {
@@ -94,6 +114,8 @@ export async function getServerSideProps(props) {
 			user: userData.user,
 			schedules: userData.schedules,
 			courses: userData.courses,
+			allScores: userData.allScores,
+			allUsers: userData.allUsers,
 		},
 	};
 }

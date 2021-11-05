@@ -12,6 +12,8 @@ export default function EnterScore({
 	const date = lastScheduledRound.date;
 	const [score, setScore] = useState();
 
+	console.log(userScores);
+
 	const getInitialSuccess = () => {
 		if (userScores) {
 			for (let i = 0; i < userScores.length; i++) {

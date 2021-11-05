@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import AdminTabs from './Admin/AdminTabs';
-import NextRoundTable from './Admin/NextRoundTable';
-import UserScores from './Admin/UserScores';
-import UserTable from './Admin/UserTable';
+import AdminTabs from '../../Admin/AdminTabs';
+import NextRoundTable from '../../Admin/NextRoundTable';
+import UserScores from '../../Admin/UserScores';
+import UserTable from '../../Admin/UserTable';
 
 export default function Admin({
 	nextRound,
