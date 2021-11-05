@@ -1,13 +1,17 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
+import EditUser from '../Modals/EditUser';
+import { useState } from 'react';
 
 export default function UserTable({ allUsers }) {
+	const [editUserOpen, setEditUserOpen] = useState(false);
 	const users = allUsers;
 	return (
 		<div className='flex flex-col'>
+			<EditUser open={editUserOpen} setOpen={setEditUserOpen} />
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
 					<button className='inline-flex items-center px-6 py-2 border border-transparent text-sm rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
-						Add New Golfer{' '}
+						Add New Golfer
 					</button>
 					<div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
 						<table className='min-w-full divide-y divide-gray-200'>
@@ -52,7 +56,10 @@ export default function UserTable({ allUsers }) {
 											{user.email}
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
-											<button className='group flex items-center px-3 py-2 text-sm font-medium w-full'>
+											<button
+												onClick={() => setEditUserOpen(!editUserOpen)}
+												className='group flex items-center px-3 py-2 text-sm font-medium w-full'
+											>
 												<PencilIcon
 													className='text-gray-400 group-hover:text-gray-500
 									 flex-shrink-0 h-6 w-6'
