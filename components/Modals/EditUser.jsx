@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/outline';
 
-export default function EditUser(open, setOpen) {
+export default function EditUser({ open, setOpen }) {
 	return (
 		<Transition.Root show={open} as={Fragment}>
 			<Dialog

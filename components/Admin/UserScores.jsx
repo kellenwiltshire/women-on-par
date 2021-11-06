@@ -2,6 +2,7 @@ import CourseFilterInput from '@/components/Inputs/CourseFilterInput';
 import DateFilterInput from '@/components/Inputs/DateFilterInput';
 import SearchInput from '@/components/Inputs/SearchInput';
 import { useState } from 'react';
+import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
 
 //TODO Make Scores searchable, editable, sortable
 export default function UserScores({ allScores, courses, schedules }) {
@@ -184,6 +185,22 @@ export default function UserScores({ allScores, courses, schedules }) {
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 											{score.score}
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
+											<button className='group flex items-center px-3 py-2 text-sm font-medium w-full'>
+												<PencilIcon
+													className='text-gray-400 group-hover:text-gray-500
+									 flex-shrink-0 h-6 w-6'
+												/>
+											</button>
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
+											<button className='group flex items-center px-3 py-2 text-sm font-medium w-full'>
+												<TrashIcon
+													className='text-gray-400 group-hover:text-gray-500
+									flex-shrink-0 h-6 w-6'
+												/>
+											</button>
 										</td>
 									</tr>
 								))}
