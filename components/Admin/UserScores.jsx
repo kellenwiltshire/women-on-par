@@ -3,12 +3,16 @@ import DateFilterInput from '@/components/Inputs/DateFilterInput';
 import SearchInput from '@/components/Inputs/SearchInput';
 import { useState } from 'react';
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
+import EditScore from '../Modals/EditScore';
+import { findLastScheduledRound } from '@/utils/sortingFunctions';
 
-//TODO Make Scores searchable, editable, sortable
 export default function UserScores({ allScores, courses, schedules }) {
 	const [scores, setScores] = useState(allScores);
+	const [editUserScore, setEditUserScore] = useState(false);
 
-	console.log(schedules, scores);
+	const lastScheduledRound = findLastScheduledRound(schedules);
+	console.log(lastScheduledRound);
+	const [selectUser, setSelectedUser] = useState();
 
 	const userSearchChange = (e) => {
 		e.preventDefault();
@@ -62,6 +66,12 @@ export default function UserScores({ allScores, courses, schedules }) {
 	};
 	return (
 		<div className='flex flex-col'>
+			<EditScore
+				open={editUserScore}
+				setOpen={setEditUserScore}
+				lastScheduledRound={lastScheduledRound}
+				user={selectUser}
+			/>
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
 					<div className='w-full flex flex-row'>
@@ -187,7 +197,13 @@ export default function UserScores({ allScores, courses, schedules }) {
 											{score.score}
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
-											<button className='group flex items-center px-3 py-2 text-sm font-medium w-full'>
+											<button
+												onClick={() => {
+													setEditUserScore(!editUserScore);
+													setSelectedUser(score.user);
+												}}
+												className='group flex items-center px-3 py-2 text-sm font-medium w-full'
+											>
 												<PencilIcon
 													className='text-gray-400 group-hover:text-gray-500
 									 flex-shrink-0 h-6 w-6'

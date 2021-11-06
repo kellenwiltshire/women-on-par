@@ -26,8 +26,8 @@ export default function HolesInput({
 				<div className='flex-shrink-0 flex items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
 					Hole 1
 				</div>
-				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md truncate'>
-					<div className='flex-1 px-4 py-2 text-sm truncate'>
+				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md'>
+					<div className='flex-1 px-4 py-2 text-sm'>
 						<div className='flex flex-row h-10 w-full justify-between align-middle'>
 							<span>Chip In: </span>
 							<input
@@ -71,8 +71,8 @@ export default function HolesInput({
 				<div className='flex-shrink-0 flex items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
 					Hole 2
 				</div>
-				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md truncate'>
-					<div className='flex-1 px-4 py-2 text-sm truncate'>
+				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md'>
+					<div className='flex-1 px-4 py-2 text-sm'>
 						<div className='flex flex-row h-10 w-full justify-between align-middle'>
 							<span>Chip In: </span>
 							<input
@@ -116,8 +116,8 @@ export default function HolesInput({
 				<div className='flex-shrink-0 flex items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
 					Hole 3
 				</div>
-				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md truncate'>
-					<div className='flex-1 px-4 py-2 text-sm truncate'>
+				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md'>
+					<div className='flex-1 px-4 py-2 text-sm'>
 						<div className='flex flex-row h-10 w-full justify-between align-middle'>
 							<span>Chip In: </span>
 							<input
@@ -161,8 +161,8 @@ export default function HolesInput({
 				<div className='flex-shrink-0 flex items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
 					Hole 4
 				</div>
-				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md truncate'>
-					<div className='flex-1 px-4 py-2 text-sm truncate'>
+				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md'>
+					<div className='flex-1 px-4 py-2 text-sm'>
 						<div className='flex flex-row h-10 w-full justify-between align-middle'>
 							<span>Chip In: </span>
 							<input
@@ -206,8 +206,8 @@ export default function HolesInput({
 				<div className='flex-shrink-0 flex items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
 					Hole 5
 				</div>
-				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md truncate'>
-					<div className='flex-1 px-4 py-2 text-sm truncate'>
+				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md'>
+					<div className='flex-1 px-4 py-2 text-sm'>
 						<div className='flex flex-row h-10 w-full justify-between align-middle'>
 							<span>Chip In: </span>
 							<input
@@ -251,8 +251,8 @@ export default function HolesInput({
 				<div className='flex-shrink-0 flex items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
 					Hole 6
 				</div>
-				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md truncate'>
-					<div className='flex-1 px-4 py-2 text-sm truncate'>
+				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md'>
+					<div className='flex-1 px-4 py-2 text-sm'>
 						<div className='flex flex-row h-10 w-full justify-between align-middle'>
 							<span>Chip In: </span>
 							<input
@@ -296,8 +296,8 @@ export default function HolesInput({
 				<div className='flex-shrink-0 flex items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
 					Hole 7
 				</div>
-				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md truncate'>
-					<div className='flex-1 px-4 py-2 text-sm truncate'>
+				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md'>
+					<div className='flex-1 px-4 py-2 text-sm'>
 						<div className='flex flex-row h-10 w-full justify-between align-middle'>
 							<span>Chip In: </span>
 							<input
@@ -341,8 +341,8 @@ export default function HolesInput({
 				<div className='flex-shrink-0 flex items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
 					Hole 8
 				</div>
-				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md truncate'>
-					<div className='flex-1 px-4 py-2 text-sm truncate'>
+				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md'>
+					<div className='flex-1 px-4 py-2 text-sm'>
 						<div className='flex flex-row h-10 w-full justify-between align-middle'>
 							<span>Chip In: </span>
 							<input
@@ -386,8 +386,8 @@ export default function HolesInput({
 				<div className='flex-shrink-0 flex items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
 					Hole 9
 				</div>
-				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md truncate'>
-					<div className='flex-1 px-4 py-2 text-sm truncate'>
+				<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md'>
+					<div className='flex-1 px-4 py-2 text-sm'>
 						<div className='flex flex-row h-10 w-full justify-between align-middle'>
 							<span>Chip In: </span>
 							<input
