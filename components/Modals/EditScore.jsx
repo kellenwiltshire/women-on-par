@@ -1,9 +1,15 @@
 import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { CheckIcon } from '@heroicons/react/outline';
 import HolesInput from '../user/Sections/Scores/ScoresFormParts/HolesInput';
 
-export default function EditScore({ open, setOpen, lastScheduledRound, user }) {
+export default function EditScore({
+	open,
+	setOpen,
+	lastScheduledRound,
+	user,
+	selectedScore,
+}) {
+	console.log(selectedScore);
 	const [score, setScore] = useState();
 
 	const course = lastScheduledRound.course.name;
@@ -59,29 +65,29 @@ export default function EditScore({ open, setOpen, lastScheduledRound, user }) {
 		e.preventDefault();
 
 		const newScore = {
-			course: lastScheduledRound.course,
-			holes: [
-				holeOne,
-				holeTwo,
-				holeThree,
-				holeFour,
-				holeFive,
-				holeSix,
-				holeSeven,
-				holeEight,
-				holeNine,
-			],
-			date: lastScheduledRound.date,
-			user: user,
-			score: score,
+			id: selectedScore.id,
+			data: {
+				holes: [
+					holeOne,
+					holeTwo,
+					holeThree,
+					holeFour,
+					holeFive,
+					holeSix,
+					holeSeven,
+					holeEight,
+					holeNine,
+				],
+				score: score,
+			},
 		};
 
 		const request = { score: newScore };
 
 		//TODO: CHANGE THIS TO EDIT SCORE
 		try {
-			const res = await fetch('/api/submitScore', {
-				method: 'POST',
+			const res = await fetch('/api/editUserScore', {
+				method: 'PUT',
 				headers: {
 					Accept: 'application/json',
 					'Content-Type': 'application/json',

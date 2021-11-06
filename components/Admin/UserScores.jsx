@@ -11,8 +11,8 @@ export default function UserScores({ allScores, courses, schedules }) {
 	const [editUserScore, setEditUserScore] = useState(false);
 
 	const lastScheduledRound = findLastScheduledRound(schedules);
-	console.log(lastScheduledRound);
-	const [selectUser, setSelectedUser] = useState();
+	const [selectedScore, setSelectedScore] = useState({});
+	const [selectUser, setSelectedUser] = useState({});
 
 	const userSearchChange = (e) => {
 		e.preventDefault();
@@ -71,6 +71,7 @@ export default function UserScores({ allScores, courses, schedules }) {
 				setOpen={setEditUserScore}
 				lastScheduledRound={lastScheduledRound}
 				user={selectUser}
+				selectedScore={selectedScore}
 			/>
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
@@ -201,6 +202,7 @@ export default function UserScores({ allScores, courses, schedules }) {
 												onClick={() => {
 													setEditUserScore(!editUserScore);
 													setSelectedUser(score.user);
+													setSelectedScore(score);
 												}}
 												className='group flex items-center px-3 py-2 text-sm font-medium w-full'
 											>
