@@ -1,4 +1,5 @@
 export function findNextRound(schedules) {
+	console.log('sortingFunction - findNextRound: ', schedules);
 	const currDate = new Date();
 
 	if (schedules.length) {

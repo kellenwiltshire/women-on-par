@@ -1,8 +1,13 @@
+import { useUserContext } from '@/context/Store';
+
 function classNames(...classes) {
 	return classes.filter(Boolean).join(' ');
 }
 
-export default function Siderbar({ navigation, openTab, setOpenTab, user }) {
+export default function Siderbar({ navigation, openTab, setOpenTab }) {
+	const user = useUserContext();
+
+	console.log('Side Bar User: ', user);
 	return (
 		<div className='flex flex-col flex-grow border-r border-gray-200 pt-5 pb-4 bg-white overflow-y-auto'>
 			<div className='flex items-center flex-shrink-0 px-4 space-y-5'>

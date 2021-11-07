@@ -3,16 +3,13 @@ import HolesInput from './ScoresFormParts/HolesInput';
 
 export default function EnterScore({
 	user,
-	lastScheduledRound,
 	userScores,
 	setUserScores,
+	lastScheduledRound,
 }) {
-	console.log(lastScheduledRound);
 	const course = lastScheduledRound.course.name;
 	const date = lastScheduledRound.date;
 	const [score, setScore] = useState();
-
-	console.log(userScores);
 
 	const getInitialSuccess = () => {
 		if (userScores) {

@@ -1,4 +1,11 @@
-export default function NextRoundTable({ nextRound, allUsers }) {
+import { useAllUsersContext, useScheduleContext } from '@/context/Store';
+import { findNextRound } from '@/utils/sortingFunctions';
+
+export default function NextRoundTable() {
+	const allUsers = useAllUsersContext();
+	const schedule = useScheduleContext();
+
+	const nextRound = findNextRound(schedule);
 	const users = allUsers.filter((user) => {
 		for (let i = 0; i < user.availability.length; i++) {
 			if (user.availability[i].date === nextRound.date) {

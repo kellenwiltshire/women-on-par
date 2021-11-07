@@ -11,13 +11,17 @@ import Dashboard from '@/components/user/Sections/Dashboard';
 import Scores from '@/components/user/Sections/Scores';
 import Settings from '@/components/user/Sections/Settings';
 import { getAdminData } from '@/utils/userFetch';
-import {
-	findLastScheduledRound,
-	findNextRound,
-	findPriorRound,
-} from '@/utils/sortingFunctions';
+
 import Admin from '@/components/user/Sections/Admin';
 import { parseCookies } from 'nookies';
+import {
+	useUpdateAllScoresContext,
+	useUpdateAllUsersContext,
+	useUpdateCoursesContext,
+	useUpdateScheduleContext,
+	useUpdateScoreContext,
+	useUpdateUserContext,
+} from '@/context/Store';
 
 const adminNav = [
 	{ num: 1, name: 'Dashboard', icon: HomeIcon },
@@ -34,73 +38,67 @@ export default function AdminPage({
 	allUsers,
 	courses,
 }) {
-	console.log(schedules);
-	const [currentUser, setCurrentUser] = useState(user);
-	const [priorRound, setPriorRound] = useState(findPriorRound(scores));
-	const [userScores, setUserScores] = useState(scores);
-	const [openTab, setOpenTab] = useState(1);
+	const updateUser = useUpdateUserContext();
+	const updateSchedule = useUpdateScheduleContext();
+	const updateScore = useUpdateScoreContext();
+	const updateAllUsers = useUpdateAllUsersContext();
+	const updateAllScores = useUpdateAllScoresContext();
+	const updateCourses = useUpdateCoursesContext();
 
-	const nextRound = findNextRound(schedules);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		setPriorRound(findPriorRound(userScores));
-	}, [userScores]);
+		updateAllUsers(allUsers);
+		updateScore(scores);
+		updateUser(user);
+		updateSchedule(schedules);
+		updateAllScores(allScores);
+		updateCourses(courses);
 
-	const lastScheduledRound = findLastScheduledRound(schedules);
+		setLoading(false);
+	}, []);
 
-	return (
-		<div className='py-10'>
-			<UserHeader name={user.first_name} />
-			{/* 3 column wrapper */}
-			<div className='flex-grow w-full max-w-7xl mx-auto xl:px-8 lg:flex'>
-				{/* 3 column wrapper */}
-				<div className='pl-4 pr-6 py-6 sm:pl-6 lg:pl-8 xl:pl-0'>
-					<div className='flex items-center justify-between'>
-						<div className='flex-1 space-y-8'>
-							<div className='space-y-8 sm:space-y-0 sm:flex sm:justify-between sm:items-center xl:block xl:space-y-8'>
-								<Siderbar
-									user={user}
-									openTab={openTab}
-									setOpenTab={setOpenTab}
-									navigation={adminNav}
-								/>
+	const [openTab, setOpenTab] = useState(1);
+
+	if (loading) {
+		return <div>LOADING...</div>;
+	} else {
+		return (
+			<div className='py-10'>
+				<UserHeader name={user.first_name} />
+
+				<div className='flex-grow w-full max-w-7xl mx-auto xl:px-8 lg:flex'>
+					<div className='pl-4 pr-6 py-6 sm:pl-6 lg:pl-8 xl:pl-0'>
+						<div className='flex items-center justify-between'>
+							<div className='flex-1 space-y-8'>
+								<div className='space-y-8 sm:space-y-0 sm:flex sm:justify-between sm:items-center xl:block xl:space-y-8'>
+									<Siderbar
+										openTab={openTab}
+										setOpenTab={setOpenTab}
+										navigation={adminNav}
+									/>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div className='bg-white lg:min-w-0 lg:flex-1'>
-					<div className={openTab === 1 ? 'block' : 'hidden'}>
-						<Dashboard
-							nextRound={nextRound}
-							priorRound={priorRound}
-							user={currentUser}
-						/>
-					</div>
-					<div className={openTab === 2 ? 'block' : 'hidden'}>
-						<Scores
-							userScores={userScores}
-							setUserScores={setUserScores}
-							priorRound={priorRound}
-							user={currentUser}
-							lastScheduledRound={lastScheduledRound}
-						/>
-					</div>
-					<div className={openTab === 3 ? 'block' : 'hidden'}>
-						<Settings />
-					</div>
-					<div className={openTab === 4 ? 'block' : 'hidden'}>
-						<Admin
-							nextRound={nextRound}
-							allUsers={allUsers}
-							allScores={allScores}
-							schedules={schedules}
-							courses={courses}
-						/>
+					<div className='bg-white lg:min-w-0 lg:flex-1'>
+						<div className={openTab === 1 ? 'block' : 'hidden'}>
+							<Dashboard />
+						</div>
+						<div className={openTab === 2 ? 'block' : 'hidden'}>
+							<Scores />
+						</div>
+						<div className={openTab === 3 ? 'block' : 'hidden'}>
+							<Settings />
+						</div>
+						<div className={openTab === 4 ? 'block' : 'hidden'}>
+							<Admin />
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	);
+		);
+	}
 }
 
 export async function getServerSideProps(props) {

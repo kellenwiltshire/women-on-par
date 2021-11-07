@@ -5,8 +5,16 @@ import { useState } from 'react';
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
 import EditScore from '../Modals/EditScore';
 import { findLastScheduledRound } from '@/utils/sortingFunctions';
+import {
+	useAllScoresContext,
+	useCoursesContext,
+	useScheduleContext,
+} from '@/context/Store';
 
-export default function UserScores({ allScores, courses, schedules }) {
+export default function UserScores() {
+	const allScores = useAllScoresContext();
+	const schedules = useScheduleContext();
+	const courses = useCoursesContext();
 	const [scores, setScores] = useState(allScores);
 	const [editUserScore, setEditUserScore] = useState(false);
 

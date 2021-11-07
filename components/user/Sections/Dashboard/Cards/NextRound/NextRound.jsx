@@ -1,10 +1,18 @@
 import React from 'react';
 import { CalendarIcon } from '@heroicons/react/outline';
-
+import { findNextRound } from '@/utils/sortingFunctions';
 import NextRoundInfo from './NextRoundInfo';
 import NextRoundForm from './NextRoundForm';
+import { useScheduleContext, useUserContext } from '@/context/Store';
 
-export default function NextRound({ nextRound, user }) {
+export default function NextRound() {
+	const user = useUserContext();
+	const schedule = useScheduleContext();
+
+	console.log('Next Round Schedule: ', schedule);
+
+	const nextRound = findNextRound(schedule);
+	console.log('Next Round: ', nextRound);
 	if (nextRound) {
 		return (
 			<div className='rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6'>

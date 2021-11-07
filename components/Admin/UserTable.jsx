@@ -1,10 +1,11 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
 import EditUser from '../Modals/EditUser';
 import { useState } from 'react';
+import { useAllUsersContext } from '@/context/Store';
 
-export default function UserTable({ allUsers }) {
+export default function UserTable() {
 	const [editUserOpen, setEditUserOpen] = useState(false);
-	const users = allUsers;
+	const users = useAllUsersContext();
 	return (
 		<div className='flex flex-col'>
 			<EditUser open={editUserOpen} setOpen={setEditUserOpen} />

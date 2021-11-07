@@ -6,7 +6,6 @@ export default function EditScore({
 	open,
 	setOpen,
 	lastScheduledRound,
-	user,
 	selectedScore,
 }) {
 	console.log(selectedScore);

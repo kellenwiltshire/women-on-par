@@ -1,7 +1,11 @@
 import React from 'react';
 import { FlagIcon } from '@heroicons/react/outline';
+import { useScoreContext } from '@/context/Store';
+import { findPriorRound } from '@/utils/sortingFunctions';
 
-export default function PriorRound({ priorRound }) {
+export default function PriorRound() {
+	const scores = useScoreContext();
+	const priorRound = findPriorRound(scores);
 	if (priorRound) {
 		const getBirdies = () => {
 			let num = 0;
