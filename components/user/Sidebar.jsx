@@ -1,29 +1,11 @@
-import { useUserContext } from '@/context/Store';
-
 function classNames(...classes) {
 	return classes.filter(Boolean).join(' ');
 }
 
 export default function Siderbar({ navigation, openTab, setOpenTab }) {
-	const user = useUserContext();
-
 	return (
 		<div className='flex flex-col flex-grow border-r border-gray-200 pt-5 pb-4 bg-white overflow-y-auto'>
-			<div className='flex items-center flex-shrink-0 px-4 space-y-5'>
-				<h1>
-					{user.first_name} {user.last_name}
-				</h1>
-			</div>
 			<div className='mt-5 flex-grow flex flex-col'>
-				<div className='w-full flex justify-center flex-row flex-wrap mb-4'>
-					<div className='w-full flex justify-center'>
-						<img
-							className='inline-block h-20 w-20 rounded-full'
-							src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-							alt=''
-						/>
-					</div>
-				</div>
 				<nav className='flex-1 bg-white space-y-1' aria-label='Sidebar'>
 					{navigation.map((item) => (
 						<button

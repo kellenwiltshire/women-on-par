@@ -45,7 +45,7 @@ export default function User({ scores, user, schedules }) {
 	} else {
 		return (
 			<div className='py-10'>
-				<UserHeader name={user.first_name} />
+				<UserHeader />
 				{/* 3 column wrapper */}
 				<div className='flex-grow w-full max-w-7xl mx-auto xl:px-8 lg:flex'>
 					{/* 3 column wrapper */}
