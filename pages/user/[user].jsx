@@ -12,6 +12,11 @@ import {
 	findPriorRound,
 } from '@/utils/sortingFunctions';
 import { parseCookies } from 'nookies';
+import {
+	useUpdateScoreContext,
+	useUpdateUserContext,
+	useUpdateScheduleContext,
+} from '@/context/Store';
 
 const navigation = [
 	{ num: 1, name: 'Dashboard', icon: HomeIcon },
@@ -20,20 +25,17 @@ const navigation = [
 ];
 
 export default function User({ scores, user, schedules }) {
-	console.log(schedules);
-	console.log(scores);
-	const [currentUser, setCurrentUser] = useState(user);
-	const [priorRound, setPriorRound] = useState(findPriorRound(scores));
-	const [userScores, setUserScores] = useState(scores);
-	const [openTab, setOpenTab] = useState(1);
-
-	const nextRound = findNextRound(schedules);
+	const updateUser = useUpdateUserContext();
+	const updateSchedule = useUpdateScheduleContext();
+	const updateScore = useUpdateScoreContext();
 
 	useEffect(() => {
-		setPriorRound(findPriorRound(userScores));
-	}, [userScores]);
+		updateScore(scores);
+		updateUser(user);
+		updateSchedule(schedules);
+	}, []);
 
-	const lastScheduledRound = findLastScheduledRound(schedules);
+	const [openTab, setOpenTab] = useState(1);
 
 	return (
 		<div className='py-10'>
@@ -46,7 +48,6 @@ export default function User({ scores, user, schedules }) {
 						<div className='flex-1 space-y-8'>
 							<div className='space-y-8 sm:space-y-0 sm:flex sm:justify-between sm:items-center xl:block xl:space-y-8'>
 								<Siderbar
-									user={user}
 									openTab={openTab}
 									setOpenTab={setOpenTab}
 									navigation={navigation}
@@ -57,20 +58,10 @@ export default function User({ scores, user, schedules }) {
 				</div>
 				<div className='bg-white lg:min-w-0 lg:flex-1'>
 					<div className={openTab === 1 ? 'block' : 'hidden'}>
-						<Dashboard
-							nextRound={nextRound}
-							priorRound={priorRound}
-							user={currentUser}
-						/>
+						<Dashboard />
 					</div>
 					<div className={openTab === 2 ? 'block' : 'hidden'}>
-						<Scores
-							userScores={userScores}
-							setUserScores={setUserScores}
-							priorRound={priorRound}
-							user={currentUser}
-							lastScheduledRound={lastScheduledRound}
-						/>
+						<Scores />
 					</div>
 					<div className={openTab === 3 ? 'block' : 'hidden'}>
 						<Settings />
@@ -85,8 +76,6 @@ export async function getServerSideProps(props) {
 	const cookies = parseCookies(props);
 	const jwt = cookies.jwt;
 	const userData = await getUserData(jwt);
-
-	console.log(userData);
 
 	return {
 		props: {
