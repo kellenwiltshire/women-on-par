@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import RegisterForm from '../Login/RegisterForm';
+import RegisterForm from '../Login/EditUserForm';
 
 export default function EditUser({ open, setOpen, user }) {
 	return (
