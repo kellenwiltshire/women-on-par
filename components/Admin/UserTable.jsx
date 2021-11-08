@@ -5,10 +5,20 @@ import { useAllUsersContext } from '@/context/Store';
 
 export default function UserTable() {
 	const [editUserOpen, setEditUserOpen] = useState(false);
+	const [userSelected, setUserSelected] = useState();
 	const users = useAllUsersContext();
+
+	console.log('UserTable - userSelected: ', userSelected);
 	return (
 		<div className='flex flex-col'>
-			<EditUser open={editUserOpen} setOpen={setEditUserOpen} />
+			{editUserOpen ? (
+				<EditUser
+					open={editUserOpen}
+					setOpen={setEditUserOpen}
+					user={userSelected}
+				/>
+			) : null}
+
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
 					<button className='inline-flex items-center px-6 py-2 border border-transparent text-sm rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
@@ -58,7 +68,10 @@ export default function UserTable() {
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
 											<button
-												onClick={() => setEditUserOpen(!editUserOpen)}
+												onClick={() => {
+													setUserSelected(user);
+													setEditUserOpen(!editUserOpen);
+												}}
 												className='group flex items-center px-3 py-2 text-sm font-medium w-full'
 											>
 												<PencilIcon
