@@ -8,7 +8,6 @@ export default function EditScore({
 	lastScheduledRound,
 	selectedScore,
 }) {
-	console.log(selectedScore);
 	const [score, setScore] = useState();
 
 	const course = lastScheduledRound.course.name;
