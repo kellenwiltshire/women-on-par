@@ -2,13 +2,14 @@ import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
 import EditUser from '../Modals/EditUser';
 import { useState } from 'react';
 import { useAllUsersContext } from '@/context/Store';
+import RegisterUser from '../Modals/RegisterUser';
 
 export default function UserTable() {
 	const [editUserOpen, setEditUserOpen] = useState(false);
+	const [addUserOpen, setAddUserOpen] = useState(false);
 	const [userSelected, setUserSelected] = useState();
 	const users = useAllUsersContext();
 
-	console.log('UserTable - userSelected: ', userSelected);
 	return (
 		<div className='flex flex-col'>
 			{editUserOpen ? (
@@ -18,10 +19,16 @@ export default function UserTable() {
 					user={userSelected}
 				/>
 			) : null}
+			{addUserOpen ? (
+				<RegisterUser open={addUserOpen} setOpen={setAddUserOpen} />
+			) : null}
 
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
-					<button className='inline-flex items-center px-6 py-2 border border-transparent text-sm rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
+					<button
+						onClick={() => setAddUserOpen(!addUserOpen)}
+						className='inline-flex items-center px-6 py-2 border border-transparent text-sm rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mb-4'
+					>
 						Add New Golfer
 					</button>
 					<div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>

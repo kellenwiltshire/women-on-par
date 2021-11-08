@@ -1,10 +1,7 @@
 import React from 'react';
 import { LockClosedIcon } from '@heroicons/react/outline';
 
-export default function EditUserForm({ user }) {
-	const firstName = user.first_name;
-	const lastName = user.last_name;
-	const email = user.email;
+export default function RegisterUserForm() {
 	return (
 		<>
 			<div className='min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
@@ -32,7 +29,7 @@ export default function EditUserForm({ user }) {
 									type='first-name'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={firstName}
+									placeholder='First Name'
 								/>
 							</div>
 							<div>
@@ -45,7 +42,7 @@ export default function EditUserForm({ user }) {
 									type='last-name'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={lastName}
+									placeholder='Last Name'
 								/>
 							</div>
 							{/* <div>
@@ -72,7 +69,7 @@ export default function EditUserForm({ user }) {
 									autoComplete='email'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={email}
+									placeholder='Email'
 								/>
 							</div>
 							{/* <div>
