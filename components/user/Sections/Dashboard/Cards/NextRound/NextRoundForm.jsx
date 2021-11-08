@@ -70,7 +70,6 @@ export default function NextRoundForm({ user }) {
 		}
 	};
 
-	console.log('Availability Error: ', error);
 	return (
 		<form onSubmit={handleSubmit}>
 			<div className='mt-2 text-sm text-gray-500 flex flex-row align-middle'>
