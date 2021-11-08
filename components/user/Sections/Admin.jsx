@@ -4,7 +4,7 @@ import NextRoundTable from '../../Admin/NextRoundTable';
 import UserScores from '../../Admin/UserScores';
 import UserTable from '../../Admin/UserTable';
 
-export default function Admin({ adminTab, setAdminTab }) {
+export default function Admin() {
 	const [adminTab, setAdminTab] = useState(1);
 	return (
 		<>

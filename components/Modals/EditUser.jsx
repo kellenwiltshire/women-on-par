@@ -52,7 +52,7 @@ export default function EditUser({ open, setOpen }) {
 										as='h3'
 										className='text-lg leading-6 font-medium text-gray-900'
 									>
-										Payment successful
+										EDIT USER
 									</Dialog.Title>
 									<div className='mt-2'>
 										<p className='text-sm text-gray-500'>

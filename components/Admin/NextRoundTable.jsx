@@ -8,7 +8,10 @@ export default function NextRoundTable() {
 	const nextRound = findNextRound(schedule);
 	const users = allUsers.filter((user) => {
 		for (let i = 0; i < user.availability.length; i++) {
-			if (user.availability[i].date === nextRound.date) {
+			if (
+				user.availability[i].date === nextRound.date &&
+				user.availability[i].available
+			) {
 				return user;
 			}
 		}
