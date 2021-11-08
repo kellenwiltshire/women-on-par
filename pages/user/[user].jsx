@@ -29,47 +29,54 @@ export default function User({ scores, user, schedules }) {
 	const updateSchedule = useUpdateScheduleContext();
 	const updateScore = useUpdateScoreContext();
 
+	const [loading, setLoading] = useState(true);
+
 	useEffect(() => {
 		updateScore(scores);
 		updateUser(user);
 		updateSchedule(schedules);
+		setLoading(false);
 	}, []);
 
 	const [openTab, setOpenTab] = useState(1);
 
-	return (
-		<div className='py-10'>
-			<UserHeader name={user.first_name} />
-			{/* 3 column wrapper */}
-			<div className='flex-grow w-full max-w-7xl mx-auto xl:px-8 lg:flex'>
+	if (loading) {
+		return <div>LOADING...</div>;
+	} else {
+		return (
+			<div className='py-10'>
+				<UserHeader name={user.first_name} />
 				{/* 3 column wrapper */}
-				<div className='pl-4 pr-6 py-6 sm:pl-6 lg:pl-8 xl:pl-0'>
-					<div className='flex items-center justify-between'>
-						<div className='flex-1 space-y-8'>
-							<div className='space-y-8 sm:space-y-0 sm:flex sm:justify-between sm:items-center xl:block xl:space-y-8'>
-								<Siderbar
-									openTab={openTab}
-									setOpenTab={setOpenTab}
-									navigation={navigation}
-								/>
+				<div className='flex-grow w-full max-w-7xl mx-auto xl:px-8 lg:flex'>
+					{/* 3 column wrapper */}
+					<div className='pl-4 pr-6 py-6 sm:pl-6 lg:pl-8 xl:pl-0'>
+						<div className='flex items-center justify-between'>
+							<div className='flex-1 space-y-8'>
+								<div className='space-y-8 sm:space-y-0 sm:flex sm:justify-between sm:items-center xl:block xl:space-y-8'>
+									<Siderbar
+										openTab={openTab}
+										setOpenTab={setOpenTab}
+										navigation={navigation}
+									/>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div className='bg-white lg:min-w-0 lg:flex-1'>
-					<div className={openTab === 1 ? 'block' : 'hidden'}>
-						<Dashboard />
-					</div>
-					<div className={openTab === 2 ? 'block' : 'hidden'}>
-						<Scores />
-					</div>
-					<div className={openTab === 3 ? 'block' : 'hidden'}>
-						<Settings />
+					<div className='bg-white lg:min-w-0 lg:flex-1'>
+						<div className={openTab === 1 ? 'block' : 'hidden'}>
+							<Dashboard />
+						</div>
+						<div className={openTab === 2 ? 'block' : 'hidden'}>
+							<Scores />
+						</div>
+						<div className={openTab === 3 ? 'block' : 'hidden'}>
+							<Settings />
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	);
+		);
+	}
 }
 
 export async function getServerSideProps(props) {
