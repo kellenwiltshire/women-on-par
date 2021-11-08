@@ -4,13 +4,7 @@ import NextRoundTable from '../../Admin/NextRoundTable';
 import UserScores from '../../Admin/UserScores';
 import UserTable from '../../Admin/UserTable';
 
-export default function Admin({
-	nextRound,
-	allUsers,
-	allScores,
-	courses,
-	schedules,
-}) {
+export default function Admin({ adminTab, setAdminTab }) {
 	const [adminTab, setAdminTab] = useState(1);
 	return (
 		<>
@@ -19,17 +13,13 @@ export default function Admin({
 			</div>
 			<div className='bg-white lg:min-w-0 lg:flex-1'>
 				<div className={adminTab === 1 ? 'block' : 'hidden'}>
-					<UserTable allUsers={allUsers} />
+					<UserTable />
 				</div>
 				<div className={adminTab === 2 ? 'block' : 'hidden'}>
-					<NextRoundTable nextRound={nextRound} allUsers={allUsers} />
+					<NextRoundTable />
 				</div>
 				<div className={adminTab === 3 ? 'block' : 'hidden'}>
-					<UserScores
-						allScores={allScores}
-						courses={courses}
-						schedules={schedules}
-					/>
+					<UserScores />
 				</div>
 
 				<div className={adminTab === 4 ? 'block' : 'hidden'}></div>

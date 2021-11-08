@@ -9,10 +9,7 @@ export default function NextRound() {
 	const user = useUserContext();
 	const schedule = useScheduleContext();
 
-	console.log('Next Round Schedule: ', schedule);
-
 	const nextRound = findNextRound(schedule);
-	console.log('Next Round: ', nextRound);
 	if (nextRound) {
 		return (
 			<div className='rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6'>

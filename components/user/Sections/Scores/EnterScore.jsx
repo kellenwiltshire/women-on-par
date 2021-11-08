@@ -6,6 +6,7 @@ export default function EnterScore({
 	userScores,
 	setUserScores,
 	lastScheduledRound,
+	updateScores,
 }) {
 	const course = lastScheduledRound.course.name;
 	const date = lastScheduledRound.date;
@@ -105,7 +106,7 @@ export default function EnterScore({
 
 			const response = await res.json();
 
-			setUserScores([...userScores, newScore]);
+			updateScores([...userScores, newScore]);
 
 			console.log(response);
 

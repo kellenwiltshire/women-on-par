@@ -4,6 +4,7 @@ import ScoresList from './Scores/ScoresList';
 import {
 	useScheduleContext,
 	useScoreContext,
+	useUpdateScoreContext,
 	useUserContext,
 } from '@/context/Store';
 import {
@@ -14,6 +15,7 @@ import {
 export default function Scores() {
 	const schedule = useScheduleContext();
 	const scores = useScoreContext();
+	const updateScores = useUpdateScoreContext();
 	const user = useUserContext();
 
 	const priorRound = findPriorRound(scores);
@@ -26,6 +28,7 @@ export default function Scores() {
 				user={user}
 				lastScheduledRound={lastScheduledRound}
 				userScores={scores}
+				updateScores={updateScores}
 			/>
 			<ScoresList scores={scores} />
 		</div>
