@@ -1,5 +1,5 @@
 import React from 'react';
-import Markdown from 'markdown-to-jsx';
+import ReactMarkdown from 'react-markdown';
 
 export default function News({ news }) {
 	console.log(news[0]);
@@ -63,7 +63,9 @@ export default function News({ news }) {
 							</figure>
 						</div>
 					</div>
-					<Markdown options={{ wrapper: 'article' }}>{news[0].body}</Markdown>
+					<article className='prose'>
+						<ReactMarkdown children={news[0].body} />
+					</article>
 				</div>
 			</div>
 		</div>
