@@ -1,3 +1,4 @@
+import CoursesTable from '@/components/Admin/CoursesTable';
 import React, { useState } from 'react';
 import AdminTabs from '../../Admin/AdminTabs';
 import NextRoundTable from '../../Admin/NextRoundTable';
@@ -21,8 +22,9 @@ export default function Admin() {
 				<div className={adminTab === 3 ? 'block' : 'hidden'}>
 					<UserScores />
 				</div>
-
-				<div className={adminTab === 4 ? 'block' : 'hidden'}></div>
+				<div className={adminTab === 4 ? 'block' : 'hidden'}>
+					<CoursesTable />
+				</div>
 			</div>
 		</>
 	);

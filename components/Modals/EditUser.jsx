@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import EditUserForm from '../Login/EditUserForm';
+import EditUserForm from '../Forms/EditUserForm';
 
 export default function EditUser({ open, setOpen, user }) {
 	return (

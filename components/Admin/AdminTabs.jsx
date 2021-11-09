@@ -2,6 +2,7 @@ const tabs = [
 	{ num: 1, name: 'Users' },
 	{ num: 2, name: 'Next Round Availability' },
 	{ num: 3, name: 'Scores' },
+	{ num: 4, name: 'Courses' },
 ];
 
 function classNames(...classes) {

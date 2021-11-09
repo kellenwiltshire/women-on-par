@@ -1,8 +1,9 @@
 import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import RegisterUserForm from '../Forms/RegisterUser';
+import AddCourseForm from '../Forms/AddCourseForm';
 
-export default function RegisterUser({ open, setOpen }) {
+export default function AddCourse({ open, setOpen }) {
 	return (
 		<Transition.Root show={open} as={Fragment}>
 			<Dialog
@@ -40,7 +41,16 @@ export default function RegisterUser({ open, setOpen }) {
 						leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
 					>
 						<div className='inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6'>
-							<RegisterUserForm />
+							<AddCourseForm />
+							<div className='min-h-full flex items-center justify-center px-4 sm:px-6 lg:px-8'>
+								<button
+									onClick={() => setOpen(!open)}
+									className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md border-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+								>
+									<span className='absolute left-0 inset-y-0 flex items-center pl-3'></span>
+									Close
+								</button>
+							</div>
 						</div>
 					</Transition.Child>
 				</div>
