@@ -2,6 +2,7 @@ import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
 import { useState } from 'react';
 import { useCoursesContext } from '@/context/Store';
 import AddCourse from '../Modals/AddCourse';
+import EditCourse from '../Modals/EditCourse';
 
 export default function CoursesTable() {
 	const [editCourseOpen, setEditCourseOpen] = useState(false);
@@ -11,13 +12,13 @@ export default function CoursesTable() {
 
 	return (
 		<div className='flex flex-col'>
-			{/* {editUserOpen ? (
-				<EditUser
-					open={editUserOpen}
-					setOpen={setEditUserOpen}
-					user={userSelected}
+			{editCourseOpen ? (
+				<EditCourse
+					open={editCourseOpen}
+					setOpen={setEditCourseOpen}
+					course={courseSelected}
 				/>
-			) : null} */}
+			) : null}
 			{addCourseOpen ? (
 				<AddCourse open={addCourseOpen} setOpen={setAddCourseOpen} />
 			) : null}
@@ -97,6 +98,7 @@ export default function CoursesTable() {
 											<button
 												onClick={() => {
 													setCourseSelected(course);
+													setEditCourseOpen(!editCourseOpen);
 												}}
 												className='group flex items-center px-3 py-2 text-sm font-medium w-full'
 											>
