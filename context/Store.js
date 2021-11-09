@@ -3,27 +3,15 @@ import { createContext, useContext, useState } from 'react';
 const UserContext = createContext();
 const UpdateUserContext = createContext();
 
-const ScoreContext = createContext();
-const UpdateScoreContext = createContext();
-
-const ScheduleContext = createContext();
-const UpdateScheduleContext = createContext();
-
-const AllUsersContext = createContext();
-const UpdateAllUsersContext = createContext();
-
-const AllScoresContext = createContext();
-const UpdateAllScoresContext = createContext();
-
-const CoursesContext = createContext();
-const UpdateCoursesContext = createContext();
-
 export function useUserContext() {
 	return useContext(UserContext);
 }
 export function useUpdateUserContext() {
 	return useContext(UpdateUserContext);
 }
+
+const ScoreContext = createContext();
+const UpdateScoreContext = createContext();
 
 export function useScoreContext() {
 	return useContext(ScoreContext);
@@ -32,12 +20,18 @@ export function useUpdateScoreContext() {
 	return useContext(UpdateScoreContext);
 }
 
+const ScheduleContext = createContext();
+const UpdateScheduleContext = createContext();
+
 export function useScheduleContext() {
 	return useContext(ScheduleContext);
 }
 export function useUpdateScheduleContext() {
 	return useContext(UpdateScheduleContext);
 }
+
+const AllUsersContext = createContext();
+const UpdateAllUsersContext = createContext();
 
 export function useAllUsersContext() {
 	return useContext(AllUsersContext);
@@ -46,6 +40,9 @@ export function useUpdateAllUsersContext() {
 	return useContext(UpdateAllUsersContext);
 }
 
+const AllScoresContext = createContext();
+const UpdateAllScoresContext = createContext();
+
 export function useAllScoresContext() {
 	return useContext(AllScoresContext);
 }
@@ -53,12 +50,24 @@ export function useUpdateAllScoresContext() {
 	return useContext(UpdateAllScoresContext);
 }
 
+const CoursesContext = createContext();
+const UpdateCoursesContext = createContext();
+
 export function useCoursesContext() {
 	return useContext(CoursesContext);
 }
-
 export function useUpdateCoursesContext() {
 	return useContext(UpdateCoursesContext);
+}
+
+const NewsContext = createContext();
+const UpdateNewsContext = createContext();
+
+export function useNewsContext() {
+	return useContext(NewsContext);
+}
+export function useUpdateNewsContext() {
+	return useContext(UpdateNewsContext);
 }
 
 export function UserProvider({ children }) {
@@ -154,5 +163,21 @@ export function CoursesProvider({ children }) {
 				{children}
 			</UpdateCoursesContext.Provider>
 		</CoursesContext.Provider>
+	);
+}
+
+export function NewsProvider({ children }) {
+	const [news, setNews] = useState();
+
+	const updateNews = (newsInfo) => {
+		setNews(newsInfo);
+	};
+
+	return (
+		<NewsContext.Provider value={news}>
+			<UpdateNewsContext.Provider value={updateNews}>
+				{children}
+			</UpdateNewsContext.Provider>
+		</NewsContext.Provider>
 	);
 }

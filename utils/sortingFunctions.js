@@ -64,3 +64,16 @@ export function findLastScheduledRound(schedules) {
 		return lastRound;
 	}
 }
+
+export function findMostRecentNews(news) {
+	const newsSorted = news.sort((a, b) => {
+		const aDate = Date.parse(a.date);
+		const bDate = Date.parse(b.date);
+
+		return bDate - aDate;
+	});
+
+	const recentNews = newsSorted[0];
+
+	return recentNews;
+}

@@ -18,6 +18,7 @@ import {
 	useUpdateAllScoresContext,
 	useUpdateAllUsersContext,
 	useUpdateCoursesContext,
+	useUpdateNewsContext,
 	useUpdateScheduleContext,
 	useUpdateScoreContext,
 	useUpdateUserContext,
@@ -37,6 +38,7 @@ export default function AdminPage({
 	allScores,
 	allUsers,
 	courses,
+	news,
 }) {
 	const updateUser = useUpdateUserContext();
 	const updateSchedule = useUpdateScheduleContext();
@@ -44,6 +46,7 @@ export default function AdminPage({
 	const updateAllUsers = useUpdateAllUsersContext();
 	const updateAllScores = useUpdateAllScoresContext();
 	const updateCourses = useUpdateCoursesContext();
+	const updateNews = useUpdateNewsContext();
 
 	const [loading, setLoading] = useState(true);
 
@@ -54,6 +57,7 @@ export default function AdminPage({
 		updateSchedule(schedules);
 		updateAllScores(allScores);
 		updateCourses(courses);
+		updateNews(news);
 
 		setLoading(false);
 	}, []);
@@ -114,6 +118,7 @@ export async function getServerSideProps(props) {
 			courses: userData.courses,
 			allScores: userData.allScores,
 			allUsers: userData.allUsers,
+			news: userData.news,
 		},
 	};
 }

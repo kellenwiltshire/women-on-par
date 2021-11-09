@@ -72,6 +72,17 @@ const fetchAllUsers = async (jwt) => {
 	return allUsers;
 };
 
+export const fetchNews = async (jwt) => {
+	const newsReq = await fetch(`${url}/api/getNews`, {
+		method: 'POST',
+		body: jwt,
+	});
+
+	const news = await newsReq.json();
+
+	return news;
+};
+
 export async function getAdminData(jwt) {
 	const user = await fetchUser(jwt);
 
@@ -85,7 +96,17 @@ export async function getAdminData(jwt) {
 
 	const allUsers = await fetchAllUsers(jwt);
 
-	const userData = { user, scores, schedules, courses, allScores, allUsers };
+	const news = await fetchNews(jwt);
+
+	const userData = {
+		user,
+		scores,
+		schedules,
+		courses,
+		allScores,
+		allUsers,
+		news,
+	};
 
 	return userData;
 }
@@ -101,7 +122,9 @@ export async function getUserData(jwt) {
 
 	const courses = await fetchCourses(jwt);
 
-	const userData = { user, scores, schedules, courses };
+	const news = await fetchNews(jwt);
+
+	const userData = { user, scores, schedules, courses, news };
 
 	return userData;
 }
