@@ -11,6 +11,7 @@ import {
 	useScheduleContext,
 } from '@/context/Store';
 import SaveSuccess from '../Notifications/SaveSuccess';
+import SaveFail from '../Notifications/SaveFail';
 
 export default function UserScores() {
 	const allScores = useAllScoresContext();
@@ -20,6 +21,7 @@ export default function UserScores() {
 	const [editUserScore, setEditUserScore] = useState(false);
 
 	const [success, setSuccess] = useState(false);
+	const [fail, setFail] = useState(false);
 
 	const lastScheduledRound = findLastScheduledRound(schedules);
 	const [selectedScore, setSelectedScore] = useState({});
@@ -84,8 +86,10 @@ export default function UserScores() {
 				user={selectUser}
 				selectedScore={selectedScore}
 				setSuccess={setSuccess}
+				setFail={setFail}
 			/>
 			<SaveSuccess show={success} setShow={setSuccess} />
+			<SaveFail show={fail} setShow={setFail} />
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
 					<div className='w-full flex flex-row'>
