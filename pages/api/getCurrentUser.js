@@ -34,10 +34,10 @@ const getCurrentUser = async (req, res) => {
 
 		const response = await request.json();
 
-		res.json(response);
+		res.status(200).json(response);
 	} catch (error) {
 		console.log(error);
-		res.status(400).json('Error Getting User', error);
+		res.status(500).json({ error: 'Error Getting User', response: error });
 	}
 };
 

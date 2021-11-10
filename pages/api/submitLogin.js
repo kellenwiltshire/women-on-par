@@ -36,10 +36,9 @@ const submitLogin = async (req, res) => {
 
 		const loginResponse = await login.json();
 
-		res.json(loginResponse);
+		res.status(200).json(loginResponse);
 	} catch (error) {
-		console.log('Error: ', error);
-		res.status(400).json('Login Error', error);
+		res.status(500).json({ error: 'Error Logging In', response: error });
 	}
 };
 
