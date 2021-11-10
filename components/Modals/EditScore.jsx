@@ -82,22 +82,27 @@ export default function EditScore({
 
 		const request = { score: newScore };
 
-		//TODO: CHANGE THIS TO EDIT SCORE
-		try {
-			const res = await fetch('/api/editUserScore', {
-				method: 'PUT',
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(request),
-			});
+		const res = await fetch('/api/editUserScore', {
+			method: 'PUT',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(request),
+		});
 
+		if (res.status === 200) {
 			const response = await res.json();
 
 			console.log(response);
-		} catch (error) {
-			//TODO Set Error Response
+
+			//TODO SUCCESS HANDLE
+		} else {
+			const response = await res.json();
+
+			console.log(response);
+
+			//TODO ERROR HANDLE
 		}
 	};
 
