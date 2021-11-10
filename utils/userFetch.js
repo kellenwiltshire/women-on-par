@@ -83,6 +83,17 @@ export const fetchNews = async (jwt) => {
 	return news;
 };
 
+export const fetchArticle = async (jwt, id) => {
+	const req = await fetch(`${url}/api/articles/${id}`, {
+		method: 'POST',
+		body: jwt,
+	});
+
+	const article = await req.json();
+
+	return article;
+};
+
 export async function getAdminData(jwt) {
 	const user = await fetchUser(jwt);
 

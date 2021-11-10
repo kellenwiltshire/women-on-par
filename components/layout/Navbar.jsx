@@ -10,7 +10,7 @@ function classNames(...classes) {
 const navigation = [
 	{ num: 1, name: 'Home', href: '/' },
 	{ num: 2, name: 'Dashboard', href: '/user/user' },
-	{ num: 3, name: 'News', href: '#' },
+	{ num: 3, name: 'News', href: '/articles' },
 	{ num: 4, name: 'Calendar', href: '#' },
 ];
 

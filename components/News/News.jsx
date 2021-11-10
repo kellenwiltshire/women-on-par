@@ -2,8 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import Image from 'next/image';
 
-export default function News({ news }) {
-	console.log(news[0]);
+export default function Articles({ news }) {
 	return (
 		<div className='bg-white overflow-hidden'>
 			<div className='relative max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8'>
@@ -11,7 +10,7 @@ export default function News({ news }) {
 				<div className='mx-auto text-base max-w-prose lg:grid lg:grid-cols-2 lg:gap-8 lg:max-w-none'>
 					<div>
 						<h3 className='mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
-							{news[0].title}
+							{news.title}
 						</h3>
 					</div>
 				</div>
@@ -55,7 +54,7 @@ export default function News({ news }) {
 								<div className='aspect-w-12 aspect-h-7 lg:aspect-none'>
 									<Image
 										className='rounded-lg shadow-lg object-cover object-center'
-										src={news[0].media[0].url}
+										src={news.media[0].url}
 										alt='Whitney leaning against a railing on a downtown street'
 										width={1184}
 										height={1376}
@@ -65,7 +64,7 @@ export default function News({ news }) {
 						</div>
 					</div>
 					<article className='prose'>
-						<ReactMarkdown children={news[0].body} />
+						<ReactMarkdown children={news.body} />
 					</article>
 				</div>
 			</div>
