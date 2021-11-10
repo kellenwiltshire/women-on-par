@@ -54,7 +54,7 @@ export default function News({ news }) {
 								<div className='aspect-w-12 aspect-h-7 lg:aspect-none'>
 									<img
 										className='rounded-lg shadow-lg object-cover object-center'
-										src={`https://women-on-par-db.herokuapp.com/${news[0].media[0].url}`}
+										src={`https://women-on-par-db.herokuapp.com${news[0].media[0].url}`}
 										alt='Whitney leaning against a railing on a downtown street'
 										width={1184}
 										height={1376}
