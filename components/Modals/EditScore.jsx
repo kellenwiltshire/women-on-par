@@ -7,6 +7,7 @@ export default function EditScore({
 	setOpen,
 	lastScheduledRound,
 	selectedScore,
+	setSuccess,
 }) {
 	const [score, setScore] = useState();
 
@@ -95,6 +96,9 @@ export default function EditScore({
 			const response = await res.json();
 
 			console.log(response);
+
+			setSuccess(true);
+			setOpen(!open);
 
 			//TODO SUCCESS HANDLE
 		} else {
