@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+import Image from 'next/image';
 
 export default function News({ news }) {
 	console.log(news[0]);
@@ -52,9 +53,9 @@ export default function News({ news }) {
 						<div className='relative text-base mx-auto max-w-prose lg:max-w-none'>
 							<figure>
 								<div className='aspect-w-12 aspect-h-7 lg:aspect-none'>
-									<img
+									<Image
 										className='rounded-lg shadow-lg object-cover object-center'
-										src={`https://women-on-par-db.herokuapp.com${news[0].media[0].url}`}
+										src={news[0].media[0].url}
 										alt='Whitney leaning against a railing on a downtown street'
 										width={1184}
 										height={1376}
