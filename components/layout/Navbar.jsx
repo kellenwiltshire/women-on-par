@@ -1,31 +1,61 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { MenuIcon, PencilIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
+import { useUpdateUserContext, useUserContext } from '@/context/Store';
+import { parseCookies } from 'nookies';
+import { fetchUser } from '@/utils/userFetch';
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(' ');
 }
 
-const navigation = [
-	{ num: 1, name: 'Home', href: '/' },
-	{ num: 2, name: 'Dashboard', href: '/user/user' },
-	{ num: 3, name: 'News', href: '/articles' },
-	{ num: 4, name: 'Calendar', href: '#' },
-];
+export default function Navbar(props) {
+	const cookie = parseCookies(props.jwt);
+	const jwt = cookie.jwt;
 
-export default function Navbar() {
+	const updateUser = useUpdateUserContext();
+	const user = useUserContext();
+
 	const [activeTab, setActiveTab] = useState(1);
+	const [userNavUrl, setUserNavUrl] = useState('');
 
 	useEffect(() => {
 		const urlString = document.location.href;
 
-		if (urlString.includes('user')) {
+		if (urlString.includes('user') || urlString.includes('admin')) {
 			setActiveTab(2);
-		} else if (!urlString.includes('user')) {
+		} else if (urlString.includes('news') || urlString.includes('articles')) {
+			setActiveTab(3);
+		} else {
 			setActiveTab(1);
 		}
 	});
+
+	useEffect(async () => {
+		if (jwt) {
+			const res = await fetch(`/api/getCurrentUser`, {
+				method: 'POST',
+				body: jwt,
+			});
+			const user = await res.json();
+
+			updateUser(user);
+		}
+
+		if (user.role.type === 'admin') {
+			setUserNavUrl(`/admin/${user.id}`);
+		} else {
+			setUserNavUrl(`/user/${user.id}`);
+		}
+	}, []);
+
+	const navigation = [
+		{ num: 1, name: 'Home', href: '/' },
+		{ num: 2, name: 'Dashboard', href: userNavUrl },
+		{ num: 3, name: 'News', href: '/articles' },
+		{ num: 4, name: 'Calendar', href: '#' },
+	];
 
 	return (
 		<Disclosure as='nav' className='bg-white shadow'>
@@ -95,7 +125,7 @@ export default function Navbar() {
 										<Menu.Items className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
 											<Menu.Item>
 												{({ active }) => (
-													<Link href='/user/user'>
+													<Link href={userNavUrl}>
 														<a
 															className={classNames(
 																active ? 'bg-gray-100' : '',

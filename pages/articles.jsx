@@ -1,4 +1,3 @@
-import News from '@/components/News/News';
 import NewsItems from '@/components/News/NewsItems';
 import { fetchNews } from '@/utils/userFetch';
 import { parseCookies } from 'nookies';

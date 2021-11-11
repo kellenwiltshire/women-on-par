@@ -14,7 +14,7 @@ export default function NewsCard() {
 
 	console.log('NewsCard - news: ', news);
 	return (
-		<Link href='#'>
+		<Link href='/articles'>
 			<a>
 				<div className='sm:rounded-tr-lg relative group bg-white p-6'>
 					<div>

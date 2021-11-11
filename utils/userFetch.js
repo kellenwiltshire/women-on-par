@@ -11,7 +11,7 @@ const fetchCourses = async (jwt) => {
 	return courses;
 };
 
-const fetchUser = async (jwt) => {
+export const fetchUser = async (jwt) => {
 	const res = await fetch(`${url}/api/getCurrentUser`, {
 		method: 'POST',
 		body: jwt,

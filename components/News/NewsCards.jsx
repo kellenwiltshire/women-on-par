@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function NewsCards({ post }) {
 	const length = 100;
@@ -9,10 +10,12 @@ export default function NewsCards({ post }) {
 			key={post.title}
 			className='flex flex-col rounded-lg shadow-lg overflow-hidden'
 		>
-			<div className='flex-shrink-0'>
-				<img
+			<div className='flex-shrink-0 justify-center flex'>
+				<Image
 					className='h-48 w-full object-cover'
 					src={post.media[0].url}
+					height={192}
+					width={400}
 					alt=''
 				/>
 			</div>
