@@ -1,10 +1,9 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { MenuIcon, PencilIcon, XIcon } from '@heroicons/react/outline';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { useUpdateUserContext, useUserContext } from '@/context/Store';
 import { parseCookies } from 'nookies';
-import { fetchUser } from '@/utils/userFetch';
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(' ');
@@ -17,8 +16,16 @@ export default function Navbar(props) {
 	const updateUser = useUpdateUserContext();
 	const user = useUserContext();
 
+	console.log(user);
+
 	const [activeTab, setActiveTab] = useState(1);
 	const [userNavUrl, setUserNavUrl] = useState('');
+	const [signedIn, setSignedIn] = useState(false);
+
+	const [navigation, setNavigation] = useState([
+		{ num: 1, name: 'Home', href: '/' },
+		{ num: 2, name: 'Sign In', href: '/login' },
+	]);
 
 	useEffect(() => {
 		const urlString = document.location.href;
@@ -41,21 +48,32 @@ export default function Navbar(props) {
 			const user = await res.json();
 
 			updateUser(user);
-		}
-
-		if (user.role.type === 'admin') {
-			setUserNavUrl(`/admin/${user.id}`);
+			if (user.role.type === 'admin') {
+				setUserNavUrl(`/admin/${user.id}`);
+			} else {
+				setUserNavUrl(`/user/${user.id}`);
+			}
+			setSignedIn(true);
 		} else {
-			setUserNavUrl(`/user/${user.id}`);
+			setSignedIn(false);
 		}
 	}, []);
 
-	const navigation = [
-		{ num: 1, name: 'Home', href: '/' },
-		{ num: 2, name: 'Dashboard', href: userNavUrl },
-		{ num: 3, name: 'News', href: '/articles' },
-		{ num: 4, name: 'Calendar', href: '#' },
-	];
+	useEffect(() => {
+		if (signedIn) {
+			setNavigation([
+				{ num: 1, name: 'Home', href: '/' },
+				{ num: 2, name: 'Dashboard', href: userNavUrl },
+				{ num: 3, name: 'News', href: '/articles' },
+				{ num: 4, name: 'Calendar', href: '#' },
+			]);
+		} else {
+			setNavigation([
+				{ num: 1, name: 'Home', href: '/' },
+				{ num: 2, name: 'Sign In', href: '/login' },
+			]);
+		}
+	}, [signedIn]);
 
 	return (
 		<Disclosure as='nav' className='bg-white shadow'>
@@ -108,7 +126,7 @@ export default function Navbar(props) {
 											<span className='sr-only'>Open user menu</span>
 											<img
 												className='h-8 w-8 rounded-full'
-												src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+												src={user.picture}
 												alt=''
 											/>
 										</Menu.Button>
@@ -123,34 +141,47 @@ export default function Navbar(props) {
 										leaveTo='transform opacity-0 scale-95'
 									>
 										<Menu.Items className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
-											<Menu.Item>
-												{({ active }) => (
-													<Link href={userNavUrl}>
+											{signedIn ? (
+												<>
+													<Menu.Item>
+														{({ active }) => (
+															<Link href={userNavUrl}>
+																<a className='hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700'>
+																	Your Dashboard
+																</a>
+															</Link>
+														)}
+													</Menu.Item>
+
+													<Menu.Item>
+														{({ active }) => (
+															<a
+																href='#'
+																className={classNames(
+																	active ? 'bg-gray-100' : '',
+																	'block px-4 py-2 text-sm text-gray-700',
+																)}
+															>
+																Sign Out
+															</a>
+														)}
+													</Menu.Item>
+												</>
+											) : (
+												<Menu.Item>
+													{({ active }) => (
 														<a
+															href='/login'
 															className={classNames(
 																active ? 'bg-gray-100' : '',
 																'block px-4 py-2 text-sm text-gray-700',
 															)}
 														>
-															Your Dashboard
+															Login
 														</a>
-													</Link>
-												)}
-											</Menu.Item>
-
-											<Menu.Item>
-												{({ active }) => (
-													<a
-														href='#'
-														className={classNames(
-															active ? 'bg-gray-100' : '',
-															'block px-4 py-2 text-sm text-gray-700',
-														)}
-													>
-														Sign Out
-													</a>
-												)}
-											</Menu.Item>
+													)}
+												</Menu.Item>
+											)}
 										</Menu.Items>
 									</Transition>
 								</Menu>
