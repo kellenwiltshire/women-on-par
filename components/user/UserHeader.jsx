@@ -12,7 +12,7 @@ export default function UserHeader() {
 						<div className='relative'>
 							<img
 								className='h-24 w-24 rounded-full'
-								src='https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80'
+								src={user.picture.picture.url}
 								alt=''
 							/>
 							<span

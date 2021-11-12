@@ -21,6 +21,7 @@ export default function Navbar(props) {
 	const [activeTab, setActiveTab] = useState(1);
 	const [userNavUrl, setUserNavUrl] = useState('');
 	const [signedIn, setSignedIn] = useState(false);
+	const [picture, setPicture] = useState(''); //TODO Set default picture
 
 	const [navigation, setNavigation] = useState([
 		{ num: 1, name: 'Home', href: '/' },
@@ -67,6 +68,7 @@ export default function Navbar(props) {
 				{ num: 3, name: 'News', href: '/articles' },
 				{ num: 4, name: 'Calendar', href: '#' },
 			]);
+			setPicture(user.picture.picture.url);
 		} else {
 			setNavigation([
 				{ num: 1, name: 'Home', href: '/' },
@@ -126,7 +128,7 @@ export default function Navbar(props) {
 											<span className='sr-only'>Open user menu</span>
 											<img
 												className='h-8 w-8 rounded-full'
-												src={user.picture}
+												src={picture}
 												alt=''
 											/>
 										</Menu.Button>
