@@ -1,19 +1,29 @@
 import { useUserContext } from '@/context/Store';
-import React from 'react';
+import React, { useEffect } from 'react';
+import Image from 'next/image';
 
 export default function UserHeader() {
 	const user = useUserContext();
 	console.log(user);
+	const [picture, setPicture] = useState('/brand/logoNoText.jpg');
+
+	useEffect(() => {
+		user.picture.picture.url
+			? setPicture(user.picture.picture.url)
+			: setPicture('/brand/logoNoText.jpg');
+	}, []);
 	return (
 		<header className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 			<div className='md:flex md:items-center md:justify-between md:space-x-5'>
 				<div className='flex items-start space-x-5'>
 					<div className='flex-shrink-0'>
 						<div className='relative'>
-							<img
+							<Image
 								className='h-24 w-24 rounded-full'
-								src={user.picture.picture.url}
+								src={picture}
 								alt=''
+								height={96}
+								width={96}
 							/>
 							<span
 								className='absolute inset-0 shadow-inner rounded-full'
