@@ -1,7 +1,7 @@
 import SaveFail from '@/components/Notifications/SaveFail';
 import { useUserContext } from '@/context/Store';
 import { Router } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function SettingsPage() {
 	const user = useUserContext();
@@ -9,6 +9,13 @@ export default function SettingsPage() {
 	const [lastName, setLastName] = useState(user.last_name);
 	const [email, setEmail] = useState(user.email);
 	const [success, setSuccess] = useState(true);
+	const [picture, setPicture] = useState('/avatars/avatar.png');
+
+	useEffect(() => {
+		if (user.picture) {
+			setPicture(user.picture.picture.url);
+		}
+	}, []);
 
 	const submitChange = async (e) => {
 		e.preventDefault();
@@ -141,7 +148,7 @@ export default function SettingsPage() {
 							<div className='mt-1 sm:mt-0 sm:col-span-2'>
 								<div className='flex items-center'>
 									<span className='h-12 w-12 rounded-full overflow-hidden bg-gray-100'>
-										<img src={user.picture.picture.url} />
+										<img src={picture} />
 									</span>
 									<button
 										type='button'

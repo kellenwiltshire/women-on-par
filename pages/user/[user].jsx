@@ -16,6 +16,7 @@ import {
 	useUpdateScoreContext,
 	useUpdateUserContext,
 	useUpdateScheduleContext,
+	useUpdateNewsContext,
 } from '@/context/Store';
 
 const navigation = [
@@ -24,10 +25,11 @@ const navigation = [
 	{ num: 3, name: 'Settings', icon: CogIcon },
 ];
 
-export default function User({ scores, user, schedules }) {
+export default function User({ scores, user, schedules, news }) {
 	const updateUser = useUpdateUserContext();
 	const updateSchedule = useUpdateScheduleContext();
 	const updateScore = useUpdateScoreContext();
+	const updateNews = useUpdateNewsContext();
 
 	const [loading, setLoading] = useState(true);
 
@@ -35,6 +37,7 @@ export default function User({ scores, user, schedules }) {
 		updateScore(scores);
 		updateUser(user);
 		updateSchedule(schedules);
+		updateNews(news);
 		setLoading(false);
 	}, []);
 
@@ -90,6 +93,7 @@ export async function getServerSideProps(props) {
 			user: userData.user,
 			schedules: userData.schedules,
 			courses: userData.courses,
+			news: userData.news,
 		},
 	};
 }

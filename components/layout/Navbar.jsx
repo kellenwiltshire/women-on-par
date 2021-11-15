@@ -21,7 +21,7 @@ export default function Navbar(props) {
 	const [activeTab, setActiveTab] = useState(1);
 	const [userNavUrl, setUserNavUrl] = useState('');
 	const [signedIn, setSignedIn] = useState(false);
-	const [picture, setPicture] = useState(''); //TODO Set default picture
+	const [picture, setPicture] = useState('/avatars/avatar.png');
 
 	const [navigation, setNavigation] = useState([
 		{ num: 1, name: 'Home', href: '/' },
@@ -70,7 +70,9 @@ export default function Navbar(props) {
 				{ num: 3, name: 'News', href: '/articles' },
 				{ num: 4, name: 'Schedule', href: '/schedule' },
 			]);
-			setPicture(user.picture.picture.url);
+			if (user.picture) {
+				setPicture(user.picture.picture.url);
+			}
 		} else {
 			setNavigation([
 				{ num: 1, name: 'Home', href: '/' },

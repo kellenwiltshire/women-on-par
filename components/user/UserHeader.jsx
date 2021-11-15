@@ -5,12 +5,12 @@ import Image from 'next/image';
 export default function UserHeader() {
 	const user = useUserContext();
 	console.log(user);
-	const [picture, setPicture] = useState('/brand/logoNoText.jpg');
+	const [picture, setPicture] = useState('/avatars/avatar.png');
 
 	useEffect(() => {
-		user.picture.picture.url
-			? setPicture(user.picture.picture.url)
-			: setPicture('/brand/logoNoText.jpg');
+		if (user.picture) {
+			setPicture(user.picture.picture.url);
+		}
 	}, []);
 	return (
 		<header className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
