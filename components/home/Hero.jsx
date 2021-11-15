@@ -38,9 +38,9 @@ export default function Hero() {
 					</div>
 				</div>
 			</div>
-			<div className='relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-2 lg:right-0 lg:w-1/2 lg:h-full'>
+			<div className='relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-2 lg:right-0 lg:w-1/2 lg:h-96'>
 				<Image
-					className='w-full h-full object-cover'
+					className='object-cover'
 					src='/brand/logoWithText.jpg'
 					height={868}
 					width={587}
