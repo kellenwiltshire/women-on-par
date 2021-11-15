@@ -1,6 +1,48 @@
+import SaveFail from '@/components/Notifications/SaveFail';
+import { useUserContext } from '@/context/Store';
+import { Router } from 'next/router';
+import React, { useState } from 'react';
+
 export default function SettingsPage() {
+	const user = useUserContext();
+	const [firstName, setFirstName] = useState(user.first_name);
+	const [lastName, setLastName] = useState(user.last_name);
+	const [email, setEmail] = useState(user.email);
+	const [success, setSuccess] = useState(true);
+
+	const submitChange = async (e) => {
+		e.preventDefault();
+
+		const info = {
+			id: user.id,
+			data: {
+				username: email,
+				first_name: firstName,
+				last_name: lastName,
+				email: email,
+			},
+		};
+
+		const res = await fetch('/api/editUser', {
+			method: 'PUT',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(info),
+		});
+
+		//TODO SUCCESS AND ERROR HANDLE
+		res.status === 200 ? Router.reload() : setSuccess(false);
+	};
+
 	return (
-		<form className='space-y-8 divide-y divide-gray-200'>
+		<form
+			onSubmit={submitChange}
+			className='space-y-8 divide-y divide-gray-200'
+		>
+			{success ? null : <SaveFail />}
+
 			<div className='space-y-8 divide-y divide-gray-200 sm:space-y-5'>
 				<div>
 					<div>
@@ -12,19 +54,40 @@ export default function SettingsPage() {
 					<div className='mt-6 sm:mt-5 space-y-6 sm:space-y-5'>
 						<div className='sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5'>
 							<label
-								htmlFor='name'
+								htmlFor='firstName'
 								className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'
 							>
-								Name
+								First Name
 							</label>
 							<div className='mt-1 sm:mt-0 sm:col-span-2'>
 								<div className='max-w-lg flex rounded-md shadow-sm'>
 									<input
 										type='name'
-										name='name'
-										id='name'
+										name='firstName'
+										id='firstName'
+										onChange={(e) => setFirstName(e.target.value)}
 										className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3'
-										placeholder='Name'
+										placeholder={firstName}
+									/>
+								</div>
+							</div>
+						</div>
+						<div className='sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5'>
+							<label
+								htmlFor='lastName'
+								className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'
+							>
+								Last Name
+							</label>
+							<div className='mt-1 sm:mt-0 sm:col-span-2'>
+								<div className='max-w-lg flex rounded-md shadow-sm'>
+									<input
+										type='name'
+										name='lastName'
+										id='lastName'
+										onChange={(e) => setLastName(e.target.value)}
+										className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3'
+										placeholder={lastName}
 									/>
 								</div>
 							</div>
@@ -43,8 +106,9 @@ export default function SettingsPage() {
 										type='email'
 										name='email'
 										id='email'
+										onChange={(e) => setEmail(e.target.value)}
 										className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3'
-										placeholder='you@email.com'
+										placeholder={email}
 									/>
 								</div>
 							</div>
@@ -77,13 +141,7 @@ export default function SettingsPage() {
 							<div className='mt-1 sm:mt-0 sm:col-span-2'>
 								<div className='flex items-center'>
 									<span className='h-12 w-12 rounded-full overflow-hidden bg-gray-100'>
-										<svg
-											className='h-full w-full text-gray-300'
-											fill='currentColor'
-											viewBox='0 0 24 24'
-										>
-											<path d='M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z' />
-										</svg>
+										<img src={user.picture.picture.url} />
 									</span>
 									<button
 										type='button'
