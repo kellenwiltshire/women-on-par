@@ -1,9 +1,9 @@
 import CoursesTable from '@/components/Admin/CoursesTable';
 import React, { useState } from 'react';
-import AdminTabs from '../../Admin/AdminTabs';
-import NextRoundTable from '../../Admin/NextRoundTable';
-import UserScores from '../../Admin/UserScores';
-import UserTable from '../../Admin/UserTable';
+import AdminTabs from '@/components/Admin/AdminTabs';
+import NextRoundTable from '@/components/Admin/NextRoundTable';
+import UserScores from '@/components/Admin/UserScores';
+import UserTable from '@/components/Admin/UserTable';
 
 export default function Admin() {
 	const [adminTab, setAdminTab] = useState(1);

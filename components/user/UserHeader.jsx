@@ -37,7 +37,9 @@ export default function UserHeader() {
         */}
 					<div className='pt-1.5'>
 						<h1 className='text-2xl font-bold text-gray-900'>{`${user.first_name} ${user.last_name}`}</h1>
-						<p className='text-sm font-medium text-gray-500'>{user.email}</p>
+						<p className='hidden md:block text-sm font-medium text-gray-500'>
+							{user.email}
+						</p>
 					</div>
 				</div>
 			</div>
