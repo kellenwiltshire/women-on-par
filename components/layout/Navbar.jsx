@@ -9,8 +9,8 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(' ');
 }
 
-export default function Navbar(props) {
-	const cookie = parseCookies(props.jwt);
+export default function Navbar({ signedIn, setSignedIn }) {
+	const cookie = parseCookies();
 	const jwt = cookie.jwt;
 
 	const updateUser = useUpdateUserContext();
@@ -20,7 +20,6 @@ export default function Navbar(props) {
 
 	const [activeTab, setActiveTab] = useState(1);
 	const [userNavUrl, setUserNavUrl] = useState('');
-	const [signedIn, setSignedIn] = useState(false);
 	const [picture, setPicture] = useState('/avatars/avatar.png');
 
 	const [navigation, setNavigation] = useState([
@@ -79,7 +78,7 @@ export default function Navbar(props) {
 				{ num: 2, name: 'Sign In', href: '/login' },
 			]);
 		}
-	}, [signedIn]);
+	}, [signedIn, user]);
 
 	return (
 		<Disclosure as='nav' className='bg-white shadow'>

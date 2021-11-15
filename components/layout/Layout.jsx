@@ -10,7 +10,7 @@ import {
 import React from 'react';
 import Navbar from './Navbar';
 
-export default function Layout({ children }) {
+export default function Layout({ setSignedIn, signedIn, children }) {
 	return (
 		<UserProvider>
 			<ScoreProvider>
@@ -19,7 +19,7 @@ export default function Layout({ children }) {
 						<AllScoresProvider>
 							<CoursesProvider>
 								<NewsProvider>
-									<Navbar />
+									<Navbar setSignedIn={setSignedIn} signedIn={signedIn} />
 									<div>{children}</div>
 									{/* <Footer /> */}
 								</NewsProvider>

@@ -4,7 +4,7 @@ import Router from 'next/router';
 import { setCookie } from 'nookies';
 import Image from 'next/image';
 
-export default function LoginForm() {
+export default function LoginForm({ setSignedIn }) {
 	const [userEmail, setUserEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [loginError, setLoginError] = useState(false);
@@ -34,6 +34,8 @@ export default function LoginForm() {
 			});
 
 			console.log(loginResponse);
+
+			setSignedIn(true);
 
 			if (loginResponse.user.role.type === 'admin') {
 				Router.push(`/admin/${loginResponse.user.id}`);
