@@ -35,6 +35,8 @@ export default function Navbar(props) {
 			setActiveTab(2);
 		} else if (urlString.includes('news') || urlString.includes('articles')) {
 			setActiveTab(3);
+		} else if (urlString.includes('schedule')) {
+			setActiveTab(4);
 		} else {
 			setActiveTab(1);
 		}
@@ -66,7 +68,7 @@ export default function Navbar(props) {
 				{ num: 1, name: 'Home', href: '/' },
 				{ num: 2, name: 'Dashboard', href: userNavUrl },
 				{ num: 3, name: 'News', href: '/articles' },
-				{ num: 4, name: 'Calendar', href: '#' },
+				{ num: 4, name: 'Schedule', href: '/schedule' },
 			]);
 			setPicture(user.picture.picture.url);
 		} else {

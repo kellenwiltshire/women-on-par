@@ -77,3 +77,14 @@ export function findMostRecentNews(news) {
 
 	return recentNews;
 }
+
+export function sortSchedule(schedule) {
+	const scheduleSorted = schedule.sort((a, b) => {
+		const aDate = Date.parse(a.date);
+		const bDate = Date.parse(b.date);
+
+		return aDate - bDate;
+	});
+
+	return scheduleSorted;
+}

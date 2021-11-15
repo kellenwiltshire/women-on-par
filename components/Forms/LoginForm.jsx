@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import Router from 'next/router';
 import { setCookie } from 'nookies';
