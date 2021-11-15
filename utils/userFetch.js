@@ -1,32 +1,40 @@
-const url = process.env.PRODUCTION_URL;
+const url = process.env.DATABASE_URL;
 
 const fetchCourses = async (jwt) => {
-	const res = await fetch(`${url}/api/getCourses`, {
-		method: 'POST',
-		body: jwt,
+	const request = await fetch(`${url}/courses`, {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+		},
 	});
 
-	const courses = await res.json();
+	const response = await request.json();
 
-	return courses;
+	return response;
 };
 
 export const fetchUser = async (jwt) => {
-	const res = await fetch(`${url}/api/getCurrentUser`, {
-		method: 'POST',
-		body: jwt,
+	const request = await fetch(`${url}/users/me`, {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+		},
 	});
-	const user = await res.json();
 
-	return user;
+	const response = await request.json();
+
+	return response;
 };
 
 const fetchScores = async (user, jwt) => {
-	const res = await fetch(`${url}/api/getScores`, {
-		method: 'POST',
-		body: jwt,
+	const request = await fetch(`${url}/scores`, {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+		},
 	});
-	const scores = await res.json();
+
+	const scores = await request.json();
 
 	if (scores.length) {
 		const filteredScores = scores.filter((score) => {
@@ -41,57 +49,68 @@ const fetchScores = async (user, jwt) => {
 };
 
 const fetchSchedule = async (jwt) => {
-	const schedRes = await fetch(`${url}/api/getSchedule`, {
-		method: 'POST',
-		body: jwt,
+	const request = await fetch(`${url}/schedules`, {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+		},
 	});
-	const schedules = await schedRes.json();
 
-	return schedules;
+	const response = await request.json();
+
+	return response;
 };
 
 const fetchAllScores = async (jwt) => {
-	const scoresReq = await fetch(`${url}/api/getScores`, {
-		method: 'POST',
-		body: jwt,
+	const request = await fetch(`${url}/scores`, {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+		},
 	});
 
-	const scores = await scoresReq.json();
+	const response = await request.json();
 
-	return scores;
+	return response;
 };
 
 const fetchAllUsers = async (jwt) => {
-	const usersReq = await fetch(`${url}/api/getUsers`, {
-		method: 'POST',
-		body: jwt,
+	const request = await fetch(`${url}/users`, {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+		},
 	});
 
-	const allUsers = await usersReq.json();
+	const response = await request.json();
 
-	return allUsers;
+	return response;
 };
 
 export const fetchNews = async (jwt) => {
-	const newsReq = await fetch(`${url}/api/getNews`, {
-		method: 'POST',
-		body: jwt,
+	const request = await fetch(`${url}/news-items`, {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+		},
 	});
 
-	const news = await newsReq.json();
+	const response = await request.json();
 
-	return news;
+	return response;
 };
 
 export const fetchArticle = async (jwt, id) => {
-	const req = await fetch(`${url}/api/articles/${id}`, {
-		method: 'POST',
-		body: jwt,
+	const request = await fetch(`${url}/news-items/${id}`, {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+		},
 	});
 
-	const article = await req.json();
+	const response = await request.json();
 
-	return article;
+	return response;
 };
 
 export async function getAdminData(jwt) {

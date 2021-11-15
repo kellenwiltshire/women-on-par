@@ -110,8 +110,6 @@ export async function getServerSideProps(props) {
 	const jwt = cookies.jwt;
 	const userData = await getAdminData(jwt);
 
-	//TODO refactor to use explicit routes to API and not built in routes as per DOCS
-
 	if (!userData) {
 		return {
 			redirect: {

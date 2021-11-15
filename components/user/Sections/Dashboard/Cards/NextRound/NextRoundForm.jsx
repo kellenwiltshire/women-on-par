@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ToggleSwitch from '@/components/Buttons/Toggle';
 import { findNextRound } from '@/utils/sortingFunctions';
+import { useScheduleContext } from '@/context/Store';
 
 export default function NextRoundForm({ user }) {
+	const schedule = useScheduleContext();
+	const nextRound = findNextRound(schedule);
 	const [error, setError] = useState(false);
 	const currDate = new Date();
 	//This sets the state so that the input reflect the already entered Data (if available) unless the current Date is after the last entered avaialability. If this is the case then it resets so that the user can set their availability for the next round
@@ -27,14 +30,10 @@ export default function NextRoundForm({ user }) {
 		e.preventDefault();
 
 		//Get an updated schedule incase the page was stale
-		const updatedScheduleRes = await fetch('/api/getSchedule');
-		const updatedSchedule = await updatedScheduleRes.json();
-
-		const confirmedNextRound = await findNextRound(updatedSchedule);
 
 		//build the new Entry
 		const newEntry = {
-			date: confirmedNextRound.date,
+			date: nextRound.date,
 			available: attendance,
 			notes: notes,
 		};
@@ -44,7 +43,7 @@ export default function NextRoundForm({ user }) {
 		//build the body
 		const body = {
 			id: user.id,
-			availability: [...user.availability, newEntry],
+			availability: [newEntry],
 		};
 
 		try {
