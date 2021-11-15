@@ -1,5 +1,5 @@
 import { useUserContext } from '@/context/Store';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 export default function UserHeader() {
