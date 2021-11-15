@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ToggleSwitch from '@/components/Buttons/Toggle';
 import { findNextRound } from '@/utils/sortingFunctions';
 import { useScheduleContext } from '@/context/Store';
