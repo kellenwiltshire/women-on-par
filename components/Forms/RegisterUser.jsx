@@ -1,22 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/outline';
 
 export default function RegisterUserForm() {
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+	const [email, setEmail] = useState('');
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		const info = {
+			first_name: firstName,
+			last_name: lastName,
+			email: email,
+			username: email,
+			password: 'Test1234',
+		};
+
+		const req = await fetch('/api/addUser', {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(info),
+		});
+
+		console.log(req);
+
+		const res = await req.json();
+
+		console.log(res);
+	};
 	return (
 		<>
 			<div className='min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
 				<div className='max-w-md w-full space-y-8'>
 					<div>
-						<img
-							className='mx-auto h-12 w-auto'
-							src='https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg'
-							alt='Workflow'
-						/>
 						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
-							Edit User
+							Add Golfer
 						</h2>
 					</div>
-					<form className='mt-8 space-y-6' action='#' method='POST'>
+					<form className='mt-8 space-y-6' onSubmit={handleSubmit}>
 						<input type='hidden' name='remember' defaultValue='true' />
 						<div className='rounded-md shadow-sm -space-y-px'>
 							<div>
@@ -24,6 +49,7 @@ export default function RegisterUserForm() {
 									First Name
 								</label>
 								<input
+									onChange={(e) => setFirstName(e.target.value)}
 									id='first-name'
 									name='first-name'
 									type='first-name'
@@ -37,6 +63,7 @@ export default function RegisterUserForm() {
 									Last Name
 								</label>
 								<input
+									onChange={(e) => setLastName(e.target.value)}
 									id='last-name'
 									name='last-name'
 									type='last-name'
@@ -63,6 +90,7 @@ export default function RegisterUserForm() {
 									Email address
 								</label>
 								<input
+									onChange={(e) => setEmail(e.target.value)}
 									id='email-address'
 									name='email'
 									type='email'
@@ -99,7 +127,7 @@ export default function RegisterUserForm() {
 										aria-hidden='true'
 									/>
 								</span>
-								Update
+								Add Golfer
 							</button>
 						</div>
 					</form>
