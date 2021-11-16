@@ -3,7 +3,8 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { useUpdateUserContext, useUserContext } from '@/context/Store';
-import { parseCookies } from 'nookies';
+import { destroyCookie, parseCookies } from 'nookies';
+import { useRouter } from 'next/router';
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(' ');
@@ -12,6 +13,7 @@ function classNames(...classes) {
 export default function Navbar({ signedIn, setSignedIn }) {
 	const cookie = parseCookies();
 	const jwt = cookie.jwt;
+	const router = useRouter();
 
 	const updateUser = useUpdateUserContext();
 	const user = useUserContext();
@@ -79,6 +81,13 @@ export default function Navbar({ signedIn, setSignedIn }) {
 			]);
 		}
 	}, [signedIn, user]);
+
+	const signOut = () => {
+		setSignedIn(false);
+		destroyCookie(null, 'jwt');
+		setPicture('/avatars/avatar.png');
+		router.push('/');
+	};
 
 	return (
 		<Disclosure as='nav' className='bg-white shadow'>
@@ -160,15 +169,15 @@ export default function Navbar({ signedIn, setSignedIn }) {
 
 													<Menu.Item>
 														{({ active }) => (
-															<a
-																href='#'
+															<button
+																onClick={signOut}
 																className={classNames(
 																	active ? 'bg-gray-100' : '',
-																	'block px-4 py-2 text-sm text-gray-700',
+																	'block px-4 py-2 text-sm text-gray-700 w-full text-left',
 																)}
 															>
 																Sign Out
-															</a>
+															</button>
 														)}
 													</Menu.Item>
 												</>
