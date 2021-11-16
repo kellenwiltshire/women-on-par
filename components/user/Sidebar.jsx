@@ -4,7 +4,7 @@ function classNames(...classes) {
 
 export default function Siderbar({ navigation, openTab, setOpenTab }) {
 	return (
-		<div className='flex flex-col flex-grow border-r border-gray-200 pt-5 pb-4 bg-white overflow-y-auto mr-3'>
+		<div className='flex flex-col flex-grow border-r border-gray-200 pt-5 pb-4 bg-white overflow-y-auto md:mr-3'>
 			<div className='mt-5 flex-grow flex flex-col'>
 				<nav className='flex-1 bg-white space-y-1' aria-label='Sidebar'>
 					{navigation.map((item) => (
