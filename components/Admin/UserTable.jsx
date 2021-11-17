@@ -3,10 +3,12 @@ import EditUser from '../Modals/EditUser';
 import { useState } from 'react';
 import { useAllUsersContext } from '@/context/Store';
 import RegisterUser from '../Modals/RegisterUser';
+import DeleteUser from '../Modals/DeleteUser';
 
 export default function UserTable() {
 	const [editUserOpen, setEditUserOpen] = useState(false);
 	const [addUserOpen, setAddUserOpen] = useState(false);
+	const [deleteUserOpen, setDeleteUserOpen] = useState(false);
 	const [userSelected, setUserSelected] = useState();
 	const users = useAllUsersContext();
 
@@ -21,6 +23,13 @@ export default function UserTable() {
 			) : null}
 			{addUserOpen ? (
 				<RegisterUser open={addUserOpen} setOpen={setAddUserOpen} />
+			) : null}
+			{deleteUserOpen ? (
+				<DeleteUser
+					open={deleteUserOpen}
+					setOpen={setDeleteUserOpen}
+					user={userSelected}
+				/>
 			) : null}
 
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
@@ -88,7 +97,13 @@ export default function UserTable() {
 											</button>
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
-											<button className='group flex items-center px-3 py-2 text-sm font-medium w-full'>
+											<button
+												onClick={() => {
+													setUserSelected(user);
+													setDeleteUserOpen(!deleteUserOpen);
+												}}
+												className='group flex items-center px-3 py-2 text-sm font-medium w-full'
+											>
 												<TrashIcon
 													className='text-gray-400 group-hover:text-gray-500
 									flex-shrink-0 h-6 w-6'
