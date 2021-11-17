@@ -40,20 +40,22 @@ const addUser = async (req, res) => {
 
 		const response = await request.json();
 
-		if (request.status === 200) {
-			const confirmation = await fetch(`${url}/auth/send-email-confirmation`, {
-				method: 'POST',
-				headers: {
-					Authorization: `Bearer ${jwt}`,
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-				},
-			});
+		console.log('API Response: ', response);
 
-			const resp = await confirmation.json();
+		console.log('Sending Confirmation Email');
+		const confirmation = await fetch(`${url}/auth/send-email-confirmation`, {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${jwt}`,
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ email: response.email }),
+		});
 
-			console.log(resp);
-		}
+		const resp = await confirmation.json();
+
+		console.log('confirmation: ', resp);
 
 		res.status(200).json(response);
 	} catch (error) {
