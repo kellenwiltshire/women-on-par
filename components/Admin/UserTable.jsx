@@ -4,12 +4,16 @@ import { useState } from 'react';
 import { useAllUsersContext } from '@/context/Store';
 import RegisterUser from '../Modals/RegisterUser';
 import DeleteUser from '../Modals/DeleteUser';
+import SaveFail from '../Notifications/SaveFail';
+import SaveSuccess from '../Notifications/SaveSuccess';
 
 export default function UserTable() {
 	const [editUserOpen, setEditUserOpen] = useState(false);
 	const [addUserOpen, setAddUserOpen] = useState(false);
 	const [deleteUserOpen, setDeleteUserOpen] = useState(false);
 	const [userSelected, setUserSelected] = useState();
+	const [success, setSuccess] = useState(false);
+	const [failure, setFailure] = useState(false);
 	const users = useAllUsersContext();
 
 	return (
@@ -19,18 +23,31 @@ export default function UserTable() {
 					open={editUserOpen}
 					setOpen={setEditUserOpen}
 					user={userSelected}
+					setFailure={setFailure}
+					setSuccess={setSuccess}
 				/>
 			) : null}
 			{addUserOpen ? (
-				<RegisterUser open={addUserOpen} setOpen={setAddUserOpen} />
+				<RegisterUser
+					open={addUserOpen}
+					setOpen={setAddUserOpen}
+					setFailure={setFailure}
+					setSuccess={setSuccess}
+				/>
 			) : null}
 			{deleteUserOpen ? (
 				<DeleteUser
 					open={deleteUserOpen}
 					setOpen={setDeleteUserOpen}
 					user={userSelected}
+					setFailure={setFailure}
+					setSuccess={setSuccess}
 				/>
 			) : null}
+
+			{success ? <SaveSuccess /> : null}
+
+			{failure ? <SaveFail /> : null}
 
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>

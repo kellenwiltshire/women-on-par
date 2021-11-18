@@ -41,10 +41,12 @@ const editUser = async (req, res) => {
 
 		const response = await request.json();
 
+		console.log(response);
+
 		res.status(200).json(response);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ error: 'Failed to Edit Score', response: error });
+		res.status(500).json({ error: 'Failed to Edit User', response: error });
 	}
 };
 

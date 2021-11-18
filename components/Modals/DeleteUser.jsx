@@ -2,7 +2,13 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { ExclamationIcon, XIcon } from '@heroicons/react/outline';
 
-export default function DeleteUser({ open, setOpen, user }) {
+export default function DeleteUser({
+	open,
+	setOpen,
+	user,
+	setSuccess,
+	setFailure,
+}) {
 	const handleDelete = async () => {
 		const id = user.id;
 
@@ -15,8 +21,13 @@ export default function DeleteUser({ open, setOpen, user }) {
 			body: id,
 		});
 
-		//TODO Show success/fail notification
-		req.status < 300 ? setOpen(!open) : console.log(req);
+		if (req.status < 300) {
+			setSuccess(true);
+			setOpen(false);
+		} else {
+			setFailure(true);
+			console.log(req);
+		}
 	};
 	return (
 		<Transition.Root show={open} as={Fragment}>
