@@ -34,8 +34,10 @@ export default function EditUserForm({
 
 		if (req.status < 300) {
 			setSuccess(true);
+			setOpen(false);
 		} else {
 			setFailure(true);
+			setOpen(false);
 		}
 	};
 	return (
