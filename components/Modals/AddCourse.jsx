@@ -1,9 +1,8 @@
 import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import RegisterUserForm from '../Forms/RegisterUser';
 import AddCourseForm from '../Forms/AddCourseForm';
 
-export default function AddCourse({ open, setOpen }) {
+export default function AddCourse({ open, setOpen, setSuccess, setFailure }) {
 	return (
 		<Transition.Root show={open} as={Fragment}>
 			<Dialog
@@ -41,7 +40,11 @@ export default function AddCourse({ open, setOpen }) {
 						leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
 					>
 						<div className='inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6'>
-							<AddCourseForm />
+							<AddCourseForm
+								setOpen={setOpen}
+								setSuccess={setSuccess}
+								setFailure={setFailure}
+							/>
 							<div className='min-h-full flex items-center justify-center px-4 sm:px-6 lg:px-8'>
 								<button
 									onClick={() => setOpen(!open)}

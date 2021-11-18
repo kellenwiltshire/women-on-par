@@ -33,6 +33,7 @@ export default function RegisterUserForm({ setSuccess, setFailure, setOpen }) {
 			setOpen(false);
 		} else {
 			setFailure(true);
+			setOpen(false);
 			console.log(req);
 		}
 	};

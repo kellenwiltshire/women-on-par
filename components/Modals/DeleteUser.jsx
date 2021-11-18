@@ -26,6 +26,7 @@ export default function DeleteUser({
 			setOpen(false);
 		} else {
 			setFailure(true);
+			setOpen(false);
 			console.log(req);
 		}
 	};
