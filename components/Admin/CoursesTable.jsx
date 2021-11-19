@@ -8,7 +8,7 @@ export default function CoursesTable() {
 	const [editCourseOpen, setEditCourseOpen] = useState(false);
 	const [addCourseOpen, setAddCourseOpen] = useState(false);
 	const [courseSelected, setCourseSelected] = useState();
-	const courses = useCoursesContext();
+	const [courses, setCourses] = useState(useCoursesContext());
 
 	return (
 		<div className='flex flex-col'>
@@ -20,7 +20,12 @@ export default function CoursesTable() {
 				/>
 			) : null}
 			{addCourseOpen ? (
-				<AddCourse open={addCourseOpen} setOpen={setAddCourseOpen} />
+				<AddCourse
+					open={addCourseOpen}
+					setOpen={setAddCourseOpen}
+					setCourses={setCourses}
+					courses={courses}
+				/>
 			) : null}
 
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
