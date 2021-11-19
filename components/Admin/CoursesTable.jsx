@@ -3,10 +3,14 @@ import { useState } from 'react';
 import { useCoursesContext } from '@/context/Store';
 import AddCourse from '../Modals/AddCourse';
 import EditCourse from '../Modals/EditCourse';
+import SaveSuccess from '../Notifications/SaveSuccess';
+import SaveFail from '../Notifications/SaveFail';
 
 export default function CoursesTable() {
 	const [editCourseOpen, setEditCourseOpen] = useState(false);
 	const [addCourseOpen, setAddCourseOpen] = useState(false);
+	const [success, setSuccess] = useState(false);
+	const [failure, setFailure] = useState(false);
 	const [courseSelected, setCourseSelected] = useState();
 	const [courses, setCourses] = useState(useCoursesContext());
 
@@ -25,8 +29,14 @@ export default function CoursesTable() {
 					setOpen={setAddCourseOpen}
 					setCourses={setCourses}
 					courses={courses}
+					setSuccess={setSuccess}
+					setFailure={setFailure}
 				/>
 			) : null}
+
+			{success ? <SaveSuccess show={success} setShow={setSuccess} /> : null}
+
+			{failure ? <SaveFail show={failure} setShow={setFailure} /> : null}
 
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>

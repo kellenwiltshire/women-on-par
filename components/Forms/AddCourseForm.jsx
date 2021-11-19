@@ -39,10 +39,10 @@ export default function AddCourseForm({
 		});
 
 		if (req.status < 300) {
-			const response = await req.json();
-			setCourses([...courses, response]);
 			setSuccess(true);
 			setOpen(false);
+			const response = await req.json();
+			setCourses([...courses, response]);
 		} else {
 			setFailure(true);
 			setOpen(false);
