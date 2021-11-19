@@ -47,9 +47,9 @@ export default function UserTable() {
 				/>
 			) : null}
 
-			{success ? <SaveSuccess show={success} setShow={setSuccess} /> : null}
+			<SaveSuccess show={success} setShow={setSuccess} />
 
-			{failure ? <SaveFail show={failure} setShow={setFailure} /> : null}
+			<SaveFail show={failure} setShow={setFailure} />
 
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>

@@ -5,10 +5,12 @@ import AddCourse from '../Modals/AddCourse';
 import EditCourse from '../Modals/EditCourse';
 import SaveSuccess from '../Notifications/SaveSuccess';
 import SaveFail from '../Notifications/SaveFail';
+import DeleteCourse from '../Modals/DeleteCourse';
 
 export default function CoursesTable() {
 	const [editCourseOpen, setEditCourseOpen] = useState(false);
 	const [addCourseOpen, setAddCourseOpen] = useState(false);
+	const [deleteCourseOpen, setDeleteCourseOpen] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [failure, setFailure] = useState(false);
 	const [courseSelected, setCourseSelected] = useState();
@@ -34,9 +36,19 @@ export default function CoursesTable() {
 				/>
 			) : null}
 
-			{success ? <SaveSuccess show={success} setShow={setSuccess} /> : null}
+			<SaveSuccess show={success} setShow={setSuccess} />
 
-			{failure ? <SaveFail show={failure} setShow={setFailure} /> : null}
+			<SaveFail show={failure} setShow={setFailure} />
+
+			{deleteCourseOpen ? (
+				<DeleteCourse
+					open={deleteCourseOpen}
+					setOpen={setDeleteCourseOpen}
+					course={courseSelected}
+					setSuccess={setSuccess}
+					setFailure={setFailure}
+				/>
+			) : null}
 
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
@@ -124,7 +136,13 @@ export default function CoursesTable() {
 											</button>
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
-											<button className='group flex items-center px-3 py-2 text-sm font-medium w-full'>
+											<button
+												onClick={() => {
+													setCourseSelected(course);
+													setDeleteCourseOpen(!deleteCourseOpen);
+												}}
+												className='group flex items-center px-3 py-2 text-sm font-medium w-full'
+											>
 												<TrashIcon
 													className='text-gray-400 group-hover:text-gray-500
 									flex-shrink-0 h-6 w-6'
