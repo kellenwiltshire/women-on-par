@@ -14,7 +14,7 @@ export default function UserTable() {
 	const [userSelected, setUserSelected] = useState();
 	const [success, setSuccess] = useState(false);
 	const [failure, setFailure] = useState(false);
-	const users = useAllUsersContext();
+	const [users, setUsers] = useState(useAllUsersContext());
 
 	return (
 		<div className='flex flex-col'>
@@ -33,6 +33,8 @@ export default function UserTable() {
 					setOpen={setAddUserOpen}
 					setFailure={setFailure}
 					setSuccess={setSuccess}
+					setUsers={setUsers}
+					users={users}
 				/>
 			) : null}
 			{deleteUserOpen ? (
