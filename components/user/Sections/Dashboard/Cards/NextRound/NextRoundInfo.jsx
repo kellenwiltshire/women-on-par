@@ -2,6 +2,10 @@ import React from 'react';
 
 export default function NextRoundInfo({ nextRound }) {
 	if (nextRound) {
+		let game = '';
+		if (nextRound.game) {
+			game = nextRound.game.replace('_', ' ');
+		}
 		return (
 			<div className='mt-8'>
 				<h3 className='text-lg font-medium'>
@@ -21,6 +25,7 @@ export default function NextRoundInfo({ nextRound }) {
 				<p className='mt-2 text-sm text-gray-500'>
 					Start Time: {nextRound.start_time}
 				</p>
+				<p className='mt-2 text-sm text-gray-500'>Game: {game}</p>
 			</div>
 		);
 	} else {
