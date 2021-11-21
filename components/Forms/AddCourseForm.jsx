@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { LockClosedIcon } from '@heroicons/react/outline';
 
 export default function AddCourseForm({
 	setOpen,

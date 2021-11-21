@@ -1,8 +1,6 @@
 import { sortSchedule } from '@/utils/sortingFunctions';
 
 export default function ScheduleTable({ schedules }) {
-	console.log('Schedules Table: ', schedules);
-
 	const scheduleSorted = sortSchedule(schedules);
 	return (
 		<div className='flex flex-col'>

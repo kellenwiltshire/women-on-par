@@ -12,7 +12,6 @@ export default function NewsCard() {
 	const length = 100;
 	const shortBody = recentNews.body.substring(0, length) + '...';
 
-	console.log('NewsCard - news: ', news);
 	return (
 		<Link href='/articles'>
 			<a>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import EnterScore from './Scores/EnterScore';
 import ScoresList from './Scores/ScoresList';
 import {
@@ -7,10 +7,9 @@ import {
 	useUpdateScoreContext,
 	useUserContext,
 } from '@/context/Store';
-import {
-	findLastScheduledRound,
-	findPriorRound,
-} from '@/utils/sortingFunctions';
+import { findLastScheduledRound } from '@/utils/sortingFunctions';
+import SaveSuccess from '@/components/Notifications/SaveSuccess';
+import SaveFail from '@/components/Notifications/SaveFail';
 
 export default function Scores() {
 	const schedule = useScheduleContext();
@@ -18,18 +17,39 @@ export default function Scores() {
 	const updateScores = useUpdateScoreContext();
 	const user = useUserContext();
 
-	const priorRound = findPriorRound(scores);
+	const [success, setSuccess] = useState(false);
+	const [failure, setFailure] = useState(false);
 
 	const lastScheduledRound = findLastScheduledRound(schedule);
+
+	const getInitialSuccess = () => {
+		if (scores) {
+			for (let i = 0; i < scores.length; i++) {
+				if (scores[i].date === lastScheduledRound.date) {
+					return true;
+				}
+			}
+		}
+		return false;
+	};
+
+	const [submitSuccess, setSubmitSuccess] = useState(getInitialSuccess());
 	return (
 		<div className='px-4 py-8 sm:px-0'>
-			<EnterScore
-				priorRound={priorRound}
-				user={user}
-				lastScheduledRound={lastScheduledRound}
-				userScores={scores}
-				updateScores={updateScores}
-			/>
+			{success ? <SaveSuccess show={success} setShow={setSuccess} /> : null}
+			{failure ? <SaveFail show={failure} setShow={setFailure} /> : null}
+			{submitSuccess ? null : (
+				<EnterScore
+					user={user}
+					lastScheduledRound={lastScheduledRound}
+					userScores={scores}
+					updateScores={updateScores}
+					setSuccess={setSuccess}
+					setFailure={setFailure}
+					setSubmitSuccess={setSubmitSuccess}
+				/>
+			)}
+
 			<ScoresList scores={scores} />
 		</div>
 	);

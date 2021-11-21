@@ -3,10 +3,9 @@ import ToggleSwitch from '@/components/Buttons/Toggle';
 import { findNextRound } from '@/utils/sortingFunctions';
 import { useScheduleContext } from '@/context/Store';
 
-export default function NextRoundForm({ user }) {
+export default function NextRoundForm({ user, setSuccess, setFailure }) {
 	const schedule = useScheduleContext();
 	const nextRound = findNextRound(schedule);
-	const [error, setError] = useState(false);
 	const currDate = new Date();
 	//This sets the state so that the input reflect the already entered Data (if available) unless the current Date is after the last entered avaialability. If this is the case then it resets so that the user can set their availability for the next round
 	const [attendance, setAttendance] = useState(
@@ -46,26 +45,20 @@ export default function NextRoundForm({ user }) {
 			availability: [newEntry],
 		};
 
-		try {
-			//PUT the new info into the DB so that the Admin can see what each User's availability is
-			const pushRes = await fetch(`/api/submitAvailability`, {
-				method: 'POST',
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(body),
-			});
+		//PUT the new info into the DB so that the Admin can see what each User's availability is
+		const req = await fetch(`/api/submitAvailability`, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(body),
+		});
 
-			const response = await pushRes.json();
-
-			console.log('Response: ', response);
-
-			if (response.statusCode) {
-				setError(true);
-			}
-		} catch (error) {
-			console.log('ERROR: ', error);
+		if (req.status < 300) {
+			setSuccess(true);
+		} else {
+			setFailure(true);
 		}
 	};
 

@@ -6,11 +6,7 @@ import Dashboard from '@/components/user/Sections/Dashboard';
 import Scores from '@/components/user/Sections/Scores';
 import Settings from '@/components/user/Sections/Settings';
 import { getUserData } from '@/utils/userFetch';
-import {
-	findLastScheduledRound,
-	findNextRound,
-	findPriorRound,
-} from '@/utils/sortingFunctions';
+
 import { parseCookies } from 'nookies';
 import {
 	useUpdateScoreContext,
