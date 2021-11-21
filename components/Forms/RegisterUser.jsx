@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/outline';
 
-export default function RegisterUserForm({ setSuccess, setFailure, setOpen }) {
+export default function RegisterUserForm({
+	setSuccess,
+	setFailure,
+	setOpen,
+	users,
+	setUsers,
+}) {
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
@@ -29,6 +35,8 @@ export default function RegisterUserForm({ setSuccess, setFailure, setOpen }) {
 		console.log(req);
 
 		if (req.status < 300) {
+			const response = await req.json();
+			setUsers([...users, response]);
 			setSuccess(true);
 			setOpen(false);
 		} else {

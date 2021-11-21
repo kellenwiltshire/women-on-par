@@ -3,12 +3,18 @@ import { useState } from 'react';
 import { useCoursesContext } from '@/context/Store';
 import AddCourse from '../Modals/AddCourse';
 import EditCourse from '../Modals/EditCourse';
+import SaveSuccess from '../Notifications/SaveSuccess';
+import SaveFail from '../Notifications/SaveFail';
+import DeleteCourse from '../Modals/DeleteCourse';
 
 export default function CoursesTable() {
 	const [editCourseOpen, setEditCourseOpen] = useState(false);
 	const [addCourseOpen, setAddCourseOpen] = useState(false);
+	const [deleteCourseOpen, setDeleteCourseOpen] = useState(false);
+	const [success, setSuccess] = useState(false);
+	const [failure, setFailure] = useState(false);
 	const [courseSelected, setCourseSelected] = useState();
-	const courses = useCoursesContext();
+	const [courses, setCourses] = useState(useCoursesContext());
 
 	return (
 		<div className='flex flex-col'>
@@ -20,7 +26,28 @@ export default function CoursesTable() {
 				/>
 			) : null}
 			{addCourseOpen ? (
-				<AddCourse open={addCourseOpen} setOpen={setAddCourseOpen} />
+				<AddCourse
+					open={addCourseOpen}
+					setOpen={setAddCourseOpen}
+					setCourses={setCourses}
+					courses={courses}
+					setSuccess={setSuccess}
+					setFailure={setFailure}
+				/>
+			) : null}
+
+			<SaveSuccess show={success} setShow={setSuccess} />
+
+			<SaveFail show={failure} setShow={setFailure} />
+
+			{deleteCourseOpen ? (
+				<DeleteCourse
+					open={deleteCourseOpen}
+					setOpen={setDeleteCourseOpen}
+					course={courseSelected}
+					setSuccess={setSuccess}
+					setFailure={setFailure}
+				/>
 			) : null}
 
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
@@ -109,7 +136,13 @@ export default function CoursesTable() {
 											</button>
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
-											<button className='group flex items-center px-3 py-2 text-sm font-medium w-full'>
+											<button
+												onClick={() => {
+													setCourseSelected(course);
+													setDeleteCourseOpen(!deleteCourseOpen);
+												}}
+												className='group flex items-center px-3 py-2 text-sm font-medium w-full'
+											>
 												<TrashIcon
 													className='text-gray-400 group-hover:text-gray-500
 									flex-shrink-0 h-6 w-6'

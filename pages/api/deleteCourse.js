@@ -19,7 +19,7 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const deleteUser = async (req, res) => {
+const deleteCourse = async (req, res) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
@@ -28,7 +28,7 @@ const deleteUser = async (req, res) => {
 	const jwt = cookies.jwt;
 
 	try {
-		const request = await fetch(`${url}/users/${id}`, {
+		const request = await fetch(`${url}/courses/${id}`, {
 			method: 'DELETE',
 			headers: {
 				Authorization: `Bearer ${jwt}`,
@@ -42,8 +42,8 @@ const deleteUser = async (req, res) => {
 		res.status(200).json(response);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ error: 'Failed to Delete User', response: error });
+		res.status(500).json({ error: 'Failed to Delete Course', response: error });
 	}
 };
 
-export default deleteUser;
+export default deleteCourse;

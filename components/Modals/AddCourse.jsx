@@ -2,7 +2,14 @@ import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import AddCourseForm from '../Forms/AddCourseForm';
 
-export default function AddCourse({ open, setOpen, setSuccess, setFailure }) {
+export default function AddCourse({
+	open,
+	setOpen,
+	setSuccess,
+	setFailure,
+	setCourses,
+	courses,
+}) {
 	return (
 		<Transition.Root show={open} as={Fragment}>
 			<Dialog
@@ -44,6 +51,8 @@ export default function AddCourse({ open, setOpen, setSuccess, setFailure }) {
 								setOpen={setOpen}
 								setSuccess={setSuccess}
 								setFailure={setFailure}
+								setCourses={setCourses}
+								courses={courses}
 							/>
 							<div className='min-h-full flex items-center justify-center px-4 sm:px-6 lg:px-8'>
 								<button

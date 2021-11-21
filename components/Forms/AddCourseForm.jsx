@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/outline';
 
-export default function AddCourseForm({ setOpen, setSuccess, setFailure }) {
+export default function AddCourseForm({
+	setOpen,
+	setSuccess,
+	setFailure,
+	courses,
+	setCourses,
+}) {
 	const [name, setName] = useState('');
 	const [address, setAddress] = useState('');
 	const [contact, setContact] = useState('');
@@ -11,7 +17,7 @@ export default function AddCourseForm({ setOpen, setSuccess, setFailure }) {
 	const [additionalInfo, setadditionalInfo] = useState('');
 
 	const handleSubmit = async (e) => {
-		e.preventdefault();
+		e.preventDefault();
 
 		const data = {
 			name: name,
@@ -35,6 +41,8 @@ export default function AddCourseForm({ setOpen, setSuccess, setFailure }) {
 		if (req.status < 300) {
 			setSuccess(true);
 			setOpen(false);
+			const response = await req.json();
+			setCourses([...courses, response]);
 		} else {
 			setFailure(true);
 			setOpen(false);

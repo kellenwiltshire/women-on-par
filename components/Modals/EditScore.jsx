@@ -9,6 +9,8 @@ export default function EditScore({
 	selectedScore,
 	setSuccess,
 	setFail,
+	scores,
+	setScores,
 }) {
 	const [score, setScore] = useState();
 
@@ -84,7 +86,7 @@ export default function EditScore({
 
 		const request = { score: newScore };
 
-		const res = await fetch('/api/editUserScore', {
+		const req = await fetch('/api/editUserScore', {
 			method: 'PUT',
 			headers: {
 				Accept: 'application/json',
@@ -93,9 +95,13 @@ export default function EditScore({
 			body: JSON.stringify(request),
 		});
 
-		res.status === 200 ? setSuccess(true) : setFail(true);
-
-		setOpen(!open);
+		if (req.status < 300) {
+			setOpen(false);
+			setSuccess(true);
+		} else {
+			setOpen(false);
+			setFail(true);
+		}
 	};
 
 	return (
