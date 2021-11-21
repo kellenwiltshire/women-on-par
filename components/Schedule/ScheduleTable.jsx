@@ -16,31 +16,20 @@ export default function ScheduleTable({ schedules }) {
 										scope='col'
 										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
 									>
-										Name
+										Course
 									</th>
+
 									<th
 										scope='col'
 										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
 									>
-										Email
-									</th>
-									<th
-										scope='col'
-										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
-									>
-										Phone
+										Game
 									</th>
 									<th
 										scope='col'
 										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
 									>
 										Address
-									</th>
-									<th
-										scope='col'
-										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
-									>
-										Interval
 									</th>
 									<th
 										scope='col'
@@ -54,6 +43,12 @@ export default function ScheduleTable({ schedules }) {
 									>
 										Start Time
 									</th>
+									<th
+										scope='col'
+										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+									>
+										Interval
+									</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -62,26 +57,24 @@ export default function ScheduleTable({ schedules }) {
 										key={round.id}
 										className={roundIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
 									>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+										<td className='px-6 py-4 whitespace-nowrap text-sm'>
 											{round.course.name}
 										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-											{round.course.email}
+
+										<td className='px-6 py-4 whitespace-nowrap text-sm'>
+											GAME
 										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{round.course.phone}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+										<td className='px-6 py-4 whitespace-nowrap text-sm'>
 											{round.course.address}
 										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{round.course.interval}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+										<td className='px-6 py-4 whitespace-nowrap text-sm'>
 											{round.date}
 										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+										<td className='px-6 py-4 whitespace-nowrap text-sm'>
 											{round.start_time}
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm'>
+											{round.course.interval}
 										</td>
 									</tr>
 								))}

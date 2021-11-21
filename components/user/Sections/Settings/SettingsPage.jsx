@@ -1,4 +1,5 @@
 import SaveFail from '@/components/Notifications/SaveFail';
+import SaveSuccess from '@/components/Notifications/SaveSuccess';
 import { useUserContext } from '@/context/Store';
 import { Router } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -8,7 +9,8 @@ export default function SettingsPage() {
 	const [firstName, setFirstName] = useState(user.first_name);
 	const [lastName, setLastName] = useState(user.last_name);
 	const [email, setEmail] = useState(user.email);
-	const [success, setSuccess] = useState(true);
+	const [success, setSuccess] = useState(false);
+	const [failure, setFailure] = useState(false);
 	const [picture, setPicture] = useState('/avatars/avatar.png');
 
 	useEffect(() => {
@@ -39,8 +41,12 @@ export default function SettingsPage() {
 			body: JSON.stringify(info),
 		});
 
-		//TODO SUCCESS AND ERROR HANDLE
-		res.status === 200 ? Router.reload() : setSuccess(false);
+		if (res.status < 300) {
+			setSuccess(true);
+		} else {
+			console.log(res);
+			setFailure(true);
+		}
 	};
 
 	return (
@@ -48,7 +54,8 @@ export default function SettingsPage() {
 			onSubmit={submitChange}
 			className='space-y-8 divide-y divide-gray-200'
 		>
-			{success ? null : <SaveFail />}
+			{success ? <SaveSuccess show={success} setShow={setSuccess} /> : null}
+			{failure ? <SaveFail show={failure} setShow={setFailure} /> : null}
 
 			<div className='space-y-8 divide-y divide-gray-200 sm:space-y-5'>
 				<div>
