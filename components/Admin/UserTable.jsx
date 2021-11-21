@@ -1,8 +1,9 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
-import EditUser from '../Modals/EditUser';
+import EditUserForm from '../Forms/EditUserForm';
+import Modal from '../Modals/Modal';
 import { useState } from 'react';
 import { useAllUsersContext } from '@/context/Store';
-import RegisterUser from '../Modals/RegisterUser';
+import RegisterUserForm from '../Forms/RegisterUser';
 import DeleteUser from '../Modals/DeleteUser';
 import SaveFail from '../Notifications/SaveFail';
 import SaveSuccess from '../Notifications/SaveSuccess';
@@ -19,21 +20,23 @@ export default function UserTable() {
 	return (
 		<div className='flex flex-col'>
 			{editUserOpen ? (
-				<EditUser
-					open={editUserOpen}
-					setOpen={setEditUserOpen}
-					user={userSelected}
-					setFailure={setFailure}
-					setSuccess={setSuccess}
-				/>
+				<Modal open={editUserOpen} setOpen={setEditUserOpen}>
+					<EditUserForm
+						user={userSelected}
+						setSuccess={setSuccess}
+						setFailure={setFailure}
+						setOpen={setEditUserOpen}
+					/>
+				</Modal>
 			) : null}
 			{addUserOpen ? (
-				<RegisterUser
-					open={addUserOpen}
-					setOpen={setAddUserOpen}
-					setFailure={setFailure}
-					setSuccess={setSuccess}
-				/>
+				<Modal open={addUserOpen} setOpen={setAddUserOpen}>
+					<RegisterUserForm
+						setSuccess={setSuccess}
+						setFailure={setFailure}
+						setOpen={setAddUserOpen}
+					/>
+				</Modal>
 			) : null}
 			{deleteUserOpen ? (
 				<DeleteUser

@@ -1,14 +1,8 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import EditUserForm from '../Forms/EditUserForm';
+import { XIcon } from '@heroicons/react/outline';
 
-export default function EditUser({
-	open,
-	setOpen,
-	user,
-	setSuccess,
-	setFailure,
-}) {
+export default function Modal({ open, setOpen, children }) {
 	return (
 		<Transition.Root show={open} as={Fragment}>
 			<Dialog
@@ -46,13 +40,13 @@ export default function EditUser({
 						leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
 					>
 						<div className='inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6'>
-							<EditUserForm
-								user={user}
-								setFailure={setFailure}
-								setSuccess={setSuccess}
-								setOpen={setOpen}
-							/>
-							<button onClick={() => setOpen(!open)}>Close</button>
+							<button className='flex ml-auto' onClick={() => setOpen(!open)}>
+								<XIcon
+									className='text-gray-400 group-hover:text-gray-500
+									flex-shrink-0 h-6 w-6'
+								/>
+							</button>
+							{children}
 						</div>
 					</Transition.Child>
 				</div>
