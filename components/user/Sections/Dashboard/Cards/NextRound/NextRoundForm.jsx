@@ -28,8 +28,6 @@ export default function NextRoundForm({ user, setSuccess, setFailure }) {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		//Get an updated schedule incase the page was stale
-
 		//build the new Entry
 		const newEntry = {
 			date: nextRound.date,
