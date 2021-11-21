@@ -3,7 +3,6 @@ import DateFilterInput from '@/components/Inputs/DateFilterInput';
 import SearchInput from '@/components/Inputs/SearchInput';
 import { useState } from 'react';
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
-import EditScore from '../Modals/EditScore';
 import { findLastScheduledRound } from '@/utils/sortingFunctions';
 import {
 	useAllScoresContext,
@@ -12,6 +11,8 @@ import {
 } from '@/context/Store';
 import SaveSuccess from '../Notifications/SaveSuccess';
 import SaveFail from '../Notifications/SaveFail';
+import Modal from '../Modals/Modal';
+import EditScoreForm from '../Forms/EditScoreForm';
 
 export default function UserScores() {
 	const allScores = useAllScoresContext();
@@ -79,17 +80,16 @@ export default function UserScores() {
 	};
 	return (
 		<div className='flex flex-col'>
-			<EditScore
-				open={editUserScore}
-				setOpen={setEditUserScore}
-				lastScheduledRound={lastScheduledRound}
-				user={selectUser}
-				selectedScore={selectedScore}
-				setSuccess={setSuccess}
-				setFail={setFail}
-				scores={scores}
-				setScores={setScores}
-			/>
+			<Modal open={editUserScore} setOpen={setEditUserScore}>
+				<EditScoreForm
+					lastScheduledRound={lastScheduledRound}
+					selectedScore={selectedScore}
+					user={selectUser}
+					setSuccess={setSuccess}
+					setFail={setFail}
+					setOpen={setEditUserScore}
+				/>
+			</Modal>
 
 			<SaveSuccess show={success} setShow={setSuccess} />
 

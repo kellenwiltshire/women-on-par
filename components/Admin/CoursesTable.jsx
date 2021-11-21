@@ -1,11 +1,12 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
 import { useState } from 'react';
 import { useCoursesContext } from '@/context/Store';
-import AddCourse from '../Modals/AddCourse';
-import EditCourse from '../Modals/EditCourse';
 import SaveSuccess from '../Notifications/SaveSuccess';
 import SaveFail from '../Notifications/SaveFail';
 import DeleteCourse from '../Modals/DeleteCourse';
+import Modal from '../Modals/Modal';
+import AddCourseForm from '../Forms/AddCourseForm';
+import EditCourseForm from '../Forms/EditCourseForm';
 
 export default function CoursesTable() {
 	const [editCourseOpen, setEditCourseOpen] = useState(false);
@@ -19,21 +20,20 @@ export default function CoursesTable() {
 	return (
 		<div className='flex flex-col'>
 			{editCourseOpen ? (
-				<EditCourse
-					open={editCourseOpen}
-					setOpen={setEditCourseOpen}
-					course={courseSelected}
-				/>
+				<Modal open={editCourseOpen} setOpen={setEditCourseOpen}>
+					<EditCourseForm course={courseSelected} />
+				</Modal>
 			) : null}
 			{addCourseOpen ? (
-				<AddCourse
-					open={addCourseOpen}
-					setOpen={setAddCourseOpen}
-					setCourses={setCourses}
-					courses={courses}
-					setSuccess={setSuccess}
-					setFailure={setFailure}
-				/>
+				<Modal open={addCourseOpen} setOpen={setAddCourseOpen}>
+					<AddCourseForm
+						setOpen={setAddCourseOpen}
+						setSuccess={setSuccess}
+						setFailure={setFailure}
+						courses={courses}
+						setCourses={setCourses}
+					/>
+				</Modal>
 			) : null}
 
 			<SaveSuccess show={success} setShow={setSuccess} />
