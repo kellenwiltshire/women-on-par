@@ -52,32 +52,38 @@ export default function ScheduleTable({ schedules }) {
 								</tr>
 							</thead>
 							<tbody>
-								{scheduleSorted.map((round, roundIdx) => (
-									<tr
-										key={round.id}
-										className={roundIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
-									>
-										<td className='px-6 py-4 whitespace-nowrap text-sm'>
-											{round.course.name}
-										</td>
+								{scheduleSorted.map((round, roundIdx) => {
+									let game = '';
+									if (round.game) {
+										game = round.game.replace('_', ' ');
+									}
+									return (
+										<tr
+											key={round.id}
+											className={roundIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
+										>
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>
+												{round.course.name}
+											</td>
 
-										<td className='px-6 py-4 whitespace-nowrap text-sm'>
-											GAME
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm'>
-											{round.course.address}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm'>
-											{round.date}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm'>
-											{round.start_time}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm'>
-											{round.course.interval}
-										</td>
-									</tr>
-								))}
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>
+												{game}
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>
+												{round.course.address}
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>
+												{round.date}
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>
+												{round.start_time}
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>
+												{round.course.interval}
+											</td>
+										</tr>
+									);
+								})}
 							</tbody>
 						</table>
 					</div>
