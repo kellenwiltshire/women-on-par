@@ -21,7 +21,12 @@ export default function CoursesTable() {
 		<div className='flex flex-col'>
 			{editCourseOpen ? (
 				<Modal open={editCourseOpen} setOpen={setEditCourseOpen}>
-					<EditCourseForm course={courseSelected} />
+					<EditCourseForm
+						course={courseSelected}
+						setSuccess={setSuccess}
+						setFailure={setFailure}
+						setOpen={setEditCourseOpen}
+					/>
 				</Modal>
 			) : null}
 			{addCourseOpen ? (

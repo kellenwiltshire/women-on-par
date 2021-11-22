@@ -120,6 +120,27 @@ export default function EnterScore({
 						<div className='mx-1'>{course}</div>
 					</div>
 				</li>
+				<li className='col-span-1 flex shadow-sm rounded-md'>
+					<div className='flex-shrink-0 flex items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
+						Score
+					</div>
+					<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md truncate'>
+						<div className='mx-1'>
+							<label htmlFor='score' className='sr-only'>
+								Score
+							</label>
+							<input
+								type='score'
+								name='score'
+								id='score'
+								onChange={(e) => setScore(e.target.value)}
+								className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3'
+								placeholder='Score'
+								required
+							/>
+						</div>
+					</div>
+				</li>
 
 				<HolesInput
 					holeOne={holeOne}
@@ -142,27 +163,6 @@ export default function EnterScore({
 					setHoleNine={setHoleNine}
 				/>
 
-				<li className='col-span-1 flex shadow-sm rounded-md'>
-					<div className='flex-shrink-0 flex items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
-						Score
-					</div>
-					<div className='flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-r-md truncate'>
-						<div className='mx-1'>
-							<label htmlFor='score' className='sr-only'>
-								Score
-							</label>
-							<input
-								type='score'
-								name='score'
-								id='score'
-								onChange={(e) => setScore(e.target.value)}
-								className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3'
-								placeholder='Score'
-								required
-							/>
-						</div>
-					</div>
-				</li>
 				<div className='col-span-4 flex flex-row gap-1 my-2'>
 					<button
 						type='submit'

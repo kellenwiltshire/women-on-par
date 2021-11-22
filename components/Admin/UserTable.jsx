@@ -35,6 +35,7 @@ export default function UserTable() {
 						setSuccess={setSuccess}
 						setFailure={setFailure}
 						setOpen={setAddUserOpen}
+						setUsers={setUsers}
 					/>
 				</Modal>
 			) : null}

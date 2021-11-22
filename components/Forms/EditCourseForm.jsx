@@ -1,16 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export default function EditCourseForm({ course }) {
+export default function EditCourseForm({
+	course,
+	setSuccess,
+	setFailure,
+	setOpen,
+}) {
+	const [name, setName] = useState(course.name);
+	const [address, setAddress] = useState(course.address);
+	const [contact, setContact] = useState(course.contact);
+	const [phone, setPhone] = useState(course.phone);
+	const [email, setEmail] = useState(course.email);
+	const [interval, setInterval] = useState(course.interval);
+	const [additionalInfo, setadditionalInfo] = useState(course.addionalInfo);
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		const data = {
+			name: name,
+			email: email,
+			phone: phone,
+			address: address,
+			interval: interval,
+			addionalInfo: additionalInfo,
+			contact: contact,
+		};
+
+		const req = await fetch('/api/addCourse', {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(data),
+		});
+
+		if (req.status < 300) {
+			setSuccess(true);
+			setOpen(false);
+		} else {
+			setFailure(true);
+			setOpen(false);
+		}
+	};
 	return (
 		<>
-			<div className='min-h-full flex items-center justify-center mb-2 px-4 sm:px-6 lg:px-8'>
+			<div className='min-h-full flex items-center justify-center mb-2 pt-12 px-4 sm:px-6 lg:px-8'>
 				<div className='max-w-md w-full space-y-8'>
 					<div>
 						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
 							Edit Course
 						</h2>
 					</div>
-					<form className='mt-8 space-y-6' action='#' method='POST'>
+					<form className='mt-8 space-y-6' onSubmit={handleSubmit}>
 						<input type='hidden' name='remember' defaultValue='true' />
 						<div className='rounded-md shadow-sm -space-y-px'>
 							<div>
@@ -23,7 +66,8 @@ export default function EditCourseForm({ course }) {
 									type='name'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={course.name}
+									value={course.name}
+									onChange={(e) => setName(e.target.value)}
 								/>
 							</div>
 							<div>
@@ -36,12 +80,27 @@ export default function EditCourseForm({ course }) {
 									type='text'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={course.address}
+									value={course.address}
+									onChange={(e) => setAddress(e.target.value)}
+								/>
+							</div>
+							<div>
+								<label htmlFor='contact-person' className='sr-only'>
+									Contact Person
+								</label>
+								<input
+									id='contact-person'
+									name='contact-person'
+									type='text'
+									required
+									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+									value={course.contact}
+									onChange={(e) => setContact(e.target.value)}
 								/>
 							</div>
 							<div>
 								<label htmlFor='phone-number' className='sr-only'>
-									Phone NUmber
+									Phone Number
 								</label>
 								<input
 									id='phone-number'
@@ -49,7 +108,8 @@ export default function EditCourseForm({ course }) {
 									type='text'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={course.phone}
+									value={course.phone}
+									onChange={(e) => setPhone(e.target.value)}
 								/>
 							</div>
 							<div>
@@ -63,7 +123,8 @@ export default function EditCourseForm({ course }) {
 									autoComplete='email'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={course.email}
+									value={course.email}
+									onChange={(e) => setEmail(e.target.value)}
 								/>
 							</div>
 							<div>
@@ -75,8 +136,24 @@ export default function EditCourseForm({ course }) {
 									name='interval'
 									type='number'
 									required
+									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+									value={course.interval}
+									onChange={(e) => setInterval(e.target.value)}
+								/>
+							</div>
+							<div>
+								<label htmlFor='additional-info' className='sr-only'>
+									Additional Info
+								</label>
+								<textarea
+									id='additional-info'
+									name='additonal-info'
+									rows={4}
+									type='text'
+									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={course.interval}
+									value={course.addionalInfo}
+									onChange={(e) => setadditionalInfo(e.target.value)}
 								/>
 							</div>
 						</div>

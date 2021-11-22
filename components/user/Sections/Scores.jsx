@@ -23,7 +23,7 @@ export default function Scores() {
 	const lastScheduledRound = findLastScheduledRound(schedule);
 
 	const getInitialSuccess = () => {
-		if (scores) {
+		if (scores && lastScheduledRound) {
 			for (let i = 0; i < scores.length; i++) {
 				if (scores[i].date === lastScheduledRound.date) {
 					return true;
@@ -38,7 +38,7 @@ export default function Scores() {
 		<div className='px-4 py-8 sm:px-0'>
 			{success ? <SaveSuccess show={success} setShow={setSuccess} /> : null}
 			{failure ? <SaveFail show={failure} setShow={setFailure} /> : null}
-			{submitSuccess ? null : (
+			{submitSuccess || !lastScheduledRound ? null : (
 				<EnterScore
 					user={user}
 					lastScheduledRound={lastScheduledRound}

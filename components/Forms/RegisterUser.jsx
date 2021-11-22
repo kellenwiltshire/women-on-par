@@ -1,10 +1,10 @@
+import { parseCookies } from 'nookies';
 import React, { useState } from 'react';
 
 export default function RegisterUserForm({
 	setSuccess,
 	setFailure,
 	setOpen,
-	users,
 	setUsers,
 }) {
 	const [firstName, setFirstName] = useState('');
@@ -34,10 +34,20 @@ export default function RegisterUserForm({
 		console.log(req);
 
 		if (req.status < 300) {
-			const response = await req.json();
-			setUsers([...users, response]);
 			setSuccess(true);
 			setOpen(false);
+			const jwt = parseCookies();
+			console.log(jwt);
+			const req = await fetch('/api/getAllUsers', {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(jwt.jwt),
+			});
+			const response = await req.json();
+			setUsers(response);
 		} else {
 			setFailure(true);
 			setOpen(false);
