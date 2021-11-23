@@ -27,11 +27,8 @@ export default function NewsCard() {
 							<span className='inset-0' aria-hidden='true' />
 							Recent News
 						</h3>
-						<p className='mt-2 text-gray-500'>{recentNews.title}</p>
-						<ReactMarkdown
-							children={shortBody}
-							className='mt-2 text-sm text-gray-500'
-						/>
+						<p className='mt-2 text-gray-500 text-xl'>{recentNews.title}</p>
+						<ReactMarkdown children={shortBody} className='mt-2 text-sm text-gray-500' />
 					</div>
 				</div>
 			</a>

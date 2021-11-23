@@ -41,12 +41,7 @@ export default function NextRoundTable() {
 									>
 										Email
 									</th>
-									<th
-										scope='col'
-										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
-									>
-										Notes
-									</th>
+
 									<th scope='col' className='relative px-6 py-3'>
 										<span className='sr-only'>Edit</span>
 									</th>
@@ -63,13 +58,6 @@ export default function NextRoundTable() {
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 											{user.email}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{user.availability.map((date) => {
-												if (date.date === nextRound.date) {
-													return date.notes;
-												}
-											})}
 										</td>
 									</tr>
 								))}

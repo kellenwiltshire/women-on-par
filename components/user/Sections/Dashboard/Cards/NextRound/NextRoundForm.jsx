@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ToggleSwitch from '@/components/Buttons/Toggle';
 import { findNextRound } from '@/utils/sortingFunctions';
 import { useScheduleContext } from '@/context/Store';
@@ -8,22 +8,23 @@ export default function NextRoundForm({ user, setSuccess, setFailure }) {
 	const nextRound = findNextRound(schedule);
 	const currDate = new Date();
 	//This sets the state so that the input reflect the already entered Data (if available) unless the current Date is after the last entered avaialability. If this is the case then it resets so that the user can set their availability for the next round
-	const [attendance, setAttendance] = useState(
-		user.availability.length
-			? currDate <
-			  Date.parse(user.availability[user.availability.length - 1].date)
-				? user.availability[user.availability.length - 1].available
-				: false
-			: false,
-	);
-	const [notes, setNotes] = useState(
-		user.availability.length
-			? currDate <
-			  Date.parse(user.availability[user.availability.length - 1].date)
-				? user.availability[user.availability.length - 1].available
-				: ''
-			: '',
-	);
+	const [attendance, setAttendance] = useState(false);
+	// const [notes, setNotes] = useState(
+	// 	user.availability.length
+	// 		? currDate <
+	// 		  Date.parse(user.availability[user.availability.length - 1].date)
+	// 			? user.availability[user.availability.length - 1].available
+	// 			: ''
+	// 		: '',
+	// );
+
+	useEffect(() => {
+		if (currDate < Date.parse(user.availability[user.availability.length - 1].date)) {
+			if (user.availability[user.availability.length - 1].available) {
+				setAttendance(true);
+			}
+		}
+	}, []);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -32,7 +33,7 @@ export default function NextRoundForm({ user, setSuccess, setFailure }) {
 		const newEntry = {
 			date: nextRound.date,
 			available: attendance,
-			notes: notes,
+			// notes: notes,
 		};
 
 		console.log(newEntry);
@@ -63,15 +64,12 @@ export default function NextRoundForm({ user, setSuccess, setFailure }) {
 	return (
 		<form onSubmit={handleSubmit}>
 			<div className='mt-2 text-sm text-gray-500 flex flex-row align-middle'>
-				<label
-					htmlFor='attendance'
-					className='block text-sm font-medium text-gray-700 mr-2'
-				>
+				<label htmlFor='attendance' className='block text-sm font-medium text-gray-700 mr-2'>
 					Attending:
 				</label>
 				<ToggleSwitch enabled={attendance} setEnabled={setAttendance} />
 			</div>
-			<div>
+			{/* <div>
 				<label
 					htmlFor='notes'
 					className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'
@@ -90,7 +88,7 @@ export default function NextRoundForm({ user, setSuccess, setFailure }) {
 						/>
 					</div>
 				</div>
-			</div>
+			</div> */}
 			<button
 				type='submit'
 				className='my-1 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
