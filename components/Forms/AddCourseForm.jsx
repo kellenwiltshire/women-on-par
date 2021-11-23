@@ -24,7 +24,7 @@ export default function AddCourseForm({
 			phone: phone,
 			address: address,
 			interval: interval,
-			addionalInfo: additionalInfo,
+			additionalInfo: additionalInfo,
 			contact: contact,
 		};
 
