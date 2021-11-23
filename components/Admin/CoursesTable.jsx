@@ -26,6 +26,7 @@ export default function CoursesTable() {
 						setSuccess={setSuccess}
 						setFailure={setFailure}
 						setOpen={setEditCourseOpen}
+						setCourses={setCourses}
 					/>
 				</Modal>
 			) : null}
@@ -97,6 +98,12 @@ export default function CoursesTable() {
 									>
 										Interval
 									</th>
+									<th
+										scope='col'
+										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+									>
+										Additional Info
+									</th>
 									<th scope='col' className='relative px-6 py-3'>
 										<span className='sr-only'>Edit</span>
 									</th>
@@ -125,6 +132,9 @@ export default function CoursesTable() {
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 											{course.interval}
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{course.additionalInfo}
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
 											<button

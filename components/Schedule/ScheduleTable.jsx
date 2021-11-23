@@ -41,19 +41,13 @@ export default function ScheduleTable({ schedules }) {
 									>
 										Start Time
 									</th>
-									<th
-										scope='col'
-										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
-									>
-										Interval
-									</th>
 								</tr>
 							</thead>
 							<tbody>
 								{scheduleSorted.map((round, roundIdx) => {
 									let game = '';
 									if (round.game) {
-										game = round.game.replace('_', ' ');
+										game = round.game.replaceAll('_', ' ');
 									}
 									return (
 										<tr
@@ -75,9 +69,6 @@ export default function ScheduleTable({ schedules }) {
 											</td>
 											<td className='px-6 py-4 whitespace-nowrap text-sm'>
 												{round.start_time}
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm'>
-												{round.course.interval}
 											</td>
 										</tr>
 									);

@@ -5,6 +5,7 @@ export default function EditCourseForm({
 	setSuccess,
 	setFailure,
 	setOpen,
+	setCourses,
 }) {
 	const [name, setName] = useState(course.name);
 	const [address, setAddress] = useState(course.address);
@@ -12,31 +13,37 @@ export default function EditCourseForm({
 	const [phone, setPhone] = useState(course.phone);
 	const [email, setEmail] = useState(course.email);
 	const [interval, setInterval] = useState(course.interval);
-	const [additionalInfo, setadditionalInfo] = useState(course.addionalInfo);
+	const [additionalInfo, setadditionalInfo] = useState(course.additionalInfo);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const data = {
-			name: name,
-			email: email,
-			phone: phone,
-			address: address,
-			interval: interval,
-			addionalInfo: additionalInfo,
-			contact: contact,
+		const newData = {
+			id: course.id,
+			data: {
+				name: name,
+				email: email,
+				phone: phone,
+				address: address,
+				interval: interval,
+				additionalInfo: additionalInfo,
+				contact: contact,
+			},
 		};
 
-		const req = await fetch('/api/addCourse', {
+		const req = await fetch('/api/editCourse', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(data),
+			body: JSON.stringify(newData),
 		});
 
 		if (req.status < 300) {
+			const req = await fetch('/api/getCourses');
+			const response = await req.json();
+			setCourses(response);
 			setSuccess(true);
 			setOpen(false);
 		} else {
@@ -66,7 +73,7 @@ export default function EditCourseForm({
 									type='name'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									value={course.name}
+									value={name}
 									onChange={(e) => setName(e.target.value)}
 								/>
 							</div>
@@ -80,7 +87,7 @@ export default function EditCourseForm({
 									type='text'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									value={course.address}
+									value={address}
 									onChange={(e) => setAddress(e.target.value)}
 								/>
 							</div>
@@ -94,7 +101,7 @@ export default function EditCourseForm({
 									type='text'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									value={course.contact}
+									value={contact}
 									onChange={(e) => setContact(e.target.value)}
 								/>
 							</div>
@@ -108,7 +115,7 @@ export default function EditCourseForm({
 									type='text'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									value={course.phone}
+									value={phone}
 									onChange={(e) => setPhone(e.target.value)}
 								/>
 							</div>
@@ -123,7 +130,7 @@ export default function EditCourseForm({
 									autoComplete='email'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									value={course.email}
+									value={email}
 									onChange={(e) => setEmail(e.target.value)}
 								/>
 							</div>
@@ -137,7 +144,7 @@ export default function EditCourseForm({
 									type='number'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									value={course.interval}
+									value={interval}
 									onChange={(e) => setInterval(e.target.value)}
 								/>
 							</div>
@@ -152,7 +159,7 @@ export default function EditCourseForm({
 									type='text'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									value={course.addionalInfo}
+									value={additionalInfo}
 									onChange={(e) => setadditionalInfo(e.target.value)}
 								/>
 							</div>
