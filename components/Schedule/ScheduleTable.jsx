@@ -47,6 +47,18 @@ export default function ScheduleTable({ schedules }) {
 									>
 										Start Time
 									</th>
+									<th
+										scope='col'
+										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+									>
+										Pricing
+									</th>
+									<th
+										scope='col'
+										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+									>
+										Notes
+									</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -56,29 +68,15 @@ export default function ScheduleTable({ schedules }) {
 										game = round.game.replaceAll('_', ' ');
 									}
 									return (
-										<tr
-											key={round.id}
-											className={roundIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
-										>
-											<td className='px-6 py-4 whitespace-nowrap text-sm'>
-												{round.course.name}
-											</td>
-
-											<td className='px-6 py-4 whitespace-nowrap text-sm'>
-												{game}
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm'>
-												{round.course.address}
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm'>
-												{round.course.phone}
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm'>
-												{round.date}
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm'>
-												{round.start_time}
-											</td>
+										<tr key={round.id} className={roundIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>{round.course.name}</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>{game}</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>{round.course.address}</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>{round.course.phone}</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>{round.date}</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>{round.start_time}</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>{round.pricing}</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>{round.additionalInfo}</td>
 										</tr>
 									);
 								})}

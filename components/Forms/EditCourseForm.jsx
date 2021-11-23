@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 
-export default function EditCourseForm({
-	course,
-	setSuccess,
-	setFailure,
-	setOpen,
-	setCourses,
-}) {
+export default function EditCourseForm({ course, setSuccess, setFailure, setOpen, setCourses }) {
 	const [name, setName] = useState(course.name);
 	const [address, setAddress] = useState(course.address);
 	const [contact, setContact] = useState(course.contact);
@@ -14,6 +8,8 @@ export default function EditCourseForm({
 	const [email, setEmail] = useState(course.email);
 	const [interval, setInterval] = useState(course.interval);
 	const [additionalInfo, setadditionalInfo] = useState(course.additionalInfo);
+	const [adminInfo, setAdminInfo] = useState(course.adminInfo);
+	const [pricing, setPricing] = useState(course.pricing);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -27,6 +23,8 @@ export default function EditCourseForm({
 				address: address,
 				interval: interval,
 				additionalInfo: additionalInfo,
+				adminInfo: adminInfo,
+				pricing: pricing,
 				contact: contact,
 			},
 		};
@@ -56,9 +54,7 @@ export default function EditCourseForm({
 			<div className='min-h-full flex items-center justify-center mb-2 pt-12 px-4 sm:px-6 lg:px-8'>
 				<div className='max-w-md w-full space-y-8'>
 					<div>
-						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
-							Edit Course
-						</h2>
+						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Edit Course</h2>
 					</div>
 					<form className='mt-8 space-y-6' onSubmit={handleSubmit}>
 						<input type='hidden' name='remember' defaultValue='true' />
@@ -161,6 +157,38 @@ export default function EditCourseForm({
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									value={additionalInfo}
 									onChange={(e) => setadditionalInfo(e.target.value)}
+								/>
+							</div>
+							<div>
+								<label htmlFor='admin-info' className='sr-only'>
+									Admin Info
+								</label>
+								<textarea
+									id='admin-info'
+									name='admin-info'
+									rows={4}
+									type='text'
+									required
+									value={adminInfo}
+									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+									placeholder='Admin Only Info'
+									onChange={(e) => setAdminInfo(e.target.value)}
+								/>
+							</div>
+							<div>
+								<label htmlFor='pricing-info' className='sr-only'>
+									Pricing Info
+								</label>
+								<textarea
+									id='pricing-info'
+									name='pricing-info'
+									rows={4}
+									type='text'
+									value={pricing}
+									required
+									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+									placeholder='Pricing Info'
+									onChange={(e) => setPricing(e.target.value)}
 								/>
 							</div>
 						</div>
