@@ -3,6 +3,7 @@ import { findMostRecentNews } from '@/utils/sortingFunctions';
 import { NewspaperIcon } from '@heroicons/react/outline';
 import React from 'react';
 import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
 
 export default function NewsCard() {
 	const news = useNewsContext();
@@ -27,7 +28,10 @@ export default function NewsCard() {
 							Recent News
 						</h3>
 						<p className='mt-2 text-gray-500'>{recentNews.title}</p>
-						<p className='mt-2 text-sm text-gray-500'>{shortBody}</p>
+						<ReactMarkdown
+							children={shortBody}
+							className='mt-2 text-sm text-gray-500'
+						/>
 					</div>
 				</div>
 			</a>

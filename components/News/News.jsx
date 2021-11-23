@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import Image from 'next/image';
 
 export default function Articles({ news }) {
+	const [image, setImage] = useState('/brand/logoNoText.jpg');
+
+	useEffect(() => {
+		if (news.media.length > 0) {
+			setImage(news.media[0].url);
+		}
+	}, []);
 	return (
 		<div className='bg-white overflow-hidden'>
 			<div className='relative max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8'>
@@ -54,7 +61,7 @@ export default function Articles({ news }) {
 								<div className='aspect-w-12 aspect-h-7 lg:aspect-none'>
 									<Image
 										className='rounded-lg shadow-lg object-cover object-center'
-										src={news.media[0].url}
+										src={image}
 										alt='Whitney leaning against a railing on a downtown street'
 										width={1184}
 										height={1376}

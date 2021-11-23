@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import ReactMarkdown from 'react-markdown';
 
 export default function NewsCards({ post }) {
 	const length = 100;
 	const shortBody = post.body.substring(0, length) + '...';
+	const [image, setImage] = useState('/brand/logoNoText.jpg');
+
+	console.log(post);
+
+	useEffect(() => {
+		if (post.media.length > 0) {
+			setImage(post.media[0].url);
+		}
+	}, []);
 	return (
 		<div
 			key={post.title}
@@ -13,7 +23,7 @@ export default function NewsCards({ post }) {
 			<div className='flex-shrink-0 justify-center flex'>
 				<Image
 					className='h-48 w-full object-cover'
-					src={post.media[0].url}
+					src={image}
 					height={192}
 					width={400}
 					alt=''
@@ -31,7 +41,10 @@ export default function NewsCards({ post }) {
 							<p className='text-xl font-semibold text-gray-900'>
 								{post.title}
 							</p>
-							<p className='mt-3 text-base text-gray-500'>{shortBody}</p>
+							<ReactMarkdown
+								children={shortBody}
+								className='mt-3 text-base text-gray-500'
+							/>
 						</a>
 					</Link>
 				</div>
