@@ -83,6 +83,18 @@ export default function UserTable() {
 									>
 										Email
 									</th>
+									<th
+										scope='col'
+										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+									>
+										Phone
+									</th>
+									<th
+										scope='col'
+										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+									>
+										Conditions
+									</th>
 									<th scope='col' className='relative px-6 py-3'>
 										<span className='sr-only'>Edit</span>
 									</th>
@@ -102,6 +114,12 @@ export default function UserTable() {
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 											{user.email}
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{user.phone}
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{user.conditions}
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
 											<button

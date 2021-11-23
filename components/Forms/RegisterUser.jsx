@@ -10,6 +10,8 @@ export default function RegisterUserForm({
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
+	const [phone, setPhone] = useState('');
+	const [conditions, setConditions] = useState('');
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -20,6 +22,8 @@ export default function RegisterUserForm({
 			email: email,
 			username: email,
 			password: 'Test1234',
+			phone: phone,
+			conditions: conditions,
 		};
 
 		const req = await fetch('/api/addUser', {
@@ -94,7 +98,7 @@ export default function RegisterUserForm({
 									placeholder='Last Name'
 								/>
 							</div>
-							{/* <div>
+							<div>
 								<label htmlFor='phone-number' className='sr-only'>
 									Phone NUmber
 								</label>
@@ -103,10 +107,11 @@ export default function RegisterUserForm({
 									name='phone-number'
 									type='text'
 									required
+									onChange={(e) => setPhone(e.target.value)}
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder='Phone Number'
 								/>
-							</div> */}
+							</div>
 							<div>
 								<label htmlFor='email-address' className='sr-only'>
 									Email address
@@ -136,6 +141,21 @@ export default function RegisterUserForm({
 									placeholder='Password'
 								/>
 							</div> */}
+							<div>
+								<label htmlFor='conditions' className='sr-only'>
+									Conditions
+								</label>
+								<textarea
+									id='conditions'
+									name='conditions'
+									rows={4}
+									type='text'
+									required
+									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+									placeholder='Additional Info'
+									onChange={(e) => setConditions(e.target.value)}
+								/>
+							</div>
 						</div>
 
 						<div>

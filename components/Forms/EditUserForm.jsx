@@ -9,6 +9,8 @@ export default function EditUserForm({
 	const [firstName, setFirstName] = useState(user.first_name);
 	const [lastName, setLastName] = useState(user.last_name);
 	const [email, setEmail] = useState(user.email);
+	const [phone, setPhone] = useState(user.phone);
+	const [conditions, setConditions] = useState(user.conditions);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -19,6 +21,8 @@ export default function EditUserForm({
 				first_name: firstName,
 				last_name: lastName,
 				email: email,
+				phone: phone,
+				conditions: conditions,
 			},
 		};
 
@@ -59,6 +63,7 @@ export default function EditUserForm({
 									id='first-name'
 									name='first-name'
 									type='first-name'
+									value={firstName}
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder={firstName}
@@ -73,13 +78,14 @@ export default function EditUserForm({
 									id='last-name'
 									name='last-name'
 									type='last-name'
+									value={lastName}
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder={lastName}
 									onChange={(e) => setLastName(e.target.value)}
 								/>
 							</div>
-							{/* <div>
+							<div>
 								<label htmlFor='phone-number' className='sr-only'>
 									Phone NUmber
 								</label>
@@ -88,10 +94,12 @@ export default function EditUserForm({
 									name='phone-number'
 									type='text'
 									required
+									value={phone}
+									onChange={(e) => setPhone(e.target.value)}
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder='Phone Number'
+									placeholder={phone || 'Phone Number'}
 								/>
-							</div> */}
+							</div>
 							<div>
 								<label htmlFor='email-address' className='sr-only'>
 									Email address
@@ -101,6 +109,7 @@ export default function EditUserForm({
 									name='email'
 									type='email'
 									autoComplete='email'
+									value={email}
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder={email}
@@ -121,6 +130,22 @@ export default function EditUserForm({
 									placeholder='Password'
 								/>
 							</div> */}
+							<div>
+								<label htmlFor='conditions' className='sr-only'>
+									Conditions
+								</label>
+								<textarea
+									id='conditions'
+									name='conditions'
+									rows={4}
+									type='text'
+									required
+									value={conditions}
+									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+									placeholder={conditions || 'Conditions'}
+									onChange={(e) => setConditions(e.target.value)}
+								/>
+							</div>
 						</div>
 
 						<div>
