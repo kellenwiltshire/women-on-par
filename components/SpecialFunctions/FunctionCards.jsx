@@ -21,7 +21,7 @@ export default function FunctionCards({ details }) {
 				}}
 			>
 				<a>
-					<p className='text-xl font-semibold text-gray-900'>{details.name}</p>
+					<p className='text-3xl font-semibold text-gray-900 mb-2 text-center'>{details.name}</p>
 					<div className='w-full aspect-w-3 aspect-h-2 rounded-lg overflow-hidden'>
 						<img
 							src={image}
