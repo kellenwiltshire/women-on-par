@@ -38,6 +38,8 @@ export default function Navbar({ signedIn, setSignedIn }) {
 			setActiveTab(3);
 		} else if (urlString.includes('schedule')) {
 			setActiveTab(4);
+		} else if (urlString.includes('specialfunctions')) {
+			setActiveTab(5);
 		} else {
 			setActiveTab(1);
 		}
@@ -70,6 +72,7 @@ export default function Navbar({ signedIn, setSignedIn }) {
 				{ num: 2, name: 'Dashboard', href: userNavUrl },
 				{ num: 3, name: 'News', href: '/articles' },
 				{ num: 4, name: 'Schedule', href: '/schedule' },
+				{ num: 5, name: 'Special Functions', href: '/specialfunctions' },
 			]);
 			if (user.picture) {
 				setPicture(user.picture.picture.url);
@@ -138,11 +141,7 @@ export default function Navbar({ signedIn, setSignedIn }) {
 									<div>
 										<Menu.Button className='bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
 											<span className='sr-only'>Open user menu</span>
-											<img
-												className='h-8 w-8 rounded-full'
-												src={picture}
-												alt=''
-											/>
+											<img className='h-8 w-8 rounded-full' src={picture} alt='' />
 										</Menu.Button>
 									</div>
 									<Transition

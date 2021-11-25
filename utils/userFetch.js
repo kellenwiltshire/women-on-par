@@ -113,6 +113,32 @@ export const fetchArticle = async (jwt, id) => {
 	return response;
 };
 
+export const fetchSpecialFunctions = async (jwt) => {
+	const request = await fetch(`${url}/special-functions`, {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+		},
+	});
+
+	const response = await request.json();
+
+	return response;
+};
+
+export const fetchFunction = async (jwt, id) => {
+	const request = await fetch(`${url}/special-functions/${id}`, {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+		},
+	});
+
+	const response = await request.json();
+
+	return response;
+};
+
 export async function getAdminData(jwt) {
 	const user = await fetchUser(jwt);
 
