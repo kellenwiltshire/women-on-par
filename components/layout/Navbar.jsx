@@ -38,7 +38,7 @@ export default function Navbar({ signedIn, setSignedIn }) {
 			setActiveTab(3);
 		} else if (urlString.includes('schedule')) {
 			setActiveTab(4);
-		} else if (urlString.includes('specialfunctions')) {
+		} else if (urlString.includes('special')) {
 			setActiveTab(5);
 		} else {
 			setActiveTab(1);
