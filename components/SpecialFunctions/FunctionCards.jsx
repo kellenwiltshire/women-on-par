@@ -23,11 +23,7 @@ export default function FunctionCards({ details }) {
 				<a>
 					<h1 className='text-3xl font-semibold text-gray-900 mb-2 text-center'>{details.name}</h1>
 					<div className='w-full aspect-w-3 aspect-h-2 rounded-lg overflow-hidden'>
-						<img
-							src={image}
-							alt='Drawstring top with elastic loop closure and textured interior padding.'
-							className='w-full h-96 object-center object-cover'
-						/>
+						<img src={image} className='w-full h-96 object-center object-cover' />
 					</div>
 					<p className='mt-8 text-base text-gray-500'>
 						<ReactMarkdown children={shortBody} />

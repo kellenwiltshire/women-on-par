@@ -51,7 +51,7 @@ export default function FunctionPage({ specialFunction }) {
 									<Image
 										className='rounded-lg shadow-lg object-cover object-center'
 										src={image}
-										alt='Whitney leaning against a railing on a downtown street'
+										alt=''
 										width={1184}
 										height={1376}
 									/>

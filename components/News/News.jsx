@@ -40,21 +40,10 @@ export default function Articles({ news }) {
 									height={20}
 									patternUnits='userSpaceOnUse'
 								>
-									<rect
-										x={0}
-										y={0}
-										width={4}
-										height={4}
-										className='text-gray-200'
-										fill='currentColor'
-									/>
+									<rect x={0} y={0} width={4} height={4} className='text-gray-200' fill='currentColor' />
 								</pattern>
 							</defs>
-							<rect
-								width={404}
-								height={384}
-								fill='url(#de316486-4a29-4312-bdfc-fbce2132a2c1)'
-							/>
+							<rect width={404} height={384} fill='url(#de316486-4a29-4312-bdfc-fbce2132a2c1)' />
 						</svg>
 						<div className='relative text-base mx-auto max-w-prose lg:max-w-none'>
 							<figure>
@@ -62,7 +51,7 @@ export default function Articles({ news }) {
 									<Image
 										className='rounded-lg shadow-lg object-cover object-center'
 										src={image}
-										alt='Whitney leaning against a railing on a downtown street'
+										alt=''
 										width={1184}
 										height={1376}
 									/>
