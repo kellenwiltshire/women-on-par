@@ -25,24 +25,28 @@ export default function LoginForm({ setSignedIn }) {
 				},
 				body: JSON.stringify(loginInfo),
 			});
+			if (login.status < 300) {
+				const loginResponse = await login.json();
 
-			const loginResponse = await login.json();
+				setCookie(null, 'jwt', loginResponse.jwt, {
+					maxAge: 30 * 24 * 60 * 60,
+					path: '/',
+				});
 
-			setCookie(null, 'jwt', loginResponse.jwt, {
-				maxAge: 30 * 24 * 60 * 60,
-				path: '/',
-			});
+				console.log(loginResponse);
 
-			console.log(loginResponse);
+				setSignedIn(true);
 
-			setSignedIn(true);
-
-			if (loginResponse.user.initialLogin) {
-				Router.push('/initialLogin');
-			} else if (loginResponse.user.role.type === 'admin') {
-				Router.push(`/admin/${loginResponse.user.id}`);
+				if (loginResponse.user.initialLogin) {
+					Router.push('/initialLogin');
+				} else if (loginResponse.user.role.type === 'admin') {
+					Router.push(`/admin/${loginResponse.user.id}`);
+				} else {
+					Router.push(`/user/${loginResponse.user.id}`);
+				}
 			} else {
-				Router.push(`/user/${loginResponse.user.id}`);
+				setLoginError(true);
+				console.log(login);
 			}
 		} catch (error) {
 			setLoginError(true);

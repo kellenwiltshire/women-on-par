@@ -51,7 +51,7 @@ export default function ResetPasswordForm({ setSignedIn }) {
 				});
 
 				if (req.status < 300) {
-					const loginResponse = await requestAnimationFrame.json();
+					const loginResponse = await req.json();
 
 					setCookie(null, 'jwt', loginResponse.jwt, {
 						maxAge: 30 * 24 * 60 * 60,
