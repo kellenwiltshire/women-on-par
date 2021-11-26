@@ -19,7 +19,6 @@ export default function ResetPasswordForm() {
 		setCode(urlCode.code);
 	}, []);
 
-	const [defaultError, setDefaultError] = useState(false);
 	const [passMatchError, setPassMatchError] = useState(false);
 	const [complexError, setComplexError] = useState(false);
 
@@ -69,13 +68,7 @@ export default function ResetPasswordForm() {
 						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
 							Create New Password
 						</h2>
-						{defaultError ? (
-							<div>
-								<p className='mt-2 text-center text-sm text-red-600'>
-									Error: Default Password incorrect
-								</p>
-							</div>
-						) : null}
+
 						{passMatchError ? (
 							<div>
 								<p className='mt-2 text-center text-sm text-red-600'>
