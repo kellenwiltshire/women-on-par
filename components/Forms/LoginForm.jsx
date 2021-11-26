@@ -37,11 +37,9 @@ export default function LoginForm({ setSignedIn }) {
 
 			setSignedIn(true);
 
-			// if (loginResponse.user.initialLogin) {
-			// 	Router.push('/initialLogin');
-			// } else
-
-			if (loginResponse.user.role.type === 'admin') {
+			if (loginResponse.user.initialLogin) {
+				Router.push('/initialLogin');
+			} else if (loginResponse.user.role.type === 'admin') {
 				Router.push(`/admin/${loginResponse.user.id}`);
 			} else {
 				Router.push(`/user/${loginResponse.user.id}`);
