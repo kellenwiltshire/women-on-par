@@ -43,11 +43,27 @@ const setNewPass = async (req, res) => {
 			}),
 		});
 
-		const loginResponse = await login.json();
+		if (req.status < 300) {
+			const response = await req.json();
+			const id = response.user.id;
 
-		console.log(loginResponse);
+			const update = await fetch('/api/editUser', {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ id: id, initialLogin: false }),
+			});
 
-		res.status(200).json(loginResponse);
+			if (update.status < 300) {
+				const loginResponse = await login.json();
+
+				console.log(loginResponse);
+
+				res.status(200).json(loginResponse);
+			}
+		}
 	} catch (error) {
 		res.status(500).json({ error: 'Error Changing Password', response: error });
 	}
