@@ -19,6 +19,8 @@ export default function ResetPasswordForm() {
 		setCode(urlCode.code);
 	}, []);
 
+	console.log('CODE: ', code);
+
 	const [passMatchError, setPassMatchError] = useState(false);
 	const [complexError, setComplexError] = useState(false);
 
@@ -34,6 +36,7 @@ export default function ResetPasswordForm() {
 				const loginInfo = {
 					code: code,
 					newPass: newPass,
+					confirmPass: confirmPass,
 				};
 				const req = await fetch('/api/setNewPass', {
 					method: 'POST',
@@ -47,6 +50,8 @@ export default function ResetPasswordForm() {
 				const res = await req.json();
 
 				console.log(res);
+
+				//TODO: handle response
 			}
 		} else {
 			setComplexError(true);

@@ -23,18 +23,24 @@ const setNewPass = async (req, res) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
-	const cookies = parseCookies({ req });
-	const jwt = cookies.jwt;
+	console.log(req.body);
+
+	const code = req.body.code;
+	const newPass = req.body.newPass;
+	const confirmPass = req.body.confirmPass;
 
 	try {
-		const login = await fetch(`${url}/auth/forgot-password`, {
+		const login = await fetch(`${url}/auth/reset-password`, {
 			method: 'POST',
 			headers: {
-				Authorization: `Bearer ${jwt}`,
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ email: 'webdevelopment@kellenwiltshire.com' }),
+			body: JSON.stringify({
+				code: code,
+				password: newPass,
+				passwordConfirmation: confirmPass,
+			}),
 		});
 
 		const loginResponse = await login.json();

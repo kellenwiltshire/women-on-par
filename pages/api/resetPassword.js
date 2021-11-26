@@ -23,16 +23,12 @@ const setNewPass = async (req, res) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
-	const cookies = parseCookies({ req });
-	const jwt = cookies.jwt;
-
 	const email = req.body;
 
 	try {
 		const login = await fetch(`${url}/auth/forgot-password`, {
 			method: 'POST',
 			headers: {
-				Authorization: `Bearer ${jwt}`,
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
@@ -45,7 +41,7 @@ const setNewPass = async (req, res) => {
 
 		res.status(200).json(loginResponse);
 	} catch (error) {
-		res.status(500).json({ error: 'Error Changing Password', response: error });
+		res.status(500).json({ error: 'Error Sending Email', response: error });
 	}
 };
 
