@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { LockClosedIcon } from '@heroicons/react/outline';
-import { useUserContext } from '@/context/Store';
+import Router from 'next/router';
 
-export default function InitialLoginForm() {
-	const origDefaultPass = 'Womenonpar1!';
-	const [defaultPass, setDefaultPass] = useState('');
+export default function ResetPasswordForm() {
 	const [newPass, setNewPass] = useState('');
 	const [confirmPass, setConfirmPass] = useState('');
-	const user = useUserContext();
+	const [code, setCode] = useState('');
 
 	const pattern = new RegExp(
 		'^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$',
 	);
+
+	useEffect(() => {
+		const urlCode = Router.query;
+		console.log('URL CODE: ', urlCode.code);
+
+		setCode(urlCode.code);
+	}, []);
 
 	const [defaultError, setDefaultError] = useState(false);
 	const [passMatchError, setPassMatchError] = useState(false);
@@ -21,20 +26,15 @@ export default function InitialLoginForm() {
 	const submitForm = async (e) => {
 		e.preventDefault();
 
-		if (defaultPass !== origDefaultPass) {
-			setDefaultError(true);
-		}
-
 		if (newPass !== confirmPass) {
 			setPassMatchError(true);
 		}
 
 		if (newPass.length >= 8 && pattern.test(newPass)) {
-			if (newPass === confirmPass && defaultPass === origDefaultPass) {
+			if (newPass === confirmPass) {
 				const loginInfo = {
-					user: user,
+					code: code,
 					newPass: newPass,
-					prevPass: origDefaultPass,
 				};
 				const req = await fetch('/api/setNewPass', {
 					method: 'POST',
@@ -88,20 +88,6 @@ export default function InitialLoginForm() {
 					<form className='mt-8 space-y-6' onSubmit={submitForm}>
 						<input type='hidden' name='remember' defaultValue='true' />
 						<div className='rounded-md shadow-sm -space-y-px'>
-							<div>
-								<label htmlFor='default-pass' className='sr-only'>
-									Email address
-								</label>
-								<input
-									id='default-pass'
-									name='default-pass'
-									type='password'
-									required
-									onChange={(e) => setDefaultPass(e.target.value)}
-									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder='Current Password'
-								/>
-							</div>
 							<div>
 								{complexError ? (
 									<p className='mt-2 text-center text-sm text-red-600'>

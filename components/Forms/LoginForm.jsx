@@ -114,7 +114,7 @@ export default function LoginForm({ setSignedIn }) {
 						<div className='flex items-center justify-between'>
 							<div className='text-sm'>
 								<a
-									href='#'
+									href='/start-reset-process'
 									className='font-medium text-indigo-600 hover:text-indigo-500'
 								>
 									Forgot your password?

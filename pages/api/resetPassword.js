@@ -26,6 +26,8 @@ const setNewPass = async (req, res) => {
 	const cookies = parseCookies({ req });
 	const jwt = cookies.jwt;
 
+	const email = req.body;
+
 	try {
 		const login = await fetch(`${url}/auth/forgot-password`, {
 			method: 'POST',
@@ -34,7 +36,7 @@ const setNewPass = async (req, res) => {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ email: 'webdevelopment@kellenwiltshire.com' }),
+			body: JSON.stringify({ email: email }),
 		});
 
 		const loginResponse = await login.json();
