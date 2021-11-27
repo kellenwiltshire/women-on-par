@@ -17,6 +17,8 @@ export default function UserTable() {
 	const [failure, setFailure] = useState(false);
 	const [users, setUsers] = useState(useAllUsersContext());
 
+	console.log('User Table - Users: ', users);
+
 	useEffect(() => {
 		const sortedUsers = users.sort((a, b) => {
 			return a.last_name.toLowerCase() > b.last_name.toLowerCase();
@@ -29,7 +31,12 @@ export default function UserTable() {
 		<div className='flex flex-col'>
 			{editUserOpen ? (
 				<Modal open={editUserOpen} setOpen={setEditUserOpen}>
-					<EditUserForm user={userSelected} setSuccess={setSuccess} setFailure={setFailure} setOpen={setEditUserOpen} />
+					<EditUserForm
+						user={userSelected}
+						setSuccess={setSuccess}
+						setFailure={setFailure}
+						setOpen={setEditUserOpen}
+					/>
 				</Modal>
 			) : null}
 			{addUserOpen ? (
@@ -108,14 +115,25 @@ export default function UserTable() {
 							</thead>
 							<tbody>
 								{users.map((user, userIdx) => (
-									<tr key={user.email} className={userIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.id}</td>
+									<tr
+										key={user.email}
+										className={userIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
+									>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{user.id}
+										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
 											{user.first_name} {user.last_name}
 										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.email}</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.phone}</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.conditions}</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{user.email}
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{user.phone}
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{user.conditions}
+										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
 											<button
 												onClick={() => {
