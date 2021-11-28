@@ -43,7 +43,7 @@ const setNewPass = async (req, res) => {
 			}),
 		});
 
-		if (req.status < 300) {
+		if (login.status < 300) {
 			const response = await req.json();
 			const id = response.user.id;
 
@@ -62,7 +62,17 @@ const setNewPass = async (req, res) => {
 				console.log(loginResponse);
 
 				res.status(200).json(loginResponse);
+			} else {
+				const response = await req.json();
+				console.log(response);
+
+				res.status(update.status).json(response);
 			}
+		} else {
+			const response = await req.json();
+			console.log(response);
+
+			res.status(login.status).json(response);
 		}
 	} catch (error) {
 		res.status(500).json({ error: 'Error Changing Password', response: error });

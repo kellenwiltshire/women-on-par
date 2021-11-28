@@ -8,25 +8,21 @@ import FormFailure from '../Modals/FormFailure';
 export default function ResetPasswordForm({ setSignedIn }) {
 	const [newPass, setNewPass] = useState('');
 	const [confirmPass, setConfirmPass] = useState('');
-	const [code, setCode] = useState('');
 	const [failure, setFailure] = useState(false);
 	const router = useRouter();
 
 	const pattern = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$');
-
-	useEffect(() => {
-		const query = router.query;
-
-		setCode(query.code);
-	}, []);
-
-	console.log('CODE: ', code);
 
 	const [passMatchError, setPassMatchError] = useState(false);
 	const [complexError, setComplexError] = useState(false);
 
 	const submitForm = async (e) => {
 		e.preventDefault();
+
+		const query = router.query;
+		const code = query.code;
+
+		console.log('CODE: ', code);
 
 		if (newPass !== confirmPass) {
 			setPassMatchError(true);
@@ -60,25 +56,25 @@ export default function ResetPasswordForm({ setSignedIn }) {
 
 					setSignedIn(true);
 
-					// if (loginResponse.user.initialLogin) {
-					// 	Router.push('/initialLogin');
-					// } else
-
 					if (loginResponse.user.role.type === 'admin') {
-						Router.push(`/admin/${loginResponse.user.id}`);
+						router.push(`/admin/${loginResponse.user.id}`);
 					} else {
-						Router.push(`/user/${loginResponse.user.id}`);
+						router.push(`/user/${loginResponse.user.id}`);
 					}
 				} else {
+					const loginResponse = await req.json();
+					console.log(loginResponse);
 					setFailure(true);
 				}
+			} else {
+				setPassMatchError(true);
 			}
 		} else {
 			setComplexError(true);
 		}
 	};
 	if (failure) {
-		<FormFailure />;
+		return <FormFailure />;
 	} else {
 		return (
 			<>
