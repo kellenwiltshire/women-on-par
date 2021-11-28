@@ -153,9 +153,9 @@ export default function EditCourseForm({ course, setSuccess, setFailure, setOpen
 									name='additonal-info'
 									rows={4}
 									type='text'
-									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									value={additionalInfo}
+									placeholder={additionalInfo || 'Additional Info'}
 									onChange={(e) => setadditionalInfo(e.target.value)}
 								/>
 							</div>
@@ -168,7 +168,6 @@ export default function EditCourseForm({ course, setSuccess, setFailure, setOpen
 									name='admin-info'
 									rows={4}
 									type='text'
-									required
 									value={adminInfo}
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder='Admin Only Info'
@@ -185,7 +184,6 @@ export default function EditCourseForm({ course, setSuccess, setFailure, setOpen
 									rows={4}
 									type='text'
 									value={pricing}
-									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder='Pricing Info'
 									onChange={(e) => setPricing(e.target.value)}
