@@ -1,34 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { LockClosedIcon } from '@heroicons/react/outline';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { setCookie } from 'nookies';
 import FormFailure from '../Modals/FormFailure';
 
 export default function ResetPasswordForm({ setSignedIn }) {
 	const [newPass, setNewPass] = useState('');
 	const [confirmPass, setConfirmPass] = useState('');
-	const [code, setCode] = useState('');
 	const [failure, setFailure] = useState(false);
+	const router = useRouter();
 
-	const pattern = new RegExp(
-		'^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$',
-	);
-
-	useEffect(() => {
-		const urlCode = Router.query;
-		console.log('URL CODE: ', urlCode.code);
-
-		setCode(urlCode.code);
-	}, []);
-
-	console.log('CODE: ', code);
+	const pattern = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$');
 
 	const [passMatchError, setPassMatchError] = useState(false);
 	const [complexError, setComplexError] = useState(false);
 
 	const submitForm = async (e) => {
 		e.preventDefault();
+
+		const query = router.query;
+		const code = query.code;
+
+		console.log('CODE: ', code);
 
 		if (newPass !== confirmPass) {
 			setPassMatchError(true);
@@ -62,25 +56,25 @@ export default function ResetPasswordForm({ setSignedIn }) {
 
 					setSignedIn(true);
 
-					// if (loginResponse.user.initialLogin) {
-					// 	Router.push('/initialLogin');
-					// } else
-
 					if (loginResponse.user.role.type === 'admin') {
-						Router.push(`/admin/${loginResponse.user.id}`);
+						router.push(`/admin/${loginResponse.user.id}`);
 					} else {
-						Router.push(`/user/${loginResponse.user.id}`);
+						router.push(`/user/${loginResponse.user.id}`);
 					}
 				} else {
+					const loginResponse = await req.json();
+					console.log(loginResponse);
 					setFailure(true);
 				}
+			} else {
+				setPassMatchError(true);
 			}
 		} else {
 			setComplexError(true);
 		}
 	};
 	if (failure) {
-		<FormFailure />;
+		return <FormFailure />;
 	} else {
 		return (
 			<>
@@ -88,16 +82,9 @@ export default function ResetPasswordForm({ setSignedIn }) {
 					<div className='max-w-md w-full space-y-8'>
 						<div className='flex justify-center flex-wrap flex-row'>
 							<div className='relative w-full h-64 sm:h-72 md:h-96 lg:w-1/2 lg:h-full'>
-								<Image
-									src='/brand/logoNoText.jpg'
-									alt='logo'
-									height={868}
-									width={587}
-								/>
+								<Image src='/brand/logoNoText.jpg' alt='logo' height={868} width={587} />
 							</div>
-							<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
-								Create New Password
-							</h2>
+							<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Create New Password</h2>
 
 							{passMatchError ? (
 								<div>
@@ -113,15 +100,13 @@ export default function ResetPasswordForm({ setSignedIn }) {
 							<div className='rounded-md shadow-sm -space-y-px'>
 								<div>
 									{complexError ? (
-										<p className='mt-2 text-center text-sm text-red-600'>
-											Error: New Password must be at least 8 characters with 1
-											capital, 1 number, and 1 symbol
+										<p className='mt-2 text-center text-sm text-red-600 mb-2'>
+											Error: New Password must be at least 8 characters with 1 capital, 1 number, and 1 symbol
 										</p>
 									) : (
-										<span className='text-xs'>
-											Password must be at least 8 characters with 1 capital, 1
-											number, and 1 symbol
-										</span>
+										<p className='text-xs mb-2 mt-2'>
+											Password must be at least 8 characters with 1 capital, 1 number, and 1 symbol
+										</p>
 									)}
 									<label htmlFor='new-password' className='sr-only'>
 										New Password
@@ -132,7 +117,7 @@ export default function ResetPasswordForm({ setSignedIn }) {
 										type='password'
 										required
 										onChange={(e) => setNewPass(e.target.value)}
-										className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+										className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 										placeholder='New Password'
 									/>
 								</div>
@@ -149,17 +134,6 @@ export default function ResetPasswordForm({ setSignedIn }) {
 										className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 										placeholder='Confirm New Password'
 									/>
-								</div>
-							</div>
-
-							<div className='flex items-center justify-between'>
-								<div className='text-sm'>
-									<a
-										href='#'
-										className='font-medium text-indigo-600 hover:text-indigo-500'
-									>
-										Forgot your password?
-									</a>
 								</div>
 							</div>
 
