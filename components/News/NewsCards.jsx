@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 
 export default function NewsCards({ post }) {
@@ -20,14 +19,8 @@ export default function NewsCards({ post }) {
 			key={post.title}
 			className='flex flex-col rounded-lg shadow-lg overflow-hidden'
 		>
-			<div className='flex-shrink-0 justify-center flex'>
-				<Image
-					className='h-48 w-full object-cover'
-					src={image}
-					height={192}
-					width={400}
-					alt=''
-				/>
+			<div className='w-full aspect-w-3 aspect-h-2 rounded-lg overflow-hidden flex justify-center'>
+				<img src={image} className='h-96' />
 			</div>
 			<div className='flex-1 bg-white p-6 flex flex-col justify-between'>
 				<div className='flex-1'>
