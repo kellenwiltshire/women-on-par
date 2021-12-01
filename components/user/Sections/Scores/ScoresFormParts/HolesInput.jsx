@@ -42,6 +42,7 @@ export default function HolesInput({
 										birdie: holeOne.birdie,
 									});
 								}}
+								checked={holeOne.chip}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -60,6 +61,7 @@ export default function HolesInput({
 										birdie: !holeOne.birdie,
 									});
 								}}
+								checked={holeOne.birdie}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -87,6 +89,7 @@ export default function HolesInput({
 										birdie: holeTwo.birdie,
 									});
 								}}
+								checked={holeTwo.chip}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -105,6 +108,7 @@ export default function HolesInput({
 										birdie: !holeTwo.birdie,
 									});
 								}}
+								checked={holeTwo.birdie}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -132,6 +136,7 @@ export default function HolesInput({
 										birdie: holeThree.birdie,
 									});
 								}}
+								checked={holeThree.chip}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -150,6 +155,7 @@ export default function HolesInput({
 										birdie: holeThree.birdie,
 									});
 								}}
+								checked={holeThree.birdie}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -177,6 +183,7 @@ export default function HolesInput({
 										birdie: holeFour.birdie,
 									});
 								}}
+								checked={holeFour.chip}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -195,6 +202,7 @@ export default function HolesInput({
 										birdie: !holeFour.birdie,
 									});
 								}}
+								checked={holeFour.birdie}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -222,6 +230,7 @@ export default function HolesInput({
 										birdie: holeFive.birdie,
 									});
 								}}
+								checked={holeFive.chip}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -240,6 +249,7 @@ export default function HolesInput({
 										birdie: !holeFive.birdie,
 									});
 								}}
+								checked={holeFive.birdie}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -267,6 +277,7 @@ export default function HolesInput({
 										birdie: holeSix.birdie,
 									});
 								}}
+								checked={holeSix.chip}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -285,6 +296,7 @@ export default function HolesInput({
 										birdie: !holeSix.birdie,
 									});
 								}}
+								checked={holeSix.birdie}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -312,6 +324,7 @@ export default function HolesInput({
 										birdie: holeSeven.birdie,
 									});
 								}}
+								checked={holeSeven.chip}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -330,6 +343,7 @@ export default function HolesInput({
 										birdie: !holeSeven.birdie,
 									});
 								}}
+								checked={holeSeven.birdie}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -357,6 +371,7 @@ export default function HolesInput({
 										birdie: holeEight.birdie,
 									});
 								}}
+								checked={holeEight.chip}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -375,6 +390,7 @@ export default function HolesInput({
 										birdie: !holeEight.birdie,
 									});
 								}}
+								checked={holeEight.birdie}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -402,6 +418,7 @@ export default function HolesInput({
 										birdie: holeNine.birdie,
 									});
 								}}
+								checked={holeNine.chip}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>
@@ -420,6 +437,7 @@ export default function HolesInput({
 										birdie: !holeNine.birdie,
 									});
 								}}
+								checked={holeNine.birdie}
 								className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
 							/>
 						</div>

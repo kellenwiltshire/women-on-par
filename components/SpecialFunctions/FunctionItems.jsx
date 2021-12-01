@@ -7,11 +7,14 @@ export default function FunctionItems({ specialFunctions }) {
 				{/* Details section */}
 				<section aria-labelledby='details-heading'>
 					<div className='flex flex-col items-center text-center'>
-						<h2 id='details-heading' className='text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
+						<h2
+							id='details-heading'
+							className='text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'
+						>
 							Special Functions
 						</h2>
 						<p className='mt-3 max-w-3xl text-lg text-gray-600'>
-							Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero labore natus atque, ducimus sed.
+							{`Mark your calendar for these upcoming events. You don't want to miss out!`}
 						</p>
 					</div>
 

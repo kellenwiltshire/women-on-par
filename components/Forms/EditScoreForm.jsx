@@ -1,56 +1,64 @@
 import React, { useState } from 'react';
 import HolesInput from '../user/Sections/Scores/ScoresFormParts/HolesInput';
 
-export default function EditScoreForm({ lastScheduledRound, selectedScore, setSuccess, setFail, setOpen }) {
+export default function EditScoreForm({
+	lastScheduledRound,
+	selectedScore,
+	setSuccess,
+	setFail,
+	setOpen,
+}) {
 	const [score, setScore] = useState(selectedScore.score);
+
+	console.log(selectedScore);
 
 	const course = lastScheduledRound.course.name;
 	const date = lastScheduledRound.date;
 
 	const [holeOne, setHoleOne] = useState({
 		hole: 1,
-		chip: false,
-		birdie: false,
+		chip: selectedScore.holes[0].chip,
+		birdie: selectedScore.holes[0].birdie,
 	});
 	const [holeTwo, setHoleTwo] = useState({
 		hole: 2,
-		chip: false,
-		birdie: false,
+		chip: selectedScore.holes[1].chip,
+		birdie: selectedScore.holes[1].birdie,
 	});
 	const [holeThree, setHoleThree] = useState({
 		hole: 3,
-		chip: false,
-		birdie: false,
+		chip: selectedScore.holes[2].chip,
+		birdie: selectedScore.holes[2].birdie,
 	});
 	const [holeFour, setHoleFour] = useState({
 		hole: 4,
-		chip: false,
-		birdie: false,
+		chip: selectedScore.holes[3].chip,
+		birdie: selectedScore.holes[3].birdie,
 	});
 	const [holeFive, setHoleFive] = useState({
 		hole: 5,
-		chip: false,
-		birdie: false,
+		chip: selectedScore.holes[4].chip,
+		birdie: selectedScore.holes[4].birdie,
 	});
 	const [holeSix, setHoleSix] = useState({
 		hole: 6,
-		chip: false,
-		birdie: false,
+		chip: selectedScore.holes[5].chip,
+		birdie: selectedScore.holes[5].birdie,
 	});
 	const [holeSeven, setHoleSeven] = useState({
 		hole: 7,
-		chip: false,
-		birdie: false,
+		chip: selectedScore.holes[6].chip,
+		birdie: selectedScore.holes[6].birdie,
 	});
 	const [holeEight, setHoleEight] = useState({
 		hole: 8,
-		chip: false,
-		birdie: false,
+		chip: selectedScore.holes[7].chip,
+		birdie: selectedScore.holes[7].birdie,
 	});
 	const [holeNine, setHoleNine] = useState({
 		hole: 9,
-		chip: false,
-		birdie: false,
+		chip: selectedScore.holes[8].chip,
+		birdie: selectedScore.holes[8].birdie,
 	});
 
 	const handleSubmit = async (e) => {
@@ -59,7 +67,17 @@ export default function EditScoreForm({ lastScheduledRound, selectedScore, setSu
 		const newScore = {
 			id: selectedScore.id,
 			data: {
-				holes: [holeOne, holeTwo, holeThree, holeFour, holeFive, holeSix, holeSeven, holeEight, holeNine],
+				holes: [
+					holeOne,
+					holeTwo,
+					holeThree,
+					holeFour,
+					holeFive,
+					holeSix,
+					holeSeven,
+					holeEight,
+					holeNine,
+				],
 				score: score,
 			},
 		};
@@ -88,9 +106,14 @@ export default function EditScoreForm({ lastScheduledRound, selectedScore, setSu
 			<div>
 				<div className='mb-5'>
 					<div>
-						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Edit Score</h2>
+						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
+							Edit Score
+						</h2>
 					</div>
-					<form onSubmit={handleSubmit} className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4'>
+					<form
+						onSubmit={handleSubmit}
+						className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4'
+					>
 						<li className='col-span-1 flex shadow-sm rounded-md'>
 							<div className='flex-shrink-0 flex flex-col items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
 								<p>Date</p>
