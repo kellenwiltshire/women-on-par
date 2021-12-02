@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import Image from 'next/image';
 
 export default function FunctionPage({ specialFunction }) {
 	const [image, setImage] = useState('/brand/logoNoText.jpg');
