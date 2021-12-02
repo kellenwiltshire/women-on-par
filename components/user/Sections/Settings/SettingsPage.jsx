@@ -16,6 +16,7 @@ export default function SettingsPage() {
 	const [phone, setPhone] = useState(user.phone);
 	const [conditions, setConditions] = useState(user.conditions);
 	const [open, setOpen] = useState(false);
+	const [uploadPicture, setUploeadPicture] = useState(false);
 
 	useEffect(() => {
 		if (user.picture) {
@@ -79,6 +80,12 @@ export default function SettingsPage() {
 		>
 			{success ? <SaveSuccess show={success} setShow={setSuccess} /> : null}
 			{failure ? <SaveFail show={failure} setShow={setFailure} /> : null}
+
+			{uploadPicture ? (
+				<Modal open={uploadPicture} setOpen={setUploeadPicture}>
+					TEST
+				</Modal>
+			) : null}
 
 			{
 				//TODO Make this prettier
@@ -238,6 +245,7 @@ export default function SettingsPage() {
 										<img src={picture} />
 									</span>
 									<button
+										onClick={() => setUploeadPicture(true)}
 										type='button'
 										className='ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 									>
