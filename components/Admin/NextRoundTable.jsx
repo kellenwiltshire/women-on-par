@@ -1,7 +1,6 @@
 import { useAllUsersContext, useScheduleContext } from '@/context/Store';
 import { findNextRound } from '@/utils/sortingFunctions';
 
-//TODO add date of next round to header
 export default function NextRoundTable() {
 	const allUsers = useAllUsersContext();
 	const schedule = useScheduleContext();
@@ -25,6 +24,12 @@ export default function NextRoundTable() {
 					<div className='mb-3'>
 						Next Round is: {nextRound.date} at {nextRound.course.name}
 					</div>
+					<button
+						disabled
+						className='inline-flex items-center px-6 py-2 border border-transparent text-sm rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mb-4 ml-auto'
+					>
+						Generate Schedule (soon)
+					</button>
 					<div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
 						<table className='min-w-full divide-y divide-gray-200'>
 							<thead className='bg-gray-50'>
