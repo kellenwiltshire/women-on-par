@@ -16,6 +16,12 @@ export default function ScheduleTable({ schedules }) {
 										scope='col'
 										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
 									>
+										Date
+									</th>
+									<th
+										scope='col'
+										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+									>
 										Course
 									</th>
 
@@ -24,24 +30,6 @@ export default function ScheduleTable({ schedules }) {
 										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
 									>
 										Game
-									</th>
-									<th
-										scope='col'
-										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
-									>
-										Address
-									</th>
-									<th
-										scope='col'
-										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
-									>
-										Phone Number
-									</th>
-									<th
-										scope='col'
-										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
-									>
-										Date
 									</th>
 									<th
 										scope='col'
@@ -61,6 +49,18 @@ export default function ScheduleTable({ schedules }) {
 									>
 										Notes
 									</th>
+									<th
+										scope='col'
+										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+									>
+										Address
+									</th>
+									<th
+										scope='col'
+										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+									>
+										Phone Number
+									</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -75,19 +75,14 @@ export default function ScheduleTable({ schedules }) {
 											className={roundIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
 										>
 											<td className='px-6 py-4 whitespace-nowrap text-sm'>
+												{round.date}
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>
 												{round.course.name}
 											</td>
+
 											<td className='px-6 py-4 whitespace-nowrap text-sm'>
 												{game}
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm'>
-												{round.course.address}
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm'>
-												{round.course.phone}
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm'>
-												{round.date}
 											</td>
 											<td className='px-6 py-4 whitespace-nowrap text-sm'>
 												{round.start_time}
@@ -97,6 +92,12 @@ export default function ScheduleTable({ schedules }) {
 											</td>
 											<td className='px-6 py-4 whitespace-nowrap text-sm'>
 												{round.course.additionalInfo}
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>
+												{round.course.phone}
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm'>
+												{round.course.address}
 											</td>
 										</tr>
 									);

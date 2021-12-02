@@ -1,7 +1,7 @@
 import CourseFilterInput from '@/components/Inputs/CourseFilterInput';
 import DateFilterInput from '@/components/Inputs/DateFilterInput';
 import SearchInput from '@/components/Inputs/SearchInput';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
 import { findLastScheduledRound } from '@/utils/sortingFunctions';
 import {
@@ -88,6 +88,7 @@ export default function UserScores() {
 					setSuccess={setSuccess}
 					setFail={setFail}
 					setOpen={setEditUserScore}
+					setScores={setScores}
 				/>
 			</Modal>
 

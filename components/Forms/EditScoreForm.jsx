@@ -7,6 +7,7 @@ export default function EditScoreForm({
 	setSuccess,
 	setFail,
 	setOpen,
+	setScores,
 }) {
 	const [score, setScore] = useState(selectedScore.score);
 
@@ -94,8 +95,13 @@ export default function EditScoreForm({
 		});
 
 		if (req.status < 300) {
-			setOpen(false);
-			setSuccess(true);
+			const reqScores = await fetch('/api/getScores');
+			if (reqScores.status < 300) {
+				const response = await reqScores.json();
+				setScores(response);
+				setOpen(false);
+				setSuccess(true);
+			}
 		} else {
 			setOpen(false);
 			setFail(true);

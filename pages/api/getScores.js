@@ -19,7 +19,7 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const getCourses = async (req, res) => {
+const getScores = async (req, res) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
@@ -27,7 +27,7 @@ const getCourses = async (req, res) => {
 	const jwt = cookies.jwt;
 
 	try {
-		const request = await fetch(`${url}/courses`, {
+		const request = await fetch(`${url}/scores`, {
 			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${jwt}`,
@@ -42,8 +42,8 @@ const getCourses = async (req, res) => {
 		res.status(200).json(response);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ error: 'Failed to Add Course', response: error });
+		res.status(500).json({ error: 'Failed to get Scores', response: error });
 	}
 };
 
-export default getCourses;
+export default getScores;

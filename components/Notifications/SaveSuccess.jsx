@@ -38,7 +38,7 @@ export default function SaveSuccess({ show, setShow }) {
 											Successfully saved!
 										</p>
 										<p className='mt-1 text-sm text-gray-500'>
-											Please refresh the page to see the update
+											You may need to refresh the page to see the update
 										</p>
 									</div>
 									<div className='ml-4 flex-shrink-0 flex'>
