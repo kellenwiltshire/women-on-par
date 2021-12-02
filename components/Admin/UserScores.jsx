@@ -1,7 +1,7 @@
 import CourseFilterInput from '@/components/Inputs/CourseFilterInput';
 import DateFilterInput from '@/components/Inputs/DateFilterInput';
 import SearchInput from '@/components/Inputs/SearchInput';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
 import { findLastScheduledRound } from '@/utils/sortingFunctions';
 import {
@@ -13,6 +13,7 @@ import SaveSuccess from '../Notifications/SaveSuccess';
 import SaveFail from '../Notifications/SaveFail';
 import Modal from '../Modals/Modal';
 import EditScoreForm from '../Forms/EditScoreForm';
+import DeleteScore from '../Modals/DeleteScore';
 
 export default function UserScores() {
 	const allScores = useAllScoresContext();
@@ -20,6 +21,7 @@ export default function UserScores() {
 	const courses = useCoursesContext();
 	const [scores, setScores] = useState(allScores);
 	const [editUserScore, setEditUserScore] = useState(false);
+	const [deleteUserScore, setDeleteUserScore] = useState(false);
 
 	const [success, setSuccess] = useState(false);
 	const [fail, setFail] = useState(false);
@@ -91,6 +93,17 @@ export default function UserScores() {
 					setScores={setScores}
 				/>
 			</Modal>
+
+			{deleteUserScore ? (
+				<DeleteScore
+					open={deleteUserScore}
+					setOpen={setDeleteUserScore}
+					selectedScore={selectedScore}
+					setFailure={setFail}
+					setSuccess={setSuccess}
+					setScores={setScores}
+				/>
+			) : null}
 
 			<SaveSuccess show={success} setShow={setSuccess} />
 
@@ -236,7 +249,13 @@ export default function UserScores() {
 											</button>
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
-											<button className='group flex items-center px-3 py-2 text-sm font-medium w-full'>
+											<button
+												onClick={() => {
+													setDeleteUserScore(!deleteUserScore);
+													setSelectedScore(score);
+												}}
+												className='group flex items-center px-3 py-2 text-sm font-medium w-full'
+											>
 												<TrashIcon
 													className='text-gray-400 group-hover:text-gray-500
 									flex-shrink-0 h-6 w-6'
