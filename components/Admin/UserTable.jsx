@@ -17,8 +17,6 @@ export default function UserTable() {
 	const [failure, setFailure] = useState(false);
 	const [users, setUsers] = useState(useAllUsersContext());
 
-	console.log('User Table - Users: ', users);
-
 	useEffect(() => {
 		const sortedUsers = users.sort((a, b) => {
 			return a.last_name.toLowerCase() > b.last_name.toLowerCase();
@@ -56,6 +54,7 @@ export default function UserTable() {
 					user={userSelected}
 					setFailure={setFailure}
 					setSuccess={setSuccess}
+					setUsers={setUsers}
 				/>
 			) : null}
 

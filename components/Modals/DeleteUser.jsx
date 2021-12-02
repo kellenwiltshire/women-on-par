@@ -8,6 +8,7 @@ export default function DeleteUser({
 	user,
 	setSuccess,
 	setFailure,
+	setUsers,
 }) {
 	const handleDelete = async () => {
 		const id = user.id;
@@ -22,8 +23,17 @@ export default function DeleteUser({
 		});
 
 		if (req.status < 300) {
-			setSuccess(true);
-			setOpen(false);
+			const req = await fetch('/api/getAllUsers');
+			if (req.status < 300) {
+				const response = await req.json();
+				setUsers(response);
+				setSuccess(true);
+				setOpen(false);
+			} else {
+				setFailure(true);
+				setOpen(false);
+				console.log(req);
+			}
 		} else {
 			setFailure(true);
 			setOpen(false);
