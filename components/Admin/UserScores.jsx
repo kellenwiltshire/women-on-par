@@ -34,7 +34,7 @@ export default function UserScores() {
 		e.preventDefault();
 		if (e.target.value) {
 			let nameFilter = [];
-			scores.map((score) => {
+			allScores.map((score) => {
 				const fullName = `${score.user.first_name} ${score.user.last_name}`;
 				const name = fullName.toLowerCase();
 				if (name.includes(e.target.value.toLowerCase())) {
@@ -50,13 +50,17 @@ export default function UserScores() {
 	const courseFilterChange = (e) => {
 		e.preventDefault();
 		if (e.target.value) {
-			let courseFilter = [];
-			scores.map((score) => {
-				if (score.course.name === e.target.value) {
-					courseFilter.push(score);
-				}
-			});
-			setScores(courseFilter);
+			if (e.target.value === 'Courses') {
+				setScores(allScores);
+			} else {
+				let courseFilter = [];
+				allScores.map((score) => {
+					if (score.course.name === e.target.value) {
+						courseFilter.push(score);
+					}
+				});
+				setScores(courseFilter);
+			}
 		} else {
 			setScores(allScores);
 		}
@@ -65,13 +69,17 @@ export default function UserScores() {
 	const dateFilterChange = (e) => {
 		e.preventDefault();
 		if (e.target.value) {
-			let dateFilter = [];
-			scores.map((score) => {
-				if (score.date === e.target.value) {
-					dateFilter.push(score);
-				}
-			});
-			setScores(dateFilter);
+			if (e.target.value === 'Date') {
+				setScores(allScores);
+			} else {
+				let dateFilter = [];
+				allScores.map((score) => {
+					if (score.date === e.target.value) {
+						dateFilter.push(score);
+					}
+				});
+				setScores(dateFilter);
+			}
 		} else {
 			setScores(allScores);
 		}
