@@ -1,4 +1,3 @@
-import { parseCookies } from 'nookies';
 import React, { useState } from 'react';
 
 export default function RegisterUserForm({
@@ -35,23 +34,18 @@ export default function RegisterUserForm({
 			body: JSON.stringify(info),
 		});
 
-		console.log(req);
-
 		if (req.status < 300) {
-			setSuccess(true);
-			setOpen(false);
-			const jwt = parseCookies();
-			console.log(jwt);
-			const req = await fetch('/api/getAllUsers', {
-				method: 'POST',
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(jwt.jwt),
-			});
-			const response = await req.json();
-			setUsers(response);
+			const req = await fetch('/api/getAllUsers');
+			if (req.status < 300) {
+				const response = await req.json();
+				setUsers(response);
+				setSuccess(true);
+				setOpen(false);
+			} else {
+				setFailure(true);
+				setOpen(false);
+				console.log(req);
+			}
 		} else {
 			setFailure(true);
 			setOpen(false);
@@ -150,7 +144,6 @@ export default function RegisterUserForm({
 									name='conditions'
 									rows={4}
 									type='text'
-									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder='Additional Info'
 									onChange={(e) => setConditions(e.target.value)}

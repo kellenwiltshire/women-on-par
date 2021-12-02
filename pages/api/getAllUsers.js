@@ -1,4 +1,5 @@
 import Cors from 'cors';
+import { parseCookies } from 'nookies';
 
 const cors = Cors({
 	methods: ['GET', 'HEAD'],
@@ -22,7 +23,8 @@ const getCurrentUser = async (req, res) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
-	const jwt = req.body;
+	const cookies = parseCookies({ req });
+	const jwt = cookies.jwt;
 
 	try {
 		const request = await fetch(`${url}/users`, {
