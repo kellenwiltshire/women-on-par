@@ -47,8 +47,12 @@ export default function Articles({ news }) {
 						</svg> */}
 						<div className='relative text-base mx-auto max-w-prose lg:max-w-none'>
 							<figure>
-								<div className='aspect-w-12 aspect-h-7 lg:aspect-none'>
-									<img className='rounded-lg shadow-lg' src={image} alt='' />
+								<div className='aspect-w-12 aspect-h-7 lg:aspect-none w-full'>
+									<img
+										className='rounded-lg shadow-lg w-full'
+										src={image}
+										alt=''
+									/>
 								</div>
 							</figure>
 						</div>
