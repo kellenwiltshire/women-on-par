@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 
-export default function EditUserForm({
-	user,
-	setSuccess,
-	setFailure,
-	setOpen,
-}) {
+export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) {
 	const [firstName, setFirstName] = useState(user.first_name);
 	const [lastName, setLastName] = useState(user.last_name);
 	const [email, setEmail] = useState(user.email);
@@ -48,9 +43,7 @@ export default function EditUserForm({
 			<div className='min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
 				<div className='max-w-md w-full space-y-8'>
 					<div>
-						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
-							Edit User
-						</h2>
+						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Edit User</h2>
 					</div>
 					<form className='mt-8 space-y-6' onSubmit={handleSubmit}>
 						<input type='hidden' name='remember' defaultValue='true' />
@@ -93,7 +86,6 @@ export default function EditUserForm({
 									id='phone-number'
 									name='phone-number'
 									type='text'
-									required
 									value={phone}
 									onChange={(e) => setPhone(e.target.value)}
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
@@ -139,7 +131,6 @@ export default function EditUserForm({
 									name='conditions'
 									rows={4}
 									type='text'
-									required
 									value={conditions}
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder={conditions || 'Conditions'}
