@@ -18,7 +18,7 @@ export default function SettingsPage() {
 	const [conditions, setConditions] = useState(user.conditions);
 	const [open, setOpen] = useState(false);
 	const [uploadPicture, setUploeadPicture] = useState(false);
-	const [teeTimeCondition, setTeeTimeCondition] = useState(false); //TODO Update with User info
+	const [teeTimeCondition, setTeeTimeCondition] = useState(user.teeTime || true);
 
 	useEffect(() => {
 		if (user.picture) {
