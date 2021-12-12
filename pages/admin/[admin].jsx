@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Siderbar from '@/components/user/Sidebar';
 import UserHeader from '@/components/user/UserHeader';
-import {
-	CogIcon,
-	HomeIcon,
-	PencilIcon,
-	UserIcon,
-} from '@heroicons/react/outline';
+import { CogIcon, HomeIcon, PencilIcon, UserIcon } from '@heroicons/react/outline';
 import Dashboard from '@/components/user/Sections/Dashboard';
 import Scores from '@/components/user/Sections/Scores';
 import Settings from '@/components/user/Sections/Settings';
@@ -21,6 +16,7 @@ import {
 	useUpdateNewsContext,
 	useUpdateScheduleContext,
 	useUpdateScoreContext,
+	useUpdateSpecialContext,
 	useUpdateUserContext,
 } from '@/context/Store';
 
@@ -31,15 +27,8 @@ const adminNav = [
 	{ num: 4, name: 'Admin', icon: UserIcon },
 ];
 
-export default function AdminPage({
-	scores,
-	user,
-	schedules,
-	allScores,
-	allUsers,
-	courses,
-	news,
-}) {
+export default function AdminPage({ scores, user, schedules, allScores, allUsers, courses, news, specFunctions }) {
+	console.log(specFunctions);
 	const updateUser = useUpdateUserContext();
 	const updateSchedule = useUpdateScheduleContext();
 	const updateScore = useUpdateScoreContext();
@@ -47,6 +36,7 @@ export default function AdminPage({
 	const updateAllScores = useUpdateAllScoresContext();
 	const updateCourses = useUpdateCoursesContext();
 	const updateNews = useUpdateNewsContext();
+	const updateSpecialFunctions = useUpdateSpecialContext();
 
 	const [loading, setLoading] = useState(true);
 
@@ -58,7 +48,7 @@ export default function AdminPage({
 		updateAllScores(allScores);
 		updateCourses(courses);
 		updateNews(news);
-
+		updateSpecialFunctions(specFunctions);
 		setLoading(false);
 	}, []);
 
@@ -76,11 +66,7 @@ export default function AdminPage({
 						<div className='flex items-center justify-between'>
 							<div className='flex-1 space-y-8'>
 								<div className='space-y-8 sm:space-y-0 sm:flex sm:justify-between sm:items-center xl:block xl:space-y-8'>
-									<Siderbar
-										openTab={openTab}
-										setOpenTab={setOpenTab}
-										navigation={adminNav}
-									/>
+									<Siderbar openTab={openTab} setOpenTab={setOpenTab} navigation={adminNav} />
 								</div>
 							</div>
 						</div>
@@ -128,6 +114,7 @@ export async function getServerSideProps(props) {
 			allScores: userData.allScores,
 			allUsers: userData.allUsers,
 			news: userData.news,
+			specFunctions: userData.specialFunctions,
 		},
 	};
 }

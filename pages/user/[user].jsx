@@ -13,6 +13,7 @@ import {
 	useUpdateUserContext,
 	useUpdateScheduleContext,
 	useUpdateNewsContext,
+	useUpdateSpecialContext,
 } from '@/context/Store';
 
 const navigation = [
@@ -21,11 +22,12 @@ const navigation = [
 	{ num: 3, name: 'Settings', icon: CogIcon },
 ];
 
-export default function User({ scores, user, schedules, news }) {
+export default function User({ scores, user, schedules, news, specFunctions }) {
 	const updateUser = useUpdateUserContext();
 	const updateSchedule = useUpdateScheduleContext();
 	const updateScore = useUpdateScoreContext();
 	const updateNews = useUpdateNewsContext();
+	const updateSpecialFunctions = useUpdateSpecialContext();
 
 	const [loading, setLoading] = useState(true);
 
@@ -34,6 +36,7 @@ export default function User({ scores, user, schedules, news }) {
 		updateUser(user);
 		updateSchedule(schedules);
 		updateNews(news);
+		updateSpecialFunctions(specFunctions);
 		setLoading(false);
 	}, []);
 
@@ -52,11 +55,7 @@ export default function User({ scores, user, schedules, news }) {
 						<div className='flex items-center justify-between'>
 							<div className='flex-1 space-y-8'>
 								<div className='space-y-8 sm:space-y-0 sm:flex sm:justify-between sm:items-center xl:block xl:space-y-8'>
-									<Siderbar
-										openTab={openTab}
-										setOpenTab={setOpenTab}
-										navigation={navigation}
-									/>
+									<Siderbar openTab={openTab} setOpenTab={setOpenTab} navigation={navigation} />
 								</div>
 							</div>
 						</div>
@@ -90,6 +89,7 @@ export async function getServerSideProps(props) {
 			schedules: userData.schedules,
 			courses: userData.courses,
 			news: userData.news,
+			specFunctions: userData.specialFunctions,
 		},
 	};
 }

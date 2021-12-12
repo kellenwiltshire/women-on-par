@@ -6,6 +6,7 @@ import {
 	AllUsersProvider,
 	CoursesProvider,
 	NewsProvider,
+	SpecialFunctionProvider,
 } from '@/context/Store';
 import React from 'react';
 import Navbar from './Navbar';
@@ -19,9 +20,11 @@ export default function Layout({ setSignedIn, signedIn, children }) {
 						<AllScoresProvider>
 							<CoursesProvider>
 								<NewsProvider>
-									<Navbar setSignedIn={setSignedIn} signedIn={signedIn} />
-									<div>{children}</div>
-									{/* <Footer /> */}
+									<SpecialFunctionProvider>
+										<Navbar setSignedIn={setSignedIn} signedIn={signedIn} />
+										<div>{children}</div>
+										{/* <Footer /> */}
+									</SpecialFunctionProvider>
 								</NewsProvider>
 							</CoursesProvider>
 						</AllScoresProvider>

@@ -70,6 +70,17 @@ export function useUpdateNewsContext() {
 	return useContext(UpdateNewsContext);
 }
 
+const SpecialContext = createContext();
+const UpdateSpecialContext = createContext();
+
+export function useSpecialContext() {
+	return useContext(SpecialContext);
+}
+
+export function useUpdateSpecialContext() {
+	return useContext(UpdateSpecialContext);
+}
+
 export function UserProvider({ children }) {
 	const [user, setUser] = useState({});
 
@@ -79,9 +90,7 @@ export function UserProvider({ children }) {
 
 	return (
 		<UserContext.Provider value={user}>
-			<UpdateUserContext.Provider value={updateUser}>
-				{children}
-			</UpdateUserContext.Provider>
+			<UpdateUserContext.Provider value={updateUser}>{children}</UpdateUserContext.Provider>
 		</UserContext.Provider>
 	);
 }
@@ -95,9 +104,7 @@ export function ScoreProvider({ children }) {
 
 	return (
 		<ScoreContext.Provider value={score}>
-			<UpdateScoreContext.Provider value={updateScore}>
-				{children}
-			</UpdateScoreContext.Provider>
+			<UpdateScoreContext.Provider value={updateScore}>{children}</UpdateScoreContext.Provider>
 		</ScoreContext.Provider>
 	);
 }
@@ -111,9 +118,7 @@ export function ScheduleProvider({ children }) {
 
 	return (
 		<ScheduleContext.Provider value={schedule}>
-			<UpdateScheduleContext.Provider value={updateSchedule}>
-				{children}
-			</UpdateScheduleContext.Provider>
+			<UpdateScheduleContext.Provider value={updateSchedule}>{children}</UpdateScheduleContext.Provider>
 		</ScheduleContext.Provider>
 	);
 }
@@ -127,9 +132,7 @@ export function AllUsersProvider({ children }) {
 
 	return (
 		<AllUsersContext.Provider value={allUsers}>
-			<UpdateAllUsersContext.Provider value={updateAllUsers}>
-				{children}
-			</UpdateAllUsersContext.Provider>
+			<UpdateAllUsersContext.Provider value={updateAllUsers}>{children}</UpdateAllUsersContext.Provider>
 		</AllUsersContext.Provider>
 	);
 }
@@ -143,9 +146,7 @@ export function AllScoresProvider({ children }) {
 
 	return (
 		<AllScoresContext.Provider value={allScores}>
-			<UpdateAllScoresContext.Provider value={updateAllScores}>
-				{children}
-			</UpdateAllScoresContext.Provider>
+			<UpdateAllScoresContext.Provider value={updateAllScores}>{children}</UpdateAllScoresContext.Provider>
 		</AllScoresContext.Provider>
 	);
 }
@@ -159,9 +160,7 @@ export function CoursesProvider({ children }) {
 
 	return (
 		<CoursesContext.Provider value={courses}>
-			<UpdateCoursesContext.Provider value={updateCourses}>
-				{children}
-			</UpdateCoursesContext.Provider>
+			<UpdateCoursesContext.Provider value={updateCourses}>{children}</UpdateCoursesContext.Provider>
 		</CoursesContext.Provider>
 	);
 }
@@ -175,9 +174,21 @@ export function NewsProvider({ children }) {
 
 	return (
 		<NewsContext.Provider value={news}>
-			<UpdateNewsContext.Provider value={updateNews}>
-				{children}
-			</UpdateNewsContext.Provider>
+			<UpdateNewsContext.Provider value={updateNews}>{children}</UpdateNewsContext.Provider>
 		</NewsContext.Provider>
+	);
+}
+
+export function SpecialFunctionProvider({ children }) {
+	const [spcialFunctions, setSpecialFunctions] = useState();
+
+	const updateSpecialFunctions = (functionsInfo) => {
+		setSpecialFunctions(functionsInfo);
+	};
+
+	return (
+		<SpecialContext.Provider value={spcialFunctions}>
+			<UpdateSpecialContext.Provider value={updateSpecialFunctions}>{children}</UpdateSpecialContext.Provider>
+		</SpecialContext.Provider>
 	);
 }

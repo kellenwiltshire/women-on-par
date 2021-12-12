@@ -1,22 +1,22 @@
-import { useNewsContext } from '@/context/Store';
+import { useNewsContext, useSpecialContext } from '@/context/Store';
 import { findMostRecentNews } from '@/utils/sortingFunctions';
 import { NewspaperIcon } from '@heroicons/react/outline';
 import React from 'react';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 
-export default function NewsCard() {
-	const news = useNewsContext();
+export default function SpecialCard() {
+	const specialFunctions = useSpecialContext();
 
-	const recentNews = findMostRecentNews(news);
+	const recentSpecialFunction = findMostRecentNews(specialFunctions);
 
 	const length = 100;
-	const shortBody = recentNews.body.substring(0, length) + '...';
+	const shortBody = recentSpecialFunction.details.substring(0, length) + '...';
 
 	return (
-		<Link href='/articles'>
+		<Link href='/specialfunctions'>
 			<a>
-				<div className='sm:rounded-bl-lg relative group bg-white p-6'>
+				<div className='sm:rounded-br-lg relative group bg-white p-6 h-full'>
 					<div>
 						<span className='rounded-lg inline-flex p-3 ring-4 ring-white'>
 							<NewspaperIcon className='h-6 w-6' aria-hidden='true' />
@@ -25,9 +25,9 @@ export default function NewsCard() {
 					<div className='mt-8'>
 						<h3 className='text-lg font-medium'>
 							<span className='inset-0' aria-hidden='true' />
-							Recent News
+							Special Functions
 						</h3>
-						<p className='mt-2 text-gray-500 text-xl'>{recentNews.title}</p>
+						<p className='mt-2 text-gray-500 text-xl'>{recentSpecialFunction.name}</p>
 						<ReactMarkdown children={shortBody} className='mt-2 text-sm text-gray-500' />
 					</div>
 				</div>

@@ -154,6 +154,8 @@ export async function getAdminData(jwt) {
 
 	const news = await fetchNews(jwt);
 
+	const specialFunctions = await fetchSpecialFunctions(jwt);
+
 	const userData = {
 		user,
 		scores,
@@ -162,6 +164,7 @@ export async function getAdminData(jwt) {
 		allScores,
 		allUsers,
 		news,
+		specialFunctions,
 	};
 
 	return userData;
@@ -180,7 +183,9 @@ export async function getUserData(jwt) {
 
 	const news = await fetchNews(jwt);
 
-	const userData = { user, scores, schedules, courses, news };
+	const specialFunctions = await fetchSpecialFunctions(jwt);
+
+	const userData = { user, scores, schedules, courses, news, specialFunctions };
 
 	return userData;
 }
