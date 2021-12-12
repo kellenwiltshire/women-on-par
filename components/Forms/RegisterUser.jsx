@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
+import ToggleSwitch from '../Buttons/Toggle';
 
-export default function RegisterUserForm({
-	setSuccess,
-	setFailure,
-	setOpen,
-	setUsers,
-}) {
+export default function RegisterUserForm({ setSuccess, setFailure, setOpen, setUsers }) {
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
 	const [phone, setPhone] = useState('');
 	const [conditions, setConditions] = useState('');
+	const [teeTimeCondition, setTeeTimeCondition] = useState(true);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -57,9 +54,7 @@ export default function RegisterUserForm({
 			<div className='min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
 				<div className='max-w-md w-full space-y-8'>
 					<div>
-						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
-							Add Golfer
-						</h2>
+						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Add Golfer</h2>
 					</div>
 					<form className='mt-8 space-y-6' onSubmit={handleSubmit}>
 						<input type='hidden' name='remember' defaultValue='true' />
@@ -137,7 +132,7 @@ export default function RegisterUserForm({
 							</div> */}
 							<div>
 								<label htmlFor='conditions' className='sr-only'>
-									Conditions
+									Car Pool
 								</label>
 								<textarea
 									id='conditions'
@@ -145,9 +140,22 @@ export default function RegisterUserForm({
 									rows={4}
 									type='text'
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder='Additional Info'
+									placeholder='Car Pool Information'
 									onChange={(e) => setConditions(e.target.value)}
 								/>
+							</div>
+
+							<div className='flex flex-row py-3 justify-between px-3'>
+								<label htmlFor='teeTime' className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>
+									Tee Times Before 4:30?
+								</label>
+								<div className='mt-1 sm:mt-0 sm:col-span-2 flex flex-row space-x-2'>
+									<span> No </span>
+									<div className='max-w-lg flex'>
+										<ToggleSwitch enabled={teeTimeCondition} setEnabled={setTeeTimeCondition} />
+									</div>
+									<span> Yes </span>
+								</div>
 							</div>
 						</div>
 
