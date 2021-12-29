@@ -15,7 +15,8 @@ export default function SettingsPage() {
 	const [failure, setFailure] = useState(false);
 	const [picture, setPicture] = useState('/avatars/avatar.png');
 	const [phone, setPhone] = useState(user.phone);
-	const [conditions, setConditions] = useState(user.conditions);
+	const [carpool, setCarpool] = useState(user.carpool);
+	const [additionalInfo, setAdditionalInfo] = useState(user.additionalInfo);
 	const [open, setOpen] = useState(false);
 	const [uploadPicture, setUploeadPicture] = useState(false);
 	const [teeTimeCondition, setTeeTimeCondition] = useState(user.teeTime || true);
@@ -37,8 +38,9 @@ export default function SettingsPage() {
 				last_name: lastName,
 				email: email,
 				phone: phone,
-				conditions: conditions,
+				carpool: carpool,
 				teeTime: teeTimeCondition,
+				additionalInfo: additionalInfo,
 			},
 		};
 
@@ -177,7 +179,7 @@ export default function SettingsPage() {
 						</div>
 
 						<div className='sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5'>
-							<label htmlFor='conditions' className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>
+							<label htmlFor='carpool' className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>
 								Car Pool
 							</label>
 							<div className='mt-1 sm:mt-0 sm:col-span-2'>
@@ -185,19 +187,39 @@ export default function SettingsPage() {
 									<input
 										type='text'
 										rows={4}
-										name='conditions'
-										id='conditions'
-										onChange={(e) => setConditions(e.target.value)}
-										value={conditions}
+										name='carpool'
+										id='carpool'
+										onChange={(e) => setCarpool(e.target.value)}
+										value={carpool}
 										className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3'
-										placeholder={conditions || 'Indicate the full name of the person you car pool with.'}
+										placeholder={carpool || 'Indicate the full name of the person you car pool with.'}
 									/>
 								</div>
 							</div>
 						</div>
 
 						<div className='sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5'>
-							<label htmlFor='conditions' className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>
+							<label htmlFor='additionalInfo' className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>
+								Additional Information
+							</label>
+							<div className='mt-1 sm:mt-0 sm:col-span-2'>
+								<div className='max-w-lg flex rounded-md shadow-sm'>
+									<input
+										type='text'
+										rows={4}
+										name='additionalInfo'
+										id='additionalInfo'
+										onChange={(e) => setAdditionalInfo(e.target.value)}
+										value={additionalInfo}
+										className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3'
+										placeholder={additionalInfo || 'Additional Information'}
+									/>
+								</div>
+							</div>
+						</div>
+
+						<div className='sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5'>
+							<label htmlFor='teeTime' className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>
 								Only Tee Times After 4:30?
 							</label>
 							<div className='mt-1 sm:mt-0 sm:col-span-2 flex flex-row space-x-2'>

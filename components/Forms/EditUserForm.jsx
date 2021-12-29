@@ -6,8 +6,9 @@ export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) 
 	const [lastName, setLastName] = useState(user.last_name);
 	const [email, setEmail] = useState(user.email);
 	const [phone, setPhone] = useState(user.phone);
-	const [conditions, setConditions] = useState(user.conditions);
+	const [carpool, setCarpool] = useState(user.carpool);
 	const [teeTimeCondition, setTeeTimeCondition] = useState(user.teeTime);
+	const [additionalInfo, setAdditionalInfo] = useState(user.additionalInfo);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -19,8 +20,9 @@ export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) 
 				last_name: lastName,
 				email: email,
 				phone: phone,
-				conditions: conditions,
+				carpool: carpool,
 				teeTime: teeTimeCondition,
+				additionalInfo: additionalInfo,
 			},
 		};
 
@@ -126,23 +128,38 @@ export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) 
 								/>
 							</div> */}
 							<div>
-								<label htmlFor='conditions' className='sr-only'>
+								<label htmlFor='carpool' className='sr-only'>
 									Car Pool
 								</label>
 								<textarea
-									id='conditions'
-									name='conditions'
+									id='carpool'
+									name='carpool'
 									rows={4}
 									type='text'
-									value={conditions}
+									value={carpool}
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={conditions || 'Car Pool Information'}
-									onChange={(e) => setConditions(e.target.value)}
+									placeholder={carpool || 'Car Pool Information'}
+									onChange={(e) => setCarpool(e.target.value)}
+								/>
+							</div>
+							<div>
+								<label htmlFor='additionalInfo' className='sr-only'>
+									Additional Info
+								</label>
+								<textarea
+									id='additionalInfo'
+									name='additionalInfo'
+									rows={4}
+									type='text'
+									value={additionalInfo}
+									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+									placeholder={additionalInfo || 'Additional Information'}
+									onChange={(e) => setAdditionalInfo(e.target.value)}
 								/>
 							</div>
 							<div className='flex flex-row py-3 justify-between px-3'>
 								<label htmlFor='teeTime' className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>
-									Tee Times Before 4:30?
+									Only Tee Times After 4:30?
 								</label>
 								<div className='mt-1 sm:mt-0 sm:col-span-2 flex flex-row space-x-2'>
 									<span> No </span>

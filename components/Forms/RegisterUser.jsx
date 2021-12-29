@@ -7,7 +7,8 @@ export default function RegisterUserForm({ setSuccess, setFailure, setOpen, setU
 	const [email, setEmail] = useState('');
 	const [phone, setPhone] = useState('');
 	const [conditions, setConditions] = useState('');
-	const [teeTimeCondition, setTeeTimeCondition] = useState(true);
+	const [teeTimeCondition, setTeeTimeCondition] = useState(false);
+	const [additionalInfo, setAdditionalInfo] = useState('');
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -145,9 +146,25 @@ export default function RegisterUserForm({ setSuccess, setFailure, setOpen, setU
 								/>
 							</div>
 
+							<div>
+								<label htmlFor='additionalInfo' className='sr-only'>
+									Additional Info
+								</label>
+								<textarea
+									id='additionalInfo'
+									name='additionalInfo'
+									rows={4}
+									type='text'
+									value={additionalInfo}
+									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+									placeholder={'Additional Information'}
+									onChange={(e) => setAdditionalInfo(e.target.value)}
+								/>
+							</div>
+
 							<div className='flex flex-row py-3 justify-between px-3'>
 								<label htmlFor='teeTime' className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>
-									Tee Times Before 4:30?
+									Only Tee Times After 4:30?
 								</label>
 								<div className='mt-1 sm:mt-0 sm:col-span-2 flex flex-row space-x-2'>
 									<span> No </span>
