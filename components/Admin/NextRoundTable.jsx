@@ -1,18 +1,54 @@
 import { useAllUsersContext, useScheduleContext } from '@/context/Store';
 import { findNextRound } from '@/utils/sortingFunctions';
+import { XIcon } from '@heroicons/react/outline';
+import { useEffect, useState } from 'react';
 
 export default function NextRoundTable() {
 	const allUsers = useAllUsersContext();
 	const schedule = useScheduleContext();
+	const [users, setUsers] = useState([]);
 
 	const nextRound = findNextRound(schedule);
-	const users = allUsers.filter((user) => {
+	const findUsers = allUsers.filter((user) => {
 		for (let i = 0; i < user.availability.length; i++) {
 			if (user.availability[i].date === nextRound.date && user.availability[i].available) {
 				return user;
 			}
 		}
 	});
+
+	useEffect(() => {
+		setUsers(findUsers);
+	}, []);
+
+	const removeUserFromAvailability = async (user) => {
+		const newEntry = {
+			date: nextRound.date,
+			available: false,
+		};
+
+		const body = {
+			id: user.id,
+			availability: [newEntry],
+		};
+
+		const req = await fetch(`/api/submitAvailability`, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(body),
+		});
+
+		const newUsers = users.filter((person) => {
+			if (person !== user) {
+				return person;
+			}
+		});
+
+		setUsers(newUsers);
+	};
 
 	return (
 		<div className='flex flex-col'>
@@ -43,9 +79,11 @@ export default function NextRoundTable() {
 									>
 										Email
 									</th>
-
-									<th scope='col' className='relative px-6 py-3'>
-										<span className='sr-only'>Edit</span>
+									<th
+										scope='col'
+										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+									>
+										Remove
 									</th>
 								</tr>
 							</thead>
@@ -56,6 +94,17 @@ export default function NextRoundTable() {
 											{user.first_name} {user.last_name}
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.email}</td>
+										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
+											<button
+												onClick={() => removeUserFromAvailability(user)}
+												className='group flex items-center px-3 py-2 text-sm font-medium w-full'
+											>
+												<XIcon
+													className='text-gray-400 group-hover:text-gray-500
+									flex-shrink-0 h-6 w-6'
+												/>
+											</button>
+										</td>
 									</tr>
 								))}
 							</tbody>
