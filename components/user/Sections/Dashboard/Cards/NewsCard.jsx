@@ -8,6 +8,8 @@ import ReactMarkdown from 'react-markdown';
 export default function NewsCard() {
 	const news = useNewsContext();
 
+	console.log('NEWSCARD - News: ', news);
+
 	const recentNews = findMostRecentNews(news);
 
 	const length = 100;
@@ -16,7 +18,7 @@ export default function NewsCard() {
 	return (
 		<Link href='/articles'>
 			<a>
-				<div className='sm:rounded-bl-lg relative group bg-white p-6'>
+				<div className='sm:rounded-bl-lg relative group bg-white p-6 h-full'>
 					<div>
 						<span className='rounded-lg inline-flex p-3 ring-4 ring-white'>
 							<NewspaperIcon className='h-6 w-6' aria-hidden='true' />
@@ -28,7 +30,7 @@ export default function NewsCard() {
 							Recent News
 						</h3>
 						<p className='mt-2 text-gray-500 text-xl'>{recentNews.title}</p>
-						<ReactMarkdown children={shortBody} className='mt-2 text-sm text-gray-500' />
+						<ReactMarkdown className='mt-2 text-sm text-gray-500'>{shortBody}</ReactMarkdown>
 					</div>
 				</div>
 			</a>

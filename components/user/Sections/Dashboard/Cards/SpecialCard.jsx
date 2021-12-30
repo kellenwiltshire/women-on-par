@@ -1,5 +1,5 @@
 import { useSpecialContext } from '@/context/Store';
-import { findMostRecentNews } from '@/utils/sortingFunctions';
+import { findNextSpecialEvent } from '@/utils/sortingFunctions';
 import { NewspaperIcon } from '@heroicons/react/outline';
 import React from 'react';
 import Link from 'next/link';
@@ -8,7 +8,7 @@ import ReactMarkdown from 'react-markdown';
 export default function SpecialCard() {
 	const specialFunctions = useSpecialContext();
 
-	const recentSpecialFunction = findMostRecentNews(specialFunctions);
+	const recentSpecialFunction = findNextSpecialEvent(specialFunctions);
 
 	const length = 100;
 	const shortBody = recentSpecialFunction.details.substring(0, length) + '...';
@@ -28,7 +28,7 @@ export default function SpecialCard() {
 							Special Functions
 						</h3>
 						<p className='mt-2 text-gray-500 text-xl'>{recentSpecialFunction.name}</p>
-						<ReactMarkdown children={shortBody} className='mt-2 text-sm text-gray-500' />
+						<ReactMarkdown className='mt-2 text-sm text-gray-500'>{shortBody}</ReactMarkdown>
 					</div>
 				</div>
 			</a>

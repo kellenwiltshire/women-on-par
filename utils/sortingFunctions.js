@@ -67,8 +67,8 @@ export function findLastScheduledRound(schedules) {
 
 export function findMostRecentNews(news) {
 	const newsSorted = news.sort((a, b) => {
-		const aDate = Date.parse(a.date);
-		const bDate = Date.parse(b.date);
+		const aDate = Date.parse(a.created_at);
+		const bDate = Date.parse(b.created_at);
 
 		return bDate - aDate;
 	});
@@ -76,6 +76,26 @@ export function findMostRecentNews(news) {
 	const recentNews = newsSorted[0];
 
 	return recentNews;
+}
+
+export function findNextSpecialEvent(events) {
+	const currDate = new Date();
+
+	const futureEvents = events.filter((event) => {
+		const date = Date.parse(event.date);
+		if (date > currDate) {
+			return event;
+		}
+	});
+
+	const eventsSorted = futureEvents.sort((a, b) => {
+		const aDate = Date.parse(a.created_at);
+		const bDate = Date.parse(b.created_at);
+
+		return bDate - aDate;
+	});
+
+	return eventsSorted[0];
 }
 
 export function sortSchedule(schedule) {
