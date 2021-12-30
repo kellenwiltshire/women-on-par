@@ -19,7 +19,7 @@ export default function SettingsPage() {
 	const [additionalInfo, setAdditionalInfo] = useState(user.additionalInfo);
 	const [open, setOpen] = useState(false);
 	const [uploadPicture, setUploeadPicture] = useState(false);
-	const [teeTimeCondition, setTeeTimeCondition] = useState(user.teeTime || true);
+	const [teeTimeCondition, setTeeTimeCondition] = useState(user.teeTime);
 
 	useEffect(() => {
 		if (user.picture) {
