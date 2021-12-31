@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FlagIcon } from '@heroicons/react/outline';
 import { useAllScoresContext, useScheduleContext, useScoreContext } from '@/context/Store';
 import {

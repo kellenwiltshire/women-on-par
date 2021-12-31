@@ -69,6 +69,18 @@ export function getUserScores(user, allScores) {
 	return userScores;
 }
 
+export function completedSchedule(schedule) {
+	const currDate = new Date();
+
+	const completedRounds = schedule.filter((round) => {
+		const roundDate = Date.parse(round.date);
+
+		return roundDate < currDate;
+	});
+
+	return completedRounds;
+}
+
 export function findLastScheduledRound(schedules) {
 	const currDate = new Date();
 

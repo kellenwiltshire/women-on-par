@@ -4,6 +4,7 @@ import AdminTabs from '@/components/Admin/AdminTabs';
 import NextRoundTable from '@/components/Admin/NextRoundTable';
 import UserScores from '@/components/Admin/UserScores';
 import UserTable from '@/components/Admin/UserTable';
+import ResultsTable from '@/components/Admin/ResultsTable';
 
 export default function Admin() {
 	const [adminTab, setAdminTab] = useState(1);
@@ -24,6 +25,9 @@ export default function Admin() {
 				</div>
 				<div className={adminTab === 4 ? 'block' : 'hidden'}>
 					<CoursesTable />
+				</div>
+				<div className={adminTab === 5 ? 'block' : 'hidden'}>
+					<ResultsTable />
 				</div>
 			</div>
 		</>
