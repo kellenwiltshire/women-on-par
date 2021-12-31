@@ -21,6 +21,9 @@ export default function SettingsPage() {
 	const [uploadPicture, setUploeadPicture] = useState(false);
 	const [teeTimeCondition, setTeeTimeCondition] = useState(user.teeTime);
 
+	const [weekendAway, setWeekendAway] = useState(user.weekendaway);
+	const [yearEnd, setYearEnd] = useState(user.yearend);
+
 	useEffect(() => {
 		if (user.picture) {
 			setPicture(user.picture.picture.url);
@@ -41,6 +44,8 @@ export default function SettingsPage() {
 				carpool: carpool,
 				teeTime: teeTimeCondition,
 				additionalInfo: additionalInfo,
+				weekendaway: weekendAway,
+				yearend: yearEnd,
 			},
 		};
 
@@ -226,6 +231,32 @@ export default function SettingsPage() {
 								<span> No </span>
 								<div className='max-w-lg flex rounded-md shadow-sm'>
 									<ToggleSwitch enabled={teeTimeCondition} setEnabled={setTeeTimeCondition} />
+								</div>
+								<span> Yes </span>
+							</div>
+						</div>
+
+						<div className='sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5'>
+							<label htmlFor='weekendAway' className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>
+								Weekend Away Attendance
+							</label>
+							<div className='mt-1 sm:mt-0 sm:col-span-2 flex flex-row space-x-2'>
+								<span> No </span>
+								<div className='max-w-lg flex rounded-md shadow-sm'>
+									<ToggleSwitch enabled={weekendAway} setEnabled={setWeekendAway} />
+								</div>
+								<span> Yes </span>
+							</div>
+						</div>
+
+						<div className='sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5'>
+							<label htmlFor='yearend' className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>
+								Year End Banquet Attendance
+							</label>
+							<div className='mt-1 sm:mt-0 sm:col-span-2 flex flex-row space-x-2'>
+								<span> No </span>
+								<div className='max-w-lg flex rounded-md shadow-sm'>
+									<ToggleSwitch enabled={yearEnd} setEnabled={setYearEnd} />
 								</div>
 								<span> Yes </span>
 							</div>

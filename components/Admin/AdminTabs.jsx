@@ -4,6 +4,8 @@ const tabs = [
 	{ num: 3, name: 'Scores' },
 	{ num: 4, name: 'Courses' },
 	{ num: 5, name: 'Results' },
+	{ num: 6, name: 'Weekend Away' },
+	{ num: 7, name: 'Year End' },
 ];
 
 function classNames(...classes) {
