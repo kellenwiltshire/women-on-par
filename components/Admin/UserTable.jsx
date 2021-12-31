@@ -16,6 +16,7 @@ export default function UserTable() {
 	const [success, setSuccess] = useState(false);
 	const [failure, setFailure] = useState(false);
 	const [users, setUsers] = useState(useAllUsersContext());
+	const [userEmailOpen, setUserEmailOpen] = useState(false);
 
 	useEffect(() => {
 		const sortedUsers = users.sort((a, b) => {
@@ -53,6 +54,16 @@ export default function UserTable() {
 				/>
 			) : null}
 
+			{userEmailOpen ? (
+				<Modal open={userEmailOpen} setOpen={setUserEmailOpen}>
+					<p className='flex flex-wrap flex-row'>
+						{users.map((user) => {
+							return <span key={user.id}>{user.email}, </span>;
+						})}
+					</p>
+				</Modal>
+			) : null}
+
 			<SaveSuccess show={success} setShow={setSuccess} />
 
 			<SaveFail show={failure} setShow={setFailure} />
@@ -61,9 +72,16 @@ export default function UserTable() {
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
 					<button
 						onClick={() => setAddUserOpen(!addUserOpen)}
-						className='inline-flex items-center px-6 py-2 border border-transparent text-sm rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mb-4'
+						className='inline-flex items-center px-6 py-2 border border-transparent text-sm rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mb-4 mx-1'
 					>
 						Add New Golfer
+					</button>
+
+					<button
+						onClick={() => setUserEmailOpen(!userEmailOpen)}
+						className='inline-flex items-center px-6 py-2 border border-transparent text-sm rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mb-4 mx-1'
+					>
+						Email List
 					</button>
 					<div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
 						<table className='min-w-full divide-y divide-gray-200'>
