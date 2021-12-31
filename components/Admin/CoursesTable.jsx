@@ -19,11 +19,13 @@ export default function CoursesTable() {
 
 	useEffect(() => {
 		const sortedCourses = courses.sort((a, b) => {
-			return a.name.toLowerCase() > b.name.toLowerCase();
+			return a.name.localeCompare(b.name);
 		});
 
 		setCourses(sortedCourses);
 	}, [courses]);
+
+	console.log('COURSE TABLE: ', courses);
 
 	return (
 		<div className='flex flex-col'>
@@ -64,7 +66,7 @@ export default function CoursesTable() {
 				/>
 			) : null}
 
-			<div className='-my-2 overflow-x-auto'>
+			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
 					<button
 						onClick={() => setAddCourseOpen(!addCourseOpen)}

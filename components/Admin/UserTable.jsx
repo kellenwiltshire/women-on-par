@@ -22,7 +22,7 @@ export default function UserTable() {
 
 	useEffect(() => {
 		const sortedUsers = users.sort((a, b) => {
-			return a.last_name.toLowerCase() > b.last_name.toLowerCase();
+			return a.last_name.localeCompare(b.last_name);
 		});
 
 		setUsers(sortedUsers);
