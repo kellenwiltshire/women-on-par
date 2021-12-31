@@ -14,6 +14,7 @@ import {
 	useUpdateScheduleContext,
 	useUpdateNewsContext,
 	useUpdateSpecialContext,
+	useUpdateAllScoresContext,
 } from '@/context/Store';
 
 const navigation = [
@@ -22,12 +23,13 @@ const navigation = [
 	{ num: 3, name: 'Settings', icon: CogIcon },
 ];
 
-export default function User({ scores, user, schedules, news, specFunctions }) {
+export default function User({ scores, user, schedules, news, specFunctions, allScores }) {
 	const updateUser = useUpdateUserContext();
 	const updateSchedule = useUpdateScheduleContext();
 	const updateScore = useUpdateScoreContext();
 	const updateNews = useUpdateNewsContext();
 	const updateSpecialFunctions = useUpdateSpecialContext();
+	const updateAllScores = useUpdateAllScoresContext();
 
 	const [loading, setLoading] = useState(true);
 
@@ -37,6 +39,7 @@ export default function User({ scores, user, schedules, news, specFunctions }) {
 		updateSchedule(schedules);
 		updateNews(news);
 		updateSpecialFunctions(specFunctions);
+		updateAllScores(allScores);
 		setLoading(false);
 	}, []);
 
@@ -90,6 +93,7 @@ export async function getServerSideProps(props) {
 			courses: userData.courses,
 			news: userData.news,
 			specFunctions: userData.specialFunctions,
+			allScores: userData.allScores,
 		},
 	};
 }

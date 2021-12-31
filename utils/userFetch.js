@@ -173,9 +173,9 @@ export async function getAdminData(jwt) {
 export async function getUserData(jwt) {
 	const user = await fetchUser(jwt);
 
-	console.log(user);
-
 	const scores = await fetchScores(user, jwt);
+
+	const allScores = await fetchAllScores(jwt);
 
 	const schedules = await fetchSchedule(jwt);
 
@@ -185,7 +185,7 @@ export async function getUserData(jwt) {
 
 	const specialFunctions = await fetchSpecialFunctions(jwt);
 
-	const userData = { user, scores, schedules, courses, news, specialFunctions };
+	const userData = { user, scores, schedules, courses, news, specialFunctions, allScores };
 
 	return userData;
 }

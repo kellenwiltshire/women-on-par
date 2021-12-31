@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlagIcon } from '@heroicons/react/outline';
-import { useScoreContext } from '@/context/Store';
-import { findPriorRound } from '@/utils/sortingFunctions';
+import { useAllScoresContext, useScheduleContext, useScoreContext } from '@/context/Store';
+import {
+	findLastScheduledRound,
+	findPriorRoundResults,
+	findPriorRound,
+	findPriorRoundWinner,
+} from '@/utils/sortingFunctions';
 
 export default function PriorRound() {
 	const scores = useScoreContext();
+	const allScores = useAllScoresContext();
 	const priorRound = findPriorRound(scores);
+	const schedule = useScheduleContext();
+
+	const priorRoundDate = findLastScheduledRound(schedule);
+
+	const priorRoundScores = findPriorRoundResults(allScores, priorRoundDate.date);
+
+	const winner = findPriorRoundWinner(priorRoundScores);
+
 	if (priorRound) {
 		const getBirdies = () => {
 			let num = 0;
@@ -43,9 +57,51 @@ export default function PriorRound() {
 						Prior Round
 					</h3>
 					<p className='mt-2 text-sm text-gray-500'>
-						Your last round was at {priorRound?.course?.name} with a score of{' '}
-						{priorRound?.score}. You had {numBirdies} Birdies and {numChipIns}{' '}
-						Chip Ins.
+						Your last round was at {priorRound?.course?.name} with a score of {priorRound?.score}. You had {numBirdies}{' '}
+						Birdies and {numChipIns} Chip Ins.
+					</p>
+				</div>
+				<div className='mt-8'>
+					<h3 className='text-lg font-medium'>
+						<span className='inset-0' aria-hidden='true' />
+						Results
+					</h3>
+					<p className='mt-2 text-sm text-gray-500'>
+						The winning Golfer was {winner.user.first_name} {winner.user.last_name} with a score of {winner.score}
+					</p>
+					<p className='mt-2 text-sm text-gray-500'>
+						Players with Birdies:{' '}
+						{priorRoundScores.map((score) => {
+							const birdie = score.holes.map((hole) => {
+								if (hole.birdie) {
+									return true;
+								}
+							});
+							if (birdie) {
+								return (
+									<span key={score.id}>
+										{score.user.first_name} {score.user.last_name},{' '}
+									</span>
+								);
+							}
+						})}
+					</p>
+					<p className='mt-2 text-sm text-gray-500'>
+						Players with Chip-Ins:{' '}
+						{priorRoundScores.map((score) => {
+							const chip = score.holes.map((hole) => {
+								if (hole.chip) {
+									return true;
+								}
+							});
+							if (chip) {
+								return (
+									<span key={score.id}>
+										{score.user.first_name} {score.user.last_name},{' '}
+									</span>
+								);
+							}
+						})}
 					</p>
 				</div>
 			</div>
@@ -64,6 +120,49 @@ export default function PriorRound() {
 						Prior Round
 					</h3>
 					<p className='mt-2 text-sm text-gray-500'>NO PRIOR ROUND</p>
+				</div>
+				<div className='mt-8'>
+					<h3 className='text-lg font-medium'>
+						<span className='inset-0' aria-hidden='true' />
+						Results
+					</h3>
+					<p className='mt-2 text-sm text-gray-500'>
+						The winning Golfer was {winner.user.first_name} {winner.user.last_name} with a score of {winner.score}
+					</p>
+					<p className='mt-2 text-sm text-gray-500'>
+						Players with Birdies:{' '}
+						{priorRoundScores.map((score) => {
+							const birdie = score.holes.map((hole) => {
+								if (hole.birdie) {
+									return true;
+								}
+							});
+							if (birdie) {
+								return (
+									<span key={score.id}>
+										{score.user.first_name} {score.user.last_name},{' '}
+									</span>
+								);
+							}
+						})}
+					</p>
+					<p className='mt-2 text-sm text-gray-500'>
+						Players with Chip-Ins:{' '}
+						{priorRoundScores.map((score) => {
+							const chip = score.holes.map((hole) => {
+								if (hole.chip) {
+									return true;
+								}
+							});
+							if (chip) {
+								return (
+									<span key={score.id}>
+										{score.user.first_name} {score.user.last_name},{' '}
+									</span>
+								);
+							}
+						})}
+					</p>
 				</div>
 			</div>
 		);

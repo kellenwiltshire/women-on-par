@@ -38,6 +38,27 @@ export function findPriorRound(scores) {
 	return priorRound;
 }
 
+export function findPriorRoundResults(allScores, date) {
+	const priorRoundScores = allScores.filter((score) => {
+		const scoreDate = Date.parse(score.date);
+		const roundDate = Date.parse(date);
+
+		if (scoreDate === roundDate) {
+			return score;
+		}
+	});
+
+	return priorRoundScores;
+}
+
+export function findPriorRoundWinner(scores) {
+	const winningGolfer = scores.sort((a, b) => {
+		return a.score - b.score;
+	});
+
+	return winningGolfer[0];
+}
+
 export function findLastScheduledRound(schedules) {
 	const currDate = new Date();
 
