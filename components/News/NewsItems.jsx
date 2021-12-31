@@ -1,6 +1,8 @@
+import { sortNews } from '@/utils/sortingFunctions';
 import NewsCards from './NewsCards';
 
 export default function NewsItems({ news }) {
+	const sortedNews = sortNews(news);
 	return (
 		<div className='relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8'>
 			<div className='absolute inset-0'>
@@ -14,7 +16,7 @@ export default function NewsItems({ news }) {
 					</p>
 				</div>
 				<div className='mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none'>
-					{news.map((post) => (
+					{sortedNews.map((post) => (
 						<NewsCards key={post.id} post={post} />
 					))}
 				</div>

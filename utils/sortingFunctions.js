@@ -121,6 +121,17 @@ export function findMostRecentNews(news) {
 	return recentNews;
 }
 
+export function sortNews(news) {
+	const newsSorted = news.sort((a, b) => {
+		const aDate = Date.parse(a.created_at);
+		const bDate = Date.parse(b.created_at);
+
+		return bDate - aDate;
+	});
+
+	return newsSorted;
+}
+
 export function findNextSpecialEvent(events) {
 	const currDate = new Date();
 
