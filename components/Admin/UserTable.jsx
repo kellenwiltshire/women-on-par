@@ -2,11 +2,12 @@ import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
 import EditUserForm from '../Forms/EditUserForm';
 import Modal from '../Modals/Modal';
 import { useEffect, useState } from 'react';
-import { useAllUsersContext } from '@/context/Store';
+import { useAllScoresContext, useAllUsersContext } from '@/context/Store';
 import RegisterUserForm from '../Forms/RegisterUser';
 import DeleteUser from '../Modals/DeleteUser';
 import SaveFail from '../Notifications/SaveFail';
 import SaveSuccess from '../Notifications/SaveSuccess';
+import { getUserScores } from '@/utils/sortingFunctions';
 
 export default function UserTable() {
 	const [editUserOpen, setEditUserOpen] = useState(false);
@@ -17,6 +18,7 @@ export default function UserTable() {
 	const [failure, setFailure] = useState(false);
 	const [users, setUsers] = useState(useAllUsersContext());
 	const [userEmailOpen, setUserEmailOpen] = useState(false);
+	const allScores = useAllScoresContext();
 
 	useEffect(() => {
 		const sortedUsers = users.sort((a, b) => {
@@ -117,6 +119,18 @@ export default function UserTable() {
 									>
 										Car Pool
 									</th>
+									<th
+										scope='col'
+										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+									>
+										Birdies
+									</th>
+									<th
+										scope='col'
+										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+									>
+										Chip Ins
+									</th>
 									<th scope='col' className='relative px-6 py-3'>
 										<span className='sr-only'>Edit</span>
 									</th>
@@ -126,45 +140,70 @@ export default function UserTable() {
 								</tr>
 							</thead>
 							<tbody>
-								{users.map((user, userIdx) => (
-									<tr key={user.email} className={userIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.id}</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-											{user.first_name} {user.last_name}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.email}</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.phone}</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.carpool}</td>
-										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
-											<button
-												onClick={() => {
-													setUserSelected(user);
-													setEditUserOpen(!editUserOpen);
-												}}
-												className='group flex items-center px-3 py-2 text-sm font-medium w-full'
-											>
-												<PencilIcon
-													className='text-gray-400 group-hover:text-gray-500
+								{users.map((user, userIdx) => {
+									const userScores = getUserScores(user, allScores);
+
+									let numBirds = 0;
+									for (let i = 0; i < userScores.length; i++) {
+										for (let x = 0; x < userScores[i].holes.length; x++) {
+											if (userScores[i].holes[x].birdie) {
+												numBirds++;
+											}
+										}
+									}
+
+									let numChips = 0;
+									for (let i = 0; i < userScores.length; i++) {
+										for (let x = 0; x < userScores[i].holes.length; x++) {
+											if (userScores[i].holes[x].chip) {
+												numChips++;
+											}
+										}
+									}
+
+									return (
+										<tr key={user.email} className={userIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.id}</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
+												{user.first_name} {user.last_name}
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.email}</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.phone}</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.carpool}</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{numBirds}</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{numChips}</td>
+
+											<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
+												<button
+													onClick={() => {
+														setUserSelected(user);
+														setEditUserOpen(!editUserOpen);
+													}}
+													className='group flex items-center px-3 py-2 text-sm font-medium w-full'
+												>
+													<PencilIcon
+														className='text-gray-400 group-hover:text-gray-500
 									 flex-shrink-0 h-6 w-6'
-												/>
-											</button>
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
-											<button
-												onClick={() => {
-													setUserSelected(user);
-													setDeleteUserOpen(!deleteUserOpen);
-												}}
-												className='group flex items-center px-3 py-2 text-sm font-medium w-full'
-											>
-												<TrashIcon
-													className='text-gray-400 group-hover:text-gray-500
+													/>
+												</button>
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
+												<button
+													onClick={() => {
+														setUserSelected(user);
+														setDeleteUserOpen(!deleteUserOpen);
+													}}
+													className='group flex items-center px-3 py-2 text-sm font-medium w-full'
+												>
+													<TrashIcon
+														className='text-gray-400 group-hover:text-gray-500
 									flex-shrink-0 h-6 w-6'
-												/>
-											</button>
-										</td>
-									</tr>
-								))}
+													/>
+												</button>
+											</td>
+										</tr>
+									);
+								})}
 							</tbody>
 						</table>
 					</div>

@@ -59,6 +59,16 @@ export function findPriorRoundWinner(scores) {
 	return winningGolfer[0];
 }
 
+export function getUserScores(user, allScores) {
+	const userScores = allScores.filter((score) => {
+		if (score.user.email === user.email) {
+			return score;
+		}
+	});
+
+	return userScores;
+}
+
 export function findLastScheduledRound(schedules) {
 	const currDate = new Date();
 
