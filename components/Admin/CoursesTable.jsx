@@ -1,5 +1,5 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCoursesContext } from '@/context/Store';
 import SaveSuccess from '../Notifications/SaveSuccess';
 import SaveFail from '../Notifications/SaveFail';
@@ -16,6 +16,14 @@ export default function CoursesTable() {
 	const [failure, setFailure] = useState(false);
 	const [courseSelected, setCourseSelected] = useState();
 	const [courses, setCourses] = useState(useCoursesContext());
+
+	useEffect(() => {
+		const sortedCourses = courses.sort((a, b) => {
+			return a.name.toLowerCase() > b.name.toLowerCase();
+		});
+
+		setCourses(sortedCourses);
+	}, [courses]);
 
 	return (
 		<div className='flex flex-col'>
