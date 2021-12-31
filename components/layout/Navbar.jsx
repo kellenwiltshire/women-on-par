@@ -18,8 +18,6 @@ export default function Navbar({ signedIn, setSignedIn }) {
 	const updateUser = useUpdateUserContext();
 	const user = useUserContext();
 
-	console.log(user);
-
 	const [activeTab, setActiveTab] = useState(1);
 	const [userNavUrl, setUserNavUrl] = useState('');
 	const [picture, setPicture] = useState('/avatars/avatar.png');
