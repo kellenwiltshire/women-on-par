@@ -21,13 +21,7 @@ export default function Articles({ news }) {
 				</div>
 				<div className='mt-8 lg:grid lg:grid-cols-2 lg:gap-8'>
 					<div className='relative lg:row-start-1 lg:col-start-2'>
-						<div className='relative text-base mx-auto max-w-prose lg:max-w-none'>
-							<figure>
-								<div className='aspect-w-12 aspect-h-7 lg:aspect-none w-full'>
-									<img className='rounded-lg shadow-lg w-full' src={image} alt='' />
-								</div>
-							</figure>
-						</div>
+						<img className='rounded-lg shadow-lg w-2/3' src={image} alt='' />
 					</div>
 					<article className='prose'>
 						<ReactMarkdown children={news.body} />
