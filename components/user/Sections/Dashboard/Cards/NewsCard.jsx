@@ -8,8 +8,6 @@ import ReactMarkdown from 'react-markdown';
 export default function NewsCard() {
 	const news = useNewsContext();
 
-	console.log('NEWSCARD - News: ', news);
-
 	const recentNews = findMostRecentNews(news);
 
 	const length = 100;

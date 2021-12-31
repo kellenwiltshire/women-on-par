@@ -23,7 +23,6 @@ const submitScore = async (req, res) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
-	console.log(req.body);
 	const id = req.body.score.id;
 	const score = req.body.score.data;
 	const cookies = parseCookies({ req });

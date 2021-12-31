@@ -18,8 +18,6 @@ export default function YearEndTable() {
 		return user.yearend;
 	});
 
-	console.log(attendingUsers);
-
 	return (
 		<div className='flex flex-col'>
 			{userEmailOpen ? (

@@ -18,8 +18,6 @@ export default function WeekendAwayTable() {
 		return user.weekendaway;
 	});
 
-	console.log(attendingUsers);
-
 	return (
 		<div className='flex flex-col'>
 			{userEmailOpen ? (

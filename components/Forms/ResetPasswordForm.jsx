@@ -22,8 +22,6 @@ export default function ResetPasswordForm({ setSignedIn }) {
 		const query = router.query;
 		const code = query.code;
 
-		console.log('CODE: ', code);
-
 		if (newPass !== confirmPass) {
 			setPassMatchError(true);
 		}
@@ -51,8 +49,6 @@ export default function ResetPasswordForm({ setSignedIn }) {
 						maxAge: 30 * 24 * 60 * 60,
 						path: '/',
 					});
-
-					console.log(loginResponse);
 
 					setSignedIn(true);
 

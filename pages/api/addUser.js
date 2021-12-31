@@ -40,9 +40,6 @@ const addUser = async (req, res) => {
 
 		const response = await request.json();
 
-		console.log('API Response: ', response);
-
-		console.log('Sending Confirmation Email');
 		const confirmation = await fetch(`${url}/auth/send-email-confirmation`, {
 			method: 'POST',
 			headers: {

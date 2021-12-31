@@ -34,8 +34,6 @@ export default function LoginForm({ setSignedIn }) {
 					path: '/',
 				});
 
-				console.log(loginResponse);
-
 				setSignedIn(true);
 
 				if (loginResponse.user.role.type === 'admin') {
@@ -45,7 +43,6 @@ export default function LoginForm({ setSignedIn }) {
 				}
 			} else {
 				setLoginError(true);
-				console.log(login);
 			}
 		} catch (error) {
 			setLoginError(true);

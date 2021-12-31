@@ -7,8 +7,6 @@ export default function NewsCards({ post }) {
 	const shortBody = post.body.substring(0, length) + '...';
 	const [image, setImage] = useState('/brand/logoNoText.jpg');
 
-	console.log(post);
-
 	useEffect(() => {
 		if (post.media.length > 0) {
 			setImage(post.media[0].url);

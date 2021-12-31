@@ -25,8 +25,6 @@ export default function CoursesTable() {
 		setCourses(sortedCourses);
 	}, [courses]);
 
-	console.log('COURSE TABLE: ', courses);
-
 	return (
 		<div className='flex flex-col'>
 			{editCourseOpen ? (

@@ -28,7 +28,6 @@ const adminNav = [
 ];
 
 export default function AdminPage({ scores, user, schedules, allScores, allUsers, courses, news, specFunctions }) {
-	console.log(specFunctions);
 	const updateUser = useUpdateUserContext();
 	const updateSchedule = useUpdateScheduleContext();
 	const updateScore = useUpdateScoreContext();

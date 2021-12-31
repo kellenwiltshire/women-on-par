@@ -23,8 +23,6 @@ const setNewPass = async (req, res) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
-	console.log(req.body);
-
 	const code = req.body.code;
 	const newPass = req.body.newPass;
 	const confirmPass = req.body.confirmPass;
@@ -48,7 +46,6 @@ const setNewPass = async (req, res) => {
 			res.status(200).json(loginResponse);
 		} else {
 			const response = await req.json();
-			console.log(response);
 
 			res.status(login.status).json(response);
 		}

@@ -37,8 +37,6 @@ const setNewPass = async (req, res) => {
 
 		const loginResponse = await login.json();
 
-		console.log(loginResponse);
-
 		res.status(200).json(loginResponse);
 	} catch (error) {
 		res.status(500).json({ error: 'Error Sending Email', response: error });

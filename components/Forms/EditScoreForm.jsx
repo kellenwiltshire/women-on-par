@@ -1,17 +1,8 @@
 import React, { useState } from 'react';
 import HolesInput from '../user/Sections/Scores/ScoresFormParts/HolesInput';
 
-export default function EditScoreForm({
-	lastScheduledRound,
-	selectedScore,
-	setSuccess,
-	setFail,
-	setOpen,
-	setScores,
-}) {
+export default function EditScoreForm({ lastScheduledRound, selectedScore, setSuccess, setFail, setOpen, setScores }) {
 	const [score, setScore] = useState(selectedScore.score);
-
-	console.log(selectedScore);
 
 	const course = lastScheduledRound.course.name;
 	const date = lastScheduledRound.date;
@@ -68,17 +59,7 @@ export default function EditScoreForm({
 		const newScore = {
 			id: selectedScore.id,
 			data: {
-				holes: [
-					holeOne,
-					holeTwo,
-					holeThree,
-					holeFour,
-					holeFive,
-					holeSix,
-					holeSeven,
-					holeEight,
-					holeNine,
-				],
+				holes: [holeOne, holeTwo, holeThree, holeFour, holeFive, holeSix, holeSeven, holeEight, holeNine],
 				score: score,
 			},
 		};
@@ -112,14 +93,9 @@ export default function EditScoreForm({
 			<div>
 				<div className='mb-5'>
 					<div>
-						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
-							Edit Score
-						</h2>
+						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Edit Score</h2>
 					</div>
-					<form
-						onSubmit={handleSubmit}
-						className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4'
-					>
+					<form onSubmit={handleSubmit} className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4'>
 						<li className='col-span-1 flex shadow-sm rounded-md'>
 							<div className='flex-shrink-0 flex flex-col items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
 								<p>Date</p>

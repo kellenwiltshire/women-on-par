@@ -24,8 +24,6 @@ const getArticle = async (req, res) => {
 
 	const jwt = req.body;
 
-	console.log(req.query);
-
 	try {
 		const request = await fetch(`${url}/news-items/${req.query.article}`, {
 			method: 'GET',

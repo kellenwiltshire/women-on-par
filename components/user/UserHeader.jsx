@@ -4,7 +4,6 @@ import Image from 'next/image';
 
 export default function UserHeader() {
 	const user = useUserContext();
-	console.log(user);
 	const [picture, setPicture] = useState('/avatars/avatar.png');
 
 	useEffect(() => {
@@ -18,17 +17,8 @@ export default function UserHeader() {
 				<div className='flex items-start space-x-5'>
 					<div className='flex-shrink-0'>
 						<div className='relative'>
-							<Image
-								className='h-24 w-24 rounded-full'
-								src={picture}
-								alt=''
-								height={96}
-								width={96}
-							/>
-							<span
-								className='absolute inset-0 shadow-inner rounded-full'
-								aria-hidden='true'
-							/>
+							<Image className='h-24 w-24 rounded-full' src={picture} alt='' height={96} width={96} />
+							<span className='absolute inset-0 shadow-inner rounded-full' aria-hidden='true' />
 						</div>
 					</div>
 					{/*
@@ -37,9 +27,7 @@ export default function UserHeader() {
         */}
 					<div className='pt-1.5'>
 						<h1 className='text-2xl font-bold text-gray-900'>{`${user.first_name} ${user.last_name}`}</h1>
-						<p className='hidden md:block text-sm font-medium text-gray-500'>
-							{user.email}
-						</p>
+						<p className='hidden md:block text-sm font-medium text-gray-500'>{user.email}</p>
 					</div>
 				</div>
 			</div>
