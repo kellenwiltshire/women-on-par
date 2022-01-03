@@ -90,7 +90,7 @@ export default function RegisterUserForm({ setSuccess, setFailure, setOpen, setU
 							</div>
 							<div>
 								<label htmlFor='phone-number' className='sr-only'>
-									Phone NUmber
+									Phone Number
 								</label>
 								<input
 									id='phone-number'
@@ -138,7 +138,6 @@ export default function RegisterUserForm({ setSuccess, setFailure, setOpen, setU
 								<textarea
 									id='conditions'
 									name='conditions'
-									rows={4}
 									type='text'
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder='Car Pool Information'

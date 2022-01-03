@@ -41,6 +41,7 @@ export default function NextRoundTable() {
 			body: JSON.stringify(body),
 		});
 
+		//Filters out the removed person from the list of available golfers
 		const newUsers = users.filter((person) => {
 			if (person !== user) {
 				return person;
