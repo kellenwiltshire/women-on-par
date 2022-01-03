@@ -1,4 +1,5 @@
 import ToggleSwitch from '@/components/Buttons/Toggle';
+import FormSuccess from '@/components/Modals/FormSuccess';
 import Modal from '@/components/Modals/Modal';
 import SaveFail from '@/components/Notifications/SaveFail';
 import SaveSuccess from '@/components/Notifications/SaveSuccess';
@@ -79,14 +80,11 @@ export default function SettingsPage() {
 			{success ? <SaveSuccess show={success} setShow={setSuccess} /> : null}
 			{failure ? <SaveFail show={failure} setShow={setFailure} /> : null}
 
-			{
-				//TODO Make this prettier
-				open ? (
-					<Modal open={open} setOpen={setOpen}>
-						An email has been sent to your inbox to begin the password reset process.
-					</Modal>
-				) : null
-			}
+			{open ? (
+				<Modal open={open} setOpen={setOpen}>
+					<FormSuccess />
+				</Modal>
+			) : null}
 			<div className='space-y-8 divide-y divide-gray-200 sm:space-y-5'>
 				<div>
 					<div>

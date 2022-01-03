@@ -1,4 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
 import { CheckCircleIcon } from '@heroicons/react/outline';
@@ -28,18 +27,11 @@ export default function SaveSuccess({ show, setShow }) {
 							<div className='p-4'>
 								<div className='flex items-start'>
 									<div className='flex-shrink-0'>
-										<CheckCircleIcon
-											className='h-6 w-6 text-green-400'
-											aria-hidden='true'
-										/>
+										<CheckCircleIcon className='h-6 w-6 text-green-400' aria-hidden='true' />
 									</div>
 									<div className='ml-3 w-0 flex-1 pt-0.5'>
-										<p className='text-sm font-medium text-gray-900'>
-											Successfully saved!
-										</p>
-										<p className='mt-1 text-sm text-gray-500'>
-											You may need to refresh the page to see the update
-										</p>
+										<p className='text-sm font-medium text-gray-900'>Successfully saved!</p>
+										<p className='mt-1 text-sm text-gray-500'>You may need to refresh the page to see the update</p>
 									</div>
 									<div className='ml-4 flex-shrink-0 flex'>
 										<button
