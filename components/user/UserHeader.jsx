@@ -1,6 +1,5 @@
 import { useUserContext } from '@/context/Store';
 import React from 'react';
-import Image from 'next/image';
 
 export default function UserHeader() {
 	const user = useUserContext();
