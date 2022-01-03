@@ -3,8 +3,7 @@ import Modal from '@/components/Modals/Modal';
 import SaveFail from '@/components/Notifications/SaveFail';
 import SaveSuccess from '@/components/Notifications/SaveSuccess';
 import { useUserContext } from '@/context/Store';
-import { Router } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 export default function SettingsPage() {
 	const user = useUserContext();
@@ -13,22 +12,14 @@ export default function SettingsPage() {
 	const [email, setEmail] = useState(user.email);
 	const [success, setSuccess] = useState(false);
 	const [failure, setFailure] = useState(false);
-	const [picture, setPicture] = useState('/avatars/avatar.png');
 	const [phone, setPhone] = useState(user.phone);
 	const [carpool, setCarpool] = useState(user.carpool);
 	const [additionalInfo, setAdditionalInfo] = useState(user.additionalInfo);
 	const [open, setOpen] = useState(false);
-	const [uploadPicture, setUploeadPicture] = useState(false);
 	const [teeTimeCondition, setTeeTimeCondition] = useState(user.teeTime);
 
 	const [weekendAway, setWeekendAway] = useState(user.weekendaway);
 	const [yearEnd, setYearEnd] = useState(user.yearend);
-
-	useEffect(() => {
-		if (user.picture) {
-			setPicture(user.picture.picture.url);
-		}
-	}, []);
 
 	const submitChange = async (e) => {
 		e.preventDefault();
@@ -87,12 +78,6 @@ export default function SettingsPage() {
 		<form onSubmit={submitChange} className='space-y-8 divide-y divide-gray-200'>
 			{success ? <SaveSuccess show={success} setShow={setSuccess} /> : null}
 			{failure ? <SaveFail show={failure} setShow={setFailure} /> : null}
-
-			{uploadPicture ? (
-				<Modal open={uploadPicture} setOpen={setUploeadPicture}>
-					TEST
-				</Modal>
-			) : null}
 
 			{
 				//TODO Make this prettier
@@ -274,26 +259,6 @@ export default function SettingsPage() {
 								>
 									Change/Reset Password
 								</button>
-							</div>
-						</div>
-
-						<div className='sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:border-t sm:border-gray-200 sm:pt-5'>
-							<label htmlFor='photo' className='block text-sm font-medium text-gray-700'>
-								Photo
-							</label>
-							<div className='mt-1 sm:mt-0 sm:col-span-2'>
-								<div className='flex items-center'>
-									<span className='h-12 w-12 rounded-full overflow-hidden bg-gray-100'>
-										<img src={picture} />
-									</span>
-									<button
-										onClick={() => setUploeadPicture(true)}
-										type='button'
-										className='ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-									>
-										Change
-									</button>
-								</div>
 							</div>
 						</div>
 					</div>

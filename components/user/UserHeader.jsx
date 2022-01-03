@@ -1,26 +1,14 @@
 import { useUserContext } from '@/context/Store';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 
 export default function UserHeader() {
 	const user = useUserContext();
-	const [picture, setPicture] = useState('/avatars/avatar.png');
 
-	useEffect(() => {
-		if (user.picture) {
-			setPicture(user.picture.picture.url);
-		}
-	}, []);
 	return (
 		<header className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 			<div className='md:flex md:items-center md:justify-between md:space-x-5'>
 				<div className='flex items-start space-x-5'>
-					<div className='flex-shrink-0'>
-						<div className='relative'>
-							<Image className='h-24 w-24 rounded-full' src={picture} alt='' height={96} width={96} />
-							<span className='absolute inset-0 shadow-inner rounded-full' aria-hidden='true' />
-						</div>
-					</div>
 					{/*
           Use vertical padding to simulate center alignment when both lines of text are one line,
           but preserve the same layout if the text wraps without making the image jump around.

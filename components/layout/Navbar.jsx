@@ -72,9 +72,6 @@ export default function Navbar({ signedIn, setSignedIn }) {
 				{ num: 4, name: 'Schedule', href: '/schedule' },
 				{ num: 5, name: 'Special Functions', href: '/specialfunctions' },
 			]);
-			if (user.picture) {
-				setPicture(user.picture.picture.url);
-			}
 		} else {
 			setNavigation([
 				{ num: 1, name: 'Home', href: '/' },
