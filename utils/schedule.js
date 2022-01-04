@@ -46,6 +46,35 @@ const course = { interval: 7 };
 
 generateSchedule(golfers, schedule, course);
 
+const randomizeGolfers = (golfers) => {
+	let currentIndex = golfers.length,
+		randomIndex;
+
+	//While there remains elements to shuffle
+	while (currentIndex !== 0) {
+		//Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex--;
+
+		//and swap it with the current element
+		[golfers[currentIndex], golfers[randomIndex]] = [
+			golfers[randomIndex],
+			golfers[currentIndex],
+		];
+	}
+
+	return golfers;
+};
+
 export default function generateSchedule(golfers, schedule, course) {
+	const golfersArray = randomizeGolfers(golfers);
+
+	let teeTimes = [];
+	let currTime = schedule.startTime;
+	let interval = course.interval;
+	let group = {};
+
+	golfersArray.forEach((golfer) => {});
+
 	return teeTimes;
 }
