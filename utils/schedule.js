@@ -21,10 +21,30 @@ GolferTwo: NAME
 GolferThree: NAME
 GolferFour: NAME
 
-
-
-
 */
+
+const golfers = [
+	{ name: 'Player One', carpool: '', teeTime: false },
+	{ name: 'Player Two', carpool: 'Player Nine', teeTime: false },
+	{ name: 'Player Three', carpool: '', teeTime: false },
+	{ name: 'Player Four', carpool: '', teeTime: true },
+	{ name: 'Player Five', carpool: 'Player Five', teeTime: false },
+	{ name: 'Player Six', carpool: '', teeTime: false },
+	{ name: 'Player Seven', carpool: '', teeTime: false },
+	{ name: 'Player Eight', carpool: '', teeTime: false },
+	{ name: 'Player Nine', carpool: 'Player Two', teeTime: false },
+	{ name: 'Player Ten', carpool: '', teeTime: true },
+	{ name: 'Player Eleven', carpool: '', teeTime: false },
+	{ name: 'Player Twelve', carpool: '', teeTime: false },
+	{ name: 'Player Thirteen', carpool: 'Player Five', teeTime: false },
+	{ name: 'Player Fourteen', carpool: '', teeTime: false },
+];
+
+const schedule = { startTime: '16:00' };
+
+const course = { interval: 7 };
+
+generateSchedule(golfers, schedule, course);
 
 export default function generateSchedule(golfers, schedule, course) {
 	return teeTimes;
