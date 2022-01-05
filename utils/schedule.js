@@ -72,9 +72,36 @@ export default function generateSchedule(golfers, schedule, course) {
 	let teeTimes = [];
 	let currTime = schedule.startTime;
 	let interval = course.interval;
-	let group = {};
+	let group = {teeTime: currTime};
+    let groupNum = 0;
 
-	golfersArray.forEach((golfer) => {});
+	for(let i = 0; i < golfersArray.length; i++){
+        if(!golfersArray[i].teeTime){
+            if(groupNum === 0){
+                group.golferOne = golfersArray[i];
+                golfersArray.splice(i, 1);
+                groupNum++;
+            } else if (groupNum === 1){
+                group.golferTwo = golfersArray[i];
+                golfersArray.splice(i, 1);
+                groupNum++;
+            } else if (groupNum === 2){
+                group.golferThree = golfersArray[i];
+                golfersArray.splice(i, 1);
+                groupNum++;
+            } else if (groupNum === 4){
+                group.golferFour = golfersArray[i];
+                golfersArray.splice(i, 1);
+                teeTimes.push(group);
+                group = {};
+                currTime += interval;
+                group.teeTime = currTime;
+                groupNum = 0;
+            }
+        }
+    }
+
+    console.log(teeTimes;);
 
 	return teeTimes;
 }
