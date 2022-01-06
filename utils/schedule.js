@@ -147,7 +147,7 @@ const filterArray = (arr1, arr2) => {
 
 generateSchedule(golfers, schedule, course);
 
-function generateSchedule(golfers, schedule, course) {
+export default function generateSchedule(golfers, schedule, course) {
 	//Deterime Max Golfers
 	const maxGolfers = course.timeslots * 4;
 

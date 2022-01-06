@@ -1,4 +1,5 @@
 import { useAllUsersContext, useScheduleContext } from '@/context/Store';
+import generateSchedule from '@/utils/schedule';
 import { findNextRound } from '@/utils/sortingFunctions';
 import { XIcon } from '@heroicons/react/outline';
 import { useEffect, useState } from 'react';
@@ -7,6 +8,7 @@ export default function NextRoundTable() {
 	const allUsers = useAllUsersContext();
 	const schedule = useScheduleContext();
 	const [users, setUsers] = useState([]);
+	const [teeTimeSchedule, setTeeTimeSchedule] = useState([]);
 
 	const nextRound = findNextRound(schedule);
 	const findUsers = allUsers.filter((user) => {
@@ -49,6 +51,12 @@ export default function NextRoundTable() {
 		});
 
 		setUsers(newUsers);
+	};
+
+	const generateScheduleClicked = () => {
+		setTeeTimeSchedule(generateSchedule(users, schedule, schedule.course));
+
+		//Then will need to open a new page or modal with tee time schedule. Create a PDF?
 	};
 
 	return (
