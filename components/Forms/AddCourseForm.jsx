@@ -10,6 +10,7 @@ export default function AddCourseForm({ setOpen, setSuccess, setFailure, courses
 	const [additionalInfo, setadditionalInfo] = useState('');
 	const [adminInfo, setAdminInfo] = useState('');
 	const [pricing, setPricing] = useState('');
+	const [timeslots, setTimeslots] = useState();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -24,6 +25,7 @@ export default function AddCourseForm({ setOpen, setSuccess, setFailure, courses
 			adminInfo: adminInfo,
 			pricing: pricing,
 			contact: contact,
+			timeslots: timeslots,
 		};
 
 		const req = await fetch('/api/addCourse', {
@@ -138,6 +140,20 @@ export default function AddCourseForm({ setOpen, setSuccess, setFailure, courses
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder='Tee Time Interval'
 									onChange={(e) => setInterval(e.target.value)}
+								/>
+							</div>
+							<div>
+								<label htmlFor='timeslots' className='sr-only'>
+									Time Slots
+								</label>
+								<input
+									id='timeslots'
+									name='timeslots'
+									type='number'
+									required
+									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+									placeholder='Time Slots'
+									onChange={(e) => setTimeslots(e.target.value)}
 								/>
 							</div>
 							<div>

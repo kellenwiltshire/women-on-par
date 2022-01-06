@@ -10,6 +10,7 @@ export default function EditCourseForm({ course, setSuccess, setFailure, setOpen
 	const [additionalInfo, setadditionalInfo] = useState(course.additionalInfo);
 	const [adminInfo, setAdminInfo] = useState(course.adminInfo);
 	const [pricing, setPricing] = useState(course.pricing);
+	const [timeslots, setTimeslots] = useState(course.timeslots);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -26,6 +27,7 @@ export default function EditCourseForm({ course, setSuccess, setFailure, setOpen
 				adminInfo: adminInfo,
 				pricing: pricing,
 				contact: contact,
+				timeslots: timeslots,
 			},
 		};
 
@@ -142,6 +144,20 @@ export default function EditCourseForm({ course, setSuccess, setFailure, setOpen
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									value={interval}
 									onChange={(e) => setInterval(e.target.value)}
+								/>
+							</div>
+							<div>
+								<label htmlFor='timeslots' className='sr-only'>
+									Time Slots
+								</label>
+								<input
+									id='timeslots'
+									name='timeslots'
+									type='number'
+									required
+									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+									placeholder='Time Slots'
+									onChange={(e) => setTimeslots(e.target.value)}
 								/>
 							</div>
 							<div>
