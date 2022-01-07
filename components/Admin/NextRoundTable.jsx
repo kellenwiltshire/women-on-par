@@ -3,11 +3,72 @@ import generateSchedule from '@/utils/schedule';
 import { findNextRound } from '@/utils/sortingFunctions';
 import { XIcon } from '@heroicons/react/outline';
 import { useEffect, useState } from 'react';
+import TeetimeSchedule from '../TeeTimeGenerater/TeetimeSchedule';
+import Modal from '../Modals/Modal';
+
+//For testing purposes
+const golfers = [
+	{ name: 'Player One', carpool: '', teeTime: false },
+	{ name: 'Player Two', carpool: 'Player Nine', teeTime: false },
+	{ name: 'Player Three', carpool: '', teeTime: false },
+	{ name: 'Player Four', carpool: '', teeTime: true },
+	{ name: 'Player Five', carpool: 'Player Thirteen', teeTime: false },
+	{ name: 'Player Six', carpool: '', teeTime: false },
+	{ name: 'Player Seven', carpool: '', teeTime: false },
+	{ name: 'Player Eight', carpool: '', teeTime: false },
+	{ name: 'Player Nine', carpool: 'Player Two', teeTime: false },
+	{ name: 'Player Ten', carpool: '', teeTime: true },
+	{ name: 'Player Eleven', carpool: '', teeTime: false },
+	{ name: 'Player Twelve', carpool: '', teeTime: false },
+	{ name: 'Player Thirteen', carpool: 'Player Five', teeTime: false },
+	{ name: 'Player Fourteen', carpool: '', teeTime: false },
+	{ name: 'Player Fifteen', carpool: '', teeTime: false },
+	{ name: 'Player Sixteen', carpool: '', teeTime: false },
+	{ name: 'Player Seventeen', carpool: '', teeTime: false },
+	{ name: 'Player Eighteen', carpool: '', teeTime: true },
+	{ name: 'Player Nineteen', carpool: '', teeTime: false },
+	{ name: 'Player Twenty', carpool: '', teeTime: false },
+	{ name: 'Player Twentyone', carpool: '', teeTime: false },
+	{ name: 'Player Twentytwo', carpool: '', teeTime: false },
+	{ name: 'Player Twentythree', carpool: '', teeTime: false },
+	{ name: 'Player TwentyFour', carpool: '', teeTime: true },
+	{ name: 'Player TwentyFive', carpool: '', teeTime: false },
+	{ name: 'Player TwentySix', carpool: '', teeTime: false },
+	{ name: 'Player TwentySeven', carpool: '', teeTime: false },
+	{ name: 'Player TwentyEight', carpool: '', teeTime: false },
+	{ name: 'Player TwentyNine', carpool: '', teeTime: false },
+	{ name: 'Player Thirty', carpool: '', teeTime: false },
+	{ name: 'Player ThirtyOne', carpool: '', teeTime: false },
+	{ name: 'Player ThirtyTwo', carpool: '', teeTime: true },
+	{ name: 'Player ThirtyThree', carpool: '', teeTime: false },
+	{ name: 'Player ThirtyFour', carpool: '', teeTime: false },
+	{ name: 'Player ThirtyFive', carpool: '', teeTime: false },
+	{ name: 'Player ThirtySix', carpool: '', teeTime: false },
+	{ name: 'Player ThirtySeven', carpool: '', teeTime: false },
+	{ name: 'Player ThirtyEight', carpool: '', teeTime: true },
+	{ name: 'Player ThirtyNine', carpool: '', teeTime: false },
+	{ name: 'Player Forty', carpool: '', teeTime: false },
+	{ name: 'Player FortyOne', carpool: '', teeTime: false },
+	{ name: 'Player FortyTwo', carpool: '', teeTime: false },
+	{ name: 'Player FortyThree', carpool: '', teeTime: false },
+	{ name: 'Player FortyFour', carpool: '', teeTime: false },
+	{ name: 'Player FortyFive', carpool: '', teeTime: false },
+	{ name: 'Player FortySix', carpool: '', teeTime: true },
+	{ name: 'Player FortySeven', carpool: '', teeTime: false },
+	{ name: 'Player FortyEight', carpool: '', teeTime: false },
+	{ name: 'Player FORTYNINE', carpool: '', teeTime: false },
+	{ name: 'Player FIFTY', carpool: '', teeTime: false },
+	{ name: 'Player FIFTYONE', carpool: '', teeTime: false },
+	{ name: 'Player FIFTYTWO', carpool: '', teeTime: true },
+	{ name: 'Player FIFTYTHREE', carpool: '', teeTime: false },
+];
 
 export default function NextRoundTable() {
 	const allUsers = useAllUsersContext();
 	const schedule = useScheduleContext();
 	const [users, setUsers] = useState([]);
+
+	const [scheduleOpen, setScheduleOpen] = useState(false);
 	const [teeTimeSchedule, setTeeTimeSchedule] = useState([]);
 
 	const nextRound = findNextRound(schedule);
@@ -53,21 +114,32 @@ export default function NextRoundTable() {
 		setUsers(newUsers);
 	};
 
+	console.log('Next Round Table - Schedule: ', nextRound);
+
 	const generateScheduleClicked = () => {
-		setTeeTimeSchedule(generateSchedule(users, schedule, schedule.course));
+		setTeeTimeSchedule(generateSchedule(golfers, nextRound, nextRound.course));
+
+		setScheduleOpen(!scheduleOpen);
+
+		console.log('Here: ', teeTimeSchedule);
 
 		//Then will need to open a new page or modal with tee time schedule. Create a PDF?
 	};
 
 	return (
 		<div className='flex flex-col'>
+			{scheduleOpen ? (
+				<Modal open={scheduleOpen} setOpen={setScheduleOpen}>
+					<TeetimeSchedule teeTimes={teeTimeSchedule} />
+				</Modal>
+			) : null}
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
 					<div className='mb-3'>
 						Next Round is: {nextRound.date} at {nextRound.course.name}
 					</div>
 					<button
-						disabled
+						onClick={() => generateScheduleClicked()}
 						className='inline-flex items-center px-6 py-2 border border-transparent text-sm rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mb-4 ml-auto'
 					>
 						Generate Tee-Times (soon)

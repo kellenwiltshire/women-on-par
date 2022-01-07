@@ -54,10 +54,6 @@ const golfers = [
 	{ name: 'Player FIFTYTHREE', carpool: '', teeTime: false },
 ];
 
-const schedule = { startTime: '16:00:00' };
-
-const course = { interval: 7, timeslots: 12 };
-
 const randomizeGolfers = (golfers) => {
 	let currentIndex = golfers.length,
 		randomIndex;
@@ -145,15 +141,13 @@ const filterArray = (arr1, arr2) => {
 	return filtered;
 };
 
-generateSchedule(golfers, schedule, course);
-
 export default function generateSchedule(golfers, schedule, course) {
 	//Deterime Max Golfers
-	const maxGolfers = course.timeslots * 4;
+	const maxGolfers = course.timeslots * 4 || 12 * 4;
 
 	//Create initial Variables
 	const initialGolfers = golfers;
-	const initialStartTime = schedule.startTime;
+	const initialStartTime = schedule.start_time;
 	const interval = '00:' + ('0' + course.interval).slice(-2) + ':00';
 
 	//Create the Waiting List and Usuable Golfers Array
@@ -171,6 +165,7 @@ export default function generateSchedule(golfers, schedule, course) {
 	//Trim the list of golfers if there is more than the max number of golfers
 	if (initialGolfers.length > maxGolfers) {
 		while (initialGolfers.length > maxGolfers) {
+			console.log('Waiting List Added');
 			waitingList.push(initialGolfers[golfers.length - 1]);
 			initialGolfers.pop();
 		}
@@ -189,7 +184,7 @@ export default function generateSchedule(golfers, schedule, course) {
 	//Start filling a new Golfer Array with unrestricted golfers until it passes the time restriction
 	let timeTestPassed = false;
 	let newGolferArray = [];
-	unrestrictedGolfers.forEach((golfer, i) => {
+	unrestrictedGolfers.forEach((golfer) => {
 		if (!timeTestPassed) {
 			if (groupNum < 3) {
 				console.log('Added to Array');
@@ -201,6 +196,7 @@ export default function generateSchedule(golfers, schedule, course) {
 				currTime = addTimeInterval(currTime, interval);
 				console.log(currTime);
 				const timeTest = testTime(currTime);
+				console.log(timeTest);
 				if (timeTest) {
 					timeTestPassed = true;
 					console.log('It is Passed 4:30');
@@ -220,7 +216,7 @@ export default function generateSchedule(golfers, schedule, course) {
 
 	//Reset the variables
 	groupNum = 0;
-	currTime = schedule.startTime;
+	currTime = schedule.start_time;
 
 	//Before setting final tee times will need to iterate through array and look for car pooling people. Once one is found, will need to find the matching person and splice them out of their current position (unless within 1-12 golfers away from original person) and splice them back in at a random interval (1-12) from original golfer to make sure they are within 3 tee times of eachother
 
@@ -268,5 +264,7 @@ export default function generateSchedule(golfers, schedule, course) {
 
 	console.log('Tee times: ', finalTeeTimeArray);
 
-	// return teeTimes;
+	const finalSchedule = { teeTimeSchedule: finalTeeTimeArray, waitingList: waitingList };
+
+	return finalSchedule;
 }
