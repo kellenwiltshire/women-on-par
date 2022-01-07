@@ -120,10 +120,6 @@ export default function NextRoundTable() {
 		setTeeTimeSchedule(generateSchedule(golfers, nextRound, nextRound.course));
 
 		setScheduleOpen(!scheduleOpen);
-
-		console.log('Here: ', teeTimeSchedule);
-
-		//Then will need to open a new page or modal with tee time schedule. Create a PDF?
 	};
 
 	return (
