@@ -130,7 +130,7 @@ export default function NextRoundTable() {
 		<div className='flex flex-col'>
 			{scheduleOpen ? (
 				<Modal open={scheduleOpen} setOpen={setScheduleOpen}>
-					<TeetimeSchedule teeTimes={teeTimeSchedule} />
+					<TeetimeSchedule teeTimes={teeTimeSchedule} nextRound={nextRound} setScheduleOpen={setScheduleOpen} />
 				</Modal>
 			) : null}
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
@@ -142,7 +142,7 @@ export default function NextRoundTable() {
 						onClick={() => generateScheduleClicked()}
 						className='inline-flex items-center px-6 py-2 border border-transparent text-sm rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mb-4 ml-auto'
 					>
-						Generate Tee-Times (soon)
+						Generate Tee-Times
 					</button>
 					<div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
 						<table className='min-w-full divide-y divide-gray-200'>
