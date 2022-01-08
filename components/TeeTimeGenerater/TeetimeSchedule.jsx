@@ -18,11 +18,13 @@ export default function TeetimeSchedule({ teeTimes, nextRound, setScheduleOpen }
 			{warningOpen ? (
 				<CloseSchedule open={warningOpen} setOpen={setWarningOpen} setScheduleOpen={setScheduleOpen} />
 			) : null}
-			<div ref={componentRef}>
+			<div className='w-full h-full ' ref={componentRef}>
 				<style type='text/css' media='print'>
-					{'\
-  @page { size: landscape; display: flex; flex: row; margin: 20mm; }\
-'}
+					{
+						'\
+					{ html,body{height:100%;width:100%;margin:0;padding:0;} @page { size: A4 landscape; max-height:100%; max-width:100% }\
+'
+					}
 				</style>
 				<h2 className='text-gray-500 text-xs font-medium uppercase tracking-wide'>
 					{nextRound.course.name} - {nextRound.date} - {nextRound.start_time}
