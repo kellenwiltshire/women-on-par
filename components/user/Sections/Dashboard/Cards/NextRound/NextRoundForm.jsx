@@ -9,11 +9,21 @@ export default function NextRoundForm({ user, setSuccess, setFailure }) {
 	const currDate = new Date();
 	//This sets the state so that the input reflect the already entered Data (if available) unless the current Date is after the last entered avaialability. If this is the case then it resets so that the user can set their availability for the next round
 	const [attendance, setAttendance] = useState(false);
+	const [cutOffPast, setCutOffPast] = useState(false);
 
 	useEffect(() => {
 		if (currDate < Date.parse(user.availability[user.availability.length - 1].date)) {
 			if (user.availability[user.availability.length - 1].available) {
 				setAttendance(true);
+			}
+		}
+
+		const dayOfWeek = currDate.getDay(); //0 is Sunday
+		const hourofDay = currDate.getHours();
+
+		if (dayOfWeek >= 1 && dayOfWeek <= 3) {
+			if (hourofDay >= 6) {
+				setCutOffPast(true);
 			}
 		}
 	}, []);
@@ -50,20 +60,31 @@ export default function NextRoundForm({ user, setSuccess, setFailure }) {
 		}
 	};
 
-	return (
-		<form onSubmit={handleSubmit}>
+	if (cutOffPast) {
+		return (
 			<div className='mt-2 text-sm text-gray-500 flex flex-row align-middle'>
-				<label htmlFor='attendance' className='block text-sm font-medium text-gray-700 mr-2'>
-					Attending:
-				</label>
-				<ToggleSwitch enabled={attendance} setEnabled={setAttendance} />
+				<h3 className='block text-sm font-medium text-gray-700 mr-2'>
+					Cuttoff time has passed for changing your attendance. Please contact the administrator if you wish to change
+					your attendance.
+				</h3>
 			</div>
-			<button
-				type='submit'
-				className='my-1 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-			>
-				Save
-			</button>
-		</form>
-	);
+		);
+	} else {
+		return (
+			<form onSubmit={handleSubmit}>
+				<div className='mt-2 text-sm text-gray-500 flex flex-row align-middle'>
+					<label htmlFor='attendance' className='block text-sm font-medium text-gray-700 mr-2'>
+						Attending:
+					</label>
+					<ToggleSwitch enabled={attendance} setEnabled={setAttendance} />
+				</div>
+				<button
+					type='submit'
+					className='my-1 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+				>
+					Save
+				</button>
+			</form>
+		);
+	}
 }
