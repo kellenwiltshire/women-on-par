@@ -19,18 +19,18 @@ export default function TeetimeSchedule({ teeTimes, nextRound, setScheduleOpen }
 			{warningOpen ? (
 				<CloseSchedule open={warningOpen} setOpen={setWarningOpen} setScheduleOpen={setScheduleOpen} />
 			) : null}
-			<div className='w-full h-full' ref={componentRef}>
+			<div ref={componentRef}>
 				<style type='text/css' media='print'>
 					{
 						'\
-					{ html,body{height:100%;width:100%;margin:0;padding:0;} @page { size: A4 landscape; max-height:100%; max-width:100% display: flex  flex: row flex-wrap: wrap }\
+					{ html,body{height:100%;width:100%;margin:2cm;padding:2cm;} @page { size: A4 landscape; max-height:100%; max-width:100%  }\
 '
 					}
 				</style>
-				<h2 className='text-lg font-medium uppercase tracking-wide'>
-					{nextRound.course.name} - {nextRound.date} - {nextRound.start_time} - {game}
-				</h2>
-				<div className='mt-3 flex flex-row flex-wrap'>
+				<div className='mt-3 flex flex-row flex-wrap justify-center'>
+					<h2 className='text-lg font-medium uppercase tracking-wide mt-2'>
+						{nextRound.course.name} - {nextRound.date} - {nextRound.start_time} - {game}
+					</h2>
 					<ScheduleCards schedule={scheduledRound} waitingList={waitingList} />
 				</div>
 			</div>
