@@ -8,7 +8,7 @@ export default function schedule({ schedules }) {
 			<div className='relative max-w-7xl mx-auto'>
 				<div className='text-center'>
 					<h2 className='text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl'>
-						Tee Times
+						Schedule
 					</h2>
 				</div>
 				<div className='my-5'>
