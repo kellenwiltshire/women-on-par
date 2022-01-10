@@ -1,59 +1,153 @@
 const golfers = [
-	{ name: 'Player One', carpool: '', teeTime: false },
-	{ name: 'Player Two', carpool: 'Player Nine', teeTime: false },
-	{ name: 'Player Three', carpool: '', teeTime: false },
-	{ name: 'Player Four', carpool: '', teeTime: true },
-	{ name: 'Player Five', carpool: 'Player Thirteen', teeTime: false },
-	{ name: 'Player Six', carpool: '', teeTime: false },
-	{ name: 'Player Seven', carpool: '', teeTime: false },
-	{ name: 'Player Eight', carpool: '', teeTime: false },
-	{ name: 'Player Nine', carpool: 'Player Two', teeTime: false },
-	{ name: 'Player Ten', carpool: '', teeTime: true },
-	{ name: 'Player Eleven', carpool: '', teeTime: false },
-	{ name: 'Player Twelve', carpool: '', teeTime: false },
-	{ name: 'Player Thirteen', carpool: 'Player Five', teeTime: false },
-	{ name: 'Player Fourteen', carpool: '', teeTime: false },
-	{ name: 'Player Fifteen', carpool: '', teeTime: false },
-	{ name: 'Player Sixteen', carpool: '', teeTime: false },
-	{ name: 'Player Seventeen', carpool: '', teeTime: false },
-	{ name: 'Player Eighteen', carpool: '', teeTime: true },
-	{ name: 'Player Nineteen', carpool: '', teeTime: false },
-	{ name: 'Player Twenty', carpool: '', teeTime: false },
-	{ name: 'Player Twentyone', carpool: '', teeTime: false },
-	{ name: 'Player Twentytwo', carpool: '', teeTime: false },
-	{ name: 'Player Twentythree', carpool: '', teeTime: false },
-	{ name: 'Player TwentyFour', carpool: '', teeTime: true },
-	{ name: 'Player TwentyFive', carpool: '', teeTime: false },
-	{ name: 'Player TwentySix', carpool: '', teeTime: false },
-	{ name: 'Player TwentySeven', carpool: '', teeTime: false },
-	{ name: 'Player TwentyEight', carpool: '', teeTime: false },
-	{ name: 'Player TwentyNine', carpool: '', teeTime: false },
-	{ name: 'Player Thirty', carpool: '', teeTime: false },
-	{ name: 'Player ThirtyOne', carpool: '', teeTime: false },
-	{ name: 'Player ThirtyTwo', carpool: '', teeTime: true },
-	{ name: 'Player ThirtyThree', carpool: '', teeTime: false },
-	{ name: 'Player ThirtyFour', carpool: '', teeTime: false },
-	{ name: 'Player ThirtyFive', carpool: '', teeTime: false },
-	{ name: 'Player ThirtySix', carpool: '', teeTime: false },
-	{ name: 'Player ThirtySeven', carpool: '', teeTime: false },
-	{ name: 'Player ThirtyEight', carpool: '', teeTime: true },
-	{ name: 'Player ThirtyNine', carpool: '', teeTime: false },
-	{ name: 'Player Forty', carpool: '', teeTime: false },
-	{ name: 'Player FortyOne', carpool: '', teeTime: false },
-	{ name: 'Player FortyTwo', carpool: '', teeTime: false },
-	{ name: 'Player FortyThree', carpool: '', teeTime: false },
-	{ name: 'Player FortyFour', carpool: '', teeTime: false },
-	{ name: 'Player FortyFive', carpool: '', teeTime: false },
-	{ name: 'Player FortySix', carpool: '', teeTime: true },
-	{ name: 'Player FortySeven', carpool: '', teeTime: false },
-	{ name: 'Player FortyEight', carpool: '', teeTime: false },
-	{ name: 'Player FORTYNINE', carpool: '', teeTime: false },
-	{ name: 'Player FIFTY', carpool: '', teeTime: false },
-	{ name: 'Player FIFTYONE', carpool: '', teeTime: false },
-	{ name: 'Player FIFTYTWO', carpool: '', teeTime: true },
-	{ name: 'Player FIFTYTHREE', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'One', carpool: '', teeTime: false },
+	{
+		first_name: 'Player',
+		last_name: 'Two',
+		carpool: 'Player Nine',
+		teeTime: false,
+	},
+	{ first_name: 'Player', last_name: 'Three', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'Four', carpool: '', teeTime: true },
+	{
+		first_name: 'Player',
+		last_name: 'Five',
+		carpool: 'Player Thirteen',
+		teeTime: false,
+	},
+	{ first_name: 'Player', last_name: 'Six', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'Seven', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'Eight', carpool: '', teeTime: false },
+	{
+		first_name: 'Player',
+		last_name: 'Nine',
+		carpool: 'Player Two',
+		teeTime: false,
+	},
+	{ first_name: 'Player', last_name: 'Ten', carpool: '', teeTime: true },
+	{ first_name: 'Player', last_name: 'Eleven', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'Twelve', carpool: '', teeTime: false },
+	{
+		first_name: 'Player',
+		last_name: 'Thirteen',
+		carpool: 'Player Five',
+		teeTime: false,
+	},
+	{ first_name: 'Player', last_name: 'Fourteen', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'Fifteen', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'Sixteen', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'Seventeen', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'Eighteen', carpool: '', teeTime: true },
+	{ first_name: 'Player', last_name: 'Nineteen', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'Twenty', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'Twentyone', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'Twentytwo', carpool: '', teeTime: false },
+	{
+		first_name: 'Player',
+		last_name: 'Twentythree',
+		carpool: '',
+		teeTime: false,
+	},
+	{ first_name: 'Player', last_name: 'TwentyFour', carpool: '', teeTime: true },
+	{
+		first_name: 'Player',
+		last_name: 'TwentyFive',
+		carpool: '',
+		teeTime: false,
+	},
+	{ first_name: 'Player', last_name: 'TwentySix', carpool: '', teeTime: false },
+	{
+		first_name: 'Player',
+		last_name: 'TwentySeven',
+		carpool: '',
+		teeTime: false,
+	},
+	{
+		first_name: 'Player',
+		last_name: 'TwentyEight',
+		carpool: '',
+		teeTime: false,
+	},
+	{
+		first_name: 'Player',
+		last_name: 'TwentyNine',
+		carpool: '',
+		teeTime: false,
+	},
+	{ first_name: 'Player', last_name: 'Thirty', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'ThirtyOne', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'ThirtyTwo', carpool: '', teeTime: true },
+	{
+		first_name: 'Player',
+		last_name: 'ThirtyThree',
+		carpool: '',
+		teeTime: false,
+	},
+	{
+		first_name: 'Player',
+		last_name: 'ThirtyFour',
+		carpool: '',
+		teeTime: false,
+	},
+	{
+		first_name: 'Player',
+		last_name: 'ThirtyFive',
+		carpool: '',
+		teeTime: false,
+	},
+	{ first_name: 'Player', last_name: 'ThirtySix', carpool: '', teeTime: false },
+	{
+		first_name: 'Player',
+		last_name: 'ThirtySeven',
+		carpool: '',
+		teeTime: false,
+	},
+	{
+		first_name: 'Player',
+		last_name: 'ThirtyEight',
+		carpool: '',
+		teeTime: true,
+	},
+	{
+		first_name: 'Player',
+		last_name: 'ThirtyNine',
+		carpool: '',
+		teeTime: false,
+	},
+	{ first_name: 'Player', last_name: 'Forty', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'FortyOne', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'FortyTwo', carpool: '', teeTime: false },
+	{
+		first_name: 'Player',
+		last_name: 'FortyThree',
+		carpool: '',
+		teeTime: false,
+	},
+	{ first_name: 'Player', last_name: 'FortyFour', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'FortyFive', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'FortySix', carpool: '', teeTime: true },
+	{
+		first_name: 'Player',
+		last_name: 'FortySeven',
+		carpool: '',
+		teeTime: false,
+	},
+	{
+		first_name: 'Player',
+		last_name: 'FortyEight',
+		carpool: '',
+		teeTime: false,
+	},
+	{ first_name: 'Player', last_name: 'FORTYNINE', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'FIFTY', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'FIFTYONE', carpool: '', teeTime: false },
+	{ first_name: 'Player', last_name: 'FIFTYTWO', carpool: '', teeTime: true },
+	{
+		first_name: 'Player',
+		last_name: 'FIFTYTHREE',
+		carpool: '',
+		teeTime: false,
+	},
 ];
-
 const randomizeGolfers = (golfers) => {
 	let currentIndex = golfers.length,
 		randomIndex;
@@ -65,7 +159,10 @@ const randomizeGolfers = (golfers) => {
 		currentIndex--;
 
 		//and swap it with the current element
-		[golfers[currentIndex], golfers[randomIndex]] = [golfers[randomIndex], golfers[currentIndex]];
+		[golfers[currentIndex], golfers[randomIndex]] = [
+			golfers[randomIndex],
+			golfers[currentIndex],
+		];
 	}
 
 	return golfers;
@@ -105,7 +202,13 @@ const addTimeInterval = (currTime, interval) => {
 		minutes -= 60 * h;
 	}
 
-	return ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
+	return (
+		('0' + hours).slice(-2) +
+		':' +
+		('0' + minutes).slice(-2) +
+		':' +
+		('0' + seconds).slice(-2)
+	);
 };
 
 const testTime = (time) => {
@@ -178,7 +281,9 @@ export default function generateSchedule(golfers, schedule, course) {
 	let teeTimeRestrictions = [];
 	let unrestrictedGolfers = [];
 	usableGolfers.forEach((golfer) => {
-		golfer.teeTime ? teeTimeRestrictions.push(golfer) : unrestrictedGolfers.push(golfer);
+		golfer.teeTime
+			? teeTimeRestrictions.push(golfer)
+			: unrestrictedGolfers.push(golfer);
 	});
 
 	//Start filling a new Golfer Array with unrestricted golfers until it passes the time restriction
@@ -225,7 +330,8 @@ export default function generateSchedule(golfers, schedule, course) {
 		if (newGolferArray[i].carpool) {
 			name = newGolferArray[i].carpool;
 			const golferIndex = newGolferArray.findIndex((obj) => {
-				if (obj.name === name) {
+				const golferName = `${obj.first_name} ${obj.last_name}`;
+				if (golferName === name) {
 					return true;
 				}
 
@@ -264,7 +370,10 @@ export default function generateSchedule(golfers, schedule, course) {
 
 	console.log('Tee times: ', finalTeeTimeArray);
 
-	const finalSchedule = { teeTimeSchedule: finalTeeTimeArray, waitingList: waitingList };
+	const finalSchedule = {
+		teeTimeSchedule: finalTeeTimeArray,
+		waitingList: waitingList,
+	};
 
 	return finalSchedule;
 }
