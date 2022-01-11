@@ -50,8 +50,6 @@ const addUser = async (req, res) => {
 			body: JSON.stringify({ email: response.email }),
 		});
 
-		const resp = await confirmation.json();
-
 		res.status(200).json(response);
 	} catch (error) {
 		console.log(error);
