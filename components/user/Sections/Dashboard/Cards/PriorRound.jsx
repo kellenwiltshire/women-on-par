@@ -27,6 +27,8 @@ export default function PriorRound() {
 		priorRoundDate.date,
 	);
 
+	console.log(priorRoundScores);
+
 	useEffect(() => {
 		setWinner(findPriorRoundWinner(priorRoundScores));
 	}, []);
@@ -86,9 +88,10 @@ export default function PriorRound() {
 						<p className='mt-2 text-sm text-gray-500'>
 							Players with Birdies:{' '}
 							{priorRoundScores.map((score) => {
-								const birdie = score.holes.map((hole) => {
+								let birdie = false;
+								score.holes.map((hole) => {
 									if (hole.birdie) {
-										return true;
+										birdie = true;
 									}
 								});
 								if (birdie) {
@@ -103,9 +106,10 @@ export default function PriorRound() {
 						<p className='mt-2 text-sm text-gray-500'>
 							Players with Chip-Ins:{' '}
 							{priorRoundScores.map((score) => {
-								const chip = score.holes.map((hole) => {
+								let chip = false;
+								score.holes.map((hole) => {
 									if (hole.chip) {
-										return true;
+										chip = true;
 									}
 								});
 								if (chip) {

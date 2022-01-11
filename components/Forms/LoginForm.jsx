@@ -26,20 +26,19 @@ export default function LoginForm({ setSignedIn }) {
 				},
 				body: JSON.stringify(loginInfo),
 			});
-			if (login.status < 300) {
-				const loginResponse = await login.json();
-
-				setCookie(null, 'jwt', loginResponse.jwt, {
+			const response = await login.json();
+			if (response.jwt) {
+				setCookie(null, 'jwt', response.jwt, {
 					maxAge: 30 * 24 * 60 * 60,
 					path: '/',
 				});
 
 				setSignedIn(true);
 
-				if (loginResponse.user.role.type === 'admin') {
-					Router.push(`/admin/${loginResponse.user.id}`);
+				if (response.user.role.type === 'admin') {
+					Router.push(`/admin/${response.user.id}`);
 				} else {
-					Router.push(`/user/${loginResponse.user.id}`);
+					Router.push(`/user/${response.user.id}`);
 				}
 			} else {
 				setLoginError(true);
@@ -54,16 +53,23 @@ export default function LoginForm({ setSignedIn }) {
 			<div className='min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
 				<div className='max-w-md w-full space-y-8'>
 					<div className='flex justify-center flex-wrap flex-row'>
+						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
+							Sign in to your account
+						</h2>
+						{loginError ? (
+							<p className='mt-2 text-center text-sm text-red-600'>
+								Login Error: Your Email or Password is Incorrect
+							</p>
+						) : null}
 						<div className='relative w-full h-64 sm:h-72 md:h-96 lg:w-1/2 lg:h-full'>
-							<Image src='/brand/logoNoText.jpg' alt='logo' height={868} width={587} />
+							<Image
+								src='/brand/logoNoText.jpg'
+								alt='logo'
+								height={868}
+								width={587}
+							/>
 						</div>
-						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Sign in to your account</h2>
 					</div>
-					{loginError ? (
-						<div>
-							<p className='mt-2 text-center text-sm text-red-600'>Login Error: Your Email or Password is Incorrect</p>
-						</div>
-					) : null}
 
 					<form className='mt-8 space-y-6' onSubmit={submitForm}>
 						<input type='hidden' name='remember' defaultValue='true' />
@@ -103,7 +109,9 @@ export default function LoginForm({ setSignedIn }) {
 						<div className='flex items-center justify-between'>
 							<div className='text-sm'>
 								<Link href='/start-reset-process'>
-									<a className='font-medium text-indigo-600 hover:text-indigo-500'>Forgot your password?</a>
+									<a className='font-medium text-indigo-600 hover:text-indigo-500'>
+										Forgot your password?
+									</a>
 								</Link>
 							</div>
 						</div>
@@ -114,7 +122,10 @@ export default function LoginForm({ setSignedIn }) {
 								className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 							>
 								<span className='absolute left-0 inset-y-0 flex items-center pl-3'>
-									<LockClosedIcon className='h-5 w-5 text-indigo-500 group-hover:text-indigo-400' aria-hidden='true' />
+									<LockClosedIcon
+										className='h-5 w-5 text-indigo-500 group-hover:text-indigo-400'
+										aria-hidden='true'
+									/>
 								</span>
 								Sign in
 							</button>
