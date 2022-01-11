@@ -165,7 +165,6 @@ export default function generateSchedule(golfers, schedule, course) {
 	//Trim the list of golfers if there is more than the max number of golfers
 	if (initialGolfers.length > maxGolfers) {
 		while (initialGolfers.length > maxGolfers) {
-			console.log('Waiting List Added');
 			waitingList.push(initialGolfers[golfers.length - 1]);
 			initialGolfers.pop();
 		}
@@ -187,28 +186,21 @@ export default function generateSchedule(golfers, schedule, course) {
 	unrestrictedGolfers.forEach((golfer) => {
 		if (!timeTestPassed) {
 			if (groupNum < 3) {
-				console.log('Added to Array');
 				newGolferArray.push(golfer);
 				groupNum++;
 			} else if (groupNum === 3) {
-				console.log('Added to Array');
 				newGolferArray.push(golfer);
 				currTime = addTimeInterval(currTime, interval);
-				console.log(currTime);
 				const timeTest = testTime(currTime);
-				console.log(timeTest);
 				if (timeTest) {
 					timeTestPassed = true;
-					console.log('It is Passed 4:30');
 					//Once it is passed the time restriction of 4:30 combine the rest of the unrestricted golfers and restricted golfers, then randomize. Then add this one the end of the already scheduled golfers
 					const combineArray = teeTimeRestrictions.concat(unrestrictedGolfers);
-					console.log('Combine Array: ', combineArray);
 					const filteredArray = filterArray(combineArray, newGolferArray);
 					const randomFilteredArray = randomizeGolfers(filteredArray);
 					newGolferArray = newGolferArray.concat(randomFilteredArray);
 				} else {
 					groupNum = 0;
-					console.log('reset');
 				}
 			}
 		}
@@ -243,8 +235,6 @@ export default function generateSchedule(golfers, schedule, course) {
 		}
 	}
 
-	console.log('New Golfer Array: ', newGolferArray);
-
 	//Finally iterate through the golfer array and place them in their tee time slots.
 	newGolferArray.forEach((golfer, i) => {
 		if (groupNum < 3) {
@@ -261,8 +251,6 @@ export default function generateSchedule(golfers, schedule, course) {
 			groupNum = 0;
 		}
 	});
-
-	console.log('Tee times: ', finalTeeTimeArray);
 
 	const finalSchedule = { teeTimeSchedule: finalTeeTimeArray, waitingList: waitingList };
 

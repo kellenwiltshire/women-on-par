@@ -52,12 +52,10 @@ const addUser = async (req, res) => {
 
 		const resp = await confirmation.json();
 
-		console.log('confirmation: ', resp);
-
 		res.status(200).json(response);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ error: 'Failed to Edit Score', response: error });
+		res.status(500).json({ error: 'Failed to send confirmation', response: error });
 	}
 };
 

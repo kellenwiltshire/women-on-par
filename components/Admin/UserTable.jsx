@@ -60,6 +60,9 @@ export default function UserTable() {
 				<Modal open={userEmailOpen} setOpen={setUserEmailOpen}>
 					<p className='flex flex-wrap flex-row'>
 						{users.map((user) => {
+							if (user.username === 'webdevelopment@kellenwiltshire.com') {
+								return null;
+							}
 							return <span key={user.id}>{user.email}, </span>;
 						})}
 					</p>

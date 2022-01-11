@@ -114,8 +114,6 @@ export default function NextRoundTable() {
 		setUsers(newUsers);
 	};
 
-	console.log('Next Round Table - Schedule: ', nextRound);
-
 	const generateScheduleClicked = () => {
 		setTeeTimeSchedule(generateSchedule(golfers, nextRound, nextRound.course));
 
