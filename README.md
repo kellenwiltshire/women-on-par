@@ -1,6 +1,6 @@
 # Women On Par
 
-Custom Web App for a Golf League. When finished this site will allow it's users to enter their score and set their availability for the following week. The Admin's will be able to generate a schedule and post news for its members.
+Custom Web App for a Golf League. This site allows it's users to enter their score and set their availability for the following week. The Admin's are able to generate a schedule and post news for its members.
 
 ## Lessons Learned
 
