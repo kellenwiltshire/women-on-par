@@ -110,6 +110,12 @@ export default function CoursesTable() {
 										scope='col'
 										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
 									>
+										Time Slots
+									</th>
+									<th
+										scope='col'
+										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+									>
 										Additional Info
 									</th>
 									<th
@@ -140,6 +146,7 @@ export default function CoursesTable() {
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.phone}</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.address}</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.interval}</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.timeslots}</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.additionalInfo}</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.adminInfo}</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.pricing}</td>
