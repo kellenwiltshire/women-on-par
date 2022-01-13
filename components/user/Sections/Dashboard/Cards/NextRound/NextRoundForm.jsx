@@ -21,6 +21,14 @@ export default function NextRoundForm({ user, setSuccess, setFailure }) {
 		const dayOfWeek = currDate.getDay(); //0 is Sunday
 
 		if (dayOfWeek >= 1 && dayOfWeek <= 3) {
+			if (dayOfWeek === 3) {
+				const time = currDate.getHours();
+				if (time > 14) {
+					setCutOffPast(false);
+				} else {
+					setCutOffPast(true);
+				}
+			}
 			setCutOffPast(true);
 		}
 	}, []);
