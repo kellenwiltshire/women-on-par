@@ -50,7 +50,7 @@ export default function ResultsTable() {
 							<tbody>
 								{completedRounds.map((round, roundIdx) => {
 									const roundScores = findPriorRoundResults(allScores, round.date);
-									const winningGolfer = findPriorRoundWinner(roundScores);
+									const winningGolfer = findPriorRoundWinner(roundScores, round);
 
 									let game = '';
 									if (round.game) {

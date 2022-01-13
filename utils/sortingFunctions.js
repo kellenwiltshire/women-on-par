@@ -51,12 +51,27 @@ export function findPriorRoundResults(allScores, date) {
 	return priorRoundScores;
 }
 
-export function findPriorRoundWinner(scores) {
-	const winningGolfer = scores.sort((a, b) => {
-		return a.score - b.score;
-	});
+export function findPriorRoundWinner(scores, round) {
+	console.log(round);
+	if (
+		round.game === 'Count_the_hazards' ||
+		round.game === 'Best_poker_hand' ||
+		round.game === 'Winner_of_the_Green_Nine_max' ||
+		round.game === 'Five_points_on_the_fairway_subtract_your_putts' ||
+		round.game === 'First_on_the_green_and_Two_points'
+	) {
+		const winningGolfer = scores.sort((a, b) => {
+			return b.score - a.score;
+		});
 
-	return winningGolfer[0];
+		return winningGolfer[0];
+	} else {
+		const winningGolfer = scores.sort((a, b) => {
+			return a.score - b.score;
+		});
+
+		return winningGolfer[0];
+	}
 }
 
 export function getUserScores(user, allScores) {

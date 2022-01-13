@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FlagIcon } from '@heroicons/react/outline';
-import {
-	useAllScoresContext,
-	useScheduleContext,
-	useScoreContext,
-} from '@/context/Store';
+import { useAllScoresContext, useScheduleContext, useScoreContext } from '@/context/Store';
 import {
 	findLastScheduledRound,
 	findPriorRoundResults,
@@ -22,15 +18,12 @@ export default function PriorRound() {
 
 	const priorRoundDate = findLastScheduledRound(schedule);
 
-	const priorRoundScores = findPriorRoundResults(
-		allScores,
-		priorRoundDate.date,
-	);
+	const priorRoundScores = findPriorRoundResults(allScores, priorRoundDate.date);
 
 	console.log(priorRoundScores);
 
 	useEffect(() => {
-		setWinner(findPriorRoundWinner(priorRoundScores));
+		setWinner(findPriorRoundWinner(priorRoundScores, priorRound));
 	}, []);
 
 	if (priorRound) {
@@ -70,9 +63,8 @@ export default function PriorRound() {
 						Prior Round
 					</h3>
 					<p className='mt-2 text-sm text-gray-500'>
-						Your last round was at {priorRound?.course?.name} with a score of{' '}
-						{priorRound?.score}. You had {numBirdies} Birdies and {numChipIns}{' '}
-						Chip Ins.
+						Your last round was at {priorRound?.course?.name} with a score of {priorRound?.score}. You had {numBirdies}{' '}
+						Birdies and {numChipIns} Chip Ins.
 					</p>
 				</div>
 				{winner ? (
@@ -82,8 +74,7 @@ export default function PriorRound() {
 							Results
 						</h3>
 						<p className='mt-2 text-sm text-gray-500'>
-							The winning Golfer was {winner.user.first_name}{' '}
-							{winner.user.last_name} with a score of {winner.score}
+							The winning Golfer was {winner.user.first_name} {winner.user.last_name} with a score of {winner.score}
 						</p>
 						<p className='mt-2 text-sm text-gray-500'>
 							Players with Birdies:{' '}
@@ -147,8 +138,7 @@ export default function PriorRound() {
 							Results
 						</h3>
 						<p className='mt-2 text-sm text-gray-500'>
-							The winning Golfer was {winner.user.first_name}{' '}
-							{winner.user.last_name} with a score of {winner.score}
+							The winning Golfer was {winner.user.first_name} {winner.user.last_name} with a score of {winner.score}
 						</p>
 						<p className='mt-2 text-sm text-gray-500'>
 							Players with Birdies:{' '}
