@@ -59,7 +59,7 @@ export function findPriorRoundWinner(scores, round) {
 		game === 'best_poker_hand' ||
 		game === 'winner_of_the_green_nine_max' ||
 		game === 'five_points_on_the_fairway_subtract_your_putts' ||
-		game === 'first_on_the_green_and_Two_points'
+		game === 'first_on_the_green_and_two_points'
 	) {
 		const winningGolfer = scores.sort((a, b) => {
 			return b.score - a.score;
