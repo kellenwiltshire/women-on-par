@@ -52,14 +52,13 @@ export function findPriorRoundResults(allScores, date) {
 }
 
 export function findPriorRoundWinner(scores, round) {
-	const game = round.game.toLowerCase();
-	console.log(round);
 	if (
-		game === 'count_the_hazards' ||
-		game === 'best_poker_hand' ||
-		game === 'winner_of_the_green_nine_max' ||
-		game === 'five_points_on_the_fairway_subtract_your_putts' ||
-		game === 'first_on_the_green_and_two_points'
+		round.game.toLowerCase() === 'count_the_hazards' ||
+		round.game.toLowerCase() === 'best_poker_hand' ||
+		round.game.toLowerCase() === 'winner_of_the_green_nine_max' ||
+		round.game.toLowerCase() ===
+			'five_points_on_the_fairway_subtract_your_putts' ||
+		round.game.toLowerCase() === 'first_on_the_green_and_two_points'
 	) {
 		const winningGolfer = scores.sort((a, b) => {
 			return b.score - a.score;
