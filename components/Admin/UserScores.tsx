@@ -34,12 +34,11 @@ export default function UserScores() {
 	const userSearchChange = (e) => {
 		e.preventDefault();
 		if (e.target.value) {
-			let nameFilter = [];
-			allScores.map((score) => {
+			let nameFilter = allScores.filter((score) => {
 				const fullName = `${score.user.first_name} ${score.user.last_name}`;
 				const name = fullName.toLowerCase();
 				if (name.includes(e.target.value.toLowerCase())) {
-					nameFilter.push(score);
+					return score;
 				}
 			});
 			setScores(nameFilter);
@@ -54,10 +53,9 @@ export default function UserScores() {
 			if (e.target.value === 'Courses') {
 				setScores(allScores);
 			} else {
-				let courseFilter = [];
-				allScores.map((score) => {
+				let courseFilter = allScores.filter((score) => {
 					if (score.course.name === e.target.value) {
-						courseFilter.push(score);
+						return score;
 					}
 				});
 				setScores(courseFilter);
@@ -89,10 +87,9 @@ export default function UserScores() {
 			if (e.target.value === 'Date') {
 				setScores(allScores);
 			} else {
-				let dateFilter = [];
-				allScores.map((score) => {
+				let dateFilter = allScores.filter((score) => {
 					if (score.date === e.target.value) {
-						dateFilter.push(score);
+						return score;
 					}
 				});
 				setScores(dateFilter);
@@ -111,7 +108,6 @@ export default function UserScores() {
 				<EditScoreForm
 					lastScheduledRound={lastScheduledRound}
 					selectedScore={selectedScore}
-					user={selectUser}
 					setSuccess={setSuccess}
 					setFail={setFail}
 					setOpen={setEditUserScore}
