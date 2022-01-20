@@ -1,6 +1,6 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
 import { useState, useEffect } from 'react';
-import { useCoursesContext } from '@/context/Store';
+import { useCoursesContext } from '../../context/Store';
 import SaveSuccess from '../Notifications/SaveSuccess';
 import SaveFail from '../Notifications/SaveFail';
 import DeleteCourse from '../Modals/DeleteCourse';
@@ -140,16 +140,37 @@ export default function CoursesTable() {
 							</thead>
 							<tbody>
 								{courses.map((course, courseIdx) => (
-									<tr key={course.id} className={courseIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.name}</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>{course.email}</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.phone}</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.address}</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.interval}</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.timeslots}</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.additionalInfo}</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.adminInfo}</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.pricing}</td>
+									<tr
+										key={course.id}
+										className={courseIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
+									>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{course.name}
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
+											{course.email}
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{course.phone}
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{course.address}
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{course.interval}
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{course.timeslots}
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{course.additionalInfo}
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{course.adminInfo}
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{course.pricing}
+										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
 											<button
 												onClick={() => {

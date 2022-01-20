@@ -161,7 +161,7 @@ const golfers = [
 export default function NextRoundTable() {
 	const allUsers = useAllUsersContext();
 	const schedule = useScheduleContext();
-	const [users, setUsers] = useState([]);
+	const [users, setUsers] = useState(allUsers);
 
 	const [scheduleOpen, setScheduleOpen] = useState(false);
 	const [teeTimeSchedule, setTeeTimeSchedule] = useState([]);
