@@ -16,7 +16,7 @@ export default function AddCourseForm({
 	const [additionalInfo, setadditionalInfo] = useState('');
 	const [adminInfo, setAdminInfo] = useState('');
 	const [pricing, setPricing] = useState('');
-	const [timeslots, setTimeslots] = useState();
+	const [timeslots, setTimeslots] = useState('');
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
