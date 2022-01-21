@@ -4,7 +4,11 @@ import SearchInput from '@/components/Inputs/SearchInput';
 import { useState } from 'react';
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
 import { findLastScheduledRound } from '@/utils/sortingFunctions';
-import { useAllScoresContext, useCoursesContext, useScheduleContext } from '@/context/Store';
+import {
+	useAllScoresContext,
+	useCoursesContext,
+	useScheduleContext,
+} from '@/context/Store';
 import SaveSuccess from '../Notifications/SaveSuccess';
 import SaveFail from '../Notifications/SaveFail';
 import Modal from '../Modals/Modal';
@@ -25,17 +29,15 @@ export default function UserScores() {
 
 	const lastScheduledRound = findLastScheduledRound(schedules);
 	const [selectedScore, setSelectedScore] = useState({});
-	const [selectUser, setSelectedUser] = useState({});
 
 	const userSearchChange = (e) => {
 		e.preventDefault();
 		if (e.target.value) {
-			let nameFilter = [];
-			allScores.map((score) => {
+			let nameFilter = allScores.filter((score) => {
 				const fullName = `${score.user.first_name} ${score.user.last_name}`;
 				const name = fullName.toLowerCase();
 				if (name.includes(e.target.value.toLowerCase())) {
-					nameFilter.push(score);
+					return score;
 				}
 			});
 			setScores(nameFilter);
@@ -50,10 +52,9 @@ export default function UserScores() {
 			if (e.target.value === 'Courses') {
 				setScores(allScores);
 			} else {
-				let courseFilter = [];
-				allScores.map((score) => {
+				let courseFilter = allScores.filter((score) => {
 					if (score.course.name === e.target.value) {
-						courseFilter.push(score);
+						return score;
 					}
 				});
 				setScores(courseFilter);
@@ -85,10 +86,9 @@ export default function UserScores() {
 			if (e.target.value === 'Date') {
 				setScores(allScores);
 			} else {
-				let dateFilter = [];
-				allScores.map((score) => {
+				let dateFilter = allScores.filter((score) => {
 					if (score.date === e.target.value) {
-						dateFilter.push(score);
+						return score;
 					}
 				});
 				setScores(dateFilter);
@@ -107,7 +107,6 @@ export default function UserScores() {
 				<EditScoreForm
 					lastScheduledRound={lastScheduledRound}
 					selectedScore={selectedScore}
-					user={selectUser}
 					setSuccess={setSuccess}
 					setFail={setFail}
 					setOpen={setEditUserScore}
@@ -133,9 +132,20 @@ export default function UserScores() {
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
 					<div className='w-full flex flex-row'>
-						<SearchInput inputName='Search Players' inputChange={userSearchChange} />
-						<CourseFilterInput inputName='Filter Courses' courses={courses} inputChange={courseFilterChange} />
-						<DateFilterInput inputName='Filter Dates' schedules={schedules} inputChange={dateFilterChange} />
+						<SearchInput
+							inputName='Search Players'
+							inputChange={userSearchChange}
+						/>
+						<CourseFilterInput
+							inputName='Filter Courses'
+							courses={courses}
+							inputChange={courseFilterChange}
+						/>
+						<DateFilterInput
+							inputName='Filter Dates'
+							schedules={schedules}
+							inputChange={dateFilterChange}
+						/>
 						<div className='mt-2'>
 							<button
 								type='reset'
@@ -201,43 +211,67 @@ export default function UserScores() {
 							</thead>
 							<tbody>
 								{scores.map((score, scoreIdx) => (
-									<tr key={score.id} className={scoreIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>{score.user.id}</td>
+									<tr
+										key={score.id}
+										className={scoreIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
+									>
+										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
+											{score.user.id}
+										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
 											{score.user.first_name} {score.user.last_name}
 										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{score.course.name}</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{score.date}</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{score.course.name}
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{score.date}
+										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 											{score.holes.map((hole) => {
-												let birdies = [];
+												interface Hole {
+													birdie: boolean;
+													chip: boolean;
+												}
+												interface Birdies {
+													hole: Hole[];
+												}
+												let birdies: Birdies[] = [];
 												if (hole.birdie) {
 													birdies.push(hole.hole);
 												}
 
 												return birdies.map((bird) => {
-													return <span key={bird}>{bird} </span>;
+													return <span key={hole.id}>{bird} </span>;
 												});
 											})}
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 											{score.holes.map((hole) => {
-												let chips = [];
+												interface Hole {
+													birdie: boolean;
+													chip: boolean;
+												}
+												interface ChipIn {
+													hole: Hole[];
+												}
+												let chips: ChipIn[] = [];
 												if (hole.chip) {
 													chips.push(hole.hole);
 												}
 
 												return chips.map((chip) => {
-													return <span key={chip}>{chip} </span>;
+													return <span key={hole.id}>{chip} </span>;
 												});
 											})}
 										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{score.score}</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+											{score.score}
+										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
 											<button
 												onClick={() => {
 													setEditUserScore(!editUserScore);
-													setSelectedUser(score.user);
 													setSelectedScore(score);
 												}}
 												className='group flex items-center px-3 py-2 text-sm font-medium w-full'

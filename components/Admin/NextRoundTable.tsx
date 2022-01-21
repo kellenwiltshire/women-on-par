@@ -161,10 +161,25 @@ const golfers = [
 export default function NextRoundTable() {
 	const allUsers = useAllUsersContext();
 	const schedule = useScheduleContext();
-	const [users, setUsers] = useState([]);
+	const [users, setUsers] = useState(allUsers);
 
 	const [scheduleOpen, setScheduleOpen] = useState(false);
-	const [teeTimeSchedule, setTeeTimeSchedule] = useState([]);
+	interface Group {
+		teeTime: string;
+		golfers: Golfer[];
+	}
+
+	interface Golfer {
+		first_name: string;
+		last_name: string;
+		teeTime: boolean;
+		carpool: string;
+	}
+	interface TeeTimes {
+		teeTimeSchedule: Group[];
+		waitingList: Golfer[];
+	}
+	const [teeTimeSchedule, setTeeTimeSchedule] = useState<TeeTimes>();
 
 	const nextRound = findNextRound(schedule);
 	const findUsers = allUsers.filter((user) => {

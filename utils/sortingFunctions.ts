@@ -3,7 +3,7 @@ export function findNextRound(schedules) {
 
 	if (schedules.length) {
 		const futureRounds = schedules.filter((round) => {
-			const date = Date.parse(round.date);
+			const date = new Date(round.date);
 			if (date > currDate) {
 				return round;
 			}
@@ -88,7 +88,7 @@ export function completedSchedule(schedule) {
 	const currDate = new Date();
 
 	const completedRounds = schedule.filter((round) => {
-		const roundDate = Date.parse(round.date);
+		const roundDate = new Date(round.date);
 
 		return roundDate < currDate;
 	});
@@ -101,7 +101,7 @@ export function findLastScheduledRound(schedules) {
 
 	if (schedules.length) {
 		const lastRounds = schedules.filter((round) => {
-			const date = Date.parse(round.date);
+			const date = new Date(round.date);
 			if (date < currDate) {
 				return round;
 			}
@@ -151,7 +151,7 @@ export function findNextSpecialEvent(events) {
 	const currDate = new Date();
 
 	const futureEvents = events.filter((event) => {
-		const date = Date.parse(event.date);
+		const date = new Date(event.date);
 		if (date > currDate) {
 			return event;
 		}

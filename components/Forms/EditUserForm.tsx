@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import ToggleSwitch from '../Buttons/Toggle';
 
-export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) {
+export default function EditUserForm({
+	user,
+	setSuccess,
+	setFailure,
+	setOpen,
+}) {
 	const [firstName, setFirstName] = useState(user.first_name);
 	const [lastName, setLastName] = useState(user.last_name);
 	const [email, setEmail] = useState(user.email);
 	const [phone, setPhone] = useState(user.phone);
 	const [carpool, setCarpool] = useState(user.carpool);
 	const [teeTimeCondition, setTeeTimeCondition] = useState(user.teeTime);
-	const [additionalInfo, setAdditionalInfo] = useState(user.additionalInfo);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -22,7 +26,6 @@ export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) 
 				phone: phone,
 				carpool: carpool,
 				teeTime: teeTimeCondition,
-				additionalInfo: additionalInfo,
 			},
 		};
 
@@ -48,7 +51,9 @@ export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) 
 			<div className='min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
 				<div className='max-w-md w-full space-y-8'>
 					<div>
-						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Edit User</h2>
+						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
+							Edit User
+						</h2>
 					</div>
 					<form className='mt-8 space-y-6' onSubmit={handleSubmit}>
 						<input type='hidden' name='remember' defaultValue='true' />
@@ -134,36 +139,27 @@ export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) 
 								<textarea
 									id='carpool'
 									name='carpool'
-									type='text'
 									value={carpool}
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder={carpool || 'Car Pool Information'}
 									onChange={(e) => setCarpool(e.target.value)}
 								/>
 							</div>
-							<div>
-								<label htmlFor='additionalInfo' className='sr-only'>
-									Additional Info
-								</label>
-								<textarea
-									id='additionalInfo'
-									name='additionalInfo'
-									rows={4}
-									type='text'
-									value={additionalInfo}
-									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={additionalInfo || 'Additional Information'}
-									onChange={(e) => setAdditionalInfo(e.target.value)}
-								/>
-							</div>
+
 							<div className='flex flex-row py-3 justify-between px-3'>
-								<label htmlFor='teeTime' className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>
+								<label
+									htmlFor='teeTime'
+									className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'
+								>
 									Only Tee Times After 4:30?
 								</label>
 								<div className='mt-1 sm:mt-0 sm:col-span-2 flex flex-row space-x-2'>
 									<span> No </span>
 									<div className='max-w-lg flex'>
-										<ToggleSwitch enabled={teeTimeCondition} setEnabled={setTeeTimeCondition} />
+										<ToggleSwitch
+											enabled={teeTimeCondition}
+											setEnabled={setTeeTimeCondition}
+										/>
 									</div>
 									<span> Yes </span>
 								</div>

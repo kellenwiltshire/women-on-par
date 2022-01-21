@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 
-export default function AddCourseForm({ setOpen, setSuccess, setFailure, courses, setCourses }) {
+export default function AddCourseForm({
+	setOpen,
+	setSuccess,
+	setFailure,
+	courses,
+	setCourses,
+}) {
 	const [name, setName] = useState('');
 	const [address, setAddress] = useState('');
 	const [contact, setContact] = useState('');
@@ -10,7 +16,7 @@ export default function AddCourseForm({ setOpen, setSuccess, setFailure, courses
 	const [additionalInfo, setadditionalInfo] = useState('');
 	const [adminInfo, setAdminInfo] = useState('');
 	const [pricing, setPricing] = useState('');
-	const [timeslots, setTimeslots] = useState();
+	const [timeslots, setTimeslots] = useState('');
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -52,7 +58,9 @@ export default function AddCourseForm({ setOpen, setSuccess, setFailure, courses
 			<div className='min-h-full flex items-center justify-center mb-2 pt-12 px-4 sm:px-6 lg:px-8'>
 				<div className='max-w-md w-full space-y-8'>
 					<div>
-						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Add Course</h2>
+						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
+							Add Course
+						</h2>
 					</div>
 					<form className='mt-8 space-y-6' onSubmit={handleSubmit}>
 						<input type='hidden' name='remember' defaultValue='true' />
@@ -164,7 +172,6 @@ export default function AddCourseForm({ setOpen, setSuccess, setFailure, courses
 									id='additional-info'
 									name='additonal-info'
 									rows={4}
-									type='text'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder='Additional Info'
@@ -179,7 +186,6 @@ export default function AddCourseForm({ setOpen, setSuccess, setFailure, courses
 									id='admin-info'
 									name='admin-info'
 									rows={4}
-									type='text'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder='Admin Only Info'
@@ -194,7 +200,6 @@ export default function AddCourseForm({ setOpen, setSuccess, setFailure, courses
 									id='pricing-info'
 									name='pricing-info'
 									rows={4}
-									type='text'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder='Pricing Info'

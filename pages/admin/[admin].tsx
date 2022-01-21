@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Siderbar from '@/components/user/Sidebar';
 import UserHeader from '@/components/user/UserHeader';
-import { CogIcon, HomeIcon, PencilIcon, UserIcon } from '@heroicons/react/outline';
+import {
+	CogIcon,
+	HomeIcon,
+	PencilIcon,
+	UserIcon,
+} from '@heroicons/react/outline';
 import Dashboard from '@/components/user/Sections/Dashboard';
 import Scores from '@/components/user/Sections/Scores';
 import Settings from '@/components/user/Sections/Settings';
@@ -27,7 +32,16 @@ const adminNav = [
 	{ num: 4, name: 'Admin', icon: UserIcon },
 ];
 
-export default function AdminPage({ scores, user, schedules, allScores, allUsers, courses, news, specFunctions }) {
+export default function AdminPage({
+	scores,
+	user,
+	schedules,
+	allScores,
+	allUsers,
+	courses,
+	news,
+	specFunctions,
+}) {
 	const updateUser = useUpdateUserContext();
 	const updateSchedule = useUpdateScheduleContext();
 	const updateScore = useUpdateScoreContext();
@@ -58,14 +72,18 @@ export default function AdminPage({ scores, user, schedules, allScores, allUsers
 	} else {
 		return (
 			<div className='py-10'>
-				<UserHeader name={user.first_name} />
+				<UserHeader />
 
 				<div className='flex-grow w-full max-w-7xl mx-auto xl:px-8 lg:flex'>
 					<div className='sm:pl-6 lg:pl-8 xl:pl-0'>
 						<div className='flex items-center justify-between'>
 							<div className='flex-1 space-y-8'>
 								<div className='space-y-8 sm:space-y-0 sm:flex sm:justify-between sm:items-center xl:block xl:space-y-8'>
-									<Siderbar openTab={openTab} setOpenTab={setOpenTab} navigation={adminNav} />
+									<Siderbar
+										openTab={openTab}
+										setOpenTab={setOpenTab}
+										navigation={adminNav}
+									/>
 								</div>
 							</div>
 						</div>

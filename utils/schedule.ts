@@ -9,7 +9,10 @@ const randomizeGolfers = (golfers) => {
 		currentIndex--;
 
 		//and swap it with the current element
-		[golfers[currentIndex], golfers[randomIndex]] = [golfers[randomIndex], golfers[currentIndex]];
+		[golfers[currentIndex], golfers[randomIndex]] = [
+			golfers[randomIndex],
+			golfers[currentIndex],
+		];
 	}
 
 	return golfers;
@@ -49,7 +52,13 @@ const addTimeInterval = (currTime, interval) => {
 		minutes -= 60 * h;
 	}
 
-	return ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
+	return (
+		('0' + hours).slice(-2) +
+		':' +
+		('0' + minutes).slice(-2) +
+		':' +
+		('0' + seconds).slice(-2)
+	);
 };
 
 const testTime = (time) => {
@@ -85,25 +94,49 @@ const filterArray = (arr1, arr2) => {
 	return filtered;
 };
 
-export default function generateSchedule(golfers, schedule, course) {
+interface Golfer {
+	first_name: string;
+	last_name: string;
+	teeTime: boolean;
+	carpool: string;
+}
+
+interface Schedule {
+	start_time: string;
+}
+
+interface Course {
+	timeslots: number;
+	interval: number;
+}
+
+export default function generateSchedule(
+	golfers: Golfer[],
+	schedule: Schedule,
+	course: Course,
+) {
 	//Deterime Max Golfers
 	const maxGolfers = course.timeslots * 4 || 12 * 4;
 
 	//Create initial Variables
-	const initialGolfers = golfers;
+	const initialGolfers: Golfer[] = golfers;
 	const initialStartTime = schedule.start_time;
 	const interval = '00:' + ('0' + course.interval).slice(-2) + ':00';
 
 	//Create the Waiting List and Usuable Golfers Array
-	let waitingList = [];
-	let usableGolfers = [];
+	let waitingList: Golfer[] = [];
+	let usableGolfers: Golfer[] = [];
 
 	//Create Final Array to be filled
-	let finalTeeTimeArray = [];
+	let finalTeeTimeArray: Group[] = [];
 
 	//More initial variables to be filled and changed
 	let currTime = initialStartTime;
-	let group = { teeTime: currTime, golfers: [] };
+	interface Group {
+		teeTime: string;
+		golfers: Golfer[];
+	}
+	let group: Group = { teeTime: currTime, golfers: [] };
 	let groupNum = 0;
 
 	//Trim the list of golfers if there is more than the max number of golfers
@@ -118,15 +151,17 @@ export default function generateSchedule(golfers, schedule, course) {
 	}
 
 	//Make a first pass of the golfers to filter out those with a tee time restriction
-	let teeTimeRestrictions = [];
-	let unrestrictedGolfers = [];
-	usableGolfers.forEach((golfer) => {
-		golfer.teeTime ? teeTimeRestrictions.push(golfer) : unrestrictedGolfers.push(golfer);
+	let teeTimeRestrictions: Golfer[] = [];
+	let unrestrictedGolfers: Golfer[] = [];
+	usableGolfers.forEach((golfer: Golfer) => {
+		golfer.teeTime
+			? teeTimeRestrictions.push(golfer)
+			: unrestrictedGolfers.push(golfer);
 	});
 
 	//Start filling a new Golfer Array with unrestricted golfers until it passes the time restriction
 	let timeTestPassed = false;
-	let newGolferArray = [];
+	let newGolferArray: Golfer[] = [];
 	unrestrictedGolfers.forEach((golfer) => {
 		if (!timeTestPassed) {
 			if (groupNum < 3) {

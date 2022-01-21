@@ -8,10 +8,12 @@
 		"eslint:recommended",
 		"plugin:react/recommended",
 		"next/core-web-vitals",
-		"prettier"
+		"prettier",
+		"plugin:import/typescript"
 	],
+	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
-		"project": "./jsconfig.json",
+		"project": "./tsconfig.json",
 		"ecmaFeatures": {
 			"jsx": true
 		},
@@ -24,5 +26,13 @@
 	},
 	"globals": {
 		"React": "writable"
+	},
+	"settings": {
+		"import/resolver": {
+			"typescript": {}
+		},
+		"react": {
+			"version": "detect"
+		}
 	}
 }

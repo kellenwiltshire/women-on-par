@@ -43,25 +43,29 @@ export default function Navbar({ signedIn, setSignedIn }) {
 		}
 	});
 
-	useEffect(async () => {
+	useEffect(() => {
 		if (jwt) {
-			const res = await fetch(`/api/getCurrentUser`, {
-				method: 'POST',
-				body: jwt,
-			});
-			const user = await res.json();
+			const fetchUser = async () => {
+				const req = await fetch(`/api/getCurrentUser`, {
+					method: 'POST',
+					body: jwt,
+				});
+				const user = await req.json();
 
-			updateUser(user);
-			if (user.role.type === 'admin') {
-				setUserNavUrl(`/admin/${user.id}`);
-			} else {
-				setUserNavUrl(`/user/${user.id}`);
-			}
-			setSignedIn(true);
+				updateUser(user);
+				if (user.role.type === 'admin') {
+					setUserNavUrl(`/admin/${user.id}`);
+				} else {
+					setUserNavUrl(`/user/${user.id}`);
+				}
+				setSignedIn(true);
+			};
+
+			fetchUser();
 		} else {
 			setSignedIn(false);
 		}
-	}, []);
+	}, [signedIn]);
 
 	useEffect(() => {
 		if (signedIn) {

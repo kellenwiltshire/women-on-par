@@ -2,44 +2,7 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { ExclamationIcon, XIcon } from '@heroicons/react/outline';
 
-export default function DeleteScore({
-	open,
-	setOpen,
-	setSuccess,
-	setFailure,
-	selectedScore,
-	setScores,
-}) {
-	const handleDelete = async () => {
-		const id = selectedScore.id;
-
-		const req = await fetch('/api/deleteScore', {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: id,
-		});
-
-		if (req.status < 300) {
-			const req = await fetch('/api/getScores');
-			if (req.status < 300) {
-				const response = await req.json();
-				setScores(response);
-				setSuccess(true);
-				setOpen(false);
-			} else {
-				setFailure(true);
-				setOpen(false);
-				console.log(req);
-			}
-		} else {
-			setFailure(true);
-			setOpen(false);
-			console.log(req);
-		}
-	};
+export default function CloseSchedule({ open, setOpen, setScheduleOpen }) {
 	return (
 		<Transition.Root show={open} as={Fragment}>
 			<Dialog
@@ -81,7 +44,7 @@ export default function DeleteScore({
 								<button
 									type='button'
 									className='bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-									onClick={() => setOpen(false)}
+									onClick={() => setScheduleOpen(false)}
 								>
 									<span className='sr-only'>Close</span>
 									<XIcon className='h-6 w-6' aria-hidden='true' />
@@ -99,15 +62,13 @@ export default function DeleteScore({
 										as='h3'
 										className='text-lg leading-6 font-medium text-gray-900'
 									>
-										Delete {selectedScore.user.first_name}{' '}
-										{selectedScore.user.last_name}'s score for{' '}
-										{selectedScore.date}?
+										Have You Printed?
 									</Dialog.Title>
 									<div className='mt-2'>
 										<p className='text-sm text-gray-500'>
-											Are you sure you want to delete this score? All of this
-											data will be permanently removed forever. This action
-											cannot be undone.
+											If you have not printed yet, this information will be lost
+											and you will need to regenerate a new schedule once this
+											closes!
 										</p>
 									</div>
 								</div>
@@ -116,9 +77,9 @@ export default function DeleteScore({
 								<button
 									type='button'
 									className='w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm'
-									onClick={handleDelete}
+									onClick={() => setScheduleOpen(false)}
 								>
-									Delete
+									Close
 								</button>
 								<button
 									type='button'
