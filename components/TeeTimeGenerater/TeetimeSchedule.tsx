@@ -13,7 +13,7 @@ export default function TeetimeSchedule({
 	const [warningOpen, setWarningOpen] = useState(false);
 	const game = nextRound.game.replaceAll('_', ' ');
 
-	const componentRef = useRef();
+	const componentRef = useRef(null);
 
 	const handlePrint = useReactToPrint({
 		content: () => componentRef.current,
