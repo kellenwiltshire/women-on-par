@@ -18,7 +18,15 @@ export default function PriorRound() {
 	const priorRound = findPriorRound(scores);
 	const schedule = useScheduleContext();
 
-	const [winner, setWinner] = useState();
+	interface User {
+		user: {
+			first_name: string;
+			last_name: string;
+		};
+		score: number;
+	}
+
+	const [winner, setWinner] = useState<User>();
 
 	const priorRoundDate = findLastScheduledRound(schedule);
 

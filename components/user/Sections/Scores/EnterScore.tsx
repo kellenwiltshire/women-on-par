@@ -130,7 +130,7 @@ export default function EnterScore({
 								Score
 							</label>
 							<input
-								type='score'
+								type='number'
 								name='score'
 								id='score'
 								onChange={(e) => setScore(e.target.value)}
