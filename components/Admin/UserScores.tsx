@@ -230,25 +230,39 @@ export default function UserScores() {
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 											{score.holes.map((hole) => {
-												let birdies = [];
+												interface Hole {
+													birdie: boolean;
+													chip: boolean;
+												}
+												interface Birdies {
+													hole: Hole[];
+												}
+												let birdies: Birdies[] = [];
 												if (hole.birdie) {
 													birdies.push(hole.hole);
 												}
 
 												return birdies.map((bird) => {
-													return <span key={bird}>{bird} </span>;
+													return <span key={hole.id}>{bird} </span>;
 												});
 											})}
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 											{score.holes.map((hole) => {
-												let chips = [];
+												interface Hole {
+													birdie: boolean;
+													chip: boolean;
+												}
+												interface ChipIn {
+													hole: Hole[];
+												}
+												let chips: ChipIn[] = [];
 												if (hole.chip) {
 													chips.push(hole.hole);
 												}
 
 												return chips.map((chip) => {
-													return <span key={chip}>{chip} </span>;
+													return <span key={hole.id}>{chip} </span>;
 												});
 											})}
 										</td>
