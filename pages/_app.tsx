@@ -1,5 +1,5 @@
 import 'tailwindcss/tailwind.css';
-import Layout from '@/components/layout/Layout.jsx';
+import Layout from '@/components/layout/Layout';
 import nProgress from 'nprogress';
 import { Router } from 'next/router';
 import 'nprogress/nprogress.css';
