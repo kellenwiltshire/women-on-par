@@ -13,7 +13,6 @@ export default function RegisterUserForm({
 	const [phone, setPhone] = useState('');
 	const [conditions, setConditions] = useState('');
 	const [teeTimeCondition, setTeeTimeCondition] = useState(false);
-	const [additionalInfo, setAdditionalInfo] = useState('');
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();

@@ -29,7 +29,6 @@ export default function UserScores() {
 
 	const lastScheduledRound = findLastScheduledRound(schedules);
 	const [selectedScore, setSelectedScore] = useState({});
-	const [selectUser, setSelectedUser] = useState({});
 
 	const userSearchChange = (e) => {
 		e.preventDefault();
@@ -273,7 +272,6 @@ export default function UserScores() {
 											<button
 												onClick={() => {
 													setEditUserScore(!editUserScore);
-													setSelectedUser(score.user);
 													setSelectedScore(score);
 												}}
 												className='group flex items-center px-3 py-2 text-sm font-medium w-full'
