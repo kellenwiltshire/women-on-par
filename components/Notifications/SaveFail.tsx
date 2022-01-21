@@ -1,4 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
 import { XCircleIcon } from '@heroicons/react/outline';
