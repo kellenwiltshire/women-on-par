@@ -12,7 +12,7 @@ export default function EnterScore({
 }) {
 	const course = lastScheduledRound.course.name;
 	const date = lastScheduledRound.date;
-	const [score, setScore] = useState();
+	const [score, setScore] = useState('');
 
 	const [holeOne, setHoleOne] = useState({
 		hole: 1,
