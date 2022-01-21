@@ -65,7 +65,7 @@ export default function Navbar({ signedIn, setSignedIn }) {
 		} else {
 			setSignedIn(false);
 		}
-	}, []);
+	}, [signedIn]);
 
 	useEffect(() => {
 		if (signedIn) {
