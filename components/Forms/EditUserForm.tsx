@@ -1,58 +1,51 @@
 import React, { useState } from 'react';
 import ToggleSwitch from '../Buttons/Toggle';
 
-export default function RegisterUserForm({
+export default function EditUserForm({
+	user,
 	setSuccess,
 	setFailure,
 	setOpen,
-	setUsers,
 }) {
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
-	const [email, setEmail] = useState('');
-	const [phone, setPhone] = useState('');
-	const [conditions, setConditions] = useState('');
-	const [teeTimeCondition, setTeeTimeCondition] = useState(false);
-	const [additionalInfo, setAdditionalInfo] = useState('');
+	const [firstName, setFirstName] = useState(user.first_name);
+	const [lastName, setLastName] = useState(user.last_name);
+	const [email, setEmail] = useState(user.email);
+	const [phone, setPhone] = useState(user.phone);
+	const [carpool, setCarpool] = useState(user.carpool);
+	const [teeTimeCondition, setTeeTimeCondition] = useState(user.teeTime);
+	const [additionalInfo, setAdditionalInfo] = useState(user.additionalInfo);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const info = {
-			first_name: firstName,
-			last_name: lastName,
-			email: email,
-			username: email,
-			password: 'Womenonpar2022',
-			phone: phone,
-			conditions: conditions,
+		const data = {
+			id: user.id,
+			data: {
+				first_name: firstName,
+				last_name: lastName,
+				email: email,
+				phone: phone,
+				carpool: carpool,
+				teeTime: teeTimeCondition,
+				additionalInfo: additionalInfo,
+			},
 		};
 
-		const req = await fetch('/api/addUser', {
+		const req = await fetch('/api/editUser', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(info),
+			body: JSON.stringify(data),
 		});
 
 		if (req.status < 300) {
-			const req = await fetch('/api/getAllUsers');
-			if (req.status < 300) {
-				const response = await req.json();
-				setUsers(response);
-				setSuccess(true);
-				setOpen(false);
-			} else {
-				setFailure(true);
-				setOpen(false);
-				console.log(req);
-			}
+			setSuccess(true);
+			setOpen(false);
 		} else {
 			setFailure(true);
 			setOpen(false);
-			console.log(req);
 		}
 	};
 	return (
@@ -61,7 +54,7 @@ export default function RegisterUserForm({
 				<div className='max-w-md w-full space-y-8'>
 					<div>
 						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
-							Add Golfer
+							Edit User
 						</h2>
 					</div>
 					<form className='mt-8 space-y-6' onSubmit={handleSubmit}>
@@ -72,13 +65,14 @@ export default function RegisterUserForm({
 									First Name
 								</label>
 								<input
-									onChange={(e) => setFirstName(e.target.value)}
 									id='first-name'
 									name='first-name'
 									type='first-name'
+									value={firstName}
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder='First Name'
+									placeholder={firstName}
+									onChange={(e) => setFirstName(e.target.value)}
 								/>
 							</div>
 							<div>
@@ -86,13 +80,14 @@ export default function RegisterUserForm({
 									Last Name
 								</label>
 								<input
-									onChange={(e) => setLastName(e.target.value)}
 									id='last-name'
 									name='last-name'
 									type='last-name'
+									value={lastName}
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder='Last Name'
+									placeholder={lastName}
+									onChange={(e) => setLastName(e.target.value)}
 								/>
 							</div>
 							<div>
@@ -103,10 +98,10 @@ export default function RegisterUserForm({
 									id='phone-number'
 									name='phone-number'
 									type='text'
-									required
+									value={phone}
 									onChange={(e) => setPhone(e.target.value)}
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder='Phone Number'
+									placeholder={phone || 'Phone Number'}
 								/>
 							</div>
 							<div>
@@ -114,14 +109,15 @@ export default function RegisterUserForm({
 									Email address
 								</label>
 								<input
-									onChange={(e) => setEmail(e.target.value)}
 									id='email-address'
 									name='email'
 									type='email'
 									autoComplete='email'
+									value={email}
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder='Email'
+									placeholder={email}
+									onChange={(e) => setEmail(e.target.value)}
 								/>
 							</div>
 							{/* <div>
@@ -139,19 +135,18 @@ export default function RegisterUserForm({
 								/>
 							</div> */}
 							<div>
-								<label htmlFor='conditions' className='sr-only'>
+								<label htmlFor='carpool' className='sr-only'>
 									Car Pool
 								</label>
 								<textarea
-									id='conditions'
-									name='conditions'
-									type='text'
+									id='carpool'
+									name='carpool'
+									value={carpool}
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder='Car Pool Information'
-									onChange={(e) => setConditions(e.target.value)}
+									placeholder={carpool || 'Car Pool Information'}
+									onChange={(e) => setCarpool(e.target.value)}
 								/>
 							</div>
-
 							<div>
 								<label htmlFor='additionalInfo' className='sr-only'>
 									Additional Info
@@ -160,14 +155,12 @@ export default function RegisterUserForm({
 									id='additionalInfo'
 									name='additionalInfo'
 									rows={4}
-									type='text'
 									value={additionalInfo}
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={'Additional Information'}
+									placeholder={additionalInfo || 'Additional Information'}
 									onChange={(e) => setAdditionalInfo(e.target.value)}
 								/>
 							</div>
-
 							<div className='flex flex-row py-3 justify-between px-3'>
 								<label
 									htmlFor='teeTime'
@@ -194,7 +187,7 @@ export default function RegisterUserForm({
 								className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 							>
 								<span className='absolute left-0 inset-y-0 flex items-center pl-3'></span>
-								Add Golfer
+								Update
 							</button>
 						</div>
 					</form>

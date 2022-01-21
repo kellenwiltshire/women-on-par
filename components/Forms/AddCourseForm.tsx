@@ -1,57 +1,53 @@
 import React, { useState } from 'react';
 
-export default function EditCourseForm({
-	course,
+export default function AddCourseForm({
+	setOpen,
 	setSuccess,
 	setFailure,
-	setOpen,
+	courses,
 	setCourses,
 }) {
-	const [name, setName] = useState(course.name);
-	const [address, setAddress] = useState(course.address);
-	const [contact, setContact] = useState(course.contact);
-	const [phone, setPhone] = useState(course.phone);
-	const [email, setEmail] = useState(course.email);
-	const [interval, setInterval] = useState(course.interval);
-	const [additionalInfo, setadditionalInfo] = useState(course.additionalInfo);
-	const [adminInfo, setAdminInfo] = useState(course.adminInfo);
-	const [pricing, setPricing] = useState(course.pricing);
-	const [timeslots, setTimeslots] = useState(course.timeslots);
+	const [name, setName] = useState('');
+	const [address, setAddress] = useState('');
+	const [contact, setContact] = useState('');
+	const [phone, setPhone] = useState('');
+	const [email, setEmail] = useState('');
+	const [interval, setInterval] = useState('');
+	const [additionalInfo, setadditionalInfo] = useState('');
+	const [adminInfo, setAdminInfo] = useState('');
+	const [pricing, setPricing] = useState('');
+	const [timeslots, setTimeslots] = useState();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const newData = {
-			id: course.id,
-			data: {
-				name: name,
-				email: email,
-				phone: phone,
-				address: address,
-				interval: interval,
-				additionalInfo: additionalInfo,
-				adminInfo: adminInfo,
-				pricing: pricing,
-				contact: contact,
-				timeslots: timeslots,
-			},
+		const data = {
+			name: name,
+			email: email,
+			phone: phone,
+			address: address,
+			interval: interval,
+			additionalInfo: additionalInfo,
+			adminInfo: adminInfo,
+			pricing: pricing,
+			contact: contact,
+			timeslots: timeslots,
 		};
 
-		const req = await fetch('/api/editCourse', {
+		const req = await fetch('/api/addCourse', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(newData),
+			body: JSON.stringify(data),
 		});
 
 		if (req.status < 300) {
-			const req = await fetch('/api/getCourses');
-			const response = await req.json();
-			setCourses(response);
 			setSuccess(true);
 			setOpen(false);
+			const response = await req.json();
+			setCourses([...courses, response]);
 		} else {
 			setFailure(true);
 			setOpen(false);
@@ -63,7 +59,7 @@ export default function EditCourseForm({
 				<div className='max-w-md w-full space-y-8'>
 					<div>
 						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
-							Edit Course
+							Add Course
 						</h2>
 					</div>
 					<form className='mt-8 space-y-6' onSubmit={handleSubmit}>
@@ -79,7 +75,7 @@ export default function EditCourseForm({
 									type='name'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									value={name}
+									placeholder='Course Name'
 									onChange={(e) => setName(e.target.value)}
 								/>
 							</div>
@@ -93,7 +89,7 @@ export default function EditCourseForm({
 									type='text'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									value={address}
+									placeholder='Address'
 									onChange={(e) => setAddress(e.target.value)}
 								/>
 							</div>
@@ -107,7 +103,7 @@ export default function EditCourseForm({
 									type='text'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									value={contact}
+									placeholder='Contact Person'
 									onChange={(e) => setContact(e.target.value)}
 								/>
 							</div>
@@ -121,7 +117,7 @@ export default function EditCourseForm({
 									type='text'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									value={phone}
+									placeholder='Phone Number'
 									onChange={(e) => setPhone(e.target.value)}
 								/>
 							</div>
@@ -136,7 +132,7 @@ export default function EditCourseForm({
 									autoComplete='email'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									value={email}
+									placeholder='Email'
 									onChange={(e) => setEmail(e.target.value)}
 								/>
 							</div>
@@ -150,7 +146,7 @@ export default function EditCourseForm({
 									type='number'
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									value={interval}
+									placeholder='Tee Time Interval'
 									onChange={(e) => setInterval(e.target.value)}
 								/>
 							</div>
@@ -165,7 +161,6 @@ export default function EditCourseForm({
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder='Time Slots'
-									value={timeslots}
 									onChange={(e) => setTimeslots(e.target.value)}
 								/>
 							</div>
@@ -177,10 +172,9 @@ export default function EditCourseForm({
 									id='additional-info'
 									name='additonal-info'
 									rows={4}
-									type='text'
-									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									value={additionalInfo}
-									placeholder={additionalInfo || 'Additional Info'}
+									required
+									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+									placeholder='Additional Info'
 									onChange={(e) => setadditionalInfo(e.target.value)}
 								/>
 							</div>
@@ -192,9 +186,8 @@ export default function EditCourseForm({
 									id='admin-info'
 									name='admin-info'
 									rows={4}
-									type='text'
-									value={adminInfo}
-									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+									required
+									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder='Admin Only Info'
 									onChange={(e) => setAdminInfo(e.target.value)}
 								/>
@@ -207,8 +200,7 @@ export default function EditCourseForm({
 									id='pricing-info'
 									name='pricing-info'
 									rows={4}
-									type='text'
-									value={pricing}
+									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder='Pricing Info'
 									onChange={(e) => setPricing(e.target.value)}
@@ -222,7 +214,7 @@ export default function EditCourseForm({
 								className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 							>
 								<span className='absolute left-0 inset-y-0 flex items-center pl-3'></span>
-								Save
+								Add Course
 							</button>
 						</div>
 					</form>

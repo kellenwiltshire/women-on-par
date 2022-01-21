@@ -1,46 +1,58 @@
 import React, { useState } from 'react';
 import ToggleSwitch from '../Buttons/Toggle';
 
-export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) {
-	const [firstName, setFirstName] = useState(user.first_name);
-	const [lastName, setLastName] = useState(user.last_name);
-	const [email, setEmail] = useState(user.email);
-	const [phone, setPhone] = useState(user.phone);
-	const [carpool, setCarpool] = useState(user.carpool);
-	const [teeTimeCondition, setTeeTimeCondition] = useState(user.teeTime);
-	const [additionalInfo, setAdditionalInfo] = useState(user.additionalInfo);
+export default function RegisterUserForm({
+	setSuccess,
+	setFailure,
+	setOpen,
+	setUsers,
+}) {
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+	const [email, setEmail] = useState('');
+	const [phone, setPhone] = useState('');
+	const [conditions, setConditions] = useState('');
+	const [teeTimeCondition, setTeeTimeCondition] = useState(false);
+	const [additionalInfo, setAdditionalInfo] = useState('');
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const data = {
-			id: user.id,
-			data: {
-				first_name: firstName,
-				last_name: lastName,
-				email: email,
-				phone: phone,
-				carpool: carpool,
-				teeTime: teeTimeCondition,
-				additionalInfo: additionalInfo,
-			},
+		const info = {
+			first_name: firstName,
+			last_name: lastName,
+			email: email,
+			username: email,
+			password: 'Womenonpar2022',
+			phone: phone,
+			conditions: conditions,
 		};
 
-		const req = await fetch('/api/editUser', {
+		const req = await fetch('/api/addUser', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(data),
+			body: JSON.stringify(info),
 		});
 
 		if (req.status < 300) {
-			setSuccess(true);
-			setOpen(false);
+			const req = await fetch('/api/getAllUsers');
+			if (req.status < 300) {
+				const response = await req.json();
+				setUsers(response);
+				setSuccess(true);
+				setOpen(false);
+			} else {
+				setFailure(true);
+				setOpen(false);
+				console.log(req);
+			}
 		} else {
 			setFailure(true);
 			setOpen(false);
+			console.log(req);
 		}
 	};
 	return (
@@ -48,7 +60,9 @@ export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) 
 			<div className='min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
 				<div className='max-w-md w-full space-y-8'>
 					<div>
-						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Edit User</h2>
+						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
+							Add Golfer
+						</h2>
 					</div>
 					<form className='mt-8 space-y-6' onSubmit={handleSubmit}>
 						<input type='hidden' name='remember' defaultValue='true' />
@@ -58,14 +72,13 @@ export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) 
 									First Name
 								</label>
 								<input
+									onChange={(e) => setFirstName(e.target.value)}
 									id='first-name'
 									name='first-name'
 									type='first-name'
-									value={firstName}
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={firstName}
-									onChange={(e) => setFirstName(e.target.value)}
+									placeholder='First Name'
 								/>
 							</div>
 							<div>
@@ -73,14 +86,13 @@ export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) 
 									Last Name
 								</label>
 								<input
+									onChange={(e) => setLastName(e.target.value)}
 									id='last-name'
 									name='last-name'
 									type='last-name'
-									value={lastName}
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={lastName}
-									onChange={(e) => setLastName(e.target.value)}
+									placeholder='Last Name'
 								/>
 							</div>
 							<div>
@@ -91,10 +103,10 @@ export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) 
 									id='phone-number'
 									name='phone-number'
 									type='text'
-									value={phone}
+									required
 									onChange={(e) => setPhone(e.target.value)}
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={phone || 'Phone Number'}
+									placeholder='Phone Number'
 								/>
 							</div>
 							<div>
@@ -102,15 +114,14 @@ export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) 
 									Email address
 								</label>
 								<input
+									onChange={(e) => setEmail(e.target.value)}
 									id='email-address'
 									name='email'
 									type='email'
 									autoComplete='email'
-									value={email}
 									required
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={email}
-									onChange={(e) => setEmail(e.target.value)}
+									placeholder='Email'
 								/>
 							</div>
 							{/* <div>
@@ -128,19 +139,18 @@ export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) 
 								/>
 							</div> */}
 							<div>
-								<label htmlFor='carpool' className='sr-only'>
+								<label htmlFor='conditions' className='sr-only'>
 									Car Pool
 								</label>
 								<textarea
-									id='carpool'
-									name='carpool'
-									type='text'
-									value={carpool}
+									id='conditions'
+									name='conditions'
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={carpool || 'Car Pool Information'}
-									onChange={(e) => setCarpool(e.target.value)}
+									placeholder='Car Pool Information'
+									onChange={(e) => setConditions(e.target.value)}
 								/>
 							</div>
+
 							<div>
 								<label htmlFor='additionalInfo' className='sr-only'>
 									Additional Info
@@ -149,21 +159,27 @@ export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) 
 									id='additionalInfo'
 									name='additionalInfo'
 									rows={4}
-									type='text'
 									value={additionalInfo}
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={additionalInfo || 'Additional Information'}
+									placeholder={'Additional Information'}
 									onChange={(e) => setAdditionalInfo(e.target.value)}
 								/>
 							</div>
+
 							<div className='flex flex-row py-3 justify-between px-3'>
-								<label htmlFor='teeTime' className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>
+								<label
+									htmlFor='teeTime'
+									className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'
+								>
 									Only Tee Times After 4:30?
 								</label>
 								<div className='mt-1 sm:mt-0 sm:col-span-2 flex flex-row space-x-2'>
 									<span> No </span>
 									<div className='max-w-lg flex'>
-										<ToggleSwitch enabled={teeTimeCondition} setEnabled={setTeeTimeCondition} />
+										<ToggleSwitch
+											enabled={teeTimeCondition}
+											setEnabled={setTeeTimeCondition}
+										/>
 									</div>
 									<span> Yes </span>
 								</div>
@@ -176,7 +192,7 @@ export default function EditUserForm({ user, setSuccess, setFailure, setOpen }) 
 								className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 							>
 								<span className='absolute left-0 inset-y-0 flex items-center pl-3'></span>
-								Update
+								Add Golfer
 							</button>
 						</div>
 					</form>
