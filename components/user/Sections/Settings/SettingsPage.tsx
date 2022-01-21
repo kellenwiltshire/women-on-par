@@ -15,7 +15,6 @@ export default function SettingsPage() {
 	const [failure, setFailure] = useState(false);
 	const [phone, setPhone] = useState(user.phone);
 	const [carpool, setCarpool] = useState(user.carpool);
-	const [additionalInfo, setAdditionalInfo] = useState(user.additionalInfo);
 	const [open, setOpen] = useState(false);
 	const [teeTimeCondition, setTeeTimeCondition] = useState(user.teeTime);
 
@@ -35,7 +34,6 @@ export default function SettingsPage() {
 				phone: phone,
 				carpool: carpool,
 				teeTime: teeTimeCondition,
-				additionalInfo: additionalInfo,
 				weekendaway: weekendAway,
 				yearend: yearEnd,
 			},
@@ -203,28 +201,6 @@ export default function SettingsPage() {
 											carpool ||
 											'Indicate the first and last name of the person you car pool with.'
 										}
-									/>
-								</div>
-							</div>
-						</div>
-
-						<div className='sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5'>
-							<label
-								htmlFor='additionalInfo'
-								className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'
-							>
-								Additional Information
-							</label>
-							<div className='mt-1 sm:mt-0 sm:col-span-2'>
-								<div className='max-w-lg flex rounded-md shadow-sm'>
-									<textarea
-										rows={4}
-										name='additionalInfo'
-										id='additionalInfo'
-										onChange={(e) => setAdditionalInfo(e.target.value)}
-										value={additionalInfo}
-										className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3'
-										placeholder={additionalInfo || 'Additional Information'}
 									/>
 								</div>
 							</div>

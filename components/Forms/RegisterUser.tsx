@@ -103,7 +103,6 @@ export default function RegisterUserForm({
 									id='phone-number'
 									name='phone-number'
 									type='text'
-									required
 									onChange={(e) => setPhone(e.target.value)}
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder='Phone Number'
@@ -124,20 +123,7 @@ export default function RegisterUserForm({
 									placeholder='Email'
 								/>
 							</div>
-							{/* <div>
-								<label htmlFor='password' className='sr-only'>
-									Password
-								</label>
-								<input
-									id='password'
-									name='password'
-									type='password'
-									autoComplete='current-password'
-									required
-									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder='Password'
-								/>
-							</div> */}
+
 							<div>
 								<label htmlFor='conditions' className='sr-only'>
 									Car Pool
@@ -148,21 +134,6 @@ export default function RegisterUserForm({
 									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 									placeholder='Car Pool Information'
 									onChange={(e) => setConditions(e.target.value)}
-								/>
-							</div>
-
-							<div>
-								<label htmlFor='additionalInfo' className='sr-only'>
-									Additional Info
-								</label>
-								<textarea
-									id='additionalInfo'
-									name='additionalInfo'
-									rows={4}
-									value={additionalInfo}
-									className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-									placeholder={'Additional Information'}
-									onChange={(e) => setAdditionalInfo(e.target.value)}
 								/>
 							</div>
 
