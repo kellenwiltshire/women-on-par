@@ -20,7 +20,7 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 
 	const [activeTab, setActiveTab] = useState(1);
 	const [userNavUrl, setUserNavUrl] = useState('');
-	const [picture, setPicture] = useState('/avatars/avatar.png');
+	const picture = '/avatars/avatar.png';
 
 	const [navigation, setNavigation] = useState([
 		{ num: 1, name: 'Home', href: '/' },
@@ -87,7 +87,6 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 	const signOut = () => {
 		setSignedIn(false);
 		destroyCookie(null, 'jwt');
-		setPicture('/avatars/avatar.png');
 		router.push('/');
 	};
 

@@ -127,14 +127,14 @@ export default function UserScores(): JSX.Element {
 
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
-					<div className='w-full flex flex-row'>
+					<div className='w-full flex flex-col md:flex-row'>
 						<SearchInput inputName='Search Players' inputChange={userSearchChange} />
 						<CourseFilterInput inputName='Filter Courses' courses={courses} inputChange={courseFilterChange} />
 						<DateFilterInput inputName='Filter Dates' schedules={schedules} inputChange={dateFilterChange} />
-						<div className='mt-2'>
+						<div className='mt-2 mx-2 md:mx-0'>
 							<button
 								type='reset'
-								className='inline-flex items-center px-6 py-2 border border-transparent text-sm rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+								className='inline-flex items-center px-6 py-2 border border-transparent text-sm rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 md:mt-6'
 								onClick={resetForm}
 							>
 								Reset
