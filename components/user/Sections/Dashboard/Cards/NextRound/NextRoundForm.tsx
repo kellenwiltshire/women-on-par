@@ -3,7 +3,7 @@ import ToggleSwitch from '@/components/Buttons/Toggle';
 import { findNextRound } from '@/utils/sortingFunctions';
 import { useScheduleContext } from '@/context/Store';
 
-export default function NextRoundForm({ user, setSuccess, setFailure }) {
+export default function NextRoundForm({ user, setSuccess, setFailure }): JSX.Element {
 	const schedule = useScheduleContext();
 	const nextRound = findNextRound(schedule);
 	const currDate = new Date();
@@ -12,9 +12,7 @@ export default function NextRoundForm({ user, setSuccess, setFailure }) {
 	const [cutOffPast, setCutOffPast] = useState(false);
 
 	useEffect(() => {
-		const userDate = new Date(
-			user.availability[user.availability.length - 1].date,
-		);
+		const userDate = new Date(user.availability[user.availability.length - 1].date);
 		if (currDate < userDate) {
 			if (user.availability[user.availability.length - 1].available) {
 				setAttendance(true);
@@ -72,8 +70,8 @@ export default function NextRoundForm({ user, setSuccess, setFailure }) {
 		return (
 			<div className='mt-2 text-sm text-gray-500 flex flex-row align-middle'>
 				<h3 className='block text-sm font-medium text-gray-700 mr-2'>
-					Cuttoff time has passed for changing your attendance. Please contact
-					the administrator if you wish to change your attendance.
+					Cuttoff time has passed for changing your attendance. Please contact the administrator if you wish to change
+					your attendance.
 				</h3>
 			</div>
 		);
@@ -81,10 +79,7 @@ export default function NextRoundForm({ user, setSuccess, setFailure }) {
 		return (
 			<form onSubmit={handleSubmit}>
 				<div className='mt-2 text-sm text-gray-500 flex flex-row align-middle'>
-					<label
-						htmlFor='attendance'
-						className='block text-sm font-medium text-gray-700 mr-2'
-					>
+					<label htmlFor='attendance' className='block text-sm font-medium text-gray-700 mr-2'>
 						Attending:
 					</label>
 					<ToggleSwitch enabled={attendance} setEnabled={setAttendance} />

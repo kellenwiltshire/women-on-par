@@ -5,7 +5,7 @@ import React from 'react';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 
-export default function SpecialCard() {
+export default function SpecialCard(): JSX.Element {
 	const specialFunctions = useSpecialContext();
 
 	const recentSpecialFunction = findNextSpecialEvent(specialFunctions);

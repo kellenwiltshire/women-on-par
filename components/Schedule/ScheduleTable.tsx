@@ -1,6 +1,6 @@
 import { sortSchedule } from '@/utils/sortingFunctions';
 
-export default function ScheduleTable({ schedules }) {
+export default function ScheduleTable({ schedules }): JSX.Element {
 	const scheduleSorted = sortSchedule(schedules);
 
 	return (

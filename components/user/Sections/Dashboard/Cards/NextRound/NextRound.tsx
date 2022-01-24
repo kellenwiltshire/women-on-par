@@ -7,7 +7,7 @@ import { useScheduleContext, useUserContext } from '@/context/Store';
 import SaveSuccess from '@/components/Notifications/SaveSuccess';
 import SaveFail from '@/components/Notifications/SaveFail';
 
-export default function NextRound() {
+export default function NextRound(): JSX.Element {
 	const user = useUserContext();
 	const schedule = useScheduleContext();
 
@@ -26,11 +26,7 @@ export default function NextRound() {
 					</span>
 				</div>
 				<NextRoundInfo nextRound={nextRound} />
-				<NextRoundForm
-					user={user}
-					setSuccess={setSuccess}
-					setFailure={setFailure}
-				/>
+				<NextRoundForm user={user} setSuccess={setSuccess} setFailure={setFailure} />
 			</div>
 		);
 	} else {

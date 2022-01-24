@@ -9,7 +9,7 @@ import SaveFail from '../Notifications/SaveFail';
 import SaveSuccess from '../Notifications/SaveSuccess';
 import { getUserScores } from '@/utils/sortingFunctions';
 
-export default function UserTable() {
+export default function UserTable(): JSX.Element {
 	const [editUserOpen, setEditUserOpen] = useState(false);
 	const [addUserOpen, setAddUserOpen] = useState(false);
 	const [deleteUserOpen, setDeleteUserOpen] = useState(false);

@@ -19,7 +19,7 @@ export default function HolesInput({
 	setHoleEight,
 	holeNine,
 	setHoleNine,
-}) {
+}): JSX.Element {
 	return (
 		<>
 			<div className='col-span-1 flex shadow-sm rounded-md'>

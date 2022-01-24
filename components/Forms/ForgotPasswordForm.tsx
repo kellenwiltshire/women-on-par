@@ -4,7 +4,7 @@ import { LockClosedIcon } from '@heroicons/react/outline';
 import FormSuccess from '../Modals/FormSuccess';
 import FormFailure from '../Modals/FormFailure';
 
-export default function ForgotPasswordForm() {
+export default function ForgotPasswordForm(): JSX.Element {
 	const [email, setEmail] = useState('');
 	const [success, setSuccess] = useState(false);
 	const [failure, setFailure] = useState(false);
@@ -38,16 +38,9 @@ export default function ForgotPasswordForm() {
 					<div className='max-w-md w-full space-y-8'>
 						<div className='flex justify-center flex-wrap flex-row'>
 							<div className='relative w-full h-64 sm:h-72 md:h-96 lg:w-1/2 lg:h-full'>
-								<Image
-									src='/brand/logoNoText.jpg'
-									alt='logo'
-									height={868}
-									width={587}
-								/>
+								<Image src='/brand/logoNoText.jpg' alt='logo' height={868} width={587} />
 							</div>
-							<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
-								Reset Your Password
-							</h2>
+							<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Reset Your Password</h2>
 						</div>
 
 						<form className='mt-8 space-y-6' onSubmit={submitForm}>
@@ -55,8 +48,7 @@ export default function ForgotPasswordForm() {
 							<div className='rounded-md shadow-sm -space-y-px'>
 								<div>
 									<span className='text-xs'>
-										Forgot or Resetting your password? Enter your email below to
-										begin the process
+										Forgot or Resetting your password? Enter your email below to begin the process
 									</span>
 
 									<label htmlFor='email' className='sr-only'>

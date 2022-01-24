@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 import EnterScore from './Scores/EnterScore';
 import ScoresList from './Scores/ScoresList';
-import {
-	useScheduleContext,
-	useScoreContext,
-	useUpdateScoreContext,
-	useUserContext,
-} from '@/context/Store';
+import { useScheduleContext, useScoreContext, useUpdateScoreContext, useUserContext } from '@/context/Store';
 import { findLastScheduledRound } from '@/utils/sortingFunctions';
 import SaveSuccess from '@/components/Notifications/SaveSuccess';
 import SaveFail from '@/components/Notifications/SaveFail';
 
-export default function Scores() {
+export default function Scores(): JSX.Element {
 	const schedule = useScheduleContext();
 	const scores = useScoreContext();
 	const updateScores = useUpdateScoreContext();

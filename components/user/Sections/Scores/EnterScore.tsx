@@ -9,7 +9,7 @@ export default function EnterScore({
 	setSuccess,
 	setFailure,
 	setSubmitSuccess,
-}) {
+}): JSX.Element {
 	const course = lastScheduledRound.course.name;
 	const date = lastScheduledRound.date;
 	const [score, setScore] = useState('');
@@ -65,17 +65,7 @@ export default function EnterScore({
 
 		const newScore = {
 			course: lastScheduledRound.course,
-			holes: [
-				holeOne,
-				holeTwo,
-				holeThree,
-				holeFour,
-				holeFive,
-				holeSix,
-				holeSeven,
-				holeEight,
-				holeNine,
-			],
+			holes: [holeOne, holeTwo, holeThree, holeFour, holeFive, holeSix, holeSeven, holeEight, holeNine],
 			date: lastScheduledRound.date,
 			user: user,
 			score: score,
@@ -103,13 +93,8 @@ export default function EnterScore({
 
 	return (
 		<div className='mb-5'>
-			<h2 className='text-gray-500 text-xs font-medium uppercase tracking-wide'>
-				Enter Score
-			</h2>
-			<form
-				onSubmit={handleSubmit}
-				className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4'
-			>
+			<h2 className='text-gray-500 text-xs font-medium uppercase tracking-wide'>Enter Score</h2>
+			<form onSubmit={handleSubmit} className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4'>
 				<li className='col-span-1 flex shadow-sm rounded-md'>
 					<div className='flex-shrink-0 flex flex-col items-center justify-center w-16 text-black text-sm font-medium rounded-l-md border'>
 						<p>Date</p>

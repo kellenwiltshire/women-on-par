@@ -8,7 +8,7 @@ import Modal from '../Modals/Modal';
 import AddCourseForm from '../Forms/AddCourseForm';
 import EditCourseForm from '../Forms/EditCourseForm';
 
-export default function CoursesTable() {
+export default function CoursesTable(): JSX.Element {
 	const [editCourseOpen, setEditCourseOpen] = useState(false);
 	const [addCourseOpen, setAddCourseOpen] = useState(false);
 	const [deleteCourseOpen, setDeleteCourseOpen] = useState(false);
@@ -140,37 +140,16 @@ export default function CoursesTable() {
 							</thead>
 							<tbody>
 								{courses.map((course, courseIdx) => (
-									<tr
-										key={course.id}
-										className={courseIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
-									>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{course.name}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-											{course.email}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{course.phone}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{course.address}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{course.interval}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{course.timeslots}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{course.additionalInfo}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{course.adminInfo}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{course.pricing}
-										</td>
+									<tr key={course.id} className={courseIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.name}</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>{course.email}</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.phone}</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.address}</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.interval}</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.timeslots}</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.additionalInfo}</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.adminInfo}</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{course.pricing}</td>
 										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
 											<button
 												onClick={() => {

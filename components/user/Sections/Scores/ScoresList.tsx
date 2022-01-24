@@ -1,11 +1,9 @@
-export default function ScoresList({ scores }) {
+export default function ScoresList({ scores }): JSX.Element {
 	return (
 		<div className='flex flex-col'>
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
-					<h2 className='text-gray-500 text-xs font-medium uppercase tracking-wide mb-5'>
-						Prior Scores
-					</h2>
+					<h2 className='text-gray-500 text-xs font-medium uppercase tracking-wide mb-5'>Prior Scores</h2>
 					<div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
 						<table className='min-w-full divide-y divide-gray-200'>
 							<thead className='bg-gray-50'>
@@ -45,15 +43,8 @@ export default function ScoresList({ scores }) {
 							<tbody>
 								{scores
 									? scores.map((score, scoreIdx) => (
-											<tr
-												key={score.id}
-												className={
-													scoreIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-												}
-											>
-												<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-													{score.date}
-												</td>
+											<tr key={score.id} className={scoreIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+												<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>{score.date}</td>
 												<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
 													{score.course.name}
 												</td>
@@ -96,9 +87,7 @@ export default function ScoresList({ scores }) {
 														});
 													})}
 												</td>
-												<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-													{score.score}
-												</td>
+												<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{score.score}</td>
 											</tr>
 									  ))
 									: null}

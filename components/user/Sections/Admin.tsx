@@ -8,7 +8,7 @@ import ResultsTable from '@/components/Admin/ResultsTable';
 import WeekendAwayTable from '@/components/Admin/WeekendAwayTable';
 import YearEndTable from '@/components/Admin/YearEndTable';
 
-export default function Admin() {
+export default function Admin(): JSX.Element {
 	const [adminTab, setAdminTab] = useState(1);
 	return (
 		<>

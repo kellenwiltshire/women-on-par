@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 
-export default function FunctionPage({ specialFunction }) {
+export default function FunctionPage({ specialFunction }): JSX.Element {
 	const [image, setImage] = useState('/brand/logoNoText.jpg');
 
 	useEffect(() => {

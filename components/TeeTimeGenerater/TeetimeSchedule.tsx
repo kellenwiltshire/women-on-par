@@ -3,11 +3,7 @@ import { useReactToPrint } from 'react-to-print';
 import CloseSchedule from '../Modals/CloseSchedule';
 import ScheduleCards from './ScheduleCards';
 
-export default function TeetimeSchedule({
-	teeTimes,
-	nextRound,
-	setScheduleOpen,
-}) {
+export default function TeetimeSchedule({ teeTimes, nextRound, setScheduleOpen }): JSX.Element {
 	const scheduledRound = teeTimes.teeTimeSchedule;
 	const waitingList = teeTimes.waitingList;
 	const [warningOpen, setWarningOpen] = useState(false);
@@ -21,11 +17,7 @@ export default function TeetimeSchedule({
 	return (
 		<div className='mb-5'>
 			{warningOpen ? (
-				<CloseSchedule
-					open={warningOpen}
-					setOpen={setWarningOpen}
-					setScheduleOpen={setScheduleOpen}
-				/>
+				<CloseSchedule open={warningOpen} setOpen={setWarningOpen} setScheduleOpen={setScheduleOpen} />
 			) : null}
 			<div ref={componentRef}>
 				<style type='text/css' media='print'>
@@ -37,8 +29,7 @@ export default function TeetimeSchedule({
 				</style>
 				<div className='mt-3 flex flex-row flex-wrap justify-center'>
 					<h2 className='text-lg font-medium uppercase tracking-wide mt-2'>
-						{nextRound.course.name} - {nextRound.date} - {nextRound.start_time}{' '}
-						- {game}
+						{nextRound.course.name} - {nextRound.date} - {nextRound.start_time} - {game}
 					</h2>
 					<ScheduleCards schedule={scheduledRound} waitingList={waitingList} />
 				</div>

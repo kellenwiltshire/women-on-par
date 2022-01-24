@@ -5,7 +5,7 @@ import React from 'react';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 
-export default function NewsCard() {
+export default function NewsCard(): JSX.Element {
 	const news = useNewsContext();
 
 	const recentNews = findMostRecentNews(news);

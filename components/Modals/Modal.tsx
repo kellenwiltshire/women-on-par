@@ -2,14 +2,10 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 
-export default function Modal({ open, setOpen, children }) {
+export default function Modal({ open, setOpen, children }): JSX.Element {
 	return (
 		<Transition.Root show={open} as={Fragment}>
-			<Dialog
-				as='div'
-				className='fixed z-10 inset-0 overflow-y-auto'
-				onClose={setOpen}
-			>
+			<Dialog as='div' className='fixed z-10 inset-0 overflow-y-auto' onClose={setOpen}>
 				<div className='flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block'>
 					<Transition.Child
 						as={Fragment}
@@ -24,10 +20,7 @@ export default function Modal({ open, setOpen, children }) {
 					</Transition.Child>
 
 					{/* This element is to trick the browser into centering the modal contents. */}
-					<span
-						className='hidden sm:inline-block sm:align-middle sm:h-screen'
-						aria-hidden='true'
-					>
+					<span className='hidden sm:inline-block sm:align-middle sm:h-screen' aria-hidden='true'>
 						&#8203;
 					</span>
 					<Transition.Child

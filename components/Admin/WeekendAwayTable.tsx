@@ -2,7 +2,7 @@ import { useAllUsersContext } from '@/context/Store';
 import React, { useState, useEffect } from 'react';
 import Modal from '../Modals/Modal';
 
-export default function WeekendAwayTable() {
+export default function WeekendAwayTable(): JSX.Element {
 	const [users, setUsers] = useState(useAllUsersContext());
 	const [userEmailOpen, setUserEmailOpen] = useState(false);
 
@@ -38,9 +38,7 @@ export default function WeekendAwayTable() {
 					>
 						Email List
 					</button>
-					<div className='inline-flex items-center px-6 py-2'>
-						Number of Golfers: {attendingUsers.length}
-					</div>
+					<div className='inline-flex items-center px-6 py-2'>Number of Golfers: {attendingUsers.length}</div>
 					<div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
 						<table className='min-w-full divide-y divide-gray-200'>
 							<thead className='bg-gray-50'>
@@ -74,22 +72,13 @@ export default function WeekendAwayTable() {
 							<tbody>
 								{attendingUsers.map((user, userIdx) => {
 									return (
-										<tr
-											key={user.email}
-											className={userIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
-										>
-											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-												{user.id}
-											</td>
+										<tr key={user.email} className={userIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.id}</td>
 											<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
 												{user.first_name} {user.last_name}
 											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-												{user.email}
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-												{user.phone}
-											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.email}</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.phone}</td>
 										</tr>
 									);
 								})}

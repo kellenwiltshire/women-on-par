@@ -1,7 +1,7 @@
 import { useUserContext } from '@/context/Store';
 import React from 'react';
 
-export default function UserHeader() {
+export default function UserHeader(): JSX.Element {
 	const user = useUserContext();
 
 	return (

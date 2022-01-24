@@ -3,7 +3,7 @@ import { Transition } from '@headlessui/react';
 import { CheckCircleIcon } from '@heroicons/react/outline';
 import { XIcon } from '@heroicons/react/solid';
 
-export default function SaveSuccess({ show, setShow }) {
+export default function SaveSuccess({ show, setShow }): JSX.Element {
 	return (
 		<>
 			{/* Global notification live region, render this permanently at the end of the document */}

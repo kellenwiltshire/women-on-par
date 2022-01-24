@@ -1,10 +1,7 @@
-export default function CourseFilterInput({ inputName, courses, inputChange }) {
+export default function CourseFilterInput({ inputName, courses, inputChange }): JSX.Element {
 	return (
 		<div className='m-2'>
-			<label
-				htmlFor='dropdown'
-				className='block text-sm font-medium text-gray-700'
-			>
+			<label htmlFor='dropdown' className='block text-sm font-medium text-gray-700'>
 				{inputName}
 			</label>
 			<select

@@ -1,10 +1,7 @@
-export default function SearchInput({ inputName, inputChange }) {
+export default function SearchInput({ inputName, inputChange }): JSX.Element {
 	return (
 		<div className='m-2'>
-			<label
-				htmlFor='search'
-				className='block text-sm font-medium text-gray-700'
-			>
+			<label htmlFor='search' className='block text-sm font-medium text-gray-700'>
 				{inputName}
 			</label>
 			<div className='mt-1'>

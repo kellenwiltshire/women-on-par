@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 
-export default function FunctionCards({ details }) {
+export default function FunctionCards({ details }): JSX.Element {
 	const [image, setImage] = useState('/brand/logoNoText.jpg');
 	const length = 100;
 	const shortBody = details.details.substring(0, length) + '...';

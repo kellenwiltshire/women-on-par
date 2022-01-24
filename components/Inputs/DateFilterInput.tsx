@@ -1,4 +1,4 @@
-export default function DateFilterInput({ inputName, schedules, inputChange }) {
+export default function DateFilterInput({ inputName, schedules, inputChange }): JSX.Element {
 	const orderDates = schedules.sort((a, b) => {
 		const aDate = Date.parse(a.date);
 		const bDate = Date.parse(b.date);
@@ -7,10 +7,7 @@ export default function DateFilterInput({ inputName, schedules, inputChange }) {
 	});
 	return (
 		<div className='m-2'>
-			<label
-				htmlFor='dropdown'
-				className='block text-sm font-medium text-gray-700'
-			>
+			<label htmlFor='dropdown' className='block text-sm font-medium text-gray-700'>
 				{inputName}
 			</label>
 			<select

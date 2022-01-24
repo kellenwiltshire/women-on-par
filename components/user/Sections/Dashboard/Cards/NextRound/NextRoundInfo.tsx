@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function NextRoundInfo({ nextRound }) {
+export default function NextRoundInfo({ nextRound }): JSX.Element {
 	if (nextRound) {
 		let game = '';
 		if (nextRound.game) {

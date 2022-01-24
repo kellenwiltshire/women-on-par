@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function Hero() {
+export default function Hero(): JSX.Element {
 	return (
 		<main className='lg:relative min-h-screen'>
 			<div className='mx-auto max-w-7xl w-full pt-16 pb-20 text-center lg:py-48 lg:text-left'>
@@ -10,11 +10,9 @@ export default function Hero() {
 						<span className='block xl:inline'>Women on Par</span>
 					</h1>
 					<p className='mt-3 max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl'>
-						Since 1990 Women On Par has offered a fun and welcoming environment
-						for women to enjoy playing golf. We value fair play and provide an
-						opportunity to meet and form new friendships in a safe and inclusive
-						setting. We strive to promote the love of golf in a competitive
-						environment.
+						Since 1990 Women On Par has offered a fun and welcoming environment for women to enjoy playing golf. We
+						value fair play and provide an opportunity to meet and form new friendships in a safe and inclusive setting.
+						We strive to promote the love of golf in a competitive environment.
 					</p>
 					<p className='mt-3 max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl'>
 						Golf & Membership Group
@@ -32,13 +30,7 @@ export default function Hero() {
 				</div>
 			</div>
 			<div className='relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-20 lg:right-0 lg:w-1/2 lg:h-96'>
-				<Image
-					className='object-cover'
-					src='/brand/logoWithText.jpg'
-					height={488}
-					width={330}
-					alt='Logo'
-				/>
+				<Image className='object-cover' src='/brand/logoWithText.jpg' height={488} width={330} alt='Logo' />
 			</div>
 		</main>
 	);

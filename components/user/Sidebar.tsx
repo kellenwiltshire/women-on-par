@@ -2,7 +2,7 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(' ');
 }
 
-export default function Siderbar({ navigation, openTab, setOpenTab }) {
+export default function Siderbar({ navigation, openTab, setOpenTab }): JSX.Element {
 	return (
 		<div className='flex flex-col flex-grow border-r border-gray-200 pt-5 pb-4 bg-white overflow-y-auto md:mr-3'>
 			<div className='mt-5 flex-grow flex flex-col'>
@@ -23,9 +23,7 @@ export default function Siderbar({ navigation, openTab, setOpenTab }) {
 						>
 							<item.icon
 								className={classNames(
-									openTab === item.num
-										? 'text-indigo-500'
-										: 'text-gray-400 group-hover:text-gray-500',
+									openTab === item.num ? 'text-indigo-500' : 'text-gray-400 group-hover:text-gray-500',
 									'mr-3 flex-shrink-0 h-6 w-6',
 								)}
 								aria-hidden='true'

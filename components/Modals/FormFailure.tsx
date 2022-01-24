@@ -1,6 +1,6 @@
 import { XCircleIcon } from '@heroicons/react/solid';
 
-export default function FormFailure() {
+export default function FormFailure(): JSX.Element {
 	return (
 		<div className='rounded-md bg-red-50 p-4'>
 			<div className='flex'>

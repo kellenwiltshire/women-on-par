@@ -4,18 +4,14 @@ import SearchInput from '@/components/Inputs/SearchInput';
 import { useState } from 'react';
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
 import { findLastScheduledRound } from '@/utils/sortingFunctions';
-import {
-	useAllScoresContext,
-	useCoursesContext,
-	useScheduleContext,
-} from '@/context/Store';
+import { useAllScoresContext, useCoursesContext, useScheduleContext } from '@/context/Store';
 import SaveSuccess from '../Notifications/SaveSuccess';
 import SaveFail from '../Notifications/SaveFail';
 import Modal from '../Modals/Modal';
 import EditScoreForm from '../Forms/EditScoreForm';
 import DeleteScore from '../Modals/DeleteScore';
 
-export default function UserScores() {
+export default function UserScores(): JSX.Element {
 	const allScores = useAllScoresContext();
 	const schedules = useScheduleContext();
 	const courses = useCoursesContext();
@@ -132,20 +128,9 @@ export default function UserScores() {
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 				<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
 					<div className='w-full flex flex-row'>
-						<SearchInput
-							inputName='Search Players'
-							inputChange={userSearchChange}
-						/>
-						<CourseFilterInput
-							inputName='Filter Courses'
-							courses={courses}
-							inputChange={courseFilterChange}
-						/>
-						<DateFilterInput
-							inputName='Filter Dates'
-							schedules={schedules}
-							inputChange={dateFilterChange}
-						/>
+						<SearchInput inputName='Search Players' inputChange={userSearchChange} />
+						<CourseFilterInput inputName='Filter Courses' courses={courses} inputChange={courseFilterChange} />
+						<DateFilterInput inputName='Filter Dates' schedules={schedules} inputChange={dateFilterChange} />
 						<div className='mt-2'>
 							<button
 								type='reset'
@@ -211,22 +196,13 @@ export default function UserScores() {
 							</thead>
 							<tbody>
 								{scores.map((score, scoreIdx) => (
-									<tr
-										key={score.id}
-										className={scoreIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
-									>
-										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-											{score.user.id}
-										</td>
+									<tr key={score.id} className={scoreIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>{score.user.id}</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
 											{score.user.first_name} {score.user.last_name}
 										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{score.course.name}
-										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{score.date}
-										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{score.course.name}</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{score.date}</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 											{score.holes.map((hole) => {
 												interface Hole {
@@ -265,9 +241,7 @@ export default function UserScores() {
 												});
 											})}
 										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{score.score}
-										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{score.score}</td>
 										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
 											<button
 												onClick={() => {

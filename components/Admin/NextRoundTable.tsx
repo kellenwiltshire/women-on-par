@@ -158,7 +158,7 @@ const golfers = [
 	},
 ];
 
-export default function NextRoundTable() {
+export default function NextRoundTable(): JSX.Element {
 	const allUsers = useAllUsersContext();
 	const schedule = useScheduleContext();
 	const [users, setUsers] = useState(allUsers);
@@ -184,10 +184,7 @@ export default function NextRoundTable() {
 	const nextRound = findNextRound(schedule);
 	const findUsers = allUsers.filter((user) => {
 		for (let i = 0; i < user.availability.length; i++) {
-			if (
-				user.availability[i].date === nextRound.date &&
-				user.availability[i].available
-			) {
+			if (user.availability[i].date === nextRound.date && user.availability[i].available) {
 				return user;
 			}
 		}
@@ -237,11 +234,7 @@ export default function NextRoundTable() {
 		<div className='flex flex-col'>
 			{scheduleOpen ? (
 				<Modal open={scheduleOpen} setOpen={setScheduleOpen}>
-					<TeetimeSchedule
-						teeTimes={teeTimeSchedule}
-						nextRound={nextRound}
-						setScheduleOpen={setScheduleOpen}
-					/>
+					<TeetimeSchedule teeTimes={teeTimeSchedule} nextRound={nextRound} setScheduleOpen={setScheduleOpen} />
 				</Modal>
 			) : null}
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
@@ -281,16 +274,11 @@ export default function NextRoundTable() {
 							</thead>
 							<tbody>
 								{users.map((user, userIdx) => (
-									<tr
-										key={user.email}
-										className={userIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
-									>
+									<tr key={user.email} className={userIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
 										<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
 											{user.first_name} {user.last_name}
 										</td>
-										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-											{user.email}
-										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.email}</td>
 										<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
 											<button
 												onClick={() => removeUserFromAvailability(user)}

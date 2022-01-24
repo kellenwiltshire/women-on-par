@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 
-export default function Articles({ news }) {
+export default function Articles({ news }): JSX.Element {
 	const [image, setImage] = useState('/brand/logoNoText.jpg');
 
 	useEffect(() => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 
-export default function NewsCards({ post }) {
+export default function NewsCards({ post }): JSX.Element {
 	const length = 100;
 	const shortBody = post.body.substring(0, length) + '...';
 	const [image, setImage] = useState('/brand/logoNoText.jpg');

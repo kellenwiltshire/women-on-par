@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ScheduleCards({ schedule, waitingList }) {
+export default function ScheduleCards({ schedule, waitingList }): JSX.Element {
 	const newWaitingList = waitingList.reverse();
 	return (
 		<div className='flex w-full justify-center flex-row flex-wrap'>

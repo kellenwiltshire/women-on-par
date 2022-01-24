@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { setCookie } from 'nookies';
 import FormFailure from '../Modals/FormFailure';
 
-export default function ResetPasswordForm({ setSignedIn }) {
+export default function ResetPasswordForm({ setSignedIn }): JSX.Element {
 	const [newPass, setNewPass] = useState('');
 	const [confirmPass, setConfirmPass] = useState('');
 	const [failure, setFailure] = useState(false);
