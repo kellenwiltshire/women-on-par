@@ -1,7 +1,9 @@
 import Cors from 'cors';
+import { NextApiRequest, NextApiResponse } from 'next';
+const { parseCookies } = require('nookies');
 
 const cors = Cors({
-	methods: ['POST', 'HEAD'],
+	methods: ['DELETE', 'HEAD'],
 });
 
 // Helper method to wait for a middleware to execute before continuing
@@ -18,28 +20,31 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const submitLogin = async (req, res) => {
+const deleteScore = async (req: NextApiRequest, res: NextApiResponse) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
-	const loginInfo = req.body;
+	const id = req.body;
+	const cookies = parseCookies({ req });
+	const jwt = cookies.jwt;
 
 	try {
-		const login = await fetch(`${url}/auth/local`, {
-			method: 'POST',
+		const request = await fetch(`${url}/scores/${id}`, {
+			method: 'DELETE',
 			headers: {
+				Authorization: `Bearer ${jwt}`,
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(loginInfo),
 		});
 
-		const loginResponse = await login.json();
+		const response = await request.json();
 
-		res.status(200).json(loginResponse);
+		res.status(200).json(response);
 	} catch (error) {
-		res.status(500).json({ error: 'Error Logging In', response: error });
+		console.log(error);
+		res.status(500).json({ error: 'Failed to Delete User', response: error });
 	}
 };
 
-export default submitLogin;
+export default deleteScore;

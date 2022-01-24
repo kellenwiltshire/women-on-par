@@ -1,8 +1,9 @@
 import Cors from 'cors';
+import { NextApiRequest, NextApiResponse } from 'next';
 const { parseCookies } = require('nookies');
 
 const cors = Cors({
-	methods: ['GET', 'HEAD'],
+	methods: ['PUT', 'HEAD'],
 });
 
 // Helper method to wait for a middleware to execute before continuing
@@ -19,21 +20,24 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const getCourses = async (req, res) => {
+const submitAvailability = async (req: NextApiRequest, res: NextApiResponse) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
 	const cookies = parseCookies({ req });
 	const jwt = cookies.jwt;
 
+	const body = req.body;
+
 	try {
-		const request = await fetch(`${url}/courses`, {
-			method: 'GET',
+		const request = await fetch(`${url}/users/${body.id}`, {
+			method: 'PUT',
 			headers: {
 				Authorization: `Bearer ${jwt}`,
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
+			body: JSON.stringify(body),
 		});
 
 		const response = await request.json();
@@ -41,8 +45,8 @@ const getCourses = async (req, res) => {
 		res.status(200).json(response);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ error: 'Failed to Add Course', response: error });
+		res.status(500).json({ error: 'Error Submitting Availability', response: error });
 	}
 };
 
-export default getCourses;
+export default submitAvailability;

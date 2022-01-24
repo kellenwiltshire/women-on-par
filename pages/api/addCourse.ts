@@ -1,8 +1,9 @@
 import Cors from 'cors';
+import type { NextApiRequest, NextApiResponse } from 'next';
 const { parseCookies } = require('nookies');
 
 const cors = Cors({
-	methods: ['PUT', 'HEAD'],
+	methods: ['POST', 'HEAD'],
 });
 
 // Helper method to wait for a middleware to execute before continuing
@@ -19,24 +20,23 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const submitAvailability = async (req, res) => {
+export default async function addUser(req: NextApiRequest, res: NextApiResponse) {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
+	const data = req.body;
 	const cookies = parseCookies({ req });
 	const jwt = cookies.jwt;
 
-	const body = req.body;
-
 	try {
-		const request = await fetch(`${url}/users/${body.id}`, {
-			method: 'PUT',
+		const request = await fetch(`${url}/courses`, {
+			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${jwt}`,
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(body),
+			body: JSON.stringify(data),
 		});
 
 		const response = await request.json();
@@ -44,8 +44,6 @@ const submitAvailability = async (req, res) => {
 		res.status(200).json(response);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ error: 'Error Submitting Availability', response: error });
+		res.status(500).json({ error: 'Failed to Add Course', response: error });
 	}
-};
-
-export default submitAvailability;
+}

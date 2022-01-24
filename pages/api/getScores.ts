@@ -1,8 +1,9 @@
 import Cors from 'cors';
+import { NextApiRequest, NextApiResponse } from 'next';
 const { parseCookies } = require('nookies');
 
 const cors = Cors({
-	methods: ['POST', 'HEAD'],
+	methods: ['GET', 'HEAD'],
 });
 
 // Helper method to wait for a middleware to execute before continuing
@@ -19,42 +20,30 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const addUser = async (req, res) => {
+const getScores = async (req: NextApiRequest, res: NextApiResponse) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
-	const data = req.body;
 	const cookies = parseCookies({ req });
 	const jwt = cookies.jwt;
 
 	try {
-		const request = await fetch(`${url}/users`, {
-			method: 'POST',
+		const request = await fetch(`${url}/scores`, {
+			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${jwt}`,
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(data),
 		});
 
 		const response = await request.json();
 
-		const confirmation = await fetch(`${url}/auth/send-email-confirmation`, {
-			method: 'POST',
-			headers: {
-				Authorization: `Bearer ${jwt}`,
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ email: response.email }),
-		});
-
 		res.status(200).json(response);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ error: 'Failed to send confirmation', response: error });
+		res.status(500).json({ error: 'Failed to get Scores', response: error });
 	}
 };
 
-export default addUser;
+export default getScores;

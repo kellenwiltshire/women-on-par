@@ -1,5 +1,5 @@
 import Cors from 'cors';
-import { parseCookies } from 'nookies';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const cors = Cors({
 	methods: ['PUT', 'HEAD'],
@@ -19,7 +19,7 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const setNewPass = async (req, res) => {
+const setNewPass = async (req: NextApiRequest, res: NextApiResponse) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
@@ -45,7 +45,7 @@ const setNewPass = async (req, res) => {
 			const loginResponse = await login.json();
 			res.status(200).json(loginResponse);
 		} else {
-			const response = await req.json();
+			const response = await login.json();
 
 			res.status(login.status).json(response);
 		}

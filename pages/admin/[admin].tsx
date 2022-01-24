@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Siderbar from '@/components/user/Sidebar';
 import UserHeader from '@/components/user/UserHeader';
-import {
-	CogIcon,
-	HomeIcon,
-	PencilIcon,
-	UserIcon,
-} from '@heroicons/react/outline';
+import { CogIcon, HomeIcon, PencilIcon, UserIcon } from '@heroicons/react/outline';
 import Dashboard from '@/components/user/Sections/Dashboard';
 import Scores from '@/components/user/Sections/Scores';
 import Settings from '@/components/user/Sections/Settings';
@@ -24,6 +19,7 @@ import {
 	useUpdateSpecialContext,
 	useUpdateUserContext,
 } from '@/context/Store';
+import { GetServerSideProps } from 'next';
 
 const adminNav = [
 	{ num: 1, name: 'Dashboard', icon: HomeIcon },
@@ -41,7 +37,7 @@ export default function AdminPage({
 	courses,
 	news,
 	specFunctions,
-}) {
+}): JSX.Element {
 	const updateUser = useUpdateUserContext();
 	const updateSchedule = useUpdateScheduleContext();
 	const updateScore = useUpdateScoreContext();
@@ -79,11 +75,7 @@ export default function AdminPage({
 						<div className='flex items-center justify-between'>
 							<div className='flex-1 space-y-8'>
 								<div className='space-y-8 sm:space-y-0 sm:flex sm:justify-between sm:items-center xl:block xl:space-y-8'>
-									<Siderbar
-										openTab={openTab}
-										setOpenTab={setOpenTab}
-										navigation={adminNav}
-									/>
+									<Siderbar openTab={openTab} setOpenTab={setOpenTab} navigation={adminNav} />
 								</div>
 							</div>
 						</div>
@@ -108,7 +100,7 @@ export default function AdminPage({
 	}
 }
 
-export async function getServerSideProps(props) {
+export const getServerSideProps: GetServerSideProps = async (props) => {
 	const cookies = parseCookies(props);
 	const jwt = cookies.jwt;
 	const userData = await getAdminData(jwt);
@@ -134,4 +126,4 @@ export async function getServerSideProps(props) {
 			specFunctions: userData.specialFunctions,
 		},
 	};
-}
+};

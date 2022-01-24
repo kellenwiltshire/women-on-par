@@ -6,6 +6,7 @@ import Dashboard from '@/components/user/Sections/Dashboard';
 import Scores from '@/components/user/Sections/Scores';
 import Settings from '@/components/user/Sections/Settings';
 import { getUserData } from '@/utils/userFetch';
+import { GetServerSideProps } from 'next';
 
 import { parseCookies } from 'nookies';
 import {
@@ -80,7 +81,7 @@ export default function User({ scores, user, schedules, news, specFunctions, all
 	}
 }
 
-export async function getServerSideProps(props) {
+export const getServerSideProps: GetServerSideProps = async (props) => {
 	const cookies = parseCookies(props);
 	const jwt = cookies.jwt;
 	const userData = await getUserData(jwt);
@@ -96,4 +97,4 @@ export async function getServerSideProps(props) {
 			allScores: userData.allScores,
 		},
 	};
-}
+};

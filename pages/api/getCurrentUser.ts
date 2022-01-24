@@ -1,8 +1,8 @@
 import Cors from 'cors';
-const { parseCookies } = require('nookies');
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const cors = Cors({
-	methods: ['POST', 'HEAD'],
+	methods: ['GET', 'HEAD'],
 });
 
 // Helper method to wait for a middleware to execute before continuing
@@ -19,23 +19,18 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const addUser = async (req, res) => {
+const getCurrentUser = async (req: NextApiRequest, res: NextApiResponse) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
-	const data = req.body;
-	const cookies = parseCookies({ req });
-	const jwt = cookies.jwt;
+	const jwt = req.body;
 
 	try {
-		const request = await fetch(`${url}/courses`, {
-			method: 'POST',
+		const request = await fetch(`${url}/users/me`, {
+			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${jwt}`,
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(data),
 		});
 
 		const response = await request.json();
@@ -43,8 +38,8 @@ const addUser = async (req, res) => {
 		res.status(200).json(response);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ error: 'Failed to Add Course', response: error });
+		res.status(500).json({ error: 'Error Getting User', response: error });
 	}
 };
 
-export default addUser;
+export default getCurrentUser;

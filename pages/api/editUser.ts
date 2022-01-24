@@ -1,4 +1,5 @@
 import Cors from 'cors';
+import { NextApiRequest, NextApiResponse } from 'next';
 const { parseCookies } = require('nookies');
 
 const cors = Cors({
@@ -19,7 +20,7 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const editUser = async (req, res) => {
+const editUser = async (req: NextApiRequest, res: NextApiResponse) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 

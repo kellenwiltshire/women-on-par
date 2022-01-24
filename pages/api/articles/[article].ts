@@ -1,8 +1,8 @@
 import Cors from 'cors';
-const { parseCookies } = require('nookies');
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const cors = Cors({
-	methods: ['DELETE', 'HEAD'],
+	methods: ['GET', 'HEAD'],
 });
 
 // Helper method to wait for a middleware to execute before continuing
@@ -19,21 +19,17 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const deleteUser = async (req, res) => {
+const getArticle = async (req: NextApiRequest, res: NextApiResponse) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
-	const id = req.body;
-	const cookies = parseCookies({ req });
-	const jwt = cookies.jwt;
+	const jwt = req.body;
 
 	try {
-		const request = await fetch(`${url}/users/${id}`, {
-			method: 'DELETE',
+		const request = await fetch(`${url}/news-items/${req.query.article}`, {
+			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${jwt}`,
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
 			},
 		});
 
@@ -42,8 +38,8 @@ const deleteUser = async (req, res) => {
 		res.status(200).json(response);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ error: 'Failed to Delete User', response: error });
+		res.status(500).json({ error: 'Error Getting Article', response: error });
 	}
 };
 
-export default deleteUser;
+export default getArticle;

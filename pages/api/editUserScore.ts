@@ -1,7 +1,9 @@
 import Cors from 'cors';
+import { NextApiRequest, NextApiResponse } from 'next';
+const { parseCookies } = require('nookies');
 
 const cors = Cors({
-	methods: ['GET', 'HEAD'],
+	methods: ['PUT', 'HEAD'],
 });
 
 // Helper method to wait for a middleware to execute before continuing
@@ -18,18 +20,24 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const getCurrentUser = async (req, res) => {
+const submitScore = async (req: NextApiRequest, res: NextApiResponse) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
-	const jwt = req.body;
+	const id = req.body.score.id;
+	const score = req.body.score.data;
+	const cookies = parseCookies({ req });
+	const jwt = cookies.jwt;
 
 	try {
-		const request = await fetch(`${url}/users/me`, {
-			method: 'GET',
+		const request = await fetch(`${url}/scores/${id}`, {
+			method: 'PUT',
 			headers: {
 				Authorization: `Bearer ${jwt}`,
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
 			},
+			body: JSON.stringify(score),
 		});
 
 		const response = await request.json();
@@ -37,8 +45,8 @@ const getCurrentUser = async (req, res) => {
 		res.status(200).json(response);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ error: 'Error Getting User', response: error });
+		res.status(500).json({ error: 'Failed to Edit Score', response: error });
 	}
 };
 
-export default getCurrentUser;
+export default submitScore;

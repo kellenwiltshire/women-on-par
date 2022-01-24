@@ -1,8 +1,9 @@
 import Cors from 'cors';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { parseCookies } from 'nookies';
 
 const cors = Cors({
-	methods: ['PUT', 'HEAD'],
+	methods: ['GET', 'HEAD'],
 });
 
 // Helper method to wait for a middleware to execute before continuing
@@ -19,28 +20,28 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const setNewPass = async (req, res) => {
+const getCurrentUser = async (req: NextApiRequest, res: NextApiResponse) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
-	const email = req.body;
+	const cookies = parseCookies({ req });
+	const jwt = cookies.jwt;
 
 	try {
-		const login = await fetch(`${url}/auth/forgot-password`, {
-			method: 'POST',
+		const request = await fetch(`${url}/users`, {
+			method: 'GET',
 			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
+				Authorization: `Bearer ${jwt}`,
 			},
-			body: JSON.stringify({ email: email }),
 		});
 
-		const loginResponse = await login.json();
+		const response = await request.json();
 
-		res.status(200).json(loginResponse);
+		res.status(200).json(response);
 	} catch (error) {
-		res.status(500).json({ error: 'Error Sending Email', response: error });
+		console.log(error);
+		res.status(500).json({ error: 'Error Getting Users', response: error });
 	}
 };
 
-export default setNewPass;
+export default getCurrentUser;

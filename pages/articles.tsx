@@ -2,12 +2,13 @@ import NewsItems from '@/components/News/NewsItems';
 import { fetchNews } from '@/utils/userFetch';
 import { parseCookies } from 'nookies';
 import React from 'react';
+import { GetServerSideProps } from 'next';
 
 export default function news({ news }) {
 	return <NewsItems news={news} />;
 }
 
-export async function getServerSideProps(props) {
+export const getServerSideProps: GetServerSideProps = async (props) => {
 	const cookies = parseCookies(props);
 	const jwt = cookies.jwt;
 
@@ -18,4 +19,4 @@ export async function getServerSideProps(props) {
 			news: news,
 		},
 	};
-}
+};

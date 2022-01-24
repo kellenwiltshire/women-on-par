@@ -1,8 +1,9 @@
 import Cors from 'cors';
+import { NextApiRequest, NextApiResponse } from 'next';
 const { parseCookies } = require('nookies');
 
 const cors = Cors({
-	methods: ['DELETE', 'HEAD'],
+	methods: ['GET', 'HEAD'],
 });
 
 // Helper method to wait for a middleware to execute before continuing
@@ -19,17 +20,16 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const deleteCourse = async (req, res) => {
+const getCourses = async (req: NextApiRequest, res: NextApiResponse) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
-	const id = req.body;
 	const cookies = parseCookies({ req });
 	const jwt = cookies.jwt;
 
 	try {
-		const request = await fetch(`${url}/courses/${id}`, {
-			method: 'DELETE',
+		const request = await fetch(`${url}/courses`, {
+			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${jwt}`,
 				Accept: 'application/json',
@@ -42,8 +42,8 @@ const deleteCourse = async (req, res) => {
 		res.status(200).json(response);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ error: 'Failed to Delete Course', response: error });
+		res.status(500).json({ error: 'Failed to Add Course', response: error });
 	}
 };
 
-export default deleteCourse;
+export default getCourses;

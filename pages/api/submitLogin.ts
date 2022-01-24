@@ -1,8 +1,8 @@
 import Cors from 'cors';
-const { parseCookies } = require('nookies');
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const cors = Cors({
-	methods: ['PUT', 'HEAD'],
+	methods: ['POST', 'HEAD'],
 });
 
 // Helper method to wait for a middleware to execute before continuing
@@ -19,33 +19,28 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const submitScore = async (req, res) => {
+const submitLogin = async (req: NextApiRequest, res: NextApiResponse) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
-	const id = req.body.score.id;
-	const score = req.body.score.data;
-	const cookies = parseCookies({ req });
-	const jwt = cookies.jwt;
+	const loginInfo = req.body;
 
 	try {
-		const request = await fetch(`${url}/scores/${id}`, {
-			method: 'PUT',
+		const login = await fetch(`${url}/auth/local`, {
+			method: 'POST',
 			headers: {
-				Authorization: `Bearer ${jwt}`,
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(score),
+			body: JSON.stringify(loginInfo),
 		});
 
-		const response = await request.json();
+		const loginResponse = await login.json();
 
-		res.status(200).json(response);
+		res.status(200).json(loginResponse);
 	} catch (error) {
-		console.log(error);
-		res.status(500).json({ error: 'Failed to Edit Score', response: error });
+		res.status(500).json({ error: 'Error Logging In', response: error });
 	}
 };
 
-export default submitScore;
+export default submitLogin;

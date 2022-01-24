@@ -1,8 +1,8 @@
 import Cors from 'cors';
-const { parseCookies } = require('nookies');
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const cors = Cors({
-	methods: ['GET', 'HEAD'],
+	methods: ['PUT', 'HEAD'],
 });
 
 // Helper method to wait for a middleware to execute before continuing
@@ -19,30 +19,28 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const getScores = async (req, res) => {
+const setNewPass = async (req: NextApiRequest, res: NextApiResponse) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
-	const cookies = parseCookies({ req });
-	const jwt = cookies.jwt;
+	const email = req.body;
 
 	try {
-		const request = await fetch(`${url}/scores`, {
-			method: 'GET',
+		const login = await fetch(`${url}/auth/forgot-password`, {
+			method: 'POST',
 			headers: {
-				Authorization: `Bearer ${jwt}`,
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
+			body: JSON.stringify({ email: email }),
 		});
 
-		const response = await request.json();
+		const loginResponse = await login.json();
 
-		res.status(200).json(response);
+		res.status(200).json(loginResponse);
 	} catch (error) {
-		console.log(error);
-		res.status(500).json({ error: 'Failed to get Scores', response: error });
+		res.status(500).json({ error: 'Error Sending Email', response: error });
 	}
 };
 
-export default getScores;
+export default setNewPass;
