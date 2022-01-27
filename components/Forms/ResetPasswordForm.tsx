@@ -12,7 +12,7 @@ export default function ResetPasswordForm({ setSignedIn }): JSX.Element {
 	const router = useRouter();
 
 	const pattern = new RegExp(
-		'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8, 20}$',
+		'^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?()]).+$',
 	);
 
 	const [passMatchError, setPassMatchError] = useState(false);
@@ -28,7 +28,7 @@ export default function ResetPasswordForm({ setSignedIn }): JSX.Element {
 			setPassMatchError(true);
 		}
 
-		if (pattern.test(newPass)) {
+		if (newPass.length >= 8 && pattern.test(newPass)) {
 			if (newPass === confirmPass) {
 				const loginInfo = {
 					code: code,
