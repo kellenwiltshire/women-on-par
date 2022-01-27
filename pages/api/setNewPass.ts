@@ -27,6 +27,12 @@ const setNewPass = async (req: NextApiRequest, res: NextApiResponse) => {
 	const newPass = req.body.newPass;
 	const confirmPass = req.body.confirmPass;
 
+	const body = {
+		code: code,
+		password: newPass,
+		passwordConfirmation: confirmPass,
+	};
+
 	try {
 		const login = await fetch(`${url}/auth/reset-password`, {
 			method: 'POST',
@@ -34,11 +40,7 @@ const setNewPass = async (req: NextApiRequest, res: NextApiResponse) => {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({
-				code: code,
-				password: newPass,
-				passwordConfirmation: confirmPass,
-			}),
+			body: JSON.stringify(body),
 		});
 
 		if (login.status < 300) {
