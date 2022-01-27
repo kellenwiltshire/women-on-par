@@ -22,7 +22,7 @@ export default function RegisterUserForm({
 			last_name: lastName,
 			email: email,
 			username: email,
-			password: 'Test1234',
+			password: 'Womenonpar2022',
 			phone: phone,
 			conditions: conditions,
 		};
