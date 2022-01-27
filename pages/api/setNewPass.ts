@@ -42,8 +42,11 @@ const setNewPass = async (req: NextApiRequest, res: NextApiResponse) => {
 			passwordConfirmation: confirmPass,
 		})
 		.then((response) => {
-			console.log('Password Change Success');
-			res.status(200).json(response);
+			console.log('Password Change Success', response.data);
+			const data = response.data;
+			console.log(data);
+
+			res.status(200).json(data);
 		})
 		.catch((error) => {
 			console.log('Error Changing Password: ', error);
