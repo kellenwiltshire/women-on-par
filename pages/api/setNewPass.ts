@@ -1,6 +1,8 @@
 import Cors from 'cors';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import axios from 'axios';
+
 const cors = Cors({
 	methods: ['PUT', 'HEAD'],
 });
@@ -33,28 +35,43 @@ const setNewPass = async (req: NextApiRequest, res: NextApiResponse) => {
 		passwordConfirmation: confirmPass,
 	};
 
-	try {
-		const login = await fetch(`${url}/auth/reset-password`, {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(body),
+	axios
+		.post(`${url}/auth/reset-password`, {
+			code: code,
+			password: newPass,
+			passwordConfirmation: confirmPass,
+		})
+		.then((response) => {
+			console.log('Password Change Success');
+			res.status(200).json(response);
+		})
+		.catch((error) => {
+			console.log('Error Changing Password: ', error);
+			res.status(500).json(error);
 		});
 
-		if (login.status < 300) {
-			const loginResponse = await login.json();
-			res.status(200).json(loginResponse);
-		} else {
-			const response = await login.json();
+	// try {
+	// 	const login = await fetch(`${url}/auth/reset-password`, {
+	// 		method: 'POST',
+	// 		headers: {
+	// 			Accept: 'application/json',
+	// 			'Content-Type': 'application/json',
+	// 		},
+	// 		body: JSON.stringify(body),
+	// 	});
 
-			res.status(login.status).json(response);
-		}
-	} catch (error) {
-		console.log(error);
-		res.status(500).json({ error: 'Error Changing Password', response: error });
-	}
+	// 	if (login.status < 300) {
+	// 		const loginResponse = await login.json();
+	// 		res.status(200).json(loginResponse);
+	// 	} else {
+	// 		const response = await login.json();
+
+	// 		res.status(login.status).json(response);
+	// 	}
+	// } catch (error) {
+	// 	console.log(error);
+	// 	res.status(500).json({ error: 'Error Changing Password', response: error });
+	// }
 };
 
 export default setNewPass;
