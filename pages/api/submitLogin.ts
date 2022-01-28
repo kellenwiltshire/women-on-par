@@ -36,6 +36,7 @@ const submitLogin = async (req: NextApiRequest, res: NextApiResponse) => {
 		});
 
 		const loginResponse = await login.json();
+		console.log(loginResponse);
 
 		res.status(200).json(loginResponse);
 	} catch (error) {
