@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { LockClosedIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
 import { setCookie } from 'nookies';
@@ -11,9 +10,7 @@ export default function ResetPasswordForm({ setSignedIn }): JSX.Element {
 	const [failure, setFailure] = useState(false);
 	const router = useRouter();
 
-	const pattern = new RegExp(
-		'^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?()]).+$',
-	);
+	const pattern = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?()]).+$');
 
 	const [passMatchError, setPassMatchError] = useState(false);
 	const [complexError, setComplexError] = useState(false);
@@ -78,19 +75,9 @@ export default function ResetPasswordForm({ setSignedIn }): JSX.Element {
 			<>
 				<div className='min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
 					<div className='max-w-md w-full space-y-8'>
-						<div className='flex justify-center flex-wrap flex-row'>
-							<div className='relative w-full h-64 sm:h-72 md:h-96 lg:w-1/2 lg:h-full'>
-								<Image
-									src='/brand/logoNoText.jpg'
-									alt='logo'
-									height={868}
-									width={587}
-								/>
-							</div>
-							<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
-								Create New Password
-							</h2>
-
+						<div>
+							<img className='mx-auto h-24 lg:h-64 w-auto' src='/brand/logoNoText.jpg' alt='Logo' />
+							<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Create New Password</h2>
 							{passMatchError ? (
 								<div>
 									<p className='mt-2 text-center text-sm text-red-600'>
@@ -99,20 +86,17 @@ export default function ResetPasswordForm({ setSignedIn }): JSX.Element {
 								</div>
 							) : null}
 						</div>
-
 						<form className='mt-8 space-y-6' onSubmit={submitForm}>
 							<input type='hidden' name='remember' defaultValue='true' />
 							<div className='rounded-md shadow-sm -space-y-px'>
 								<div>
 									{complexError ? (
 										<p className='mt-2 text-center text-sm text-red-600 mb-2'>
-											Error: New Password must be at least 8 characters with 1
-											capital, 1 number, and 1 symbol
+											Error: New Password must be at least 8 characters with 1 capital, 1 number, and 1 symbol
 										</p>
 									) : (
 										<p className='text-xs mb-2 mt-2'>
-											Password must be at least 8 characters with 1 capital, 1
-											number, and 1 symbol
+											Password must be at least 8 characters with 1 capital, 1 number, and 1 symbol
 										</p>
 									)}
 									<label htmlFor='new-password' className='sr-only'>
