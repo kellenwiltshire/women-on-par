@@ -12,10 +12,12 @@ export default function NextRoundForm({ user, setSuccess, setFailure }): JSX.Ele
 	const [cutOffPast, setCutOffPast] = useState(false);
 
 	useEffect(() => {
-		const userDate = new Date(user.availability[user.availability.length - 1].date);
-		if (currDate < userDate) {
-			if (user.availability[user.availability.length - 1].available) {
-				setAttendance(true);
+		if (user.availability.length > 0) {
+			const userDate = new Date(user.availability[user.availability.length - 1].date);
+			if (currDate < userDate) {
+				if (user.availability[user.availability.length - 1].available) {
+					setAttendance(true);
+				}
 			}
 		}
 
