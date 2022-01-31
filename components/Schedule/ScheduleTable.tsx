@@ -52,13 +52,13 @@ export default function ScheduleTable({ schedules }): JSX.Element {
 										scope='col'
 										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
 									>
-										Address
+										Phone Number
 									</th>
 									<th
 										scope='col'
 										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
 									>
-										Phone Number
+										Address
 									</th>
 								</tr>
 							</thead>
