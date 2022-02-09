@@ -12,7 +12,11 @@ import React from 'react';
 import Footer from './Footer';
 import Navbar from './Navbar';
 
-export default function Layout({ setSignedIn, signedIn, children }): JSX.Element {
+export default function Layout({
+	setSignedIn,
+	signedIn,
+	children,
+}): JSX.Element {
 	return (
 		<UserProvider>
 			<ScoreProvider>
@@ -22,6 +26,9 @@ export default function Layout({ setSignedIn, signedIn, children }): JSX.Element
 							<CoursesProvider>
 								<NewsProvider>
 									<SpecialFunctionProvider>
+										<head>
+											<title>Women On Par | Golf and Membership Group</title>
+										</head>
 										<Navbar setSignedIn={setSignedIn} signedIn={signedIn} />
 										<div>{children}</div>
 										<Footer />
