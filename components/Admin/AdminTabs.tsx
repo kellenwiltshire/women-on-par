@@ -16,7 +16,9 @@ export default function AdminTabs({ adminTab, setAdminTab }): JSX.Element {
 	return (
 		<div className='pb-5 border-b border-gray-200 sm:pb-0'>
 			<div className='flex flex-row'>
-				<h3 className='text-2xl leading-6 font-medium text-gray-900'>Admin Panel</h3>
+				<h3 className='text-2xl leading-6 font-medium text-gray-900'>
+					Admin Panel
+				</h3>
 				<a
 					href='https://women-on-par-db.herokuapp.com/admin'
 					className='inline-flex items-center px-6 py-2 border border-transparent text-sm rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mb-4 ml-auto'
@@ -33,18 +35,17 @@ export default function AdminTabs({ adminTab, setAdminTab }): JSX.Element {
 						id='current-tab'
 						name='current-tab'
 						className='block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'
+						onChange={(e) => {
+							e.preventDefault();
+							const selectedTab = tabs.filter(
+								(tab) => tab.name === e.target.value,
+							);
+							setAdminTab(selectedTab[0].num);
+						}}
 					>
-						{tabs.map((tab) => (
-							<option
-								onClick={(e) => {
-									e.preventDefault();
-									setAdminTab(tab.num);
-								}}
-								key={tab.name}
-							>
-								{tab.name}
-							</option>
-						))}
+						{tabs.map((tab) => {
+							return <option key={tab.name}>{tab.name}</option>;
+						})}
 					</select>
 				</div>
 				<div className='hidden sm:block'>
