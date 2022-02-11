@@ -64,33 +64,23 @@ export default function EnterScore({
 		const handleSubmit = async (e) => {
 			e.preventDefault();
 
-<<<<<<< HEAD
-		const newScore = {
-			course: lastScheduledRound.course,
-			holes: [
-				holeOne,
-				holeTwo,
-				holeThree,
-				holeFour,
-				holeFive,
-				holeSix,
-				holeSeven,
-				holeEight,
-				holeNine,
-			],
-			date: lastScheduledRound.date,
-			user: user,
-			score: score,
-		};
-=======
 			const newScore = {
 				course: lastScheduledRound.course,
-				holes: [holeOne, holeTwo, holeThree, holeFour, holeFive, holeSix, holeSeven, holeEight, holeNine],
+				holes: [
+					holeOne,
+					holeTwo,
+					holeThree,
+					holeFour,
+					holeFive,
+					holeSix,
+					holeSeven,
+					holeEight,
+					holeNine,
+				],
 				date: lastScheduledRound.date,
 				user: user,
 				score: score,
 			};
->>>>>>> 7a7c303a8b3b198978c263bfd4b7df0b2596feb2
 
 			const request = { score: newScore };
 
@@ -114,7 +104,9 @@ export default function EnterScore({
 
 		return (
 			<div className='mb-5'>
-				<h2 className='text-xs font-medium uppercase tracking-wide text-gray-500'>Enter Score</h2>
+				<h2 className='text-xs font-medium uppercase tracking-wide text-gray-500'>
+					Enter Score
+				</h2>
 				<form onSubmit={handleSubmit} className='mt-3 flex flex-row flex-wrap'>
 					<li className='shadow-s m-1 flex h-24 w-52 rounded-md'>
 						<div className='flex w-16 flex-shrink-0 flex-col items-center justify-center rounded-l-md border text-sm font-medium text-black'>
@@ -169,25 +161,6 @@ export default function EnterScore({
 						setHoleNine={setHoleNine}
 					/>
 
-<<<<<<< HEAD
-				<div className='my-2 mr-2 flex w-full flex-row  gap-1'>
-					<button
-						type='submit'
-						className='inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
-					>
-						Save
-					</button>
-					<button
-						type='reset'
-						className='inline-flex items-center rounded-md border border-gray-300 bg-white px-6 py-3 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
-					>
-						Reset
-					</button>
-				</div>
-			</form>
-		</div>
-	);
-=======
 					<div className='my-2 mr-2 flex w-full flex-row  gap-1'>
 						<button
 							type='submit'
@@ -208,5 +181,4 @@ export default function EnterScore({
 	} else {
 		return <div></div>;
 	}
->>>>>>> 7a7c303a8b3b198978c263bfd4b7df0b2596feb2
 }
