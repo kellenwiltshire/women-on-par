@@ -86,6 +86,15 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
 	const jwt = cookies.jwt;
 	const userData = await getUserData(jwt);
 
+	if (!userData) {
+		return {
+			redirect: {
+				destination: '/',
+				permanent: false,
+			},
+		};
+	}
+
 	return {
 		props: {
 			scores: userData.scores,
