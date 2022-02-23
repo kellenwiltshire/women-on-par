@@ -23,16 +23,19 @@ export default function NextRoundForm({ user, setSuccess, setFailure }): JSX.Ele
 
 		const dayOfWeek = currDate.getDay(); //0 is Sunday
 
+		console.log(dayOfWeek);
+
 		if (dayOfWeek >= 1 && dayOfWeek <= 3) {
 			if (dayOfWeek === 3) {
 				const time = currDate.getHours();
+				console.log(time);
+
 				if (time > 14) {
 					setCutOffPast(false);
 				} else {
 					setCutOffPast(true);
 				}
 			}
-			setCutOffPast(true);
 		}
 	}, []);
 
