@@ -7,6 +7,7 @@ export default function ResultsTable(): JSX.Element {
 	const schedule = useScheduleContext();
 
 	const completedRounds = completedSchedule(schedule);
+
 	return (
 		<div className='flex flex-col'>
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
