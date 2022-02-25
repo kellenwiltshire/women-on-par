@@ -3,7 +3,11 @@ import ToggleSwitch from '@/components/Buttons/Toggle';
 import { findNextRound } from '@/utils/sortingFunctions';
 import { useScheduleContext } from '@/context/Store';
 
-export default function NextRoundForm({ user, setSuccess, setFailure }): JSX.Element {
+export default function NextRoundForm({
+	user,
+	setSuccess,
+	setFailure,
+}): JSX.Element {
 	const schedule = useScheduleContext();
 	const nextRound = findNextRound(schedule);
 	const currDate = new Date();
@@ -11,10 +15,12 @@ export default function NextRoundForm({ user, setSuccess, setFailure }): JSX.Ele
 	const [attendance, setAttendance] = useState(false);
 	const [cutOffPast, setCutOffPast] = useState(false);
 
-	if (user.availability.length) {
+	if (user.availability) {
 		useEffect(() => {
 			if (user.availability.length > 0) {
-				const userDate = new Date(user.availability[user.availability.length - 1].date);
+				const userDate = new Date(
+					user.availability[user.availability.length - 1].date,
+				);
 				if (currDate < userDate) {
 					if (user.availability[user.availability.length - 1].available) {
 						setAttendance(true);
@@ -71,13 +77,14 @@ export default function NextRoundForm({ user, setSuccess, setFailure }): JSX.Ele
 				setFailure(true);
 			}
 		};
+
 		if (nextRound && nextRound.course) {
 			if (cutOffPast) {
 				return (
 					<div className='mt-2 text-sm text-gray-500 flex flex-row align-middle'>
 						<h3 className='block text-sm font-medium text-gray-700 mr-2'>
-							Cuttoff time has passed for changing your attendance. Please contact the administrator if you wish to
-							change your attendance.
+							Cuttoff time has passed for changing your attendance. Please
+							contact the administrator if you wish to change your attendance.
 						</h3>
 					</div>
 				);
@@ -85,7 +92,10 @@ export default function NextRoundForm({ user, setSuccess, setFailure }): JSX.Ele
 				return (
 					<form onSubmit={handleSubmit}>
 						<div className='mt-2 text-sm text-gray-500 flex flex-row align-middle'>
-							<label htmlFor='attendance' className='block text-sm font-medium text-gray-700 mr-2'>
+							<label
+								htmlFor='attendance'
+								className='block text-sm font-medium text-gray-700 mr-2'
+							>
 								Attending:
 							</label>
 							<ToggleSwitch enabled={attendance} setEnabled={setAttendance} />
@@ -102,7 +112,9 @@ export default function NextRoundForm({ user, setSuccess, setFailure }): JSX.Ele
 		} else {
 			return (
 				<div className='mt-2 text-sm text-gray-500 flex flex-row align-middle'>
-					<h3 className='block text-sm font-medium text-gray-700 mr-2'>No Round Scheduled</h3>
+					<h3 className='block text-sm font-medium text-gray-700 mr-2'>
+						No Round Scheduled
+					</h3>
 				</div>
 			);
 		}
