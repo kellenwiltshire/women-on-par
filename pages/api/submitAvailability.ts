@@ -20,12 +20,15 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const submitAvailability = async (req: NextApiRequest, res: NextApiResponse) => {
+const submitAvailability = async (
+	req: NextApiRequest,
+	res: NextApiResponse,
+) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
 	const cookies = parseCookies({ req });
-	const jwt = cookies.jwt;
+	const jwt = cookies.womenonpar;
 
 	const body = req.body;
 
@@ -45,7 +48,9 @@ const submitAvailability = async (req: NextApiRequest, res: NextApiResponse) => 
 		res.status(200).json(response);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ error: 'Error Submitting Availability', response: error });
+		res
+			.status(500)
+			.json({ error: 'Error Submitting Availability', response: error });
 	}
 };
 

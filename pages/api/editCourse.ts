@@ -27,7 +27,7 @@ const addUser = async (req: NextApiRequest, res: NextApiResponse) => {
 	const data = req.body.data;
 	const id = req.body.id;
 	const cookies = parseCookies({ req });
-	const jwt = cookies.jwt;
+	const jwt = cookies.womenonpar;
 
 	try {
 		const request = await fetch(`${url}/courses/${id}`, {

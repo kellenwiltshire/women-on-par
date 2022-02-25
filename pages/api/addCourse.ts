@@ -20,13 +20,16 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-export default async function addUser(req: NextApiRequest, res: NextApiResponse) {
+export default async function addUser(
+	req: NextApiRequest,
+	res: NextApiResponse,
+) {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
 	const data = req.body;
 	const cookies = parseCookies({ req });
-	const jwt = cookies.jwt;
+	const jwt = cookies.womenonpar;
 
 	try {
 		const request = await fetch(`${url}/courses`, {

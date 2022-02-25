@@ -8,6 +8,8 @@ import ReactMarkdown from 'react-markdown';
 export default function NewsCard(): JSX.Element {
 	const news = useNewsContext();
 
+	console.log(news);
+
 	const recentNews = findMostRecentNews(news);
 
 	if (recentNews) {
@@ -28,7 +30,9 @@ export default function NewsCard(): JSX.Element {
 								Recent News
 							</h3>
 							<p className='mt-2 text-gray-500 text-xl'>{recentNews.title}</p>
-							<ReactMarkdown className='mt-2 text-sm text-gray-500'>{shortBody}</ReactMarkdown>
+							<ReactMarkdown className='mt-2 text-sm text-gray-500'>
+								{shortBody}
+							</ReactMarkdown>
 						</div>
 					</div>
 				</a>

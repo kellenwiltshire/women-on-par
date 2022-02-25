@@ -111,7 +111,7 @@ export default function AdminPage({
 
 export const getServerSideProps: GetServerSideProps = async (props) => {
 	const cookies = parseCookies(props);
-	const jwt = cookies.jwt;
+	const jwt = cookies.womenonpar;
 	const userData = await getAdminData(jwt);
 
 	if (!userData) {

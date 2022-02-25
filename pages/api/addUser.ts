@@ -26,7 +26,7 @@ const addUser = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	const data = req.body;
 	const cookies = parseCookies({ req });
-	const jwt = cookies.jwt;
+	const jwt = cookies.womenonpar;
 
 	try {
 		const request = await fetch(`${url}/users`, {
@@ -54,7 +54,9 @@ const addUser = async (req: NextApiRequest, res: NextApiResponse) => {
 		res.status(200).json(response);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ error: 'Failed to send confirmation', response: error });
+		res
+			.status(500)
+			.json({ error: 'Failed to send confirmation', response: error });
 	}
 };
 

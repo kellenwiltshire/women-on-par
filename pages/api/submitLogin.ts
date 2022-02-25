@@ -1,5 +1,6 @@
 import Cors from 'cors';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { setCookie } from 'nookies';
 
 const cors = Cors({
 	methods: ['POST', 'HEAD'],
@@ -37,6 +38,12 @@ const submitLogin = async (req: NextApiRequest, res: NextApiResponse) => {
 
 		const loginResponse = await login.json();
 		console.log(loginResponse);
+
+		// setCookie(null, 'womenonpar', loginResponse.jwt, {
+		// 	maxAge: 30 * 24 * 60 * 60,
+		// 	path: '/',
+		// 	httpOnly: true,
+		// });
 
 		res.status(200).json(loginResponse);
 	} catch (error) {

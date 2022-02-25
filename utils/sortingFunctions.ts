@@ -39,7 +39,7 @@ export function findPriorRound(scores) {
 }
 
 export function findPriorRoundResults(allScores, priorRound) {
-	if (priorRound) {
+	if (priorRound && allScores.length) {
 		const date = priorRound.date;
 		const priorRoundScores = allScores.filter((score) => {
 			const scoreDate = Date.parse(score.date);

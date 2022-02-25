@@ -25,7 +25,7 @@ const getCourses = async (req: NextApiRequest, res: NextApiResponse) => {
 	const url = process.env.DATABASE_URL;
 
 	const cookies = parseCookies({ req });
-	const jwt = cookies.jwt;
+	const jwt = cookies.womenonpar;
 
 	try {
 		const request = await fetch(`${url}/courses`, {

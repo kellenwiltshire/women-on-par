@@ -24,7 +24,14 @@ const navigation = [
 	{ num: 3, name: 'Settings', icon: CogIcon },
 ];
 
-export default function User({ scores, user, schedules, news, specFunctions, allScores }) {
+export default function User({
+	scores,
+	user,
+	schedules,
+	news,
+	specFunctions,
+	allScores,
+}) {
 	const updateUser = useUpdateUserContext();
 	const updateSchedule = useUpdateScheduleContext();
 	const updateScore = useUpdateScoreContext();
@@ -59,7 +66,11 @@ export default function User({ scores, user, schedules, news, specFunctions, all
 						<div className='flex items-center justify-between'>
 							<div className='flex-1 space-y-8'>
 								<div className='space-y-8 sm:space-y-0 sm:flex sm:justify-between sm:items-center xl:block xl:space-y-8'>
-									<Siderbar openTab={openTab} setOpenTab={setOpenTab} navigation={navigation} />
+									<Siderbar
+										openTab={openTab}
+										setOpenTab={setOpenTab}
+										navigation={navigation}
+									/>
 								</div>
 							</div>
 						</div>
@@ -83,7 +94,7 @@ export default function User({ scores, user, schedules, news, specFunctions, all
 
 export const getServerSideProps: GetServerSideProps = async (props) => {
 	const cookies = parseCookies(props);
-	const jwt = cookies.jwt;
+	const jwt = cookies.womenonpar;
 	const userData = await getUserData(jwt);
 
 	if (!userData) {

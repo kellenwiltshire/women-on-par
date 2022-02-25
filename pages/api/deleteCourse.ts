@@ -26,7 +26,7 @@ const deleteCourse = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	const id = req.body;
 	const cookies = parseCookies({ req });
-	const jwt = cookies.jwt;
+	const jwt = cookies.womenonpar;
 
 	try {
 		const request = await fetch(`${url}/courses/${id}`, {
