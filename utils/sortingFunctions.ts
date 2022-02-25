@@ -38,26 +38,32 @@ export function findPriorRound(scores) {
 	return priorRound;
 }
 
-export function findPriorRoundResults(allScores, date) {
-	const priorRoundScores = allScores.filter((score) => {
-		const scoreDate = Date.parse(score.date);
-		const roundDate = Date.parse(date);
+export function findPriorRoundResults(allScores, priorRound) {
+	if (priorRound) {
+		const date = priorRound.date;
+		const priorRoundScores = allScores.filter((score) => {
+			const scoreDate = Date.parse(score.date);
+			const roundDate = Date.parse(date);
 
-		if (scoreDate === roundDate) {
-			return score;
-		}
-	});
+			if (scoreDate === roundDate) {
+				return score;
+			}
+		});
 
-	return priorRoundScores;
+		return priorRoundScores;
+	} else {
+		return {};
+	}
 }
 
 export function findPriorRoundWinner(scores, round) {
-	if (round.game) {
+	if (round) {
 		if (
 			round.game.toLowerCase() === 'count_the_hazards' ||
 			round.game.toLowerCase() === 'best_poker_hand' ||
 			round.game.toLowerCase() === 'winner_of_the_green_nine_max' ||
-			round.game.toLowerCase() === 'five_points_on_the_fairway_subtract_your_putts' ||
+			round.game.toLowerCase() ===
+				'five_points_on_the_fairway_subtract_your_putts' ||
 			round.game.toLowerCase() === 'first_on_the_green_and_two_points'
 		) {
 			const winningGolfer = scores.sort((a, b) => {

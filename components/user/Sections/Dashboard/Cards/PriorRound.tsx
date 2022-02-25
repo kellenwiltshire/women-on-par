@@ -28,17 +28,14 @@ export default function PriorRound(): JSX.Element {
 
 	const [winner, setWinner] = useState<User>();
 
+	const priorRoundDate = findLastScheduledRound(schedule);
+
+	const priorRoundScores = findPriorRoundResults(allScores, priorRoundDate);
+
+	useEffect(() => {
+		setWinner(findPriorRoundWinner(priorRoundScores, priorRoundDate));
+	}, []);
 	if (priorRound) {
-		const priorRoundDate = findLastScheduledRound(schedule);
-
-		const priorRoundScores = findPriorRoundResults(
-			allScores,
-			priorRoundDate.date,
-		);
-
-		useEffect(() => {
-			setWinner(findPriorRoundWinner(priorRoundScores, priorRoundDate));
-		}, []);
 		const getBirdies = () => {
 			let num = 0;
 			for (let i = 0; i < priorRound.holes.length; i++) {
