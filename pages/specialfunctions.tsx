@@ -12,7 +12,7 @@ export default function specialfunctions({ specialFunctions }) {
 
 export const getServerSideProps: GetServerSideProps = async (props) => {
 	const cookies = parseCookies(props);
-	const jwt = cookies.jwt;
+	const jwt = cookies.womenonpar;
 
 	const specialFunctions = await fetchSpecialFunctions(jwt);
 
