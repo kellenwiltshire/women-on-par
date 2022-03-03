@@ -43,7 +43,7 @@ const submitLogin = async (req: NextApiRequest, res: NextApiResponse) => {
 		const newDate = new Date().toString();
 
 		const date = newDate.split(' ');
-		date.splice(5, 10);
+		date.splice(4, 10);
 
 		const updateLoginTime = await fetch(`${url}/users/${userID}`, {
 			method: 'PUT',
