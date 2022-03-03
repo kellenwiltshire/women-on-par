@@ -8,8 +8,6 @@ import ReactMarkdown from 'react-markdown';
 export default function NewsCard(): JSX.Element {
 	const news = useNewsContext();
 
-	console.log(news);
-
 	const recentNews = findMostRecentNews(news);
 
 	if (recentNews) {
