@@ -37,13 +37,23 @@ const submitLogin = async (req: NextApiRequest, res: NextApiResponse) => {
 		});
 
 		const loginResponse = await login.json();
-		console.log(loginResponse);
 
-		// setCookie(null, 'womenonpar', loginResponse.jwt, {
-		// 	maxAge: 30 * 24 * 60 * 60,
-		// 	path: '/',
-		// 	httpOnly: true,
-		// });
+		const userID = loginResponse.user.id;
+		const jwt = loginResponse.jwt;
+		const newDate = new Date().toString();
+
+		const date = newDate.split(' ');
+		date.splice(5, 10);
+
+		const updateLoginTime = await fetch(`${url}/users/${userID}`, {
+			method: 'PUT',
+			headers: {
+				Authorization: `Bearer ${jwt}`,
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ lastLogin: date.join(' ') }),
+		});
 
 		res.status(200).json(loginResponse);
 	} catch (error) {

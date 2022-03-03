@@ -32,7 +32,12 @@ export default function UserTable(): JSX.Element {
 		<div className='flex flex-col'>
 			{editUserOpen ? (
 				<Modal open={editUserOpen} setOpen={setEditUserOpen}>
-					<EditUserForm user={userSelected} setSuccess={setSuccess} setFailure={setFailure} setOpen={setEditUserOpen} />
+					<EditUserForm
+						user={userSelected}
+						setSuccess={setSuccess}
+						setFailure={setFailure}
+						setOpen={setEditUserOpen}
+					/>
 				</Modal>
 			) : null}
 			{addUserOpen ? (
@@ -88,8 +93,10 @@ export default function UserTable(): JSX.Element {
 					>
 						Email List
 					</button>
-					<div className='inline-flex items-center px-6 py-2'>Number of Golfers: {users.length - 1}</div>
-					<div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
+					<div className='inline-flex items-center px-6 py-2'>
+						Number of Golfers: {users.length - 1}
+					</div>
+					<div className='shadow border-b border-gray-200 sm:rounded-lg max-h-screen'>
 						<table className='min-w-full divide-y divide-gray-200'>
 							<thead className='bg-gray-50'>
 								<tr>
@@ -129,6 +136,12 @@ export default function UserTable(): JSX.Element {
 									>
 										Chip Ins
 									</th>
+									<th
+										scope='col'
+										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
+									>
+										Last Login
+									</th>
 									<th scope='col' className='relative px-6 py-3'>
 										<span className='sr-only'>Edit</span>
 									</th>
@@ -160,15 +173,31 @@ export default function UserTable(): JSX.Element {
 									}
 
 									return (
-										<tr key={user.email} className={userIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+										<tr
+											key={user.email}
+											className={userIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
+										>
 											<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
 												{user.first_name} {user.last_name}
 											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.email}</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.phone}</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.carpool}</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{numBirds}</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{numChips}</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+												{user.email}
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+												{user.phone}
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+												{user.carpool}
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+												{numBirds}
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+												{numChips}
+											</td>
+											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+												{user.lastLogin ? user.lastLogin.toString() : null}
+											</td>
 
 											<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
 												<button

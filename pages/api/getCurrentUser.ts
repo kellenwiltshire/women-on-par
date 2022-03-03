@@ -35,6 +35,22 @@ const getCurrentUser = async (req: NextApiRequest, res: NextApiResponse) => {
 
 		const response = await request.json();
 
+		const userID = response.id;
+		const newDate = new Date().toString();
+
+		const date = newDate.split(' ');
+		date.splice(5, 10);
+
+		const updateLoginTime = await fetch(`${url}/users/${userID}`, {
+			method: 'PUT',
+			headers: {
+				Authorization: `Bearer ${jwt}`,
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ lastLogin: date.join(' ') }),
+		});
+
 		res.status(200).json(response);
 	} catch (error) {
 		console.log(error);

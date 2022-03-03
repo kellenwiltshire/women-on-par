@@ -44,7 +44,7 @@ export default function ResetPasswordForm({ setSignedIn }): JSX.Element {
 				if (req.status < 300) {
 					const loginResponse = await req.json();
 
-					setCookie(null, 'jwt', loginResponse.jwt, {
+					setCookie(null, 'womenonpar', loginResponse.jwt, {
 						maxAge: 30 * 24 * 60 * 60,
 						path: '/',
 					});
