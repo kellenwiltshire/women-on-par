@@ -105,8 +105,6 @@ export default function generateSchedule(golfers: Golfer[], schedule: Schedule, 
 	//Deterime Max Golfers
 	const maxGolfers = course.timeslots * 4 || 12 * 4;
 
-	console.log(golfers);
-
 	//Create initial Variables
 	const initialGolfers: Golfer[] = golfers;
 	const initialStartTime = schedule.start_time;
@@ -179,13 +177,13 @@ export default function generateSchedule(golfers: Golfer[], schedule: Schedule, 
 	//Before setting final tee times will need to iterate through array and look for car pooling people. Once one is found, will need to find the matching person and splice them out of their current position (unless within 1-12 golfers away from original person) and splice them back in at a random interval (1-12) from original golfer to make sure they are within 3 tee times of eachother
 
 	for (let i = 0; i < newGolferArray.length; i++) {
-		let name: string[] = [];
+		let carpoolNames: string[] = [];
 		if (newGolferArray[i].carpool) {
-			name = newGolferArray[i].carpool.split(', ');
-			for (let x = 0; x < name.length; x++) {
+			carpoolNames = newGolferArray[i].carpool.split(', ');
+			for (let x = 0; x < carpoolNames.length; x++) {
 				const golferIndex = newGolferArray.findIndex((obj) => {
 					const golferName = `${obj.first_name} ${obj.last_name}`;
-					if (golferName === name[x]) {
+					if (golferName === carpoolNames[x]) {
 						return true;
 					}
 

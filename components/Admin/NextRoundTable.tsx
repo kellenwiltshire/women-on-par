@@ -11,8 +11,6 @@ export default function NextRoundTable(): JSX.Element {
 	const schedule = useScheduleContext();
 	const [users, setUsers] = useState(allUsers);
 
-	console.log(users);
-
 	const [scheduleOpen, setScheduleOpen] = useState(false);
 	interface Group {
 		teeTime: string;
