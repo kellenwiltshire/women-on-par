@@ -179,11 +179,11 @@ export default function generateSchedule(golfers: Golfer[], schedule: Schedule, 
 	for (let i = 0; i < newGolferArray.length; i++) {
 		let carpoolNames: string[] = [];
 		if (newGolferArray[i].carpool) {
-			carpoolNames = newGolferArray[i].carpool.split(', ');
+			carpoolNames = newGolferArray[i].carpool.split(',');
 			for (let x = 0; x < carpoolNames.length; x++) {
 				const golferIndex = newGolferArray.findIndex((obj) => {
 					const golferName = `${obj.first_name} ${obj.last_name}`;
-					if (golferName === carpoolNames[x]) {
+					if (golferName === carpoolNames[x].trim()) {
 						return true;
 					}
 
