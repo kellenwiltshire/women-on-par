@@ -9,10 +9,7 @@ const randomizeGolfers = (golfers) => {
 		currentIndex--;
 
 		//and swap it with the current element
-		[golfers[currentIndex], golfers[randomIndex]] = [
-			golfers[randomIndex],
-			golfers[currentIndex],
-		];
+		[golfers[currentIndex], golfers[randomIndex]] = [golfers[randomIndex], golfers[currentIndex]];
 	}
 
 	return golfers;
@@ -52,13 +49,7 @@ const addTimeInterval = (currTime, interval) => {
 		minutes -= 60 * h;
 	}
 
-	return (
-		('0' + hours).slice(-2) +
-		':' +
-		('0' + minutes).slice(-2) +
-		':' +
-		('0' + seconds).slice(-2)
-	);
+	return ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
 };
 
 const testTime = (time) => {
@@ -110,13 +101,11 @@ interface Course {
 	interval: number;
 }
 
-export default function generateSchedule(
-	golfers: Golfer[],
-	schedule: Schedule,
-	course: Course,
-) {
+export default function generateSchedule(golfers: Golfer[], schedule: Schedule, course: Course) {
 	//Deterime Max Golfers
 	const maxGolfers = course.timeslots * 4 || 12 * 4;
+
+	console.log(golfers);
 
 	//Create initial Variables
 	const initialGolfers: Golfer[] = golfers;
@@ -154,9 +143,7 @@ export default function generateSchedule(
 	let teeTimeRestrictions: Golfer[] = [];
 	let unrestrictedGolfers: Golfer[] = [];
 	usableGolfers.forEach((golfer: Golfer) => {
-		golfer.teeTime
-			? teeTimeRestrictions.push(golfer)
-			: unrestrictedGolfers.push(golfer);
+		golfer.teeTime ? teeTimeRestrictions.push(golfer) : unrestrictedGolfers.push(golfer);
 	});
 
 	//Start filling a new Golfer Array with unrestricted golfers until it passes the time restriction
@@ -192,24 +179,25 @@ export default function generateSchedule(
 	//Before setting final tee times will need to iterate through array and look for car pooling people. Once one is found, will need to find the matching person and splice them out of their current position (unless within 1-12 golfers away from original person) and splice them back in at a random interval (1-12) from original golfer to make sure they are within 3 tee times of eachother
 
 	for (let i = 0; i < newGolferArray.length; i++) {
-		let name = '';
+		let name: string[] = [];
 		if (newGolferArray[i].carpool) {
-			name = newGolferArray[i].carpool;
-			const golferIndex = newGolferArray.findIndex((obj) => {
-				const golferName = `${obj.first_name} ${obj.last_name}`;
-				if (golferName === name) {
-					return true;
-				}
+			name = newGolferArray[i].carpool.split(', ');
+			for (let x = 0; x < name.length; x++) {
+				const golferIndex = newGolferArray.findIndex((obj) => {
+					const golferName = `${obj.first_name} ${obj.last_name}`;
+					if (golferName === name[x]) {
+						return true;
+					}
 
-				return false;
-			});
-
-			if (golferIndex > i) {
-				if (golferIndex > i + 11) {
-					const newPosition = Math.floor(Math.random() * 11);
-					const golferMoving = newGolferArray[golferIndex];
-					newGolferArray.splice(golferIndex, 1);
-					newGolferArray.splice(newPosition + i, 0, golferMoving);
+					return false;
+				});
+				if (golferIndex > i) {
+					if (golferIndex > i + 11) {
+						const newPosition = Math.floor(Math.random() * 11);
+						const golferMoving = newGolferArray[golferIndex];
+						newGolferArray.splice(golferIndex, 1);
+						newGolferArray.splice(newPosition + i, 0, golferMoving);
+					}
 				}
 			}
 		}
