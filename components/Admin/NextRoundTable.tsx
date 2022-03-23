@@ -6,158 +6,6 @@ import { useEffect, useState } from 'react';
 import TeetimeSchedule from '../TeeTimeGenerater/TeetimeSchedule';
 import Modal from '../Modals/Modal';
 
-//For testing purposes
-const golfers = [
-	{ first_name: 'Player', last_name: 'One', carpool: '', teeTime: false },
-	{
-		first_name: 'Player',
-		last_name: 'Two',
-		carpool: 'Player Nine',
-		teeTime: false,
-	},
-	{ first_name: 'Player', last_name: 'Three', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'Four', carpool: '', teeTime: true },
-	{
-		first_name: 'Player',
-		last_name: 'Five',
-		carpool: 'Player Thirteen',
-		teeTime: false,
-	},
-	{ first_name: 'Player', last_name: 'Six', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'Seven', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'Eight', carpool: '', teeTime: false },
-	{
-		first_name: 'Player',
-		last_name: 'Nine',
-		carpool: 'Player Two',
-		teeTime: false,
-	},
-	{ first_name: 'Player', last_name: 'Ten', carpool: '', teeTime: true },
-	{ first_name: 'Player', last_name: 'Eleven', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'Twelve', carpool: '', teeTime: false },
-	{
-		first_name: 'Player',
-		last_name: 'Thirteen',
-		carpool: 'Player Five',
-		teeTime: false,
-	},
-	{ first_name: 'Player', last_name: 'Fourteen', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'Fifteen', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'Sixteen', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'Seventeen', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'Eighteen', carpool: '', teeTime: true },
-	{ first_name: 'Player', last_name: 'Nineteen', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'Twenty', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'Twentyone', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'Twentytwo', carpool: '', teeTime: false },
-	{
-		first_name: 'Player',
-		last_name: 'Twentythree',
-		carpool: '',
-		teeTime: false,
-	},
-	{ first_name: 'Player', last_name: 'TwentyFour', carpool: '', teeTime: true },
-	{
-		first_name: 'Player',
-		last_name: 'TwentyFive',
-		carpool: '',
-		teeTime: false,
-	},
-	{ first_name: 'Player', last_name: 'TwentySix', carpool: '', teeTime: false },
-	{
-		first_name: 'Player',
-		last_name: 'TwentySeven',
-		carpool: '',
-		teeTime: false,
-	},
-	{
-		first_name: 'Player',
-		last_name: 'TwentyEight',
-		carpool: '',
-		teeTime: false,
-	},
-	{
-		first_name: 'Player',
-		last_name: 'TwentyNine',
-		carpool: '',
-		teeTime: false,
-	},
-	{ first_name: 'Player', last_name: 'Thirty', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'ThirtyOne', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'ThirtyTwo', carpool: '', teeTime: true },
-	{
-		first_name: 'Player',
-		last_name: 'ThirtyThree',
-		carpool: '',
-		teeTime: false,
-	},
-	{
-		first_name: 'Player',
-		last_name: 'ThirtyFour',
-		carpool: '',
-		teeTime: false,
-	},
-	{
-		first_name: 'Player',
-		last_name: 'ThirtyFive',
-		carpool: '',
-		teeTime: false,
-	},
-	{ first_name: 'Player', last_name: 'ThirtySix', carpool: '', teeTime: false },
-	{
-		first_name: 'Player',
-		last_name: 'ThirtySeven',
-		carpool: '',
-		teeTime: false,
-	},
-	{
-		first_name: 'Player',
-		last_name: 'ThirtyEight',
-		carpool: '',
-		teeTime: true,
-	},
-	{
-		first_name: 'Player',
-		last_name: 'ThirtyNine',
-		carpool: '',
-		teeTime: false,
-	},
-	{ first_name: 'Player', last_name: 'Forty', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'FortyOne', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'FortyTwo', carpool: '', teeTime: false },
-	{
-		first_name: 'Player',
-		last_name: 'FortyThree',
-		carpool: '',
-		teeTime: false,
-	},
-	{ first_name: 'Player', last_name: 'FortyFour', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'FortyFive', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'FortySix', carpool: '', teeTime: true },
-	{
-		first_name: 'Player',
-		last_name: 'FortySeven',
-		carpool: '',
-		teeTime: false,
-	},
-	{
-		first_name: 'Player',
-		last_name: 'FortyEight',
-		carpool: '',
-		teeTime: false,
-	},
-	{ first_name: 'Player', last_name: 'FORTYNINE', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'FIFTY', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'FIFTYONE', carpool: '', teeTime: false },
-	{ first_name: 'Player', last_name: 'FIFTYTWO', carpool: '', teeTime: true },
-	{
-		first_name: 'Player',
-		last_name: 'FIFTYTHREE',
-		carpool: '',
-		teeTime: false,
-	},
-];
-
 export default function NextRoundTable(): JSX.Element {
 	const allUsers = useAllUsersContext();
 	const schedule = useScheduleContext();
@@ -227,7 +75,7 @@ export default function NextRoundTable(): JSX.Element {
 		};
 
 		const generateScheduleClicked = () => {
-			setTeeTimeSchedule(generateSchedule(golfers, nextRound, nextRound.course));
+			setTeeTimeSchedule(generateSchedule(users, nextRound, nextRound.course));
 
 			setScheduleOpen(!scheduleOpen);
 		};
@@ -276,7 +124,7 @@ export default function NextRoundTable(): JSX.Element {
 								</thead>
 								<tbody>
 									{users.map((user, userIdx) => (
-										<tr key={user.email} className={userIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+										<tr key={user.id} className={userIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
 											<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
 												{user.first_name} {user.last_name}
 											</td>

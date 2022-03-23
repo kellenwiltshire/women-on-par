@@ -13,9 +13,12 @@ export default function ScheduleCards({ schedule, waitingList }): JSX.Element {
 						<div className='flex-1 flex flex-col justify-center border border-gray-200 bg-white rounded-r-md truncate'>
 							{teeTime.golfers.map((golfer) => {
 								return (
-									<p key={golfer.first_name} className='mx-1'>
-										{golfer.first_name} {golfer.last_name}
-									</p>
+									<div key={golfer.id}>
+										<p className='mx-1'>
+											{golfer.first_name} {golfer.last_name}
+										</p>
+										{golfer.carpool ? <p className='mx-1 text-xs text-gray-400'>carpool: {golfer.carpool}</p> : null}
+									</div>
 								);
 							})}
 						</div>
