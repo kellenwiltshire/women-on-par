@@ -170,7 +170,7 @@ export function findNextSpecialEvent(events) {
 		const aDate = Date.parse(a.created_at);
 		const bDate = Date.parse(b.created_at);
 
-		return bDate - aDate;
+		return aDate - bDate;
 	});
 
 	return eventsSorted[0];
