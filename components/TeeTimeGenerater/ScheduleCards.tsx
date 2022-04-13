@@ -17,7 +17,7 @@ export default function ScheduleCards({ schedule, waitingList }): JSX.Element {
 										<p className='mx-1'>
 											{golfer.first_name} {golfer.last_name}
 										</p>
-										{golfer.carpool ? <p className='mx-1 text-xs text-gray-400'>carpool: {golfer.carpool}</p> : null}
+										{/* {golfer.carpool ? <p className='mx-1 text-xs text-gray-400'>carpool: {golfer.carpool}</p> : null} */}
 									</div>
 								);
 							})}
