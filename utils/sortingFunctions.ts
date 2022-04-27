@@ -157,12 +157,12 @@ export function sortNews(news) {
 }
 
 export function findNextSpecialEvent(events) {
-	const currDate = new Date();
-	const fixedDate = currDate.getDate() - 1;
+	let currDate = new Date();
+	currDate.setDate(currDate.getDate() - 1);
 
 	const futureEvents = events.filter((event) => {
 		const date = new Date(event.date);
-		if (date > fixedDate) {
+		if (date > currDate) {
 			return event;
 		}
 	});
