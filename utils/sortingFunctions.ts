@@ -161,7 +161,7 @@ export function findNextSpecialEvent(events) {
 
 	const futureEvents = events.filter((event) => {
 		const date = new Date(event.date);
-		if (date > currDate) {
+		if (date >= currDate) {
 			return event;
 		}
 	});
