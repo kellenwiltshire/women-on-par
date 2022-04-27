@@ -158,7 +158,7 @@ export function sortNews(news) {
 
 export function findNextSpecialEvent(events) {
 	const currDate = new Date();
-	const fixedDate - currDate.getDate() - 1;
+	const fixedDate = currDate.getDate() - 1;
 
 	const futureEvents = events.filter((event) => {
 		const date = new Date(event.date);
