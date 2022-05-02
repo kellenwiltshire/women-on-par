@@ -34,7 +34,7 @@ export default function TeetimeSchedule({
 				<style type='text/css' media='print'>
 					{
 						'\
-					{ html,body{height:100%;width:100%;margin:2cm;padding:2cm;} @page { size: A4 landscape; max-height:100%; max-width:100%  }\
+					{ html,body{height:100%;width:100%;margin:2cm;padding:2cm;} @page { size: A4 landscape; max-height:100%; max-width:100% button {visibility: none !important} }\
 '
 					}
 				</style>

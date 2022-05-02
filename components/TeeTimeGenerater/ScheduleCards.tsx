@@ -91,7 +91,7 @@ export default function ScheduleCards({
 			console.log('Player Two: ', item2);
 
 			if (prevArrayLength < 4) {
-				changeSchedule[findTeetimeIndex - 1].golfers.splice(prevArrayLength, 1);
+				// changeSchedule[findTeetimeIndex - 1].golfers.splice(prevArrayLength, 1);
 				changeSchedule[findTeetimeIndex - 1].golfers.splice(
 					prevArrayLength,
 					0,
