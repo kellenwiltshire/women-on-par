@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DownButton from '../Buttons/DownButton';
 import UpButton from '../Buttons/UpButton';
 
 export default function ScheduleCards({ schedule, waitingList }): JSX.Element {
 	const newWaitingList = waitingList.reverse();
 
+	const [thisSchedule, setThisSchedule] = useState(schedule);
+
 	const handleMoveDown = (golfer) => {
-		const findTeetime = schedule.find((teeTime) =>
+		const changeSchedule = thisSchedule;
+		const findTeetime = changeSchedule.find((teeTime) =>
 			teeTime.golfers.find((player) => player.id === golfer.id),
 		);
 
-		const findTeetimeIndex = schedule.findIndex(
+		const findTeetimeIndex = changeSchedule.findIndex(
 			(teeTime) => teeTime.teeTime === findTeetime.teeTime,
 		);
 
@@ -18,26 +21,92 @@ export default function ScheduleCards({ schedule, waitingList }): JSX.Element {
 			(player) => player.id === golfer.id,
 		);
 
-		if (findPlayerIndex >= findTeetime.golfers.length) {
-			const item1 = schedule[findTeetimeIndex + 1].golfers[0];
+		if (findPlayerIndex >= findTeetime.golfers.length - 1) {
+			//Find player from next tee time
+			const item1 = changeSchedule[findTeetimeIndex + 1].golfers[0];
+			console.log('Player One: ', item1);
+			//current player being moved
 			const item2 = findTeetime.golfers[findPlayerIndex];
+			console.log('Player Two: ', item2);
 
-			schedule[findTeetimeIndex + 1].golfers.splice(0, 1);
-			schedule[findTeetimeIndex + 1].golfers.splice(0, 0, item2);
+			//replace next tee time player with player being moved
+			changeSchedule[findTeetimeIndex + 1].golfers.splice(0, 1);
 
-			schedule[findTeetimeIndex + 1].golfers.splice(findPlayerIndex, 1);
-			schedule[findTeetimeIndex + 1].golfers.splice(findPlayerIndex, 0, item1);
+			changeSchedule[findTeetimeIndex + 1].golfers.splice(0, 0, item2);
+
+			//move replaced player to where player being moved was
+			changeSchedule[findTeetimeIndex].golfers.splice(findPlayerIndex, 1);
+
+			changeSchedule[findTeetimeIndex].golfers.splice(
+				findPlayerIndex,
+				0,
+				item1,
+			);
 		} else {
 			const item = findTeetime.golfers[findPlayerIndex];
 			findTeetime.golfers.splice(findPlayerIndex, 1);
 			findTeetime.golfers.splice(findPlayerIndex + 1, 0, item);
 		}
 
-		console.log(findTeetime.golfers);
+		setThisSchedule(changeSchedule);
+	};
+
+	const handleMoveUp = (golfer) => {
+		const changeSchedule = thisSchedule;
+		const findTeetime = changeSchedule.find((teeTime) =>
+			teeTime.golfers.find((player) => player.id === golfer.id),
+		);
+
+		const findTeetimeIndex = changeSchedule.findIndex(
+			(teeTime) => teeTime.teeTime === findTeetime.teeTime,
+		);
+
+		const findPlayerIndex = findTeetime.golfers.findIndex(
+			(player) => player.id === golfer.id,
+		);
+
+		if (findPlayerIndex === 0) {
+			//Find player from next tee time
+			const item1 =
+				changeSchedule[findTeetimeIndex - 1].golfers[
+					changeSchedule[findTeetimeIndex - 1].golfers.length - 1
+				];
+			const prevArrayLength =
+				changeSchedule[findTeetimeIndex - 1].golfers.length;
+			console.log('Player One: ', item1);
+			//current player being moved
+			const item2 = findTeetime.golfers[findPlayerIndex];
+			console.log('Player Two: ', item2);
+
+			//replace next tee time player with player being moved
+			changeSchedule[findTeetimeIndex - 1].golfers.splice(
+				prevArrayLength - 1,
+				1,
+			);
+			changeSchedule[findTeetimeIndex - 1].golfers.splice(
+				prevArrayLength - 1,
+				0,
+				item2,
+			);
+
+			//move replaced player to where player being moved was
+			changeSchedule[findTeetimeIndex].golfers.splice(findPlayerIndex, 1);
+			changeSchedule[findTeetimeIndex].golfers.splice(
+				findPlayerIndex,
+				0,
+				item1,
+			);
+		} else {
+			const item = findTeetime.golfers[findPlayerIndex];
+			findTeetime.golfers.splice(findPlayerIndex, 1);
+			findTeetime.golfers.splice(findPlayerIndex - 1, 0, item);
+		}
+
+		setThisSchedule(changeSchedule);
 	};
 	return (
 		<div className='flex w-full justify-center flex-row flex-wrap'>
-			{schedule.map((teeTime) => {
+			{thisSchedule.map((teeTime) => {
 				return (
 					<div
 						key={teeTime.teeTime}
@@ -51,7 +120,8 @@ export default function ScheduleCards({ schedule, waitingList }): JSX.Element {
 								return (
 									<div key={golfer.id}>
 										<p className='mx-1'>
-											{golfer.first_name} {golfer.last_name} <UpButton />{' '}
+											{golfer.first_name} {golfer.last_name}{' '}
+											<UpButton handleClick={handleMoveUp} golfer={golfer} />{' '}
 											<DownButton
 												handleClick={handleMoveDown}
 												golfer={golfer}
