@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import CloseSchedule from '../Modals/CloseSchedule';
 import ScheduleCards from './ScheduleCards';
