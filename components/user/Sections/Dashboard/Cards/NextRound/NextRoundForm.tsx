@@ -39,10 +39,13 @@ export default function NextRoundForm({
 					} else {
 						setCutOffPast(true);
 					}
+				} else {
+					setCutOffPast(true);
 				}
 			}
 		}, []);
 
+		console.log(cutOffPast);
 		const handleSubmit = async (e) => {
 			e.preventDefault();
 

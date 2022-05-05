@@ -70,13 +70,21 @@ export function findPriorRoundWinner(scores, round) {
 					return b.score - a.score;
 				});
 
-				return winningGolfer[0];
+				const result = winningGolfer.filter((score) => {
+					return score.score === winningGolfer[0].score;
+				});
+
+				return result;
 			} else {
 				const winningGolfer = scores.sort((a, b) => {
 					return a.score - b.score;
 				});
 
-				return winningGolfer[0];
+				const result = winningGolfer.filter((score) => {
+					return score.score === winningGolfer[0].score;
+				});
+
+				return result;
 			}
 		} else {
 			return scores[0];
