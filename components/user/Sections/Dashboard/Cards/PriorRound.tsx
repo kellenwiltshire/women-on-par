@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { FlagIcon } from '@heroicons/react/outline';
-import { useAllScoresContext, useScheduleContext, useScoreContext } from '@/context/Store';
+import {
+	useAllScoresContext,
+	useScheduleContext,
+	useScoreContext,
+} from '@/context/Store';
 import {
 	findLastScheduledRound,
 	findPriorRoundResults,
@@ -14,7 +18,7 @@ export default function PriorRound(): JSX.Element {
 	const priorRound = findPriorRound(scores);
 	const schedule = useScheduleContext();
 
-	console.log('scores: ', scores);
+	console.log('scores: ', allScores);
 
 	interface User {
 		user: {
@@ -31,7 +35,7 @@ export default function PriorRound(): JSX.Element {
 	const priorRoundScores = findPriorRoundResults(allScores, priorRoundDate);
 
 	useEffect(() => {
-		if (scores.length) {
+		if (allScores.length) {
 			setWinner(findPriorRoundWinner(priorRoundScores, priorRoundDate));
 		}
 	}, []);
@@ -72,8 +76,9 @@ export default function PriorRound(): JSX.Element {
 						Prior Round
 					</h3>
 					<p className='mt-2 text-sm text-gray-500'>
-						Your last round was at {priorRound?.course?.name} with a score of {priorRound?.score}. You had {numBirdies}{' '}
-						Birdies and {numChipIns} Chip Ins.
+						Your last round was at {priorRound?.course?.name} with a score of{' '}
+						{priorRound?.score}. You had {numBirdies} Birdies and {numChipIns}{' '}
+						Chip Ins.
 					</p>
 				</div>
 				{winner ? (
@@ -83,7 +88,8 @@ export default function PriorRound(): JSX.Element {
 							Results
 						</h3>
 						<p className='mt-2 text-sm text-gray-500'>
-							The winning Golfer was {winner.user.first_name} {winner.user.last_name} with a score of {winner.score}
+							The winning Golfer was {winner.user.first_name}{' '}
+							{winner.user.last_name} with a score of {winner.score}
 						</p>
 						<p className='mt-2 text-sm text-gray-500'>
 							Players with Birdies:{' '}
@@ -147,9 +153,46 @@ export default function PriorRound(): JSX.Element {
 							Results
 						</h3>
 						<p className='mt-2 text-sm text-gray-500'>
-							The winning Golfer was {winner.user.first_name} {winner.user.last_name} with a score of {winner.score}
+							The winning Golfer was {winner.user.first_name}{' '}
+							{winner.user.last_name} with a score of {winner.score}
 						</p>
 						<p className='mt-2 text-sm text-gray-500'>
+							Players with Birdies:{' '}
+							{priorRoundScores.map((score) => {
+								let birdie = false;
+								score.holes.map((hole) => {
+									if (hole.birdie) {
+										birdie = true;
+									}
+								});
+								if (birdie) {
+									return (
+										<span key={score.id}>
+											{score.user.first_name} {score.user.last_name},{' '}
+										</span>
+									);
+								}
+							})}
+						</p>
+						<p className='mt-2 text-sm text-gray-500'>
+							Players with Chip-Ins:{' '}
+							{priorRoundScores.map((score) => {
+								let chip = false;
+								score.holes.map((hole) => {
+									if (hole.chip) {
+										chip = true;
+									}
+								});
+								if (chip) {
+									return (
+										<span key={score.id}>
+											{score.user.first_name} {score.user.last_name},{' '}
+										</span>
+									);
+								}
+							})}
+						</p>
+						{/* <p className='mt-2 text-sm text-gray-500'>
 							Players with Birdies:{' '}
 							{priorRoundScores.map((score) => {
 								const birdie = score.holes.map((hole) => {
@@ -182,7 +225,7 @@ export default function PriorRound(): JSX.Element {
 									);
 								}
 							})}
-						</p>
+						</p> */}
 					</div>
 				) : null}
 			</div>
