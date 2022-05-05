@@ -63,8 +63,7 @@ export function findPriorRoundWinner(scores, round) {
 				round.game.toLowerCase() === 'count_the_hazards' ||
 				round.game.toLowerCase() === 'best_poker_hand' ||
 				round.game.toLowerCase() === 'winner_of_the_green_nine_max' ||
-				round.game.toLowerCase() ===
-					'five_points_on_the_fairway_subtract_your_putts' ||
+				round.game.toLowerCase() === 'five_points_on_the_fairway_subtract_your_putts' ||
 				round.game.toLowerCase() === 'first_on_the_green_and_two_points'
 			) {
 				const winningGolfer = scores.sort((a, b) => {
