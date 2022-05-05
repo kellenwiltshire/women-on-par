@@ -61,27 +61,27 @@ export default function ScheduleCards({ schedule, waitingList, setScheduledRound
 			//check to see if they are already the 1st player in the 1st tee time
 			if (currentTeeTimeIndex != 0) {
 				//Find player from the tee time before the current tee time
-				const nextPlayer =
-					changeSchedule[currentTeeTimeIndex - 1].golfers[changeSchedule[currentTeeTimeIndex - 1].golfers.length - 1];
 				const prevArrayLength = changeSchedule[currentTeeTimeIndex - 1].golfers.length;
+				console.log('Previous Length: ', prevArrayLength);
+				const nextPlayer = changeSchedule[currentTeeTimeIndex - 1].golfers[prevArrayLength - 1];
 				console.log('Player One: ', nextPlayer);
 				//current player being moved
 				const movingPlayer = currentTeeTime.golfers[movingPlayerIndex];
 				console.log('Player Two: ', movingPlayer);
 
-				//if the array player is moving too has less than 4 people in, then we just add and don't switch
+				//if the array player is moving to has less than 4 people in, then we just add and don't switch
 				if (prevArrayLength < 4) {
+					changeSchedule[currentTeeTimeIndex].golfers.splice(movingPlayerIndex, 1);
 					changeSchedule[currentTeeTimeIndex - 1].golfers.splice(prevArrayLength, 0, movingPlayer);
 				} else {
 					//else we make the switch
 					//replace next tee time player with player being moved
 					changeSchedule[currentTeeTimeIndex - 1].golfers.splice(3, 1);
 					changeSchedule[currentTeeTimeIndex - 1].golfers.splice(3, 0, movingPlayer);
+					//move replaced player to where player being moved was
+					changeSchedule[currentTeeTimeIndex].golfers.splice(0, 1);
+					changeSchedule[currentTeeTimeIndex].golfers.splice(0, 0, nextPlayer);
 				}
-
-				//move replaced player to where player being moved was
-				changeSchedule[currentTeeTimeIndex].golfers.splice(0, 1);
-				changeSchedule[currentTeeTimeIndex].golfers.splice(0, 0, nextPlayer);
 			}
 		} else {
 			//if they aren't the first golfer then just make the switch within the array
