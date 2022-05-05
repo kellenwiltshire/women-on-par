@@ -28,7 +28,7 @@ export default function PriorRound(): JSX.Element {
 		score: number;
 	}
 
-	const [winner, setWinner] = useState<User>();
+	const [winner, setWinner] = useState<User[]>();
 
 	const priorRoundDate = findLastScheduledRound(schedule);
 
@@ -88,8 +88,17 @@ export default function PriorRound(): JSX.Element {
 							Results
 						</h3>
 						<p className='mt-2 text-sm text-gray-500'>
-							The winning Golfer was {winner.user.first_name}{' '}
-							{winner.user.last_name} with a score of {winner.score}
+							{winner.length ? (
+								<span>
+									The winning Golfer was{' '}
+									{winner.map((player) => (
+										<>
+											{player.user.first_name} {player.user.last_name},{' '}
+										</>
+									))}{' '}
+									) with a score of {winner[0].score})
+								</span>
+							) : null}
 						</p>
 						<p className='mt-2 text-sm text-gray-500'>
 							Players with Birdies:{' '}
@@ -153,8 +162,17 @@ export default function PriorRound(): JSX.Element {
 							Results
 						</h3>
 						<p className='mt-2 text-sm text-gray-500'>
-							The winning Golfer was {winner.user.first_name}{' '}
-							{winner.user.last_name} with a score of {winner.score}
+							{winner.length ? (
+								<span>
+									The winning Golfer(s):{' '}
+									{winner.map((player) => (
+										<>
+											{player.user.first_name} {player.user.last_name},{' '}
+										</>
+									))}{' '}
+									with a score of {winner[0].score}
+								</span>
+							) : null}
 						</p>
 						<p className='mt-2 text-sm text-gray-500'>
 							Players with Birdies:{' '}
