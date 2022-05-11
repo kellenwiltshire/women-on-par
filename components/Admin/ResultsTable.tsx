@@ -1,9 +1,5 @@
 import { useAllScoresContext, useScheduleContext } from '@/context/Store';
-import {
-	completedSchedule,
-	findPriorRoundResults,
-	findPriorRoundWinner,
-} from '@/utils/sortingFunctions';
+import { completedSchedule, findPriorRoundResults, findPriorRoundWinner } from '@/utils/sortingFunctions';
 import React from 'react';
 
 export default function ResultsTable(): JSX.Element {
@@ -56,47 +52,38 @@ export default function ResultsTable(): JSX.Element {
 								{completedRounds.map((round, roundIdx) => {
 									const roundScores = findPriorRoundResults(allScores, round);
 
-									console.log(roundScores);
+									if (roundScores.length) {
+										console.log('Round Scores: ', roundScores);
 
-									const winningGolfer = findPriorRoundWinner(
-										roundScores,
-										round,
-									);
+										const winningGolfer = findPriorRoundWinner(roundScores, round);
 
-									let game = '';
-									if (round.game) {
-										game = round.game.replaceAll('_', ' ');
+										let game = '';
+										if (round.game) {
+											game = round.game.replaceAll('_', ' ');
+										}
+
+										return (
+											<tr key={round.id} className={roundIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+												<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{round.date}</td>
+												<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
+													{round.course.name}
+												</td>
+												<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{game}</td>
+												<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+													{winningGolfer.length
+														? winningGolfer.map((golfer) => (
+																<span key={golfer.user.first_name}>
+																	{golfer.user.first_name} {golfer.user.last_name},{' '}
+																</span>
+														  ))
+														: null}
+												</td>
+												<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{winningGolfer[0]?.score}</td>
+											</tr>
+										);
+									} else {
+										return <tr></tr>;
 									}
-
-									return (
-										<tr
-											key={round.id}
-											className={roundIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
-										>
-											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-												{round.date}
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-												{round.course.name}
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-												{game}
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-												{winningGolfer.length
-													? winningGolfer.map((golfer) => (
-															<span key={golfer.user.first_name}>
-																{golfer.user.first_name} {golfer.user.last_name}
-																,{' '}
-															</span>
-													  ))
-													: null}
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-												{winningGolfer[0]?.score}
-											</td>
-										</tr>
-									);
 								})}
 							</tbody>
 						</table>
