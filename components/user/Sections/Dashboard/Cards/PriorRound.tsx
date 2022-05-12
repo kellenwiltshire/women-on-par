@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FlagIcon } from '@heroicons/react/outline';
-import {
-	useAllScoresContext,
-	useScheduleContext,
-	useScoreContext,
-} from '@/context/Store';
+import { useAllScoresContext, useScheduleContext, useScoreContext } from '@/context/Store';
 import {
 	findLastScheduledRound,
 	findPriorRoundResults,
@@ -76,9 +72,8 @@ export default function PriorRound(): JSX.Element {
 						Prior Round
 					</h3>
 					<p className='mt-2 text-sm text-gray-500'>
-						Your last round was at {priorRound?.course?.name} with a score of{' '}
-						{priorRound?.score}. You had {numBirdies} Birdies and {numChipIns}{' '}
-						Chip Ins.
+						Your last round was at {priorRound?.course?.name} with a score of {priorRound?.score}. You had {numBirdies}{' '}
+						Birdies and {numChipIns} Chip Ins.
 					</p>
 				</div>
 				{winner ? (
@@ -96,7 +91,7 @@ export default function PriorRound(): JSX.Element {
 											{player.user.first_name} {player.user.last_name},{' '}
 										</>
 									))}{' '}
-									) with a score of {winner[0].score})
+									with a score of {winner[0].score}
 								</span>
 							) : null}
 						</p>
