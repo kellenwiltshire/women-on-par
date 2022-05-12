@@ -3,6 +3,8 @@ import ReactMarkdown from 'react-markdown';
 
 export default function Articles({ news }): JSX.Element {
 	const [image, setImage] = useState('/brand/logoNoText.jpg');
+	
+	console.log(news);
 
 	useEffect(() => {
 		if (news.media.length > 0) {
