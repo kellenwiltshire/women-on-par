@@ -79,10 +79,9 @@ const testTime = (time) => {
 };
 
 const filterArray = (arr1, arr2) => {
-	const filtered = arr1.filter((el) => {
+	return arr1.filter((el) => {
 		return arr2.indexOf(el) === -1;
 	});
-	return filtered;
 };
 
 interface Golfer {
@@ -102,7 +101,7 @@ interface Course {
 }
 
 export default function generateSchedule(golfers: Golfer[], schedule: Schedule, course: Course) {
-	//Deterime Max Golfers
+	//Determine Max Golfers
 	const maxGolfers = course.timeslots * 4 || 12 * 4;
 
 	//Create initial Variables
@@ -110,7 +109,7 @@ export default function generateSchedule(golfers: Golfer[], schedule: Schedule, 
 	const initialStartTime = schedule.start_time;
 	const interval = '00:' + ('0' + course.interval).slice(-2) + ':00';
 
-	//Create the Waiting List and Usuable Golfers Array
+	//Create the Waiting List and Usable Golfers Array
 	let waitingList: Golfer[] = [];
 	let usableGolfers: Golfer[] = [];
 
