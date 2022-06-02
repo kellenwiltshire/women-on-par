@@ -177,9 +177,12 @@ export default function SettingsPage(): JSX.Element {
 										onChange={(e) => setCarpool(e.target.value)}
 										value={carpool}
 										className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3'
-										placeholder={carpool || 'Indicate the first and last name of the person you car pool with.'}
+										placeholder={carpool || 'Indicate the first and last name of the person(s) you car pool with.'}
 									/>
 								</div>
+								<p className='pl-3 mt-2 text-sm text-gray-500' id='email-description'>
+									Make sure there are no spelling mistakes. Separate names with a comma
+								</p>
 							</div>
 						</div>
 
