@@ -4,7 +4,7 @@ export function findNextRound(schedules) {
 	if (schedules.length) {
 		const futureRounds = schedules.filter((round) => {
 			const date = new Date(round.date);
-			if (date > currDate) {
+			if (date >= currDate) {
 				return round;
 			}
 		});
