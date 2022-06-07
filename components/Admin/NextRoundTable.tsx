@@ -98,6 +98,7 @@ export default function NextRoundTable(): JSX.Element {
 						>
 							Generate Tee-Times
 						</button>
+						<div className='inline-flex items-center px-6 py-2'>Number of Golfers: {users.length - 1}</div>
 						<div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
 							<table className='min-w-full divide-y divide-gray-200'>
 								<thead className='bg-gray-50'>
