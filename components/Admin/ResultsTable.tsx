@@ -53,8 +53,6 @@ export default function ResultsTable(): JSX.Element {
 									const roundScores = findPriorRoundResults(allScores, round);
 
 									if (roundScores.length) {
-										console.log('Round Scores: ', roundScores);
-
 										const winningGolfer = findPriorRoundWinner(roundScores, round);
 
 										let game = '';

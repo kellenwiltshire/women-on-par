@@ -3,49 +3,25 @@ import ToggleSwitch from '@/components/Buttons/Toggle';
 import { findNextRound } from '@/utils/sortingFunctions';
 import { useScheduleContext } from '@/context/Store';
 
-export default function NextRoundForm({
-	user,
-	setSuccess,
-	setFailure,
-}): JSX.Element {
+export default function NextRoundForm({ user, setSuccess, setFailure, cutOffPast }): JSX.Element {
 	const schedule = useScheduleContext();
 	const nextRound = findNextRound(schedule);
 	const currDate = new Date();
 	//This sets the state so that the input reflect the already entered Data (if available) unless the current Date is after the last entered avaialability. If this is the case then it resets so that the user can set their availability for the next round
 	const [attendance, setAttendance] = useState(false);
-	const [cutOffPast, setCutOffPast] = useState(false);
 
 	if (user.availability) {
 		useEffect(() => {
 			if (user.availability.length > 0) {
-				const userDate = new Date(
-					user.availability[user.availability.length - 1].date,
-				);
+				const userDate = new Date(user.availability[user.availability.length - 1].date);
 				if (currDate < userDate) {
 					if (user.availability[user.availability.length - 1].available) {
 						setAttendance(true);
 					}
 				}
 			}
-
-			const dayOfWeek = currDate.getDay(); //0 is Sunday
-
-			if (dayOfWeek >= 1 && dayOfWeek <= 3) {
-				if (dayOfWeek === 3) {
-					const time = currDate.getHours();
-
-					if (time > 14) {
-						setCutOffPast(false);
-					} else {
-						setCutOffPast(true);
-					}
-				} else {
-					setCutOffPast(true);
-				}
-			}
 		}, []);
 
-		console.log(cutOffPast);
 		const handleSubmit = async (e) => {
 			e.preventDefault();
 
@@ -83,8 +59,8 @@ export default function NextRoundForm({
 				return (
 					<div className='mt-2 text-sm text-gray-500 flex flex-row align-middle'>
 						<h3 className='block text-sm font-medium text-gray-700 mr-2'>
-							Cuttoff time has passed for changing your attendance. Please
-							contact the administrator if you wish to change your attendance.
+							Cuttoff time has passed for changing your attendance. Please contact the administrator if you wish to
+							change your attendance.
 						</h3>
 					</div>
 				);
@@ -92,10 +68,7 @@ export default function NextRoundForm({
 				return (
 					<form onSubmit={handleSubmit}>
 						<div className='mt-2 text-sm text-gray-500 flex flex-row align-middle'>
-							<label
-								htmlFor='attendance'
-								className='block text-sm font-medium text-gray-700 mr-2'
-							>
+							<label htmlFor='attendance' className='block text-sm font-medium text-gray-700 mr-2'>
 								Attending:
 							</label>
 							<ToggleSwitch enabled={attendance} setEnabled={setAttendance} />
@@ -112,9 +85,7 @@ export default function NextRoundForm({
 		} else {
 			return (
 				<div className='mt-2 text-sm text-gray-500 flex flex-row align-middle'>
-					<h3 className='block text-sm font-medium text-gray-700 mr-2'>
-						No Round Scheduled
-					</h3>
+					<h3 className='block text-sm font-medium text-gray-700 mr-2'>No Round Scheduled</h3>
 				</div>
 			);
 		}
