@@ -13,12 +13,12 @@ function findCurrentRound(schedules) {
 	if (schedules.length) {
 		const nextRound = schedules.filter((round) => {
 			const date = new Date(round.date);
-			if (date === currDate) {
+			if (date < currDate) {
 				return round;
 			}
 		});
 
-		return nextRound;
+		return nextRound[nextRound.length - 1];
 	} else {
 		const nextRound = {};
 		return nextRound;
