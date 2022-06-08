@@ -25,10 +25,8 @@ export default function ScheduleCards({ schedule, waitingList, setScheduledRound
 					//if the next array is also full then we switch the first person in that array with the moving player
 					//nextPlayer is the first player in the tee time array after the current tee time
 					const nextPlayer = changeSchedule[currentTeeIndex + 1].golfers[0];
-					console.log('Player One: ', nextPlayer);
 					//current player being moved
 					const movingPlayer = currentTeeTime.golfers[movingPlayerIndex];
-					console.log('Player Two: ', movingPlayer);
 
 					//replace next tee time player with player being moved
 					changeSchedule[currentTeeIndex + 1].golfers.splice(0, 1);
@@ -62,12 +60,9 @@ export default function ScheduleCards({ schedule, waitingList, setScheduledRound
 			if (currentTeeTimeIndex != 0) {
 				//Find player from the tee time before the current tee time
 				const prevArrayLength = changeSchedule[currentTeeTimeIndex - 1].golfers.length;
-				console.log('Previous Length: ', prevArrayLength);
 				const nextPlayer = changeSchedule[currentTeeTimeIndex - 1].golfers[prevArrayLength - 1];
-				console.log('Player One: ', nextPlayer);
 				//current player being moved
 				const movingPlayer = currentTeeTime.golfers[movingPlayerIndex];
-				console.log('Player Two: ', movingPlayer);
 
 				//if the array player is moving to has less than 4 people in, then we just add and don't switch
 				if (prevArrayLength < 4) {

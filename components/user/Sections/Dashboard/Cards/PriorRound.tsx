@@ -14,8 +14,6 @@ export default function PriorRound(): JSX.Element {
 	const priorRound = findPriorRound(scores);
 	const schedule = useScheduleContext();
 
-	console.log('scores: ', allScores);
-
 	interface User {
 		user: {
 			first_name: string;
