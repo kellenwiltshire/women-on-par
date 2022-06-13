@@ -24,9 +24,9 @@ export default function FunctionPage({ specialFunction }): JSX.Element {
 					<div className='relative lg:row-start-1 lg:col-start-2'>
 						<img className='rounded-lg shadow-lg w-2/3' src={image} alt='' />
 					</div>
-					<article className='prose'>
+					<div className='prose'>
 						<ReactMarkdown>{specialFunction.details}</ReactMarkdown>
-					</article>
+					</div>
 				</div>
 			</div>
 		</div>

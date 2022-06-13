@@ -26,9 +26,9 @@ export default function FunctionCards({ details }): JSX.Element {
 					<div className='w-full aspect-w-3 aspect-h-2 rounded-lg overflow-hidden flex justify-center'>
 						<img src={image} className='h-44' />
 					</div>
-					<p className='mt-8 text-base text-gray-500'>
+					<div className='mt-8 text-base text-gray-500'>
 						<ReactMarkdown>{shortBody}</ReactMarkdown>
-					</p>
+					</div>
 				</a>
 			</Link>
 		</div>
