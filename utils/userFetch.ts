@@ -27,7 +27,7 @@ export const fetchUser = async (jwt) => {
 };
 
 const fetchScores = async (user, jwt) => {
-	const request = await fetch(`${url}/scores`, {
+	const request = await fetch(`${url}/scores?_limit=10000`, {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${jwt}`,
@@ -62,7 +62,7 @@ const fetchSchedule = async (jwt) => {
 };
 
 const fetchAllScores = async (jwt) => {
-	const request = await fetch(`${url}/scores`, {
+	const request = await fetch(`${url}/scores?_limit=10000`, {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${jwt}`,
