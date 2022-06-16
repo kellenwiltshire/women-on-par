@@ -1,6 +1,5 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
 import { useState, useEffect } from 'react';
-import { useCoursesContext } from '../../context/Store';
 import SaveSuccess from '../Notifications/SaveSuccess';
 import SaveFail from '../Notifications/SaveFail';
 import DeleteCourse from '../Modals/DeleteCourse';
@@ -8,22 +7,30 @@ import Modal from '../Modals/Modal';
 import AddCourseForm from '../Forms/AddCourseForm';
 import EditCourseForm from '../Forms/EditCourseForm';
 
-export default function CoursesTable(): JSX.Element {
+export default function CoursesTable({ initialCourses }): JSX.Element {
 	const [editCourseOpen, setEditCourseOpen] = useState(false);
 	const [addCourseOpen, setAddCourseOpen] = useState(false);
 	const [deleteCourseOpen, setDeleteCourseOpen] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [failure, setFailure] = useState(false);
 	const [courseSelected, setCourseSelected] = useState();
-	const [courses, setCourses] = useState(useCoursesContext());
+	const [courses, setCourses] = useState(initialCourses);
 
 	useEffect(() => {
-		const sortedCourses = courses.sort((a, b) => {
-			return a.name.localeCompare(b.name);
-		});
-
-		setCourses(sortedCourses);
-	}, [courses]);
+		if (initialCourses) {
+			if (courses) {
+				const sortedCourses = courses.sort((a, b) => {
+					return a.name.localeCompare(b.name);
+				});
+				setCourses(sortedCourses);
+			} else {
+				const sortedCourses = initialCourses.sort((a, b) => {
+					return a.name.localeCompare(b.name);
+				});
+				setCourses(sortedCourses);
+			}
+		}
+	}, [courses, initialCourses]);
 
 	return (
 		<div className='flex flex-col'>
@@ -40,13 +47,7 @@ export default function CoursesTable(): JSX.Element {
 			) : null}
 			{addCourseOpen ? (
 				<Modal open={addCourseOpen} setOpen={setAddCourseOpen}>
-					<AddCourseForm
-						setOpen={setAddCourseOpen}
-						setSuccess={setSuccess}
-						setFailure={setFailure}
-						courses={courses}
-						setCourses={setCourses}
-					/>
+					<AddCourseForm setOpen={setAddCourseOpen} setSuccess={setSuccess} setFailure={setFailure} />
 				</Modal>
 			) : null}
 

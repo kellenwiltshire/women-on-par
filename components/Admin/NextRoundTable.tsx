@@ -5,44 +5,42 @@ import { XIcon } from '@heroicons/react/outline';
 import { useEffect, useState } from 'react';
 import TeetimeSchedule from '../TeeTimeGenerater/TeetimeSchedule';
 import Modal from '../Modals/Modal';
+import { mutate } from 'swr';
 
-export default function NextRoundTable(): JSX.Element {
-	const allUsers = useAllUsersContext();
-	const schedule = useScheduleContext();
-	const [users, setUsers] = useState(allUsers);
+interface Group {
+	teeTime: string;
+	golfers: Golfer[];
+}
 
+interface Golfer {
+	first_name: string;
+	last_name: string;
+	teeTime: boolean;
+	carpool: string;
+}
+interface TeeTimes {
+	teeTimeSchedule: Group[];
+	waitingList: Golfer[];
+}
+
+export default function NextRoundTable({ users, schedule }): JSX.Element {
 	const [scheduleOpen, setScheduleOpen] = useState(false);
-	interface Group {
-		teeTime: string;
-		golfers: Golfer[];
-	}
 
-	interface Golfer {
-		first_name: string;
-		last_name: string;
-		teeTime: boolean;
-		carpool: string;
-	}
-	interface TeeTimes {
-		teeTimeSchedule: Group[];
-		waitingList: Golfer[];
-	}
 	const [teeTimeSchedule, setTeeTimeSchedule] = useState<TeeTimes>();
 
 	const nextRound = findNextRound(schedule);
 
-	if (nextRound && nextRound.course) {
-		const findUsers = allUsers.filter((user) => {
-			for (let i = 0; i < user.availability.length; i++) {
-				if (user.availability[i].date === nextRound.date && user.availability[i].available) {
-					return user;
-				}
-			}
-		});
+	if (!nextRound || !nextRound.course) return <div>Error Finding Next Round</div>;
 
-		useEffect(() => {
-			setUsers(findUsers);
-		}, []);
+	const findUsers = users.filter((user) => {
+		for (let avail of user.availability) {
+			if (avail.date === nextRound.date && avail.available) {
+				return user;
+			}
+		}
+	});
+
+		
 
 		const removeUserFromAvailability = async (user) => {
 			const newEntry = {
@@ -65,17 +63,13 @@ export default function NextRoundTable(): JSX.Element {
 			});
 
 			//Filters out the removed person from the list of available golfers
-			const newUsers = users.filter((person) => {
-				if (person !== user) {
-					return person;
-				}
-			});
-
-			setUsers(newUsers);
+			if (req.status < 300) {
+				mutate('/api/getAllUsers').catch((err) => console.log(err));
+			}
 		};
 
 		const generateScheduleClicked = () => {
-			setTeeTimeSchedule(generateSchedule(users, nextRound, nextRound.course));
+			setTeeTimeSchedule(generateSchedule(findUsers, nextRound, nextRound.course));
 
 			setScheduleOpen(!scheduleOpen);
 		};
@@ -124,7 +118,7 @@ export default function NextRoundTable(): JSX.Element {
 									</tr>
 								</thead>
 								<tbody>
-									{users.map((user, userIdx) => (
+									{findUsers.map((user, userIdx) => (
 										<tr key={user.id} className={userIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
 											<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
 												{user.first_name} {user.last_name}
@@ -150,42 +144,5 @@ export default function NextRoundTable(): JSX.Element {
 				</div>
 			</div>
 		);
-	} else {
-		return (
-			<div className='flex flex-col'>
-				<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
-					<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
-						<div className='mb-3'>Next Round is: TBD</div>
-
-						<div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
-							<table className='min-w-full divide-y divide-gray-200'>
-								<thead className='bg-gray-50'>
-									<tr>
-										<th
-											scope='col'
-											className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
-										>
-											Name
-										</th>
-										<th
-											scope='col'
-											className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
-										>
-											Email
-										</th>
-										<th
-											scope='col'
-											className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
-										>
-											Remove
-										</th>
-									</tr>
-								</thead>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		);
-	}
+	} 
 }

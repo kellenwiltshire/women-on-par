@@ -2,10 +2,7 @@ import { useAllScoresContext, useScheduleContext } from '@/context/Store';
 import { completedSchedule, findPriorRoundResults, findPriorRoundWinner } from '@/utils/sortingFunctions';
 import React from 'react';
 
-export default function ResultsTable(): JSX.Element {
-	const allScores = useAllScoresContext();
-	const schedule = useScheduleContext();
-
+export default function ResultsTable({ allScores, schedule }): JSX.Element {
 	const completedRounds = completedSchedule(schedule);
 
 	return (
