@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import HolesInput from '../user/Sections/Scores/ScoresFormParts/HolesInput';
+import { mutate } from 'swr';
 
 export default function EditScoreForm({
 	lastScheduledRound,
@@ -7,7 +8,6 @@ export default function EditScoreForm({
 	setSuccess,
 	setFail,
 	setOpen,
-	setScores,
 }): JSX.Element {
 	const [score, setScore] = useState(selectedScore.score);
 
@@ -83,13 +83,14 @@ export default function EditScoreForm({
 		});
 
 		if (req.status < 300) {
-			const reqScores = await fetch('/api/getScores');
-			if (reqScores.status < 300) {
-				const response = await reqScores.json();
-				setScores(response);
-				setOpen(false);
+			mutate('/api/getScores', () => {
 				setSuccess(true);
-			}
+				setOpen(false);
+			}).catch((err) => {
+				setFail(true);
+				setOpen(false);
+				console.log(err);
+			});
 		} else {
 			setOpen(false);
 			setFail(true);

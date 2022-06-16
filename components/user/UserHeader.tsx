@@ -2,7 +2,9 @@ import { useUserContext } from '@/context/Store';
 import React from 'react';
 
 export default function UserHeader(): JSX.Element {
-	const user = useUserContext();
+	const userStore = useUserContext();
+
+	const user = userStore.user;
 
 	return (
 		<header className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
