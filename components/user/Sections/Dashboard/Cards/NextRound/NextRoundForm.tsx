@@ -3,9 +3,7 @@ import ToggleSwitch from '@/components/Buttons/Toggle';
 import { findNextRound } from '@/utils/sortingFunctions';
 import { useScheduleContext } from '@/context/Store';
 
-export default function NextRoundForm({ user, setSuccess, setFailure, cutOffPast }): JSX.Element {
-	const schedule = useScheduleContext();
-	const nextRound = findNextRound(schedule);
+export default function NextRoundForm({ user, setSuccess, setFailure, cutOffPast, nextRound }): JSX.Element {
 	const currDate = new Date();
 	//This sets the state so that the input reflect the already entered Data (if available) unless the current Date is after the last entered avaialability. If this is the case then it resets so that the user can set their availability for the next round
 	const [attendance, setAttendance] = useState(false);

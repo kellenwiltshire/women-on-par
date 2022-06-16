@@ -6,6 +6,10 @@ import NextRoundForm from './NextRoundForm';
 import { useScheduleContext, useUserContext } from '@/context/Store';
 import SaveSuccess from '@/components/Notifications/SaveSuccess';
 import SaveFail from '@/components/Notifications/SaveFail';
+import useSWR from 'swr';
+import DashboardCardLoading from '@/components/LoadingModals/DashboardCardLoading';
+
+const fetcher = (url) => fetch(url).then((r) => r.json());
 
 function findCurrentRound(schedules) {
 	const currDate = new Date();
@@ -26,16 +30,21 @@ function findCurrentRound(schedules) {
 }
 
 export default function NextRound(): JSX.Element {
-	const user = useUserContext();
-	const schedule = useScheduleContext();
-	const currDate = new Date();
+	const { data: schedule, error: scheduleError } = useSWR('/api/getSchedule', fetcher);
+
+	const user = useUserContext().user;
 
 	const [success, setSuccess] = useState(false);
 	const [failure, setFailure] = useState(false);
-
-	const [nextRound, setNextRound] = useState(findNextRound(schedule));
+	const [nextRound, setNextRound] = useState();
 
 	const [cutOffPast, setCutOffPast] = useState(false);
+
+	if (scheduleError) return <div>Failed to load</div>;
+	if (!schedule) return <DashboardCardLoading />;
+
+	setNextRound(findNextRound(schedule));
+	const currDate = new Date();
 
 	useEffect(() => {
 		const dayOfWeek = currDate.getDay(); //0 is Sunday
@@ -64,7 +73,13 @@ export default function NextRound(): JSX.Element {
 				<CalendarIcon className='h-6 w-6' aria-hidden='true' />
 			</div>
 			<NextRoundInfo nextRound={nextRound} />
-			<NextRoundForm user={user} setSuccess={setSuccess} setFailure={setFailure} cutOffPast={cutOffPast} />
+			<NextRoundForm
+				user={user}
+				setSuccess={setSuccess}
+				setFailure={setFailure}
+				cutOffPast={cutOffPast}
+				nextRound={nextRound}
+			/>
 		</div>
 	);
 }
