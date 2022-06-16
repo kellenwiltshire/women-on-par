@@ -4,11 +4,18 @@ import { NewspaperIcon } from '@heroicons/react/outline';
 import React from 'react';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
+import useSwr from 'swr';
+import DashboardCardLoading from '@/components/LoadingModals/DashboardCardLoading';
+
+const fetcher = (url) => fetch(url).then((r) => r.json());
 
 export default function NewsCard(): JSX.Element {
-	const news = useNewsContext();
+	const { data, error } = useSwr('/api/getNews', fetcher);
 
-	const recentNews = findMostRecentNews(news);
+	if (error) return <div>Failed to load</div>;
+	if (!data) return <DashboardCardLoading />;
+
+	const recentNews = findMostRecentNews(data);
 
 	if (recentNews) {
 		const length = 100;
@@ -28,9 +35,7 @@ export default function NewsCard(): JSX.Element {
 								Recent News
 							</h3>
 							<p className='mt-2 text-gray-500 text-xl'>{recentNews.title}</p>
-							<ReactMarkdown className='mt-2 text-sm text-gray-500'>
-								{shortBody}
-							</ReactMarkdown>
+							<ReactMarkdown className='mt-2 text-sm text-gray-500'>{shortBody}</ReactMarkdown>
 						</div>
 					</div>
 				</a>
