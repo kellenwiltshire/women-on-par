@@ -10,7 +10,7 @@ import Admin from '@/components/user/Sections/Admin';
 
 import useSWR from 'swr';
 import UserLoading from '@/components/LoadingModals/UserLoading';
-import { useUserContext } from '@/context/Store';
+import { useUserStore } from '@/context/Store';
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -24,7 +24,7 @@ const adminNav = [
 export default function AdminPage(): JSX.Element {
 	const { data: user, error: userError } = useSWR('/api/getUser', fetcher);
 
-	const userStore = useUserContext();
+	const userStore = useUserStore;
 	userStore.updateUser(user);
 
 	const [openTab, setOpenTab] = useState(1);
