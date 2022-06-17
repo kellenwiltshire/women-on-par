@@ -25,7 +25,7 @@ const getUser = async (req: NextApiRequest, res: NextApiResponse) => {
 	const url = process.env.DATABASE_URL;
 
 	const cookies = parseCookies({ req });
-	const jwt = cookies.jwt;
+	const jwt = cookies.womenonpar;
 
 	const request = await fetch(`${url}/users/me`, {
 		method: 'GET',
