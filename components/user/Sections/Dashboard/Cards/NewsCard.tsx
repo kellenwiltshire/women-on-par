@@ -1,4 +1,3 @@
-import { useNewsContext } from '@/context/Store';
 import { findMostRecentNews } from '@/utils/sortingFunctions';
 import { NewspaperIcon } from '@heroicons/react/outline';
 import React from 'react';

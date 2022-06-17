@@ -1,4 +1,3 @@
-import { useSpecialContext } from '@/context/Store';
 import { findNextSpecialEvent } from '@/utils/sortingFunctions';
 import { NewspaperIcon } from '@heroicons/react/outline';
 import React from 'react';
