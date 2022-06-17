@@ -1,8 +1,8 @@
-import { useUserContext } from '@/context/Store';
+import { useUserStore } from '@/context/Store';
 import React from 'react';
 
 export default function UserHeader(): JSX.Element {
-	const userStore = useUserContext();
+	const userStore = useUserStore();
 
 	const user = userStore.user;
 

@@ -3,12 +3,12 @@ import FormSuccess from '@/components/Modals/FormSuccess';
 import Modal from '@/components/Modals/Modal';
 import SaveFail from '@/components/Notifications/SaveFail';
 import SaveSuccess from '@/components/Notifications/SaveSuccess';
-import { useUserContext } from '@/context/Store';
+import { useUserStore } from '@/context/Store';
 import React, { useState } from 'react';
 import { mutate } from 'swr';
 
 export default function SettingsPage(): JSX.Element {
-	const userStore = useUserContext();
+	const userStore = useUserStore();
 	const user = userStore.user;
 
 	const [firstName, setFirstName] = useState(user.first_name);

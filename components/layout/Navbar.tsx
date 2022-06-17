@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
-import { useUpdateUserContext, useUserContext } from '@/context/Store';
+import { useUserStore } from '@/context/Store';
 import { destroyCookie, parseCookies } from 'nookies';
 import { useRouter } from 'next/router';
 
@@ -15,8 +15,8 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 	const jwt = cookie.womenonpar;
 	const router = useRouter();
 
-	const updateUser = useUpdateUserContext();
-	const user = useUserContext();
+	const userStore = useUserStore();
+	const user = userStore.user;
 
 	const [activeTab, setActiveTab] = useState(1);
 	const [userNavUrl, setUserNavUrl] = useState('');
@@ -52,7 +52,7 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 				});
 				const user = await req.json();
 
-				updateUser(user);
+				userStore.updateUser(user);
 				if (user.role.type === 'admin') {
 					setUserNavUrl(`/admin/${user.id}`);
 				} else {
@@ -139,11 +139,7 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 									<div>
 										<Menu.Button className='bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
 											<span className='sr-only'>Open user menu</span>
-											<img
-												className='h-8 w-8 rounded-full'
-												src={picture}
-												alt=''
-											/>
+											<img className='h-8 w-8 rounded-full' src={picture} alt='' />
 										</Menu.Button>
 									</div>
 									<Transition

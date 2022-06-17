@@ -5,7 +5,7 @@ import { CogIcon, HomeIcon, PencilIcon } from '@heroicons/react/outline';
 import Dashboard from '@/components/user/Sections/Dashboard';
 import Scores from '@/components/user/Sections/Scores';
 import Settings from '@/components/user/Sections/Settings';
-import { useUserContext } from '@/context/Store';
+import { useUserStore } from '@/context/Store';
 
 import useSWR from 'swr';
 import UserLoading from '@/components/LoadingModals/UserLoading';
@@ -21,7 +21,7 @@ const fetcher = (url) => fetch(url).then((r) => r.json());
 export default function User() {
 	const { data: user, error: userError } = useSWR('/api/getUser', fetcher);
 
-	const userStore = useUserContext();
+	const userStore = useUserStore();
 	userStore.updateUser(user);
 
 	const [openTab, setOpenTab] = useState(1);

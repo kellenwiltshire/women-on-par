@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FlagIcon } from '@heroicons/react/outline';
-import { useUserContext } from '@/context/Store';
+import { useUserStore } from '@/context/Store';
 import {
 	findLastScheduledRound,
 	findPriorRoundResults,
@@ -17,7 +17,7 @@ export default function PriorRound(): JSX.Element {
 	const { data: allScores, error: scoresError } = useSWR('/api/getScores', fetcher);
 	const { data: schedule, error: scheduleError } = useSWR('/api/getSchedule', fetcher);
 
-	const userStore = useUserContext();
+	const userStore = useUserStore();
 	const user = userStore.user;
 
 	if (scoresError) return <div>Failed to load Scores</div>;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import EnterScore from './Scores/EnterScore';
 import ScoresList from './Scores/ScoresList';
-import { useUserContext } from '@/context/Store';
+import { useUserStore } from '@/context/Store';
 import { findLastScheduledRound, getUserScores } from '@/utils/sortingFunctions';
 import SaveSuccess from '@/components/Notifications/SaveSuccess';
 import SaveFail from '@/components/Notifications/SaveFail';
@@ -14,7 +14,7 @@ export default function Scores(): JSX.Element {
 	const { data: schedule, error: scheduleError } = useSWR('/api/getSchedule', fetcher);
 	const { data: scores, error: scoresError } = useSWR('/api/getScores', fetcher);
 
-	const userStore = useUserContext();
+	const userStore = useUserStore();
 	const user = userStore.user;
 
 	const [success, setSuccess] = useState(false);

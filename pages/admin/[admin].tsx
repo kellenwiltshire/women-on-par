@@ -24,7 +24,7 @@ const adminNav = [
 export default function AdminPage(): JSX.Element {
 	const { data: user, error: userError } = useSWR('/api/getUser', fetcher);
 
-	const userStore = useUserStore;
+	const userStore = useUserStore();
 	userStore.updateUser(user);
 
 	const [openTab, setOpenTab] = useState(1);
