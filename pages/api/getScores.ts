@@ -28,7 +28,7 @@ const getScores = async (req: NextApiRequest, res: NextApiResponse) => {
 	const jwt = cookies.womenonpar;
 
 	try {
-		const request = await fetch(`${url}/scores`, {
+		const request = await fetch(`${url}/scores?_limit=10000`, {
 			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${jwt}`,
