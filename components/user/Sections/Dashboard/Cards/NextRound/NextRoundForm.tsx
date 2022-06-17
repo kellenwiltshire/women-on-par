@@ -1,24 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import ToggleSwitch from '@/components/Buttons/Toggle';
 import { findNextRound } from '@/utils/sortingFunctions';
-import { useScheduleContext } from '@/context/Store';
 
-export default function NextRoundForm({ user, setSuccess, setFailure, cutOffPast, nextRound }): JSX.Element {
+function findCurrentRound(schedules) {
 	const currDate = new Date();
+
+	if (schedules.length) {
+		const nextRound = schedules.filter((round) => {
+			const date = new Date(round.date);
+			if (date < currDate) {
+				return round;
+			}
+		});
+
+		return nextRound[nextRound.length - 1];
+	} else {
+		const nextRound = {};
+		return nextRound;
+	}
+}
+
+export default function NextRoundForm({ user, setSuccess, setFailure, schedule }): JSX.Element {
 	//This sets the state so that the input reflect the already entered Data (if available) unless the current Date is after the last entered avaialability. If this is the case then it resets so that the user can set their availability for the next round
 	const [attendance, setAttendance] = useState(false);
+	const [cutOffPast, setCutOffPast] = useState(false);
+	const [nextRound, setNextRound] = useState(findNextRound(schedule));
 
 	if (user.availability) {
-		useEffect(() => {
-			if (user.availability.length > 0) {
-				const userDate = new Date(user.availability[user.availability.length - 1].date);
-				if (currDate < userDate) {
-					if (user.availability[user.availability.length - 1].available) {
-						setAttendance(true);
-					}
+		const currDate = new Date();
+		const userDate = new Date(user.availability[user.availability.length - 1].date);
+		if (currDate < userDate) {
+			if (user.availability[user.availability.length - 1].available) {
+				setAttendance(true);
+			}
+		}
+
+		const dayOfWeek = currDate.getDay(); //0 is Sunday
+
+		if (dayOfWeek >= 1 && dayOfWeek <= 3) {
+			if (dayOfWeek === 3) {
+				const time = currDate.getHours();
+				if (time > 14) {
+					setCutOffPast(false);
+				} else {
+					setNextRound(findCurrentRound(schedule));
+					setCutOffPast(true);
 				}
 			}
-		}, []);
+			setCutOffPast(true);
+		}
 
 		const handleSubmit = async (e) => {
 			e.preventDefault();
