@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { LockClosedIcon } from '@heroicons/react/outline';
 import FormSuccess from '../Modals/FormSuccess';
 import FormFailure from '../Modals/FormFailure';

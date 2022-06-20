@@ -36,6 +36,22 @@ const getUser = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	const response = await request.json();
 
+	const userID = response.id;
+	const newDate = new Date().toString();
+
+	const date = newDate.split(' ');
+	date.splice(4, 10);
+
+	fetch(`${url}/users/${userID}`, {
+		method: 'PUT',
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ lastLogin: date.join(' ') }),
+	});
+
 	res.json(response);
 };
 

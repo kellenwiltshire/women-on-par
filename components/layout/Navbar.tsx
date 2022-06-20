@@ -41,12 +41,12 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 		} else {
 			setActiveTab(1);
 		}
-	});
+	}, []);
 
 	useEffect(() => {
 		if (jwt) {
 			const fetchUser = async () => {
-				const req = await fetch(`/api/getCurrentUser`, {
+				const req = await fetch(`/api/getUser`, {
 					method: 'POST',
 					body: jwt,
 				});
@@ -65,7 +65,7 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 		} else {
 			setSignedIn(false);
 		}
-	}, [signedIn]);
+	}, [jwt, setSignedIn, signedIn, userStore]);
 
 	useEffect(() => {
 		if (signedIn) {
@@ -82,7 +82,7 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 				{ num: 2, name: 'Sign In', href: '/login' },
 			]);
 		}
-	}, [signedIn, user]);
+	}, [signedIn, user, userNavUrl]);
 
 	const signOut = () => {
 		setSignedIn(false);
@@ -155,13 +155,9 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 											{signedIn ? (
 												<>
 													<Menu.Item>
-														{({ active }) => (
-															<Link href={userNavUrl}>
-																<a className='hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700'>
-																	Your Dashboard
-																</a>
-															</Link>
-														)}
+														<Link href={userNavUrl}>
+															<a className='hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700'>Your Dashboard</a>
+														</Link>
 													</Menu.Item>
 
 													<Menu.Item>
@@ -181,15 +177,16 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 											) : (
 												<Menu.Item>
 													{({ active }) => (
-														<a
-															href='/login'
-															className={classNames(
-																active ? 'bg-gray-100' : '',
-																'block px-4 py-2 text-sm text-gray-700',
-															)}
-														>
-															Login
-														</a>
+														<Link href='/login'>
+															<a
+																className={classNames(
+																	active ? 'bg-gray-100' : '',
+																	'block px-4 py-2 text-sm text-gray-700',
+																)}
+															>
+																Login
+															</a>
+														</Link>
 													)}
 												</Menu.Item>
 											)}
