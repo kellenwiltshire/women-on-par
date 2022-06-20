@@ -41,7 +41,6 @@ export default function CoursesTable({ initialCourses }): JSX.Element {
 						setSuccess={setSuccess}
 						setFailure={setFailure}
 						setOpen={setEditCourseOpen}
-						setCourses={setCourses}
 					/>
 				</Modal>
 			) : null}

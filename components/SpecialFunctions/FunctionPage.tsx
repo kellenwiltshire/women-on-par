@@ -8,7 +8,7 @@ export default function FunctionPage({ specialFunction }): JSX.Element {
 		if (specialFunction.image) {
 			setImage(specialFunction.image.url);
 		}
-	}, []);
+	}, [specialFunction.image]);
 	return (
 		<div className='bg-white overflow-hidden'>
 			<div className='relative max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8'>
@@ -22,7 +22,7 @@ export default function FunctionPage({ specialFunction }): JSX.Element {
 				</div>
 				<div className='mt-8 lg:grid lg:grid-cols-2 lg:gap-8'>
 					<div className='relative lg:row-start-1 lg:col-start-2'>
-						<img className='rounded-lg shadow-lg w-2/3' src={image} alt='' />
+						<img className='rounded-lg shadow-lg w-2/3' alt='Special Function Image' src={image} />
 					</div>
 					<div className='prose'>
 						<ReactMarkdown>{specialFunction.details}</ReactMarkdown>

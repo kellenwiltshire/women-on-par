@@ -3,14 +3,14 @@ import ReactMarkdown from 'react-markdown';
 
 export default function Articles({ news }): JSX.Element {
 	const [image, setImage] = useState('/brand/logoNoText.jpg');
-	
+
 	console.log(news);
 
 	useEffect(() => {
 		if (news.media.length > 0) {
 			setImage(news.media[0].url);
 		}
-	}, []);
+	}, [news.media]);
 	return (
 		<div className='bg-white overflow-hidden'>
 			<div className='relative max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8'>
@@ -26,7 +26,7 @@ export default function Articles({ news }): JSX.Element {
 						<img className='rounded-lg shadow-lg w-2/3' src={image} alt='' />
 					</div>
 					<article className='prose'>
-						<ReactMarkdown children={news.body} />
+						<ReactMarkdown>{news.body}</ReactMarkdown>
 					</article>
 				</div>
 			</div>

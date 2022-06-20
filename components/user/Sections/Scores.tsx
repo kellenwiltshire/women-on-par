@@ -36,7 +36,6 @@ export default function Scores(): JSX.Element {
 				<EnterScore
 					user={user}
 					lastScheduledRound={lastScheduledRound}
-					userScores={userScores}
 					setSuccess={setSuccess}
 					setFailure={setFailure}
 				/>

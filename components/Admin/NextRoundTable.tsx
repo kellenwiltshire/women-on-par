@@ -1,8 +1,7 @@
-import { useAllUsersContext, useScheduleContext } from '@/context/Store';
 import generateSchedule from '@/utils/schedule';
 import { findNextRound } from '@/utils/sortingFunctions';
 import { XIcon } from '@heroicons/react/outline';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import TeetimeSchedule from '../TeeTimeGenerater/TeetimeSchedule';
 import Modal from '../Modals/Modal';
 import { mutate } from 'swr';

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ToggleSwitch from '@/components/Buttons/Toggle';
 import { findNextRound } from '@/utils/sortingFunctions';
 
@@ -21,7 +21,7 @@ function findCurrentRound(schedules) {
 }
 
 export default function NextRoundForm({ user, setSuccess, setFailure, schedule }): JSX.Element {
-	//This sets the state so that the input reflect the already entered Data (if available) unless the current Date is after the last entered avaialability. If this is the case then it resets so that the user can set their availability for the next round
+	//This sets the state so that the input reflect the already entered Data (if available) unless the current Date is after the last entered availability. If this is the case then it resets so that the user can set their availability for the next round
 	const [attendance, setAttendance] = useState(false);
 	const [cutOffPast, setCutOffPast] = useState(false);
 	const [nextRound, setNextRound] = useState(findNextRound(schedule));
@@ -87,7 +87,7 @@ export default function NextRoundForm({ user, setSuccess, setFailure, schedule }
 				return (
 					<div className='mt-2 text-sm text-gray-500 flex flex-row align-middle'>
 						<h3 className='block text-sm font-medium text-gray-700 mr-2'>
-							Cuttoff time has passed for changing your attendance. Please contact the administrator if you wish to
+							Cut-off time has passed for changing your attendance. Please contact the administrator if you wish to
 							change your attendance.
 						</h3>
 					</div>

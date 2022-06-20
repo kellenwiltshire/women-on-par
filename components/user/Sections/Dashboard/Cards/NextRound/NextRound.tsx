@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { CalendarIcon } from '@heroicons/react/outline';
-import { findNextRound } from '@/utils/sortingFunctions';
 import NextRoundInfo from './NextRoundInfo';
 import NextRoundForm from './NextRoundForm';
 import { useUserStore } from '@/context/Store';

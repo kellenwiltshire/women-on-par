@@ -3,56 +3,56 @@ import HolesInput from './ScoresFormParts/HolesInput';
 import { mutate } from 'swr';
 
 export default function EnterScore({ user, lastScheduledRound, setSuccess, setFailure }): JSX.Element {
+	const [score, setScore] = useState('');
+
+	const [holeOne, setHoleOne] = useState({
+		hole: 1,
+		chip: false,
+		birdie: false,
+	});
+	const [holeTwo, setHoleTwo] = useState({
+		hole: 2,
+		chip: false,
+		birdie: false,
+	});
+	const [holeThree, setHoleThree] = useState({
+		hole: 3,
+		chip: false,
+		birdie: false,
+	});
+	const [holeFour, setHoleFour] = useState({
+		hole: 4,
+		chip: false,
+		birdie: false,
+	});
+	const [holeFive, setHoleFive] = useState({
+		hole: 5,
+		chip: false,
+		birdie: false,
+	});
+	const [holeSix, setHoleSix] = useState({
+		hole: 6,
+		chip: false,
+		birdie: false,
+	});
+	const [holeSeven, setHoleSeven] = useState({
+		hole: 7,
+		chip: false,
+		birdie: false,
+	});
+	const [holeEight, setHoleEight] = useState({
+		hole: 8,
+		chip: false,
+		birdie: false,
+	});
+	const [holeNine, setHoleNine] = useState({
+		hole: 9,
+		chip: false,
+		birdie: false,
+	});
 	if (lastScheduledRound.course) {
 		const course = lastScheduledRound.course.name;
 		const date = lastScheduledRound.date;
-		const [score, setScore] = useState('');
-
-		const [holeOne, setHoleOne] = useState({
-			hole: 1,
-			chip: false,
-			birdie: false,
-		});
-		const [holeTwo, setHoleTwo] = useState({
-			hole: 2,
-			chip: false,
-			birdie: false,
-		});
-		const [holeThree, setHoleThree] = useState({
-			hole: 3,
-			chip: false,
-			birdie: false,
-		});
-		const [holeFour, setHoleFour] = useState({
-			hole: 4,
-			chip: false,
-			birdie: false,
-		});
-		const [holeFive, setHoleFive] = useState({
-			hole: 5,
-			chip: false,
-			birdie: false,
-		});
-		const [holeSix, setHoleSix] = useState({
-			hole: 6,
-			chip: false,
-			birdie: false,
-		});
-		const [holeSeven, setHoleSeven] = useState({
-			hole: 7,
-			chip: false,
-			birdie: false,
-		});
-		const [holeEight, setHoleEight] = useState({
-			hole: 8,
-			chip: false,
-			birdie: false,
-		});
-		const [holeNine, setHoleNine] = useState({
-			hole: 9,
-			chip: false,
-			birdie: false,
-		});
 
 		const handleSubmit = async (e) => {
 			e.preventDefault();
