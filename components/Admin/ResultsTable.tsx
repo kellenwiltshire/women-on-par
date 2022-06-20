@@ -65,11 +65,13 @@ export default function ResultsTable({ allScores, schedule }): JSX.Element {
 												<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{game}</td>
 												<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 													{winningGolfer.length
-														? winningGolfer.map((golfer) => (
-																<span key={golfer.user.first_name}>
-																	{golfer.user.first_name} {golfer.user.last_name},{' '}
-																</span>
-														  ))
+														? winningGolfer.map((golfer) => {
+																return (
+																	<span key={golfer.id}>
+																		{golfer.user.first_name} {golfer.user.last_name},{' '}
+																	</span>
+																);
+														  })
 														: null}
 												</td>
 												<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{winningGolfer[0]?.score}</td>
