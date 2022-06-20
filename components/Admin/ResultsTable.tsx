@@ -46,7 +46,7 @@ export default function ResultsTable({ allScores, schedule }): JSX.Element {
 							</thead>
 							<tbody>
 								{completedRounds.map((round, roundIdx) => {
-									const roundScores = findPriorRoundResults(allScores, round);
+									const roundScores = findPriorRoundResults(allScores, round.date);
 
 									if (roundScores.length) {
 										const winningGolfer = findPriorRoundWinner(roundScores, round);

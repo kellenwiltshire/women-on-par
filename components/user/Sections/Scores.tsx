@@ -32,7 +32,8 @@ export default function Scores(): JSX.Element {
 		<div className='px-4 py-8 sm:px-0'>
 			{success ? <SaveSuccess show={success} setShow={setSuccess} /> : null}
 			{failure ? <SaveFail show={failure} setShow={setFailure} /> : null}
-			{scores[scores.length - 1].date === lastScheduledRound.date || !lastScheduledRound ? null : (
+
+			{userScores[userScores.length - 1]?.date === lastScheduledRound.date || !lastScheduledRound ? null : (
 				<EnterScore
 					user={user}
 					lastScheduledRound={lastScheduledRound}
