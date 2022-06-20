@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ToggleSwitch from '@/components/Buttons/Toggle';
 import { findNextRound } from '@/utils/sortingFunctions';
 
@@ -26,30 +26,33 @@ export default function NextRoundForm({ user, setSuccess, setFailure, schedule }
 	const [cutOffPast, setCutOffPast] = useState(false);
 	const [nextRound, setNextRound] = useState(findNextRound(schedule));
 
-	if (user.availability) {
-		const currDate = new Date();
-		const userDate = new Date(user.availability[user.availability.length - 1].date);
-		if (currDate < userDate) {
-			if (user.availability[user.availability.length - 1].available) {
-				setAttendance(true);
-			}
-		}
-
-		const dayOfWeek = currDate.getDay(); //0 is Sunday
-
-		if (dayOfWeek >= 1 && dayOfWeek <= 3) {
-			if (dayOfWeek === 3) {
-				const time = currDate.getHours();
-				if (time > 14) {
-					setCutOffPast(false);
-				} else {
-					setNextRound(findCurrentRound(schedule));
-					setCutOffPast(true);
+	useEffect(() => {
+		if (user.availability) {
+			const currDate = new Date();
+			const userDate = new Date(user.availability[user.availability.length - 1].date);
+			if (currDate < userDate) {
+				if (user.availability[user.availability.length - 1].available) {
+					setAttendance(true);
 				}
 			}
-			setCutOffPast(true);
-		}
 
+			const dayOfWeek = currDate.getDay(); //0 is Sunday
+
+			if (dayOfWeek >= 1 && dayOfWeek <= 3) {
+				if (dayOfWeek === 3) {
+					const time = currDate.getHours();
+					if (time > 14) {
+						setCutOffPast(false);
+					} else {
+						setNextRound(findCurrentRound(schedule));
+						setCutOffPast(true);
+					}
+				}
+				setCutOffPast(true);
+			}
+		}
+	}, [schedule, user.availability]);
+	if (user.availability) {
 		const handleSubmit = async (e) => {
 			e.preventDefault();
 
