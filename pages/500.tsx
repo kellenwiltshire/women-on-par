@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import Image500 from '../public/500.png';
 
 export default function Custom500(): JSX.Element {
 	useEffect(() => {
@@ -13,8 +15,8 @@ export default function Custom500(): JSX.Element {
 					<div className='text-5xl font-dark font-bold'>500</div>
 					<p className='text-2xl md:text-3xl font-light leading-normal'>Sorry we couldn&apos;t find this page.</p>
 					<p className='mb-8'>
-						Well this is embarassing! If you come across this screen again, please send the Admin an email! For now, try
-						to head back to the homepage.
+						Well this is embarrassing! If you come across this screen again, please send the Admin an email! For now,
+						try to head back to the homepage.
 					</p>
 					<Link href='/'>
 						<a className='px-4 inline py-2 text-sm font-medium leading-5 shadow text-white transition-colors duration-150 border border-transparent rounded-lg focus:outline-none focus:shadow-outline-blue bg-blue-600 active:bg-blue-600 hover:bg-blue-700'>
@@ -23,7 +25,7 @@ export default function Custom500(): JSX.Element {
 					</Link>
 				</div>
 				<div className='max-w-lg'>
-					<img src='/500.png' alt='404 Page Not Found' />
+					<Image src={Image500} alt='500 Page Not Found' />
 				</div>
 			</div>
 		</div>
