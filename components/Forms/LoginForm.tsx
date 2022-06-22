@@ -3,8 +3,6 @@ import { LockClosedIcon } from '@heroicons/react/solid';
 import Router from 'next/router';
 import { setCookie } from 'nookies';
 import Link from 'next/link';
-import Image from 'next/image';
-import BrandImage from '../../public/brand/logoNoText.jpg';
 
 export default function LoginForm({ setSignedIn }): JSX.Element {
 	const [userEmail, setUserEmail] = useState('');
@@ -55,7 +53,7 @@ export default function LoginForm({ setSignedIn }): JSX.Element {
 			<div className='min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
 				<div className='max-w-md w-full space-y-8'>
 					<div>
-						<Image className='mx-auto w-auto' src={BrandImage} alt='Logo' />
+						<img className='mx-auto h-24 lg:h-64 w-auto' src='/brand/logoNoText.jpg' alt='Logo' />
 						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Sign in to your account</h2>
 						{loginError ? (
 							<p className='mt-2 text-center text-sm text-red-600'>Login Error: Your Email or Password is Incorrect</p>
