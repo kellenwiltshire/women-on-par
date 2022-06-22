@@ -3,6 +3,8 @@ import { LockClosedIcon } from '@heroicons/react/solid';
 import Router from 'next/router';
 import { setCookie } from 'nookies';
 import Link from 'next/link';
+import Image from 'next/image';
+import BrandImage from '../../public/brand/logoNoText.jpg';
 
 export default function LoginForm({ setSignedIn }): JSX.Element {
 	const [userEmail, setUserEmail] = useState('');
@@ -53,18 +55,10 @@ export default function LoginForm({ setSignedIn }): JSX.Element {
 			<div className='min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
 				<div className='max-w-md w-full space-y-8'>
 					<div>
-						<img
-							className='mx-auto h-24 lg:h-64 w-auto'
-							src='/brand/logoNoText.jpg'
-							alt='Logo'
-						/>
-						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
-							Sign in to your account
-						</h2>
+						<Image className='mx-auto w-auto' src={BrandImage} alt='Logo' />
+						<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Sign in to your account</h2>
 						{loginError ? (
-							<p className='mt-2 text-center text-sm text-red-600'>
-								Login Error: Your Email or Password is Incorrect
-							</p>
+							<p className='mt-2 text-center text-sm text-red-600'>Login Error: Your Email or Password is Incorrect</p>
 						) : null}
 					</div>
 					<form className='mt-8 space-y-6' onSubmit={submitForm}>
@@ -105,9 +99,7 @@ export default function LoginForm({ setSignedIn }): JSX.Element {
 						<div className='flex items-center justify-between'>
 							<div className='text-sm'>
 								<Link href='/start-reset-process'>
-									<a className='font-medium text-indigo-600 hover:text-indigo-500'>
-										Forgot your password?
-									</a>
+									<a className='font-medium text-indigo-600 hover:text-indigo-500'>Forgot your password?</a>
 								</Link>
 							</div>
 						</div>
@@ -118,10 +110,7 @@ export default function LoginForm({ setSignedIn }): JSX.Element {
 								className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 							>
 								<span className='absolute left-0 inset-y-0 flex items-center pl-3'>
-									<LockClosedIcon
-										className='h-5 w-5 text-indigo-500 group-hover:text-indigo-400'
-										aria-hidden='true'
-									/>
+									<LockClosedIcon className='h-5 w-5 text-indigo-500 group-hover:text-indigo-400' aria-hidden='true' />
 								</span>
 								Sign in
 							</button>

@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import Image404 from '../public/404.png';
 
 export default function Custom404(): JSX.Element {
 	useEffect(() => {
@@ -23,7 +25,7 @@ export default function Custom404(): JSX.Element {
 					</Link>
 				</div>
 				<div className='max-w-lg'>
-					<img src='/404.png' alt='404 Page Not Found' />
+					<Image src={Image404} alt='404 Page Not Found' />
 				</div>
 			</div>
 		</div>

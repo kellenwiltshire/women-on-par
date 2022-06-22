@@ -11,7 +11,7 @@ export default function NewsCards({ post }): JSX.Element {
 		if (post.media.length > 0) {
 			setImage(post.media[0].url);
 		}
-	}, []);
+	}, [post.media]);
 	return (
 		<div key={post.title} className='flex flex-col rounded-lg shadow-lg overflow-hidden'>
 			<div className='w-full aspect-w-3 aspect-h-2 rounded-lg overflow-hidden flex justify-center'>
