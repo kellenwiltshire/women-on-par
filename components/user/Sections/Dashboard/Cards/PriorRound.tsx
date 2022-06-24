@@ -1,38 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FlagIcon } from '@heroicons/react/outline';
-import { useAllScoresContext, useScheduleContext, useScoreContext } from '@/context/Store';
+import { useUserStore } from '@/context/Store';
 import {
 	findLastScheduledRound,
 	findPriorRoundResults,
 	findPriorRound,
 	findPriorRoundWinner,
+	getUserScores,
 } from '@/utils/sortingFunctions';
+import useSWR from 'swr';
+import DashboardCardLoading from '@/components/LoadingModals/DashboardCardLoading';
+
+const fetcher = (url) => fetch(url).then((r) => r.json());
 
 export default function PriorRound(): JSX.Element {
-	const scores = useScoreContext();
-	const allScores = useAllScoresContext();
+	const { data: allScores, error: scoresError } = useSWR('/api/getScores', fetcher);
+	const { data: schedule, error: scheduleError } = useSWR('/api/getSchedule', fetcher);
+
+	const userStore = useUserStore();
+	const user = userStore.user;
+
+	if (scoresError) return <div>Failed to load Scores</div>;
+	if (scheduleError) return <div>Failed to load Schedule Info</div>;
+
+	if (!allScores || !schedule) return <DashboardCardLoading />;
+
+	const scores = getUserScores(user, allScores);
 	const priorRound = findPriorRound(scores);
-	const schedule = useScheduleContext();
-
-	interface User {
-		user: {
-			first_name: string;
-			last_name: string;
-		};
-		score: number;
-	}
-
-	const [winner, setWinner] = useState<User[]>();
 
 	const priorRoundDate = findLastScheduledRound(schedule);
 
-	const priorRoundScores = findPriorRoundResults(allScores, priorRoundDate);
-
-	useEffect(() => {
-		if (allScores.length) {
-			setWinner(findPriorRoundWinner(priorRoundScores, priorRoundDate));
-		}
-	}, []);
+	const priorRoundScores = findPriorRoundResults(allScores, priorRoundDate.date);
+	const winner = findPriorRoundWinner(priorRoundScores, priorRoundDate) || null;
 	if (priorRound) {
 		const getBirdies = () => {
 			let num = 0;

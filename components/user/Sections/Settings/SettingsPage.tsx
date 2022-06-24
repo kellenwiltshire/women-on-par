@@ -3,11 +3,14 @@ import FormSuccess from '@/components/Modals/FormSuccess';
 import Modal from '@/components/Modals/Modal';
 import SaveFail from '@/components/Notifications/SaveFail';
 import SaveSuccess from '@/components/Notifications/SaveSuccess';
-import { useUserContext } from '@/context/Store';
+import { useUserStore } from '@/context/Store';
 import React, { useState } from 'react';
+import { mutate } from 'swr';
 
 export default function SettingsPage(): JSX.Element {
-	const user = useUserContext();
+	const userStore = useUserStore();
+	const user = userStore.user;
+
 	const [firstName, setFirstName] = useState(user.first_name);
 	const [lastName, setLastName] = useState(user.last_name);
 	const [email, setEmail] = useState(user.email);
@@ -49,6 +52,7 @@ export default function SettingsPage(): JSX.Element {
 		});
 
 		if (res.status < 300) {
+			mutate('/api/getUser').catch((err) => console.log(err));
 			setSuccess(true);
 		} else {
 			console.log(res);

@@ -1,6 +1,43 @@
-import React from 'react';
+import { findNextRound } from '@/utils/sortingFunctions';
+import React, { useEffect, useState } from 'react';
 
-export default function NextRoundInfo({ nextRound }): JSX.Element {
+function findCurrentRound(schedules) {
+	const currDate = new Date();
+
+	if (schedules.length) {
+		const nextRound = schedules.filter((round) => {
+			const date = new Date(round.date);
+			if (date < currDate) {
+				return round;
+			}
+		});
+
+		return nextRound[nextRound.length - 1];
+	} else {
+		const nextRound = {};
+		return nextRound;
+	}
+}
+
+export default function NextRoundInfo({ schedule }): JSX.Element {
+	const [nextRound, setNextRound] = useState(findNextRound(schedule));
+
+	useEffect(() => {
+		const currDate = new Date();
+
+		const dayOfWeek = currDate.getDay(); //0 is Sunday
+		if (dayOfWeek >= 1 && dayOfWeek <= 3) {
+			if (dayOfWeek === 3) {
+				const time = currDate.getHours();
+				if (time > 14) {
+					setNextRound(findNextRound(schedule));
+				} else {
+					setNextRound(findCurrentRound(schedule));
+				}
+			}
+		}
+	}, [schedule]);
+
 	if (nextRound && nextRound.course) {
 		let game = '';
 		if (nextRound.game) {

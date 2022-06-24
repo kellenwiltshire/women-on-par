@@ -20,30 +20,23 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const getScores = async (req: NextApiRequest, res: NextApiResponse) => {
+const getNews = async (req: NextApiRequest, res: NextApiResponse) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
 	const cookies = parseCookies({ req });
 	const jwt = cookies.womenonpar;
 
-	try {
-		const request = await fetch(`${url}/scores?_limit=10000`, {
-			method: 'GET',
-			headers: {
-				Authorization: `Bearer ${jwt}`,
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-			},
-		});
+	const request = await fetch(`${url}/news-items`, {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+		},
+	});
 
-		const response = await request.json();
+	const response = await request.json();
 
-		res.status(200).json(response);
-	} catch (error) {
-		console.log(error);
-		res.status(500).json({ error: 'Failed to get Scores', response: error });
-	}
+	res.json(response);
 };
 
-export default getScores;
+export default getNews;

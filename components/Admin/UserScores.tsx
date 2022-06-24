@@ -1,30 +1,34 @@
+import { useEffect } from 'react';
 import CourseFilterInput from '@/components/Inputs/CourseFilterInput';
 import DateFilterInput from '@/components/Inputs/DateFilterInput';
 import SearchInput from '@/components/Inputs/SearchInput';
 import { useState } from 'react';
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
 import { findLastScheduledRound } from '@/utils/sortingFunctions';
-import { useAllScoresContext, useCoursesContext, useScheduleContext } from '@/context/Store';
 import SaveSuccess from '../Notifications/SaveSuccess';
 import SaveFail from '../Notifications/SaveFail';
 import Modal from '../Modals/Modal';
 import EditScoreForm from '../Forms/EditScoreForm';
 import DeleteScore from '../Modals/DeleteScore';
 
-export default function UserScores(): JSX.Element {
-	const allScores = useAllScoresContext();
-	const schedules = useScheduleContext();
-	const courses = useCoursesContext();
-	const [scores, setScores] = useState(allScores);
+export default function UserScores({ allScores, courses, schedule }): JSX.Element {
 	const [editUserScore, setEditUserScore] = useState(false);
 	const [deleteUserScore, setDeleteUserScore] = useState(false);
 	const [scoresSorted, setScoresSorted] = useState(false);
+	const [scores, setScores] = useState(allScores);
 
 	const [success, setSuccess] = useState(false);
 	const [fail, setFail] = useState(false);
 
-	const lastScheduledRound = findLastScheduledRound(schedules);
 	const [selectedScore, setSelectedScore] = useState({});
+
+	useEffect(() => {
+		if (allScores) {
+			setScores(allScores);
+		}
+	}, [allScores]);
+
+	const lastScheduledRound = findLastScheduledRound(schedule);
 
 	const userSearchChange = (e) => {
 		e.preventDefault();
@@ -106,7 +110,6 @@ export default function UserScores(): JSX.Element {
 					setSuccess={setSuccess}
 					setFail={setFail}
 					setOpen={setEditUserScore}
-					setScores={setScores}
 				/>
 			</Modal>
 
@@ -130,7 +133,7 @@ export default function UserScores(): JSX.Element {
 					<div className='w-full flex flex-col md:flex-row'>
 						<SearchInput inputName='Search Players' inputChange={userSearchChange} />
 						<CourseFilterInput inputName='Filter Courses' courses={courses} inputChange={courseFilterChange} />
-						<DateFilterInput inputName='Filter Dates' schedules={schedules} inputChange={dateFilterChange} />
+						<DateFilterInput inputName='Filter Dates' schedules={schedule} inputChange={dateFilterChange} />
 						<div className='mt-2 mx-2 md:mx-0'>
 							<button
 								type='reset'

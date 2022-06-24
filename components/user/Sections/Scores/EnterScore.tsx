@@ -1,82 +1,65 @@
 import React, { useState } from 'react';
 import HolesInput from './ScoresFormParts/HolesInput';
+import { mutate } from 'swr';
 
-export default function EnterScore({
-	user,
-	userScores,
-	lastScheduledRound,
-	updateScores,
-	setSuccess,
-	setFailure,
-	setSubmitSuccess,
-}): JSX.Element {
+export default function EnterScore({ user, lastScheduledRound, setSuccess, setFailure }): JSX.Element {
+	const [score, setScore] = useState('');
+
+	const [holeOne, setHoleOne] = useState({
+		hole: 1,
+		chip: false,
+		birdie: false,
+	});
+	const [holeTwo, setHoleTwo] = useState({
+		hole: 2,
+		chip: false,
+		birdie: false,
+	});
+	const [holeThree, setHoleThree] = useState({
+		hole: 3,
+		chip: false,
+		birdie: false,
+	});
+	const [holeFour, setHoleFour] = useState({
+		hole: 4,
+		chip: false,
+		birdie: false,
+	});
+	const [holeFive, setHoleFive] = useState({
+		hole: 5,
+		chip: false,
+		birdie: false,
+	});
+	const [holeSix, setHoleSix] = useState({
+		hole: 6,
+		chip: false,
+		birdie: false,
+	});
+	const [holeSeven, setHoleSeven] = useState({
+		hole: 7,
+		chip: false,
+		birdie: false,
+	});
+	const [holeEight, setHoleEight] = useState({
+		hole: 8,
+		chip: false,
+		birdie: false,
+	});
+	const [holeNine, setHoleNine] = useState({
+		hole: 9,
+		chip: false,
+		birdie: false,
+	});
 	if (lastScheduledRound.course) {
 		const course = lastScheduledRound.course.name;
 		const date = lastScheduledRound.date;
-		const [score, setScore] = useState('');
-
-		const [holeOne, setHoleOne] = useState({
-			hole: 1,
-			chip: false,
-			birdie: false,
-		});
-		const [holeTwo, setHoleTwo] = useState({
-			hole: 2,
-			chip: false,
-			birdie: false,
-		});
-		const [holeThree, setHoleThree] = useState({
-			hole: 3,
-			chip: false,
-			birdie: false,
-		});
-		const [holeFour, setHoleFour] = useState({
-			hole: 4,
-			chip: false,
-			birdie: false,
-		});
-		const [holeFive, setHoleFive] = useState({
-			hole: 5,
-			chip: false,
-			birdie: false,
-		});
-		const [holeSix, setHoleSix] = useState({
-			hole: 6,
-			chip: false,
-			birdie: false,
-		});
-		const [holeSeven, setHoleSeven] = useState({
-			hole: 7,
-			chip: false,
-			birdie: false,
-		});
-		const [holeEight, setHoleEight] = useState({
-			hole: 8,
-			chip: false,
-			birdie: false,
-		});
-		const [holeNine, setHoleNine] = useState({
-			hole: 9,
-			chip: false,
-			birdie: false,
-		});
 
 		const handleSubmit = async (e) => {
 			e.preventDefault();
 
 			const newScore = {
 				course: lastScheduledRound.course,
-				holes: [
-					holeOne,
-					holeTwo,
-					holeThree,
-					holeFour,
-					holeFive,
-					holeSix,
-					holeSeven,
-					holeEight,
-					holeNine,
-				],
+				holes: [holeOne, holeTwo, holeThree, holeFour, holeFive, holeSix, holeSeven, holeEight, holeNine],
 				date: lastScheduledRound.date,
 				user: user,
 				score: score,
@@ -94,19 +77,18 @@ export default function EnterScore({
 			});
 
 			if (res.status < 300) {
-				updateScores([...userScores, newScore]);
-				setSubmitSuccess(true);
-				setSuccess(true);
-			} else {
-				setFailure(true);
+				mutate('/api/getScores', () => {
+					setSuccess(true);
+				}).catch((err) => {
+					setFailure(true);
+					console.log(err);
+				});
 			}
 		};
 
 		return (
 			<div className='mb-5'>
-				<h2 className='text-xs font-medium uppercase tracking-wide text-gray-500'>
-					Enter Score
-				</h2>
+				<h2 className='text-xs font-medium uppercase tracking-wide text-gray-500'>Enter Score</h2>
 				<form onSubmit={handleSubmit} className='mt-3 flex flex-row flex-wrap'>
 					<li className='shadow-s m-1 flex h-24 w-52 rounded-md'>
 						<div className='flex w-16 flex-shrink-0 flex-col items-center justify-center rounded-l-md border text-sm font-medium text-black'>

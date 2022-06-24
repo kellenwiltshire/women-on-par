@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
-import { useUpdateUserContext, useUserContext } from '@/context/Store';
+import { useUserStore } from '@/context/Store';
 import { destroyCookie, parseCookies } from 'nookies';
 import { useRouter } from 'next/router';
 
@@ -15,8 +15,8 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 	const jwt = cookie.womenonpar;
 	const router = useRouter();
 
-	const updateUser = useUpdateUserContext();
-	const user = useUserContext();
+	const userStore = useUserStore();
+	const user = userStore.user;
 
 	const [activeTab, setActiveTab] = useState(1);
 	const [userNavUrl, setUserNavUrl] = useState('');
@@ -41,18 +41,18 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 		} else {
 			setActiveTab(1);
 		}
-	});
+	}, []);
 
 	useEffect(() => {
 		if (jwt) {
 			const fetchUser = async () => {
-				const req = await fetch(`/api/getCurrentUser`, {
+				const req = await fetch(`/api/getUser`, {
 					method: 'POST',
 					body: jwt,
 				});
 				const user = await req.json();
 
-				updateUser(user);
+				userStore.updateUser(user);
 				if (user.role.type === 'admin') {
 					setUserNavUrl(`/admin/${user.id}`);
 				} else {
@@ -65,7 +65,7 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 		} else {
 			setSignedIn(false);
 		}
-	}, [signedIn]);
+	}, [jwt, setSignedIn, signedIn, userStore]);
 
 	useEffect(() => {
 		if (signedIn) {
@@ -82,11 +82,11 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 				{ num: 2, name: 'Sign In', href: '/login' },
 			]);
 		}
-	}, [signedIn, user]);
+	}, [signedIn, user, userNavUrl]);
 
 	const signOut = () => {
-		setSignedIn(false);
 		destroyCookie(null, 'womenonpar');
+		setSignedIn(false);
 		router.push('/');
 	};
 
@@ -98,7 +98,7 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 						<div className='relative flex justify-between h-16'>
 							<div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
 								{/* Mobile menu button */}
-								<Disclosure.Button className='inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500'>
+								<Disclosure.Button className='inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:hidden'>
 									<span className='sr-only'>Open main menu</span>
 									{open ? (
 										<XIcon className='block h-6 w-6' aria-hidden='true' />
@@ -139,11 +139,7 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 									<div>
 										<Menu.Button className='bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
 											<span className='sr-only'>Open user menu</span>
-											<img
-												className='h-8 w-8 rounded-full'
-												src={picture}
-												alt=''
-											/>
+											<img className='h-8 w-8 rounded-full' src={picture} alt='' />
 										</Menu.Button>
 									</div>
 									<Transition
@@ -159,13 +155,9 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 											{signedIn ? (
 												<>
 													<Menu.Item>
-														{({ active }) => (
-															<Link href={userNavUrl}>
-																<a className='hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700'>
-																	Your Dashboard
-																</a>
-															</Link>
-														)}
+														<Link href={userNavUrl}>
+															<a className='hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700'>Your Dashboard</a>
+														</Link>
 													</Menu.Item>
 
 													<Menu.Item>
@@ -185,15 +177,16 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 											) : (
 												<Menu.Item>
 													{({ active }) => (
-														<a
-															href='/login'
-															className={classNames(
-																active ? 'bg-gray-100' : '',
-																'block px-4 py-2 text-sm text-gray-700',
-															)}
-														>
-															Login
-														</a>
+														<Link href='/login'>
+															<a
+																className={classNames(
+																	active ? 'bg-gray-100' : '',
+																	'block px-4 py-2 text-sm text-gray-700',
+																)}
+															>
+																Login
+															</a>
+														</Link>
 													)}
 												</Menu.Item>
 											)}

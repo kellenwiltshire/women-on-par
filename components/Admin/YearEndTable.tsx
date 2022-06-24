@@ -1,14 +1,13 @@
-import { useAllUsersContext } from '@/context/Store';
 import React, { useState, useEffect } from 'react';
 import Modal from '../Modals/Modal';
 
-export default function YearEndTable(): JSX.Element {
-	const [users, setUsers] = useState(useAllUsersContext());
+export default function YearEndTable({ allUsers }): JSX.Element {
+	const [users, setUsers] = useState(allUsers);
 	const [userEmailOpen, setUserEmailOpen] = useState(false);
 
 	useEffect(() => {
 		const sortedUsers = users.sort((a, b) => {
-			return a.last_name.toLowerCase() > b.last_name.toLowerCase();
+			return a.last_name.localeCompare(b.last_name);
 		});
 
 		setUsers(sortedUsers);

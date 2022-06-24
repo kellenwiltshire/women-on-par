@@ -20,30 +20,39 @@ function runMiddleware(req, res, fn) {
 	});
 }
 
-const getScores = async (req: NextApiRequest, res: NextApiResponse) => {
+const getUser = async (req: NextApiRequest, res: NextApiResponse) => {
 	await runMiddleware(req, res, cors);
 	const url = process.env.DATABASE_URL;
 
 	const cookies = parseCookies({ req });
 	const jwt = cookies.womenonpar;
 
-	try {
-		const request = await fetch(`${url}/scores?_limit=10000`, {
-			method: 'GET',
-			headers: {
-				Authorization: `Bearer ${jwt}`,
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-			},
-		});
+	const request = await fetch(`${url}/users/me`, {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+		},
+	});
 
-		const response = await request.json();
+	const response = await request.json();
 
-		res.status(200).json(response);
-	} catch (error) {
-		console.log(error);
-		res.status(500).json({ error: 'Failed to get Scores', response: error });
-	}
+	const userID = response.id;
+	const newDate = new Date().toString();
+
+	const date = newDate.split(' ');
+	date.splice(4, 10);
+
+	fetch(`${url}/users/${userID}`, {
+		method: 'PUT',
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ lastLogin: date.join(' ') }),
+	});
+
+	res.json(response);
 };
 
-export default getScores;
+export default getUser;

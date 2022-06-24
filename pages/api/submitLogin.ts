@@ -1,6 +1,5 @@
 import Cors from 'cors';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { setCookie } from 'nookies';
 
 const cors = Cors({
 	methods: ['POST', 'HEAD'],
@@ -45,7 +44,7 @@ const submitLogin = async (req: NextApiRequest, res: NextApiResponse) => {
 		const date = newDate.split(' ');
 		date.splice(4, 10);
 
-		const updateLoginTime = await fetch(`${url}/users/${userID}`, {
+		fetch(`${url}/users/${userID}`, {
 			method: 'PUT',
 			headers: {
 				Authorization: `Bearer ${jwt}`,

@@ -1,27 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import ToggleSwitch from '@/components/Buttons/Toggle';
 import { findNextRound } from '@/utils/sortingFunctions';
-import { useScheduleContext } from '@/context/Store';
 
-export default function NextRoundForm({ user, setSuccess, setFailure, cutOffPast }): JSX.Element {
-	const schedule = useScheduleContext();
-	const nextRound = findNextRound(schedule);
+function findCurrentRound(schedules) {
 	const currDate = new Date();
-	//This sets the state so that the input reflect the already entered Data (if available) unless the current Date is after the last entered avaialability. If this is the case then it resets so that the user can set their availability for the next round
-	const [attendance, setAttendance] = useState(false);
 
-	if (user.availability) {
-		useEffect(() => {
-			if (user.availability.length > 0) {
-				const userDate = new Date(user.availability[user.availability.length - 1].date);
-				if (currDate < userDate) {
-					if (user.availability[user.availability.length - 1].available) {
-						setAttendance(true);
-					}
+	if (schedules.length) {
+		const nextRound = schedules.filter((round) => {
+			const date = new Date(round.date);
+			if (date < currDate) {
+				return round;
+			}
+		});
+
+		return nextRound[nextRound.length - 1];
+	} else {
+		const nextRound = {};
+		return nextRound;
+	}
+}
+
+export default function NextRoundForm({ user, setSuccess, setFailure, schedule }): JSX.Element {
+	//This sets the state so that the input reflect the already entered Data (if available) unless the current Date is after the last entered availability. If this is the case then it resets so that the user can set their availability for the next round
+	const [attendance, setAttendance] = useState(false);
+	const [cutOffPast, setCutOffPast] = useState(false);
+	const [nextRound, setNextRound] = useState(findNextRound(schedule));
+
+	useEffect(() => {
+		const currDate = new Date();
+		if (user.availability.length) {
+			const userDate = new Date(user.availability[user.availability.length - 1].date);
+			if (currDate < userDate) {
+				if (user.availability[user.availability.length - 1].available) {
+					setAttendance(true);
 				}
 			}
-		}, []);
+		}
+		const dayOfWeek = currDate.getDay(); //0 is Sunday
 
+		if (dayOfWeek >= 1 && dayOfWeek <= 3) {
+			if (dayOfWeek === 3) {
+				const time = currDate.getHours();
+				if (time > 14) {
+					setCutOffPast(false);
+				} else {
+					setNextRound(findCurrentRound(schedule));
+					setCutOffPast(true);
+				}
+			}
+			setCutOffPast(true);
+		}
+	}, [schedule, user.availability]);
+	if (user.availability) {
 		const handleSubmit = async (e) => {
 			e.preventDefault();
 
@@ -59,7 +89,7 @@ export default function NextRoundForm({ user, setSuccess, setFailure, cutOffPast
 				return (
 					<div className='mt-2 text-sm text-gray-500 flex flex-row align-middle'>
 						<h3 className='block text-sm font-medium text-gray-700 mr-2'>
-							Cuttoff time has passed for changing your attendance. Please contact the administrator if you wish to
+							Cut-off time has passed for changing your attendance. Please contact the administrator if you wish to
 							change your attendance.
 						</h3>
 					</div>

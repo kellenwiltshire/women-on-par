@@ -1,8 +1,9 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { ExclamationIcon, XIcon } from '@heroicons/react/outline';
+import { mutate } from 'swr';
 
-export default function DeleteUser({ open, setOpen, user, setSuccess, setFailure, setUsers }): JSX.Element {
+export default function DeleteUser({ open, setOpen, user, setSuccess, setFailure }): JSX.Element {
 	const handleDelete = async () => {
 		const id = user.id;
 
@@ -16,17 +17,14 @@ export default function DeleteUser({ open, setOpen, user, setSuccess, setFailure
 		});
 
 		if (req.status < 300) {
-			const req = await fetch('/api/getAllUsers');
-			if (req.status < 300) {
-				const response = await req.json();
-				setUsers(response);
+			mutate('/api/getAllUsers', () => {
 				setSuccess(true);
 				setOpen(false);
-			} else {
+			}).catch((err) => {
 				setFailure(true);
 				setOpen(false);
-				console.log(req);
-			}
+				console.log(err);
+			});
 		} else {
 			setFailure(true);
 			setOpen(false);

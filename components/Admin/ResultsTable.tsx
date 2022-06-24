@@ -1,11 +1,7 @@
-import { useAllScoresContext, useScheduleContext } from '@/context/Store';
 import { completedSchedule, findPriorRoundResults, findPriorRoundWinner } from '@/utils/sortingFunctions';
 import React from 'react';
 
-export default function ResultsTable(): JSX.Element {
-	const allScores = useAllScoresContext();
-	const schedule = useScheduleContext();
-
+export default function ResultsTable({ allScores, schedule }): JSX.Element {
 	const completedRounds = completedSchedule(schedule);
 
 	return (
@@ -50,7 +46,7 @@ export default function ResultsTable(): JSX.Element {
 							</thead>
 							<tbody>
 								{completedRounds.map((round, roundIdx) => {
-									const roundScores = findPriorRoundResults(allScores, round);
+									const roundScores = findPriorRoundResults(allScores, round.date);
 
 									if (roundScores.length) {
 										const winningGolfer = findPriorRoundWinner(roundScores, round);
@@ -69,11 +65,13 @@ export default function ResultsTable(): JSX.Element {
 												<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{game}</td>
 												<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 													{winningGolfer.length
-														? winningGolfer.map((golfer) => (
-																<span key={golfer.user.first_name}>
-																	{golfer.user.first_name} {golfer.user.last_name},{' '}
-																</span>
-														  ))
+														? winningGolfer.map((golfer) => {
+																return (
+																	<span key={golfer.id}>
+																		{golfer.user.first_name} {golfer.user.last_name},{' '}
+																	</span>
+																);
+														  })
 														: null}
 												</td>
 												<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{winningGolfer[0]?.score}</td>

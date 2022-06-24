@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { LockClosedIcon } from '@heroicons/react/outline';
 import FormSuccess from '../Modals/FormSuccess';
 import FormFailure from '../Modals/FormFailure';
@@ -38,7 +37,7 @@ export default function ForgotPasswordForm(): JSX.Element {
 					<div className='max-w-md w-full space-y-8'>
 						<div>
 							<img className='mx-auto h-24 lg:h-64 w-auto' src='/brand/logoNoText.jpg' alt='Logo' />
-							<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Sign in to your account</h2>
+							<h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Forgot your password?</h2>
 						</div>
 						<form className='mt-8 space-y-6' onSubmit={submitForm}>
 							<input type='hidden' name='remember' defaultValue='true' />
