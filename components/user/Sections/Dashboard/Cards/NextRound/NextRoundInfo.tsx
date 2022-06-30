@@ -1,5 +1,5 @@
 import { findNextRound } from '@/utils/sortingFunctions';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function findCurrentRound(schedules) {
 	const currDate = new Date();
@@ -25,16 +25,20 @@ export default function NextRoundInfo({ schedule }): JSX.Element {
 
 	const dayOfWeek = currDate.getDay(); //0 is Sunday
 
-	if (dayOfWeek >= 1 && dayOfWeek <= 3) {
-		if (dayOfWeek === 3) {
-			const time = currDate.getHours();
-			if (time > 14) {
-				setNextRound(findNextRound(schedule));
-			} else {
-				setNextRound(findCurrentRound(schedule));
+	useEffect(() => {
+		if (dayOfWeek >= 1 && dayOfWeek <= 3) {
+			if (dayOfWeek === 3) {
+				const time = currDate.getHours();
+				if (time > 14) {
+					setNextRound(findNextRound(schedule));
+				} else {
+					setNextRound(findCurrentRound(schedule));
+				}
 			}
 		}
-	}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	if (nextRound && nextRound.course) {
 		let game = '';
 		if (nextRound.game) {

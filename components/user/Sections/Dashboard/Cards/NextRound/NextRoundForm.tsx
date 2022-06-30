@@ -41,6 +41,7 @@ export default function NextRoundForm({ user, setSuccess, setFailure, schedule }
 			if (dayOfWeek >= 1 && dayOfWeek <= 3) {
 				if (dayOfWeek === 3) {
 					const time = currDate.getHours();
+
 					if (time > 14) {
 						setCutOffPast(false);
 					} else {
@@ -48,10 +49,10 @@ export default function NextRoundForm({ user, setSuccess, setFailure, schedule }
 						setCutOffPast(true);
 					}
 				}
-				setCutOffPast(true);
 			}
 		}
 	}, [schedule, user.availability]);
+
 	if (user.availability) {
 		const handleSubmit = async (e) => {
 			e.preventDefault();
