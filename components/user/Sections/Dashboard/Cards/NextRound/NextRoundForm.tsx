@@ -48,7 +48,6 @@ export default function NextRoundForm({ user, setSuccess, setFailure, schedule }
 					setCutOffPast(true);
 				}
 			}
-			setCutOffPast(true);
 		}
 	}, [schedule, user.availability]);
 	if (user.availability) {
