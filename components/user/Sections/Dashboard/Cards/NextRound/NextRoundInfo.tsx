@@ -21,11 +21,13 @@ function findCurrentRound(schedules) {
 
 export default function NextRoundInfo({ schedule }): JSX.Element {
 	const [nextRound, setNextRound] = useState(findNextRound(schedule));
-	const currDate = new Date();
-
-	const dayOfWeek = currDate.getDay(); //0 is Sunday
 
 	useEffect(() => {
+		const currDate = new Date();
+
+
+		const dayOfWeek = currDate.getDay(); //0 is Sunday
+
 		if (dayOfWeek >= 1 && dayOfWeek <= 3) {
 			if (dayOfWeek === 3) {
 				const time = currDate.getHours();
@@ -36,8 +38,10 @@ export default function NextRoundInfo({ schedule }): JSX.Element {
 				}
 			}
 		}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
 
 	if (nextRound && nextRound.course) {
 		let game = '';

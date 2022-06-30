@@ -27,14 +27,17 @@ export default function NextRoundForm({ user, setSuccess, setFailure, schedule }
 	const [nextRound, setNextRound] = useState(findNextRound(schedule));
 
 	useEffect(() => {
-		if (user.availability) {
-			const currDate = new Date();
+		const currDate = new Date();
+		if (user.availability.length) {
 			const userDate = new Date(user.availability[user.availability.length - 1].date);
 			if (currDate < userDate) {
 				if (user.availability[user.availability.length - 1].available) {
 					setAttendance(true);
 				}
 			}
+		}
+		const dayOfWeek = currDate.getDay(); //0 is Sunday
+
 
 			const dayOfWeek = currDate.getDay(); //0 is Sunday
 
@@ -48,8 +51,10 @@ export default function NextRoundForm({ user, setSuccess, setFailure, schedule }
 						setNextRound(findCurrentRound(schedule));
 						setCutOffPast(true);
 					}
+
 				}
 			}
+			setCutOffPast(true);
 		}
 	}, [schedule, user.availability]);
 

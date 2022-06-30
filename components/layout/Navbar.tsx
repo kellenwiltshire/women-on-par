@@ -85,8 +85,8 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 	}, [signedIn, user, userNavUrl]);
 
 	const signOut = () => {
-		setSignedIn(false);
 		destroyCookie(null, 'womenonpar');
+		setSignedIn(false);
 		router.push('/');
 	};
 
