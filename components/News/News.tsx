@@ -33,8 +33,8 @@ export default function Articles({ news }): JSX.Element {
 					<div className='flex flex-row flex-wrap w-full'>
 						{news.media.map((image) => {
 							return (
-								<div className='w-full lg:w-1/4 m-2'>
-									<img key={image.url} src={image.url} alt='' className='m-2' />
+								<div key={image.url} className='w-full lg:w-1/4 m-2'>
+									<img src={image.url} alt='' className='m-2' />
 								</div>
 							);
 						})}
