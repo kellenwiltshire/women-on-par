@@ -12,7 +12,7 @@ function classNames(...classes) {
 
 export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 	const cookie = parseCookies();
-	const jwt = cookie.womenonpar;
+	const jwt = null;
 	const router = useRouter();
 
 	const userStore = useUserStore();
@@ -79,7 +79,7 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 		} else {
 			setNavigation([
 				{ num: 1, name: 'Home', href: '/' },
-				{ num: 2, name: 'Sign In', href: '/login' },
+				{ num: 2, name: 'Sign In', href: '/' },
 			]);
 		}
 	}, [signedIn, user, userNavUrl]);
@@ -177,7 +177,7 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 											) : (
 												<Menu.Item>
 													{({ active }) => (
-														<Link href='/login'>
+														<Link href='/'>
 															<a
 																className={classNames(
 																	active ? 'bg-gray-100' : '',
