@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import Router from 'next/router';
 import { setCookie } from 'nookies';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 export default function LoginForm({ setSignedIn }): JSX.Element {
 	const [userEmail, setUserEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [loginError, setLoginError] = useState(false);
-
-	const router = useRouter();
-	router.push('/');
 
 	const submitForm = async (e) => {
 		e.preventDefault();
@@ -107,15 +103,17 @@ export default function LoginForm({ setSignedIn }): JSX.Element {
 						</div>
 
 						<div>
-							<button
-								type='submit'
-								className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-							>
-								<span className='absolute left-0 inset-y-0 flex items-center pl-3'>
-									<LockClosedIcon className='h-5 w-5 text-indigo-500 group-hover:text-indigo-400' aria-hidden='true' />
-								</span>
-								Sign in
-							</button>
+							<Link href='/'>
+								<a className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
+									<span className='absolute left-0 inset-y-0 flex items-center pl-3'>
+										<LockClosedIcon
+											className='h-5 w-5 text-indigo-500 group-hover:text-indigo-400'
+											aria-hidden='true'
+										/>
+									</span>
+									Sign in
+								</a>
+							</Link>
 						</div>
 					</form>
 				</div>
