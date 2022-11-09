@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import Router from 'next/router';
 import { setCookie } from 'nookies';
