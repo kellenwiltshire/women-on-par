@@ -3,7 +3,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { useUserStore } from '@/context/Store';
-import { destroyCookie, parseCookies } from 'nookies';
+import { destroyCookie } from 'nookies';
 import { useRouter } from 'next/router';
 
 function classNames(...classes) {
@@ -11,8 +11,7 @@ function classNames(...classes) {
 }
 
 export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
-	const cookie = parseCookies();
-	const jwt = cookie.womenonpar;
+	const jwt = null;
 	const router = useRouter();
 
 	const userStore = useUserStore();
@@ -79,7 +78,7 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 		} else {
 			setNavigation([
 				{ num: 1, name: 'Home', href: '/' },
-				{ num: 2, name: 'Sign In', href: '/login' },
+				{ num: 2, name: 'Sign In', href: '/' },
 			]);
 		}
 	}, [signedIn, user, userNavUrl]);
@@ -177,7 +176,7 @@ export default function Navbar({ signedIn, setSignedIn }): JSX.Element {
 											) : (
 												<Menu.Item>
 													{({ active }) => (
-														<Link href='/login'>
+														<Link href='/'>
 															<a
 																className={classNames(
 																	active ? 'bg-gray-100' : '',

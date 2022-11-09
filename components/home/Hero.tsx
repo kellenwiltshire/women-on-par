@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Hero(): JSX.Element {
@@ -18,7 +17,11 @@ export default function Hero(): JSX.Element {
 						Golf & Membership Group
 					</p>
 
-					<div className='mt-10 sm:flex sm:justify-center lg:justify-start'>
+					<p className='mt-3 max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl'>
+						Closed for the Season. See you in 2023!
+					</p>
+
+					{/* <div className='mt-10 sm:flex sm:justify-center lg:justify-start'>
 						<div className='rounded-md shadow'>
 							<Link href='/login'>
 								<a className='w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10'>
@@ -26,7 +29,7 @@ export default function Hero(): JSX.Element {
 								</a>
 							</Link>
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</div>
 			<div className='relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-20 lg:right-0 lg:w-1/2 lg:h-96'>
