@@ -3,11 +3,15 @@ import { LockClosedIcon } from '@heroicons/react/solid';
 import Router from 'next/router';
 import { setCookie } from 'nookies';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function LoginForm({ setSignedIn }): JSX.Element {
 	const [userEmail, setUserEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [loginError, setLoginError] = useState(false);
+
+	const router = useRouter();
+	router.push('/');
 
 	const submitForm = async (e) => {
 		e.preventDefault();
